@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Tetris xd
 
 You can use the [editor on GitHub](https://github.com/lSara-MM/project1-tetris/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
