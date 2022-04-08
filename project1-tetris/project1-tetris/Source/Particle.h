@@ -45,7 +45,7 @@ public:
 	uint lifetime = 0;
 
 	// The particle's collider
-	Collider* collider = nullptr;
+	//Collider* collider = nullptr;
 };
 
 #endif //__PARTICLE_H__

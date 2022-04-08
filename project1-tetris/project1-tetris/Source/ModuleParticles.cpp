@@ -24,21 +24,23 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	texture = App->textures->Load("Assets/particles.png");
 
-	// Explosion particle
-	explosion.anim.PushBack({274, 296, 33, 30});
-	explosion.anim.PushBack({313, 296, 33, 30});
-	explosion.anim.PushBack({346, 296, 33, 30});
-	explosion.anim.PushBack({382, 296, 33, 30});
-	explosion.anim.PushBack({419, 296, 33, 30});
-	explosion.anim.PushBack({457, 296, 33, 30});
-	explosion.anim.loop = false;
-	explosion.anim.speed = 0.3f;
+	//// Explosion particle
+	//explosion.anim.PushBack({274, 296, 33, 30});
+	//explosion.anim.PushBack({313, 296, 33, 30});
+	//explosion.anim.PushBack({346, 296, 33, 30});
+	//explosion.anim.PushBack({382, 296, 33, 30});
+	//explosion.anim.PushBack({419, 296, 33, 30});
+	//explosion.anim.PushBack({457, 296, 33, 30});
+	//explosion.anim.loop = false;
+	//explosion.anim.speed = 0.3f;
 
 	laser.anim.PushBack({ 232, 103, 16, 12 });
 	laser.anim.PushBack({ 249, 103, 16, 12 });
 	laser.speed.x = 5;
 	laser.lifetime = 180;
 	laser.anim.speed = 0.2f;
+
+
 
 	return true;
 }
@@ -60,22 +62,22 @@ bool ModuleParticles::CleanUp()
 	return true;
 }
 
-void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
-{
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-	{
-		// Always destroy particles that collide
-		if (particles[i] != nullptr && particles[i]->collider == c1)
-		{
-			// TODO 6: Make so every time a particle hits a wall it triggers an explosion particle
-			AddParticle(explosion, particles[i]->position.x, particles[i]->position.y);
-
-			delete particles[i];
-			particles[i] = nullptr;
-			break;
-		}
-	}
-}
+//void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
+//{
+//	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+//	{
+//		// Always destroy particles that collide
+//		if (particles[i] != nullptr && particles[i]->collider == c1)
+//		{
+//			// TODO 6: Make so every time a particle hits a wall it triggers an explosion particle
+//			AddParticle(explosion, particles[i]->position.x, particles[i]->position.y);
+//
+//			delete particles[i];
+//			particles[i] = nullptr;
+//			break;
+//		}
+//	}
+//}
 
 update_status ModuleParticles::Update()
 {
@@ -112,7 +114,7 @@ update_status ModuleParticles::PostUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Collider::Type colliderType, uint delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, uint delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -125,9 +127,9 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Collid
 			p->position.x = x;						// so when frameCount reaches 0 the particle will be activated
 			p->position.y = y;
 
-			//Adding the particle's collider
-			if (colliderType != Collider::Type::NONE)
-				p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), colliderType, this);
+			////Adding the particle's collider
+			//if (colliderType != Collider::Type::NONE)
+			//	p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(), colliderType, this);
 
 			particles[i] = p;
 			break;

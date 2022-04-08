@@ -6,16 +6,18 @@
 #include "ModuleAudio.h"
 #include "ModuleCollisions.h"
 
+#include "ModuleParticles.h"
 
 
 ModuleScene::ModuleScene()
 {
 	// Start Screen
-	for (int i = 0; i < 15; i++)
-	{
-		start_screen.PushBack({ 1, 1, 600, 422 });
-	}
+	//for (int i = 0; i < 15; i++)
+	//{
+	//	start_screen.PushBack({ 1, 1, 600, 422 });
+	//}
 
+	start_screen.PushBack({ 1, 1, 600, 422 });
 	start_screen.PushBack({ 603, 1, 600, 422 });
 	start_screen.PushBack({ 1205, 1, 600, 422 });
 	start_screen.PushBack({ 1807, 1, 600, 422 });
@@ -65,10 +67,12 @@ update_status ModuleScene::Update()
 // Update: draw background
 update_status ModuleScene::PostUpdate()
 {
-	//if (start_screen.GetCurrentFrame().x == 1)
-	//{
-	//	SDL_Delay( 2000 );		// SDL_Delay not found
-	//}
+	if (start_screen.GetCurrentFrame().x == 1)
+	{
+		SDL_Delay( 500 );		// "dos segundos"
+	}
+	
+	//App->particles->AddParticle(App->particles->explosion, posicion x, posicion y, 9);
 
 	App->render->Blit(bgTexture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
 

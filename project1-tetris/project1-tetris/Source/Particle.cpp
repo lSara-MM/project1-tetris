@@ -16,8 +16,8 @@ Particle::Particle(const Particle& p) : anim(p.anim), position(p.position), spee
 
 Particle::~Particle()
 {
-	if (collider != nullptr)
-		collider->pendingToDelete = true;
+	/*if (collider != nullptr)
+		collider->pendingToDelete = true;*/
 }
 
 bool Particle::Update()
@@ -47,8 +47,8 @@ bool Particle::Update()
 		position.x += speed.x;
 		position.y += speed.y;
 
-		if (collider != nullptr)
-			collider->SetPos(position.x, position.y);
+		/*if (collider != nullptr)
+			collider->SetPos(position.x, position.y);*/
 	}
 
 	return ret;
