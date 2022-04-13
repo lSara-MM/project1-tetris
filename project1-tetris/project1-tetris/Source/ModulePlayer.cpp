@@ -132,11 +132,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	// TODO 5: Detect collision with a wall. If so, go back to intro screen.
 	if (c1 == collider && destroyed == false)
 	{
-		App->particles->AddParticle(App->particles->explosion, position.x, position.y, 9);
-		App->particles->AddParticle(App->particles->explosion, position.x + 8, position.y + 11, 14);
-		App->particles->AddParticle(App->particles->explosion, position.x - 7, position.y + 12, 40);
-		App->particles->AddParticle(App->particles->explosion, position.x + 5, position.y - 5, 28);
-		App->particles->AddParticle(App->particles->explosion, position.x - 4, position.y - 4, 21);
+		App->particles->AddParticle(App->particles->firework1, position.x, position.y, 9);
+		App->particles->AddParticle(App->particles->firework1, position.x + 8, position.y + 11, 14);
+		App->particles->AddParticle(App->particles->firework1, position.x - 7, position.y + 12, 40);
+		App->particles->AddParticle(App->particles->firework1, position.x + 5, position.y - 5, 28);
+		App->particles->AddParticle(App->particles->firework1, position.x - 4, position.y - 4, 21);
 
 		App->audio->PlayFx(explosionFx);
 

@@ -16,14 +16,25 @@ ModuleParticles::ModuleParticles()
 
 ModuleParticles::~ModuleParticles()
 {
-
+	 
 }
 
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/particles.png");
+	texture = App->textures->Load("Assets/Sprites/ss_firework1.png");
 
+	// firework 1 animation
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			firework1.anim.PushBack({ (87 * j), (i * 82), 87, 82 });
+		}
+	}
+	//firework1.lifetime = 18;
+	firework1.anim.loop = false;
+	firework1.anim.speed = 0.2f;
 	//// Explosion particle
 	//explosion.anim.PushBack({274, 296, 33, 30});
 	//explosion.anim.PushBack({313, 296, 33, 30});
@@ -39,7 +50,6 @@ bool ModuleParticles::Start()
 	laser.speed.x = 5;
 	laser.lifetime = 180;
 	laser.anim.speed = 0.2f;
-
 
 
 	return true;
@@ -108,7 +118,10 @@ update_status ModuleParticles::PostUpdate()
 		if (particle != nullptr && particle->isAlive)
 		{
 			App->render->Blit(texture, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
+
 		}
+
+
 	}
 
 	return update_status::UPDATE_CONTINUE;

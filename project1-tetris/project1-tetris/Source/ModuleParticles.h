@@ -56,9 +56,10 @@ private:
 	Particle* particles[MAX_ACTIVE_PARTICLES] = { nullptr };
 
 public:
-	//Template particle for an explosion
-	Particle explosion;
+	Particle firework1;
 
+	//Template particle for an explosion
+	/*Particle explosion;*/
 	//Template particle for a laser
 	Particle laser;
 };
