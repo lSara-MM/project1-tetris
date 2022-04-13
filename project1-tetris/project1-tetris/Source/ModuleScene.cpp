@@ -54,17 +54,9 @@ update_status ModuleScene::Update()
 // Update: draw background
 update_status ModuleScene::PostUpdate()
 {
-	if (start_screen.GetCurrentFrame().x == 0)
-	{
-		SDL_Delay( 500 );		// "5 seconds"
-	}
-	if (start_screen.GetCurrentFrame().x == 6600)
-	{
-		App->particles->AddParticle(App->particles->firework1, 430, 100, 1);
-		App->particles->AddParticle(App->particles->firework1, 150, 50, 200);
-		//SDL_Delay(50);
-	}
 
+	ModuleParticles fireworks;
+	fireworks.FwTiming(start_screen.GetCurrentFrame().x);
 
 	App->render->Blit(bgTexture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
 

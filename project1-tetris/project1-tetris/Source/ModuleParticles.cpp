@@ -35,15 +35,23 @@ bool ModuleParticles::Start()
 	//firework1.lifetime = 18;
 	firework1.anim.loop = false;
 	firework1.anim.speed = 0.2f;
-	//// Explosion particle
-	//explosion.anim.PushBack({274, 296, 33, 30});
-	//explosion.anim.PushBack({313, 296, 33, 30});
-	//explosion.anim.PushBack({346, 296, 33, 30});
-	//explosion.anim.PushBack({382, 296, 33, 30});
-	//explosion.anim.PushBack({419, 296, 33, 30});
-	//explosion.anim.PushBack({457, 296, 33, 30});
-	//explosion.anim.loop = false;
-	//explosion.anim.speed = 0.3f;
+
+	//// firework 2 animation
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	for (int j = 0; j < 3; j++)
+	//	{
+	//		if (j == 3 && i == 3)
+	//		{
+	//			break;
+	//		}
+
+	//		firework2.anim.PushBack({ (77 * j), (i * 71), 77, 71 });
+	//	}
+	//}
+	////firework2.lifetime = 8;
+	//firework2.anim.loop = false;
+	//firework2.anim.speed = 0.3f;
 
 	laser.anim.PushBack({ 232, 103, 16, 12 });
 	laser.anim.PushBack({ 249, 103, 16, 12 });
@@ -147,5 +155,20 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, uint d
 			particles[i] = p;
 			break;
 		}
+	}
+}
+
+void ModuleParticles::FwTiming(int x_frame)
+{
+	if (x_frame == 0)
+	{
+		SDL_Delay(500);		// "5 segundos"
+	}
+
+	if (x_frame == 6600)
+	{
+		App->particles->AddParticle(App->particles->firework1, 430, 100, 100);
+		App->particles->AddParticle(App->particles->firework1, 150, 50, 200);
+		//SDL_Delay(50);
 	}
 }
