@@ -22,36 +22,45 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/Sprites/ss_firework1.png");
+	texture_fw1 = App->textures->Load("Assets/Sprites/ss_firework1.png");
+	texture_fw2 = App->textures->Load("Assets/Sprites/ss_firework2.png");
 
 	// firework 1 animation
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
+			// twice to make the animation smoother
+			firework1.anim.PushBack({ (87 * j), (i * 82), 87, 82 });
 			firework1.anim.PushBack({ (87 * j), (i * 82), 87, 82 });
 		}
 	}
 	//firework1.lifetime = 18;
 	firework1.anim.loop = false;
 	firework1.anim.speed = 0.2f;
+	firework1.id = 1;
 
-	//// firework 2 animation
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	for (int j = 0; j < 3; j++)
-	//	{
-	//		if (j == 3 && i == 3)
-	//		{
-	//			break;
-	//		}
+	// firework 2 animation
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			// the animation has only 8 sprites in a 3x3
+			if (j == 3 && i == 3)
+			{
+				break;
+			}
 
-	//		firework2.anim.PushBack({ (77 * j), (i * 71), 77, 71 });
-	//	}
-	//}
-	////firework2.lifetime = 8;
-	//firework2.anim.loop = false;
-	//firework2.anim.speed = 0.3f;
+			// twice to make the animation smoother
+			firework2.anim.PushBack({ (77 * j), (i * 71), 77, 71 });
+			firework2.anim.PushBack({ (77 * j), (i * 71), 77, 71 });
+		}
+	}
+	//firework2.lifetime = 8;
+	firework2.anim.loop = false;
+	firework2.anim.speed = 0.2f;
+	firework1.id = 2;
+
 
 	laser.anim.PushBack({ 232, 103, 16, 12 });
 	laser.anim.PushBack({ 249, 103, 16, 12 });
@@ -125,17 +134,23 @@ update_status ModuleParticles::PostUpdate()
 
 		if (particle != nullptr && particle->isAlive)
 		{
-			App->render->Blit(texture, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
-
+			// If firework in position 'i' is 1, render animation 1, else render animation 2
+			if (particles[i]->id == 1)
+			{
+				App->render->Blit(texture_fw1, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
+			}
+			if (particles[i]->id == 2)
+			{
+				App->render->Blit(texture_fw2, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
+			}
 		}
-
 
 	}
 
 	return update_status::UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, uint delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id_fw, uint delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -147,6 +162,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, uint d
 			p->frameCount = -(int)delay;			// We start the frameCount as the negative delay
 			p->position.x = x;						// so when frameCount reaches 0 the particle will be activated
 			p->position.y = y;
+			p->id = id_fw;
 
 			////Adding the particle's collider
 			//if (colliderType != Collider::Type::NONE)
@@ -167,8 +183,55 @@ void ModuleParticles::FwTiming(int x_frame)
 
 	if (x_frame == 6600)
 	{
-		App->particles->AddParticle(App->particles->firework1, 430, 100, 100);
-		App->particles->AddParticle(App->particles->firework1, 150, 50, 200);
+		// (Particle, int x position, int y position, int firework id, int delay) -> a millorar la mecanica del id
+
+		// TO DO:
+		// ajustar timing
+		// canviar tamaño de algunos firework
+		// ajustar para que solo se reproduzcan una vez cada uno
+		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 75);
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 125);
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 200);
+
+		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 250);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 250);
+		App->particles->AddParticle(App->particles->firework1, 114, 33, 2, 275);
+
+		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 325);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 325);
+		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 350);
+
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 500);
+
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 550);
+
+		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 600);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 600);
+
+		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 650);
+
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 700);
+
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 750);
+
+		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 800);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 800);
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 825);
+
+		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 900);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 900);
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 925);
+
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 1000);
+
+		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 1100);
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 1100);
+
+		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 1175);
+		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 1175);
+
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 2000);
+
 		//SDL_Delay(50);
 	}
 }
