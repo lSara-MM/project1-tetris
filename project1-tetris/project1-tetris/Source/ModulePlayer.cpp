@@ -93,7 +93,8 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		if (credits < 10) { credits++; }
+		if (credits < 9) { credits++; }
+		LOG("credits: %d", credits);
 		App->audio->PlayFx(fxAdd_Credits);
 	}
 
