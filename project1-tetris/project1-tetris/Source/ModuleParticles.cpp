@@ -46,7 +46,7 @@ bool ModuleParticles::Start()
 		for (int j = 0; j < 3; j++)
 		{
 			// the animation has only 8 sprites in a 3x3
-			if (j == 3 && i == 3)
+			if (j == 2 && i == 2)
 			{
 				break;
 			}
@@ -174,11 +174,12 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
+int v = 0;
 void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
 	{
-		SDL_Delay(500);		// "5 segundos"
+		//SDL_Delay(500);		// "5 segundos"
 	}
 
 	if (x_frame == 6600)
@@ -189,8 +190,52 @@ void ModuleParticles::FwTiming(int x_frame)
 		// ajustar timing
 		// canviar tamaño de algunos firework
 		// ajustar para que solo se reproduzcan una vez cada uno
-		App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 75);
-		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 125);
+		switch (v)
+		{
+			case 0:
+				App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 10);
+				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 50);
+				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 125);
+				v++;
+
+				break;
+			case 1:
+				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 175);
+				App->particles->AddParticle(App->particles->firework2, 490, 80, 2, 180);
+				App->particles->AddParticle(App->particles->firework1, 114, 33, 1, 200);
+				v++;
+
+				break;
+			case 2:
+				/*App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 200);
+				App->particles->AddParticle(App->particles->firework2, 490, 80, 2, 180);
+				App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 350);*/
+				v++;
+
+				break;
+			case 3:
+				v++;
+
+				break;
+			case 4:
+
+				v++;
+				break;
+			case 5:
+				v++;
+
+				break;
+			case 6:
+				v++;
+				break;
+
+
+		default:
+			break;
+		}
+
+		/*App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 10);
+		App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 30);
 		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 200);
 
 		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 250);
@@ -230,7 +275,7 @@ void ModuleParticles::FwTiming(int x_frame)
 		App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 1175);
 		App->particles->AddParticle(App->particles->firework2, 503, 75, 2, 1175);
 
-		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 2000);
+		App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 2000);*/
 
 		//SDL_Delay(50);
 	}
