@@ -44,6 +44,7 @@ bool ModulePlayer::Start()
 	currentAnimation = &idleAnim;
 
 	fxFall = App->audio->LoadFx("Assets/Audio/FX (.wav)/block-fall.wav");
+	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX (.wav)/add_credit.wav");
 	//explosionFx = App->audio->LoadFx("Assets/Audio/FX (.wav)/fall.wav");
 
 	position.x = 150;
@@ -60,7 +61,7 @@ update_status ModulePlayer::Update()
 	// Moving the player with the camera scroll
 	App->player->position.x;
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+	/*if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 	{
 		position.x -= speed;
 	}
@@ -88,12 +89,12 @@ update_status ModulePlayer::Update()
 			upAnim.Reset();
 			currentAnimation = &upAnim;
 		}
-	}
+	}*/
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		App->particles->AddParticle(App->particles->laser, position.x + 20, position.y, Collider::Type::PLAYER_SHOT);
-		App->audio->PlayFx(fxFall);
+		if (credits < 10) { credits++; }
+		App->audio->PlayFx(fxAdd_Credits);
 	}
 
 	// If no up/down movement detected, set the current animation back to idle
@@ -129,17 +130,15 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	// TODO 5: Detect collision with a wall. If so, go back to intro screen.
-	if (c1 == collider && destroyed == false)
-	{
-		App->particles->AddParticle(App->particles->firework1, position.x, position.y, 9);
-		App->particles->AddParticle(App->particles->firework1, position.x + 8, position.y + 11, 14);
-		App->particles->AddParticle(App->particles->firework1, position.x - 7, position.y + 12, 40);
-		App->particles->AddParticle(App->particles->firework1, position.x + 5, position.y - 5, 28);
-		App->particles->AddParticle(App->particles->firework1, position.x - 4, position.y - 4, 21);
-
-		App->audio->PlayFx(explosionFx);
-
-		destroyed = true;
-	}
+//	// TODO 5: Detect collision with a wall. If so, go back to intro screen.
+//	if (c1 == collider && destroyed == false)
+//	{
+//		App->particles->AddParticle(App->particles->firework1, position.x, position.y, 9);
+//		App->particles->AddParticle(App->particles->firework1, position.x + 8, position.y + 11, 14);
+//		App->particles->AddParticle(App->particles->firework1, position.x - 7, position.y + 12, 40);
+//		App->particles->AddParticle(App->particles->firework1, position.x + 5, position.y - 5, 28);
+//		App->particles->AddParticle(App->particles->firework1, position.x - 4, position.y - 4, 21);
+//
+//		destroyed = true;
+//	}
 }
