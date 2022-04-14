@@ -12,9 +12,9 @@
 ModuleScene::ModuleScene()
 {
 	// Start Screen
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 11; i++)
 	{
-		start_screen.PushBack({ 600 * i, 1, 600, 422 });
+		start_screen.PushBack({ SCREEN_WIDTH * i, 1, SCREEN_WIDTH, SCREEN_HEIGHT });
 	}
 
 	start_screen.loop = false;

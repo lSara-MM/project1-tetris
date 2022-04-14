@@ -25,6 +25,7 @@ bool ModuleParticles::Start()
 	texture_fw1 = App->textures->Load("Assets/Sprites/ss_firework1.png");
 	texture_fw2 = App->textures->Load("Assets/Sprites/ss_firework2.png");
 
+	int v = 0;		// counter
 	// firework 1 animation
 	for (int i = 0; i < 3; i++)
 	{
@@ -174,15 +175,15 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
-int v = 0;
+
 void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
 	{
-		//SDL_Delay(500);		// "5 segundos"
+		SDL_Delay(500);		// "5 segundos"
 	}
 
-	if (x_frame == 6600)
+	if (x_frame == (SCREEN_WIDTH * 10))
 	{
 		// (Particle, int x position, int y position, int firework id, int delay) -> a millorar la mecanica del id
 
@@ -191,83 +192,82 @@ void ModuleParticles::FwTiming(int x_frame)
 		switch (v)
 		{
 			case 0:
-				App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 10);
-				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 50);
+				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 10);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 50);
 
-				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 125);
+				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 125);
 				v++;
 
 				break;
 			case 1:
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 175);
-				App->particles->AddParticle(App->particles->firework2, 490, 77, 2, 180);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 175);
+				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 180);
 
-				App->particles->AddParticle(App->particles->firework1, 114, 33, 1, 225);
+				App->particles->AddParticle(App->particles->firework1, 128, 33, 1, 225);
 				v++;
 
 				break;
 			case 2:
-				App->particles->AddParticle(App->particles->firework1, 400, 47, 1, 300);
+				App->particles->AddParticle(App->particles->firework1, 400, 62, 1, 300);
 
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 350);
-				App->particles->AddParticle(App->particles->firework2, 495, 77, 2, 350);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 350);
+				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 350);
 				v++;
 
 				break;
 			case 3:
-				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 450);
+				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 450);
 
-				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 525);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 525);
 				v++;
 
 				break;
 			case 4:
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 600);
-				App->particles->AddParticle(App->particles->firework2, 490, 77, 2, 600);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 600);
+				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 600);
 
 				
 				v++;
 				break;
 			case 5:
-				App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 700);
+				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 700);
 
-				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 850);
+				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 850);
 
-				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 950);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 950);
 				v++;
 
 				break;
 			case 6:
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 1050);
-				App->particles->AddParticle(App->particles->firework2, 490, 77, 2, 1060);
-				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 1105);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1050);
+				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 1060);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1105);
 				v++;
 				break;
 			case 7:
-				App->particles->AddParticle(App->particles->firework1, 400, 47, 1, 1175);
+				App->particles->AddParticle(App->particles->firework1, 400, 62, 1, 1175);
 
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 1250);
-				App->particles->AddParticle(App->particles->firework2, 495, 77, 2, 1260);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1250);
+				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 1260);
 				v++;
 
 				break;
 			case 8:
-				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 1300);
+				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1300);
 
-				App->particles->AddParticle(App->particles->firework1, 414, 47, 1, 1350);
-				App->particles->AddParticle(App->particles->firework1, 114, 32, 1, 1350);
+				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1350);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1350);
 				v++;
 
 				break;
 			case 9:
-				App->particles->AddParticle(App->particles->firework2, 32, 78, 2, 1450);
-				App->particles->AddParticle(App->particles->firework2, 490, 75, 2, 1460);
+				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1450);
+				App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1460);
 
-				App->particles->AddParticle(App->particles->firework2, 332, 32, 2, 1500);
+				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
 				v++;
 				break;
 			default:
-				//v = 0;
 				break;
 		}
 		
