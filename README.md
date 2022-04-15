@@ -21,9 +21,9 @@ We are Quokka Games Studios, a group of students of the bachelor's degree in Vid
 
 
 ## Description of the game
- Tetris is a puzzle game in which the player must place the pieces that fall from the top of the screen to create full rows (lines), celaning the line of blocks.
+Tetris is a puzzle game in which the player must place the pieces that fall from the top of the screen to create full rows (lines), cleaning the line of blocks.
 The player wins if they clear the number of lines that the level specifies.
-The player loses if enough pieces pile up to rech the top of the playfield. 
+The player loses if enough pieces pile up to reach the top of the playfield. 
 
 ## Controls
 
