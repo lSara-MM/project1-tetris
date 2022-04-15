@@ -37,7 +37,7 @@ bool ModuleScene::Start()
 	App->audio->PlayMusic("Assets/Audio/Music (.ogg)/Loginska", 1.0f);
 
 	// Colliders ---
-	App->collisions->AddCollider({ 0, 400, 3930, 22 }, Collider::Type::WALL);
+	//App->collisions->AddCollider({ 0, 400, 3930, 22 }, Collider::Type::WALL);
 
 	return ret;
 }

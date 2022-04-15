@@ -45,7 +45,7 @@ bool ModulePlayer::Start()
 
 	fxFall = App->audio->LoadFx("Assets/Audio/FX (.wav)/block-fall.wav");
 	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX (.wav)/add_credit.wav");
-	//explosionFx = App->audio->LoadFx("Assets/Audio/FX (.wav)/fall.wav");
+	
 
 	position.x = 150;
 	position.y = 120;
@@ -93,6 +93,7 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
+		ModuleRender PressP1P2;
 		if (credits < 9) { credits++; }
 		LOG("credits: %d", credits);
 		App->audio->PlayFx(fxAdd_Credits);
@@ -124,6 +125,26 @@ update_status ModulePlayer::PostUpdate()
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
+	}
+
+	if (credits == 1)
+	{
+		// Rect, r, g, b, alpha (0-255) "opacity"
+		App->render->DrawQuad({ 160, 0, 352, 48 }, 255, 0, 0, 255);
+		App->render->DrawQuad({ 164, 4, 346, 40 }, 0, 0, 0, 255);
+		App->render->DrawQuad({ 166, 6, 340, 36 }, 0, 0, 255, 255);
+		App->render->DrawQuad({ 174, 16, 324, 16 }, 0, 0, 0, 255);
+		
+		LOG("Press 1 Player Start");
+	}
+	if (credits >= 2)
+	{
+		App->render->DrawQuad({ 128, 0, 432, 48 }, 255, 0, 0, 255);
+		App->render->DrawQuad({ 132, 4, 424, 40 }, 0, 0, 0, 255);
+		App->render->DrawQuad({ 134, 6, 420, 36 }, 0, 0, 255, 255);
+		App->render->DrawQuad({ 142, 16, 404, 16 }, 0, 0, 0, 255);
+
+		LOG("Press 1 or 2 Player Start");
 	}
 
 	return update_status::UPDATE_CONTINUE;

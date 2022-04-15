@@ -25,7 +25,7 @@ bool ModuleParticles::Start()
 	texture_fw1 = App->textures->Load("Assets/Sprites/ss_firework1.png");
 	texture_fw2 = App->textures->Load("Assets/Sprites/ss_firework2.png");
 
-	int v = 0;		// counter
+	
 	// firework 1 animation
 	for (int i = 0; i < 3; i++)
 	{
@@ -175,7 +175,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
-
+int v = 0;		// counter
 void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
@@ -208,7 +208,7 @@ void ModuleParticles::FwTiming(int x_frame)
 
 				break;
 			case 2:
-				App->particles->AddParticle(App->particles->firework1, 400, 62, 1, 300);
+				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 300);
 
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 350);
 				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 350);
@@ -245,7 +245,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				v++;
 				break;
 			case 7:
-				App->particles->AddParticle(App->particles->firework1, 400, 62, 1, 1175);
+				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1175);
 
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1250);
 				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 1260);
