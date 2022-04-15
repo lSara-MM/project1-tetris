@@ -178,7 +178,6 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 int v = 0;		// counter
 void ModuleParticles::FwTiming(int x_frame)
 {
-	int v = 0;
 	if (x_frame == 0)
 	{
 		SDL_Delay(500);		// "5 segundos"

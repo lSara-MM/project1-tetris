@@ -22,9 +22,9 @@ Application::Application()
 	modules[3] = audio = new ModuleAudio();
 
 	modules[4] = scene = new ModuleScene();
-	modules[5] = player = new ModulePlayer();
+	modules[5] = particles = new ModuleParticles();		// Only fireworks
 
-	modules[6] = particles = new ModuleParticles();
+	modules[6] = player = new ModulePlayer();
 	modules[7] = collisions = new ModuleCollisions();
 
 	modules[8] = render = new ModuleRender();

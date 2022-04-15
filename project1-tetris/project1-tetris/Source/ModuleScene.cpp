@@ -46,6 +46,7 @@ update_status ModuleScene::Update()
 {
 	start_screen.Update();
 	
+	
 	App->render->camera.x += 0;
 
 	return update_status::UPDATE_CONTINUE;
@@ -54,7 +55,6 @@ update_status ModuleScene::Update()
 // Update: draw background
 update_status ModuleScene::PostUpdate()
 {
-
 	ModuleParticles fireworks;
 	fireworks.FwTiming(start_screen.GetCurrentFrame().x);
 
