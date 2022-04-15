@@ -3,6 +3,13 @@
 
 #include "Module.h"
 #include "SDL/include/SDL_Rect.h"
+#include "SDL2_ttf-2.0.18/include/SDL_ttf.h"
+
+// Modify the directories in the SDL_ttf.h to the corresponding ones
+// Properties >> Linker >> Input >> Additional dependencies >> add "SDL2_ttf.lib"
+
+#include <iostream>
+using namespace std;
 
 struct SDL_Texture;
 struct SDL_Renderer;
