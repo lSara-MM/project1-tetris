@@ -10,6 +10,9 @@
 
 #include "SDL/include/SDL_scancode.h"
 
+#include <iostream>
+using namespace std;
+#include <sstream>
 
 ModulePlayer::ModulePlayer()
 {
@@ -45,7 +48,7 @@ bool ModulePlayer::Start()
 
 	fxFall = App->audio->LoadFx("Assets/Audio/FX (.wav)/block-fall.wav");
 	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX (.wav)/add_credit.wav");
-	
+
 
 	position.x = 150;
 	position.y = 120;
@@ -134,8 +137,9 @@ update_status ModulePlayer::PostUpdate()
 		App->render->DrawQuad({ 164, 4, 346, 40 }, 0, 0, 0, 255);
 		App->render->DrawQuad({ 166, 6, 340, 36 }, 0, 0, 255, 255);
 		App->render->DrawQuad({ 174, 16, 324, 16 }, 0, 0, 0, 255);
-		
-		LOG("Press 1 Player Start");
+		App->render->TextDraw("Press 1 Player  Start", 176, 17, 255, 255, 255, 255, 15);
+
+		//LOG("Press 1 Player Start");
 	}
 	if (credits >= 2)
 	{
@@ -143,8 +147,21 @@ update_status ModulePlayer::PostUpdate()
 		App->render->DrawQuad({ 132, 4, 424, 40 }, 0, 0, 0, 255);
 		App->render->DrawQuad({ 134, 6, 420, 36 }, 0, 0, 255, 255);
 		App->render->DrawQuad({ 142, 16, 404, 16 }, 0, 0, 0, 255);
+		App->render->TextDraw("Press 1 or 2 Player Start", 144, 17, 255, 255, 255, 255, 15);
 
-		LOG("Press 1 or 2 Player Start");
+		//LOG("Press 1 or 2 Player Start");
+	}
+
+	if (credits != 0)
+	{
+		// Convert int to const char*
+		string s_credits = std::to_string(credits);
+		const char* ch_credits = s_credits.c_str();
+
+		App->render->DrawQuad({ 256, 448, 114, 18 }, 0, 0, 0, 255);
+		App->render->DrawQuad({ 384, 448, 16, 18 }, 0, 0, 0, 255);
+		App->render->TextDraw("Credits ", 256, 448, 0, 0, 255, 255, 15);
+		App->render->TextDraw(ch_credits, 384, 448, 0, 0, 255, 255, 15);
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -152,15 +169,15 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-//	// TODO 5: Detect collision with a wall. If so, go back to intro screen.
-//	if (c1 == collider && destroyed == false)
-//	{
-//		App->particles->AddParticle(App->particles->firework1, position.x, position.y, 9);
-//		App->particles->AddParticle(App->particles->firework1, position.x + 8, position.y + 11, 14);
-//		App->particles->AddParticle(App->particles->firework1, position.x - 7, position.y + 12, 40);
-//		App->particles->AddParticle(App->particles->firework1, position.x + 5, position.y - 5, 28);
-//		App->particles->AddParticle(App->particles->firework1, position.x - 4, position.y - 4, 21);
-//
-//		destroyed = true;
-//	}
+	//	// TODO 5: Detect collision with a wall. If so, go back to intro screen.
+	//	if (c1 == collider && destroyed == false)
+	//	{
+	//		App->particles->AddParticle(App->particles->firework1, position.x, position.y, 9);
+	//		App->particles->AddParticle(App->particles->firework1, position.x + 8, position.y + 11, 14);
+	//		App->particles->AddParticle(App->particles->firework1, position.x - 7, position.y + 12, 40);
+	//		App->particles->AddParticle(App->particles->firework1, position.x + 5, position.y - 5, 28);
+	//		App->particles->AddParticle(App->particles->firework1, position.x - 4, position.y - 4, 21);
+	//
+	//		destroyed = true;
+	//	}
 }

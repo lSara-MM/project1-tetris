@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "ModuleWindow.h"
 
 struct SDL_Texture;
 
@@ -30,13 +31,17 @@ public:
 public:
 	
 	// The scene sprite sheet loaded into an SDL_Texture
-	SDL_Texture* bgTexture = nullptr;
+	SDL_Texture* bg_texture = nullptr;
+	//SDL_Surface* bg_surface = nullptr;
+
 	
 	// The sprite rectangle for the ground
-	SDL_Texture* starsTexture = nullptr;
+	//SDL_Texture* starsTexture = nullptr;
 
 	// Start Scene animation
 	Animation start_screen;
+
+	int v_scene = 0;
 };
 
 #endif

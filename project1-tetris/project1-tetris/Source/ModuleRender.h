@@ -53,9 +53,17 @@ public:
 
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, float speed = 1.0f);
 
+	// Render text
+	bool TextDraw(const char* words, int x, int y, int red, int green, int blue, int alpha, int size);
+
 public:
 	// Rendering context used for any rendering action
 	SDL_Renderer* renderer = nullptr;
+
+	// Rendering text
+	SDL_Surface* ttf_surface = nullptr;
+	SDL_Texture* ttf_texture = nullptr;
+	TTF_Font* ttf_font = nullptr;
 
 	// A rectangle that represents the camera section
 	// Sprites will be rendered to the screen depending on the camera position

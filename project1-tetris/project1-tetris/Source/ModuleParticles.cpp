@@ -175,7 +175,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
-int v = 0;		// counter
+int v_particles = 0;		// counter
 void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
@@ -189,14 +189,14 @@ void ModuleParticles::FwTiming(int x_frame)
 
 		// TO DO:
 		// canviar tamaño de algunos firework (pending / optional)
-		switch (v)
+		switch (v_particles)
 		{
 			case 0:
 				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 10);
 				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 50);
 
 				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 125);
-				v++;
+				v_particles++;
 
 				break;
 			case 1:
@@ -204,7 +204,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 180);
 
 				App->particles->AddParticle(App->particles->firework1, 128, 33, 1, 225);
-				v++;
+				v_particles++;
 
 				break;
 			case 2:
@@ -212,14 +212,14 @@ void ModuleParticles::FwTiming(int x_frame)
 
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 350);
 				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 350);
-				v++;
+				v_particles++;
 
 				break;
 			case 3:
 				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 450);
 
 				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 525);
-				v++;
+				v_particles++;
 
 				break;
 			case 4:
@@ -227,7 +227,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 600);
 
 				
-				v++;
+				v_particles++;
 				break;
 			case 5:
 				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 700);
@@ -235,21 +235,21 @@ void ModuleParticles::FwTiming(int x_frame)
 				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 850);
 
 				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 950);
-				v++;
+				v_particles++;
 
 				break;
 			case 6:
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1050);
 				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 1060);
 				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1105);
-				v++;
+				v_particles++;
 				break;
 			case 7:
 				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1175);
 
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1250);
 				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 1260);
-				v++;
+				v_particles++;
 
 				break;
 			case 8:
@@ -257,7 +257,7 @@ void ModuleParticles::FwTiming(int x_frame)
 
 				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1350);
 				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1350);
-				v++;
+				v_particles++;
 
 				break;
 			case 9:
@@ -265,7 +265,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1460);
 
 				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
-				v++;
+				v_particles++;
 				break;
 			default:
 				break;
