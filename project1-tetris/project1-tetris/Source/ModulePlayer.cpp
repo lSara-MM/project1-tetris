@@ -43,8 +43,11 @@ bool ModulePlayer::Start()
 
 	bool ret = true;
 
-	texture = App->textures->Load("Assets/ship.png"); // arcade version
-	currentAnimation = &idleAnim;
+	//texture = App->textures->Load("Assets/ship.png"); // arcade version
+
+	//currentAnimation = &idleAnim;
+
+	texture = App->textures->Load("Assets/Sprites/Tetramino/Pink_Tetra/Pink_3.png");
 
 	fxFall = App->audio->LoadFx("Assets/Audio/FX (.wav)/block-fall.wav");
 	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX (.wav)/add_credit.wav");
@@ -62,37 +65,60 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	// Moving the player with the camera scroll
-	App->player->position.x;
+	App->player->position.y+=1;
 
-	/*if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-	{
-		position.x -= speed;
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
+		position.x -= 10;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-	{
-		position.x += speed;
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
+		position.x += 10;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-	{
-		position.y += speed;
-		if (currentAnimation != &downAnim)
-		{
-			downAnim.Reset();
-			currentAnimation = &downAnim;
-		}
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) {
+		position.y += 10;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
-	{
-		position.y -= speed;
-		if (currentAnimation != &upAnim)
-		{
-			upAnim.Reset();
-			currentAnimation = &upAnim;
-		}
-	}*/
+	if (App->input->keys[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
+
+		texture = App->textures->Load("Assets/Sprites/Tetramino/Pink_Tetra/Pink_2.png");
+		collider = App->collisions->AddCollider({ position.x, position.y, 16, 32 }, Collider::Type::PLAYER, this);
+
+	}
+
+	if (App->input->keys[SDL_SCANCODE_G] == KEY_STATE::KEY_DOWN) {
+		position.y += 10;
+	}
+
+	//if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+	//{
+	//	position.x -= speed;
+	//}
+
+	//if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+	//{
+	//	position.x += speed;
+	//}
+
+	//if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+	//{
+	//	position.y += speed;
+	//	if (currentAnimation != &downAnim)
+	//	{
+	//		downAnim.Reset();
+	//		currentAnimation = &downAnim;
+	//	}
+	//}
+
+	//if (App->input->keys[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
+	//{
+	//	position.y -= speed;
+	//	if (currentAnimation != &upAnim)
+	//	{
+	//		upAnim.Reset();
+	//		currentAnimation = &upAnim;
+	//	}
+	//}
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
