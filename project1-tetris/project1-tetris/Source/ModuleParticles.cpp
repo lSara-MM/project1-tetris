@@ -178,10 +178,10 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 int v_particles = 0;		// counter
 void ModuleParticles::FwTiming(int x_frame)
 {
-//	if (x_frame == 0)
-//	{
-//		SDL_Delay(500);		// "5 segundos"
-//	}
+	if (x_frame == 0)
+	{
+		SDL_Delay(500);		// "5 segundos"
+	}
 
 	if (x_frame == (SCREEN_WIDTH * 10))
 	{

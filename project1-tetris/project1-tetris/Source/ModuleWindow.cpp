@@ -49,6 +49,7 @@ bool ModuleWindow::Init()
 		else
 		{
 			screenSurface = SDL_GetWindowSurface(window);
+			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 255, 255, 255));		// Bg is basically always black
 		}
 	}
 
