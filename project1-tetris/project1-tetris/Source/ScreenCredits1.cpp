@@ -10,7 +10,7 @@
 
 #include "ModuleParticles.h"
 #include "ModuleWindow.h"
-//#include "ModuleFadeToBlack.h"
+#include "ModuleFadeToBlack.h"
 
 ScreenCredits1::ScreenCredits1(bool startEnabled) : Module(startEnabled)
 {
@@ -41,6 +41,10 @@ update_status ScreenCredits1::Update()
 
 	start_screen.Update();
 
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sCredits2, 90);
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }

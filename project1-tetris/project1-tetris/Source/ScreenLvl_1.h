@@ -42,6 +42,20 @@ public:
 
 
 
+
+
+	SDL_Texture* curtain_texture = nullptr;
+
+	Animation curtain;
+
+	int score;
+
+	int lines;
+
+	int linesleft;
+
+	int v_scene = 0;
+
 };
 
 #endif
