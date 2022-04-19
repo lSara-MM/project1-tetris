@@ -49,9 +49,8 @@ bool ModulePlayer::Start()
 
 	texture = App->textures->Load("Assets/Sprites/Tetramino/Pink_Tetra/Pink_3.png");
 
-	fxFall = App->audio->LoadFx("Assets/Audio/FX (.wav)/block-fall.wav");
-	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX (.wav)/add_credit.wav");
-
+	fxFall = App->audio->LoadFx("Assets/Audio/FX/block-fall.wav");
+	
 
 	position.x = 150;
 	position.y = 120;
@@ -120,14 +119,6 @@ update_status ModulePlayer::Update()
 	//	}
 	//}
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
-	{
-		ModuleRender PressP1P2;
-		if (credits < 9) { credits++; }
-		LOG("credits: %d", credits);
-		App->audio->PlayFx(fxAdd_Credits);
-	}
-
 	// If no up/down movement detected, set the current animation back to idle
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE
 		&& App->input->keys[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE)
@@ -154,40 +145,6 @@ update_status ModulePlayer::PostUpdate()
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
-	}
-
-	if (credits == 1)
-	{
-		// Rect, r, g, b, alpha (0-255) "opacity"
-		App->render->DrawQuad({ 160, 0, 352, 48 }, 255, 0, 0, 255);
-		App->render->DrawQuad({ 164, 4, 346, 40 }, 0, 0, 0, 255);
-		App->render->DrawQuad({ 166, 6, 340, 36 }, 0, 0, 255, 255);
-		App->render->DrawQuad({ 174, 16, 324, 16 }, 0, 0, 0, 255);
-		App->render->TextDraw("Press 1 Player  Start", 176, 17, 255, 255, 255, 255, 15);
-
-		//LOG("Press 1 Player Start");
-	}
-	if (credits >= 2)
-	{
-		App->render->DrawQuad({ 128, 0, 432, 48 }, 255, 0, 0, 255);
-		App->render->DrawQuad({ 132, 4, 424, 40 }, 0, 0, 0, 255);
-		App->render->DrawQuad({ 134, 6, 420, 36 }, 0, 0, 255, 255);
-		App->render->DrawQuad({ 142, 16, 404, 16 }, 0, 0, 0, 255);
-		App->render->TextDraw("Press 1 or 2 Player Start", 144, 17, 255, 255, 255, 255, 15);
-
-		//LOG("Press 1 or 2 Player Start");
-	}
-
-	if (credits != 0)
-	{
-		// Convert int to const char*
-		string s_credits = std::to_string(credits);
-		const char* ch_credits = s_credits.c_str();
-
-		App->render->DrawQuad({ 256, 448, 114, 18 }, 0, 0, 0, 255);
-		App->render->DrawQuad({ 384, 448, 16, 18 }, 0, 0, 0, 255);
-		App->render->TextDraw("Credits ", 256, 448, 0, 0, 255, 255, 15);
-		App->render->TextDraw(ch_credits, 384, 448, 0, 0, 255, 255, 15);
 	}
 
 	return update_status::UPDATE_CONTINUE;

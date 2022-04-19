@@ -64,12 +64,7 @@ public:
 
 	// Sound effects indices
 	uint fxFall = 0;
-	uint fxAdd_Credits= 0;
-	
-	//uint explosionFx = 0;
 
-	// Credit (coins to add 0-9)
-	int credits = 0;
 };
 
 #endif //!__MODULE_PLAYER_H__

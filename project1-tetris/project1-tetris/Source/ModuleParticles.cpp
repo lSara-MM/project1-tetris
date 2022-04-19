@@ -203,7 +203,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 175);
 				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 180);
 
-				App->particles->AddParticle(App->particles->firework1, 128, 33, 1, 225);
+				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 225);
 				v_particles++;
 
 				break;
@@ -262,7 +262,7 @@ void ModuleParticles::FwTiming(int x_frame)
 				break;
 			case 9:
 				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1450);
-				App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1460);
+				App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1470);
 
 				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
 				v_particles++;
@@ -270,7 +270,5 @@ void ModuleParticles::FwTiming(int x_frame)
 			default:
 				break;
 		}
-		
-		//SDL_Delay(50);
 	}
 }

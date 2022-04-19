@@ -72,7 +72,7 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleScene.cpp">
+    <ClCompile Include="ModuleStart.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleScene.h">
+    <ClInclude Include="ModuleStart.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="p2Point.h">

@@ -32,16 +32,16 @@ public:
 	
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
-	//SDL_Surface* bg_surface = nullptr;
-
-	
-	// The sprite rectangle for the ground
-	//SDL_Texture* starsTexture = nullptr;
 
 	// Start Scene animation
 	Animation start_screen;
 
-	int v_scene = 0;
+	// Credit (coins to add 0-9)
+	int credits = 0;
+	uint fxAdd_Credits = 0;
+
+
+
 };
 
 #endif
