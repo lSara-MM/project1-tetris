@@ -1,4 +1,4 @@
-#include "ModuleStart.h"
+#include "ScreenStart.h"
 
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -13,7 +13,7 @@
 using namespace std;
 #include <sstream>
 
-ModuleScene::ModuleScene()
+ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 {
 	// Start Screen
 	for (int i = 0; i < 11; i++)
@@ -50,7 +50,7 @@ update_status ModuleScene::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		ModuleRender PressP1P2;
+		ModuleRender PressP1P2(true);
 		if (credits < 9) { credits++; }
 		LOG("credits: %d", credits);
 		App->audio->PlayFx(fxAdd_Credits);
@@ -62,7 +62,7 @@ update_status ModuleScene::Update()
 // Update: draw background
 update_status ModuleScene::PostUpdate()
 {
-	ModuleParticles fireworks;
+	ModuleParticles fireworks(true);
 	fireworks.FwTiming(start_screen.GetCurrentFrame().x);
 
 	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);

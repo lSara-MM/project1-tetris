@@ -18,7 +18,7 @@ class ModuleRender : public Module
 {
 public:
 	//Constructor
-	ModuleRender();
+	ModuleRender(bool startEnabled);
 
 	//Destructor
 	~ModuleRender();

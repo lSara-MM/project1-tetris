@@ -14,7 +14,7 @@
 using namespace std;
 #include <sstream>
 
-ModulePlayer::ModulePlayer()
+ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
 	// idle animation - just one sprite
 	idleAnim.PushBack({ 66, 1, 32, 14 });
