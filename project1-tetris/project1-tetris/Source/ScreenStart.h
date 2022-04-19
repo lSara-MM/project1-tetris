@@ -1,5 +1,5 @@
-#ifndef __MODULE_SCENE_H__
-#define __MODULE_SCENE_H__
+#ifndef __SCREENSTART_H__
+#define __SCREENSTART_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -7,14 +7,14 @@
 
 struct SDL_Texture;
 
-class ModuleScene : public Module
+class ScreenStart : public Module
 {
 public:
 	//Constructor
-	ModuleScene(bool startEnabled);
+	ScreenStart(bool startEnabled);
 
 	//Destructor
-	~ModuleScene();
+	~ScreenStart();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background

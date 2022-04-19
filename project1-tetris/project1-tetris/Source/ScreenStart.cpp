@@ -13,7 +13,7 @@
 using namespace std;
 #include <sstream>
 
-ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
+ScreenStart::ScreenStart(bool startEnabled) : Module(startEnabled)
 {
 	// Start Screen
 	for (int i = 0; i < 11; i++)
@@ -25,13 +25,13 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	start_screen.speed = 0.09f;
 }
 
-ModuleScene::~ModuleScene()
+ScreenStart::~ScreenStart()
 {
 
 }
 
 // Load assets
-bool ModuleScene::Start()
+bool ScreenStart::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
@@ -41,7 +41,7 @@ bool ModuleScene::Start()
 	return ret;
 }
 
-update_status ModuleScene::Update()
+update_status ScreenStart::Update()
 {
 
 	start_screen.Update();
@@ -60,7 +60,7 @@ update_status ModuleScene::Update()
 }
 
 // Update: draw background
-update_status ModuleScene::PostUpdate()
+update_status ScreenStart::PostUpdate()
 {
 	ModuleParticles fireworks(true);
 	fireworks.FwTiming(start_screen.GetCurrentFrame().x);

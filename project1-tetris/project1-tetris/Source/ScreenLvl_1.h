@@ -1,5 +1,5 @@
-#ifndef __SCREENCREDITS2_H__
-#define __SCREENCREDITS2_H__
+#ifndef __SCREENLVL1_H__
+#define __SCREENLVL1_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -7,14 +7,14 @@
 
 struct SDL_Texture;
 
-class ScreenCredits2 : public Module
+class ScreenLvl_1 : public Module
 {
 public:
 	//Constructor
-	ScreenCredits2(bool startEnabled);
+	ScreenLvl_1(bool startEnabled);
 
 	//Destructor
-	~ScreenCredits2();
+	~ScreenLvl_1();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -44,5 +44,4 @@ public:
 
 };
 
-#endif //__SCREENCREDITS2_H__
-
+#endif

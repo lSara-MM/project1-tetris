@@ -18,6 +18,7 @@ class ScreenStart;
 class ScreenLvl_1;
 class ModuleParticles;
 class ModuleCollisions;
+class ModuleFadeToBlack;
 class ModuleRender;
 
 class Application

@@ -10,6 +10,12 @@
 #include "ModuleParticles.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
+#include "ModuleFadeToBlack.h"
+#include "ScreenCredits1.h"
+#include "ScreenCredits2.h"
+#include "ScreenStart.h"
+#include "ScreenLvl_1.h"
+
 
 Application::Application()
 {

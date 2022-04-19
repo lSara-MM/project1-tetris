@@ -1,4 +1,4 @@
-#include "ScreenCredits2.h"
+#include "ScreenLvl_1.h"
 
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -12,19 +12,19 @@
 #include "ModuleWindow.h"
 //#include "ModuleFadeToBlack.h"
 
-ScreenCredits2::ScreenCredits2(bool startEnabled) : Module(startEnabled)
+ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
 
 
 }
 
-ScreenCredits2::~ScreenCredits2()
+ScreenLvl_1::~ScreenLvl_1()
 {
 
 }
 
 // Load assets
-bool ScreenCredits2::Start()
+bool ScreenLvl_1::Start()
 {
 	LOG("Loading background assets");
 
@@ -36,7 +36,7 @@ bool ScreenCredits2::Start()
 	return ret;
 }
 
-update_status ScreenCredits2::Update()
+update_status ScreenLvl_1::Update()
 {
 
 	start_screen.Update();
@@ -46,7 +46,7 @@ update_status ScreenCredits2::Update()
 }
 
 // Update: draw background
-update_status ScreenCredits2::PostUpdate()
+update_status ScreenLvl_1::PostUpdate()
 {
 
 
