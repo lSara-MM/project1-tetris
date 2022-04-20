@@ -6,6 +6,7 @@
 #include "Module.h"
 #include "Collider.h"
 
+
 class ModuleCollisions : public Module
 {
 public:
@@ -47,7 +48,9 @@ private:
 	bool matrix[Collider::Type::MAX][Collider::Type::MAX];
 
 	// Simple debugging flag to draw all colliders
-	bool debug = true;
+	bool showCollisions = false;
+	bool godMode = false;
+
 };
 
 #endif // __MODULE_COLLISIONS_H__

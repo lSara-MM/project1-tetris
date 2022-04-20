@@ -7,6 +7,7 @@
 #include "ModuleCollisions.h"
 
 #include "ModuleInput.h"
+#include "ModulePlayer.h"
 
 #include <iostream>
 using namespace std;
@@ -41,8 +42,12 @@ ScreenLvl_1::~ScreenLvl_1()
 // Load assets
 bool ScreenLvl_1::Start()
 {
+	
+	App->collisions->Enable();
+	//App->player->Enable();		// dona error nose perque, "Exception thrown: read access violation. **this** was nullptr."
+
 	LOG("Loading lvl 1 background assets");
-	LOG("Loading curtain assets");
+	LOG("Loading curtain assets\n");
 
 	bool ret = true;
 
@@ -160,6 +165,12 @@ update_status ScreenLvl_1::PostUpdate()
 
 	App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16);
 
+
+	// Debugging
+	if (App->player->instaLose == true)
+	{
+		LOG("Lost!");
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }

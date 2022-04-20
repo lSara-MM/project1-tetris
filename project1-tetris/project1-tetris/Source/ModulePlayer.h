@@ -32,6 +32,7 @@ public:
 	// Collision callback, called when the player intersects with another collider
 	void OnCollision(Collider* c1, Collider* c2) override;
 
+
 public:
 	// Position of the player in the map
 	iPoint position;
@@ -51,8 +52,6 @@ public:
 	Animation upAnim;
 	Animation downAnim;
 
-	// TODO 3: Add a collider to the player
-
 	// The player's collider
 	Collider* collider = nullptr;
 
@@ -64,6 +63,11 @@ public:
 
 	// Sound effects indices
 	uint fxFall = 0;
+
+	bool godMode = false;
+	bool showCollisions = false;
+	bool instaWin = false;
+	bool instaLose = false;
 
 };
 

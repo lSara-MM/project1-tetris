@@ -136,6 +136,25 @@ update_status ModulePlayer::Update()
 			return update_status::UPDATE_STOP;
 	}
 
+	// Debugging modes
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_STATE::KEY_DOWN) {
+		godMode != godMode;
+		LOG("God mode");
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN) {
+		showCollisions != showCollisions;
+		LOG("show Collisions");
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
+		instaWin = true;
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+		instaLose = true;
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 

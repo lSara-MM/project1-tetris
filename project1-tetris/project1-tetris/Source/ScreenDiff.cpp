@@ -27,7 +27,7 @@ ScreenDiff::~ScreenDiff()
 // Load assets
 bool ScreenDiff::Start()
 {
-	LOG("Loading background assets");
+	LOG("Loading difficulty background assets");
 	bool ret = true;
 
 	bg_texture = App->textures->Load("Assets/ss_difficultyBg.png");

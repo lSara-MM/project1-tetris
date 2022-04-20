@@ -6,6 +6,9 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL_Scancode.h"
 
+#include "ModulePlayer.h"
+
+
 ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 {
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -96,17 +99,33 @@ update_status ModuleCollisions::PreUpdate()
 
 update_status ModuleCollisions::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)
-		debug = !debug;
+	// To change scancode;
+	if (App->input->keys[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN) {
+		godMode != godMode;
+		LOG("God mode");
+	}
 
+	if (App->input->keys[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN) {
+		showCollisions != showCollisions;
+		LOG("show Collisions on");
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleCollisions::PostUpdate()
 {
-	if (debug)
+	// Doesn't work from player (why?)
+	if (App->player->godMode == true)
+	{
+		LOG("God mode on");
 		DebugDraw();
+	}
 
+	/*if (showCollisions == true || godMode == true)
+	{
+		DebugDraw();
+	}*/
+		
 	return update_status::UPDATE_CONTINUE;
 }
 
