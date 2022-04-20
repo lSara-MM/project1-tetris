@@ -5,6 +5,8 @@
 #include "SDL/include/SDL_Rect.h"
 #include "SDL2_ttf-2.0.18/include/SDL_ttf.h"
 
+#define MAX_ACTIVE_TEXT 100
+
 // Modify the directories in the SDL_ttf.h to the corresponding ones
 // Properties >> Linker >> Input >> Additional dependencies >> add "SDL2_ttf.lib"
 
@@ -72,6 +74,8 @@ public:
 	// The speed at which the camera will be moving
 	int cameraSpeed = 0;
 
+
+	//ttf_font* txt[MAX_ACTIVE_TEXT] = { nullptr };
 };
 
 #endif //__MODULE_RENDER_H__

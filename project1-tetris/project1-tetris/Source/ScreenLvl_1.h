@@ -3,7 +3,10 @@
 
 #include "Module.h"
 #include "Animation.h"
-#include "ModuleWindow.h"
+#include "Application.h"
+
+
+#include "ScreenStart.h"
 
 struct SDL_Texture;
 
@@ -36,13 +39,6 @@ public:
 	// Start Scene animation
 	Animation start_screen;
 
-	// Credit (coins to add 0-9)
-	int credits = 0;
-	uint fxAdd_Credits = 0;
-
-
-
-
 
 	SDL_Texture* curtain_texture = nullptr;
 
@@ -54,7 +50,7 @@ public:
 
 	int linesleft;
 
-	int v_scene = 0;
+	int lvl_credits;
 
 };
 

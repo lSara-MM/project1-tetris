@@ -50,7 +50,6 @@ update_status ScreenStart::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		ModuleRender PressP1P2(true);
 		if (credits < 9) { credits++; }
 		LOG("credits: %d", credits);
 		App->audio->PlayFx(fxAdd_Credits);

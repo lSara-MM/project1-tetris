@@ -35,7 +35,6 @@ bool ModuleParticles::Start()
 			firework1.anim.PushBack({ (87 * j), (i * 82), 87, 82 });
 		}
 	}
-	//firework1.lifetime = 18;
 	firework1.anim.loop = false;
 	firework1.anim.speed = 0.2f;
 	firework1.id = 1;
@@ -56,18 +55,9 @@ bool ModuleParticles::Start()
 			firework2.anim.PushBack({ (77 * j), (i * 71), 77, 71 });
 		}
 	}
-	//firework2.lifetime = 8;
 	firework2.anim.loop = false;
 	firework2.anim.speed = 0.2f;
 	firework1.id = 2;
-
-
-	laser.anim.PushBack({ 232, 103, 16, 12 });
-	laser.anim.PushBack({ 249, 103, 16, 12 });
-	laser.speed.x = 5;
-	laser.lifetime = 180;
-	laser.anim.speed = 0.2f;
-
 
 	return true;
 }
@@ -89,22 +79,6 @@ bool ModuleParticles::CleanUp()
 	return true;
 }
 
-//void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
-//{
-//	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-//	{
-//		// Always destroy particles that collide
-//		if (particles[i] != nullptr && particles[i]->collider == c1)
-//		{
-//			// TODO 6: Make so every time a particle hits a wall it triggers an explosion particle
-//			AddParticle(explosion, particles[i]->position.x, particles[i]->position.y);
-//
-//			delete particles[i];
-//			particles[i] = nullptr;
-//			break;
-//		}
-//	}
-//}
 
 update_status ModuleParticles::Update()
 {

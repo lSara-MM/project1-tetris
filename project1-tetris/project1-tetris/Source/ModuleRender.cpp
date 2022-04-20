@@ -171,9 +171,6 @@ bool ModuleRender::TextDraw(const char* text, int x, int y, int red, int green, 
 	ttf_color.b = blue;
 	ttf_color.a = alpha;
 
-	/*SDL_Surface* ttf_surface = TTF_RenderText_Solid(ttf_font, text, ttf_color);
-	SDL_Texture* ttf_texture = SDL_CreateTextureFromSurface(renderer, ttf_surface);*/
-
 	SDL_Rect ttf_rect;
 	ttf_surface = TTF_RenderText_Solid(ttf_font, text, ttf_color);
 	ttf_texture = SDL_CreateTextureFromSurface(renderer, ttf_surface);
