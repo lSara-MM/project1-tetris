@@ -30,7 +30,7 @@ bool ScreenDiff::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
-	bg_texture = App->textures->Load("Assets/ss_DifficultyBg.png");
+	bg_texture = App->textures->Load("Assets/ss_difficultyBg.png");
 
 	return ret;
 }
@@ -39,6 +39,7 @@ update_status ScreenDiff::Update()
 {
 	start_screen.Update();
 
+	// If easy mode selected change screen
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
@@ -50,7 +51,7 @@ update_status ScreenDiff::Update()
 update_status ScreenDiff::PostUpdate()
 {
 
-	App->render->Blit(bg_texture, 0, 10, NULL);
+	App->render->Blit(bg_texture, 0, 0, NULL);
 
 	return update_status::UPDATE_CONTINUE;
 }

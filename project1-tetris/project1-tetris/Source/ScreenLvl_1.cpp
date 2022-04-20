@@ -13,7 +13,6 @@ using namespace std;
 #include <sstream>
 
 
-
 //#include "ModuleFadeToBlack.h"
 
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
@@ -24,13 +23,14 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	curtain.PushBack({ 328, 3, 157, 126 });
 	curtain.PushBack({ 166, 3, 157, 126 });
 	curtain.PushBack({ 3, 3, 157, 126 });
-	curtain.PushBack({ 166, 3, 157, 126 });
+	/*curtain.PushBack({ 166, 3, 157, 126 });
 	curtain.PushBack({ 328, 3, 157, 126 });
 	curtain.PushBack({ 491, 3, 157, 126 });
 	curtain.PushBack({ 653, 3, 157, 126 });
-	curtain.PushBack({ 816, 3, 157, 126 });
+	curtain.PushBack({ 816, 3, 157, 126 });*/
 
 	curtain.speed = 0.2f;
+	curtain.loop = true;
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -51,7 +51,8 @@ bool ScreenLvl_1::Start()
 
 	score = 0;
 	lines = 0;
-	linesleft = 12;
+	linesObjective = 12;
+	linesleft = linesObjective;
 
 	lvl_credits = App->sStart->credits - 1;
 
@@ -61,8 +62,9 @@ bool ScreenLvl_1::Start()
 update_status ScreenLvl_1::Update()
 {
 
-	curtain.Update();
-
+	if (curtain.GetLoopCount() == 1) { curtain.speed = 0; }
+	else { curtain.Update(); }
+	
 	if (App->input->keys[SDL_SCANCODE_P] == KEY_STATE::KEY_REPEAT)
 	{
 		score++;
@@ -77,12 +79,13 @@ update_status ScreenLvl_1::Update()
 	if (App->input->keys[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 	{
 		linesleft--;
-		LOG("%d", linesleft);
+		LOG("Lines left: %d", linesleft);
 	}
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		if (lvl_credits < 9) { lvl_credits++; }
+		LOG("Curtain loop count: %d", curtain.GetLoopCount());
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -94,9 +97,11 @@ update_status ScreenLvl_1::PostUpdate()
 	App->render->Blit(bg_texture, 0, 10, NULL);
 	
 	//Curtain animation
-	App->render->Blit(curtain_texture, 258, 194, &(curtain.GetCurrentFrame()), 0.85f);
-
-
+	if (curtain.GetLoopCount() == 0)
+	{
+		App->render->Blit(curtain_texture, 258, 194, &(curtain.GetCurrentFrame()), 0.85f);
+	}
+	
 	string s_score = std::to_string(score);
 	const char* ch_score = s_score.c_str();
 
@@ -108,7 +113,6 @@ update_status ScreenLvl_1::PostUpdate()
 
 	string s_credits = to_string(lvl_credits);
 	const char* ch_credits = s_credits.c_str();
-
 
 
 	App->render->TextDraw("Score", 49, 433, 255, 0, 0, 255, 15);
@@ -126,7 +130,7 @@ update_status ScreenLvl_1::PostUpdate()
 	//App->render->TextDraw("next round", 257, 305, 255, 255, 255, 255, 16);
 
 	//Lines left
-	if (linesleft > 0 && linesleft <= 12)
+	if (linesleft > 0 && linesleft <= linesObjective && curtain.GetLoopCount() > 0) // Last condition is for the "Complete x lines to win"
 	{
 		App->render->TextDraw("0", 270, 225, 255, 0, 0, 255, 15);
 		App->render->TextDraw(ch_linesleft, 285, 225, 255, 0, 0, 255, 15);

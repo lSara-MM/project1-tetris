@@ -45,10 +45,10 @@ public:
 	Animation curtain;
 
 	int score;
-
 	int lines;
 
 	int linesleft;
+	int linesObjective;
 
 	int lvl_credits;
 
