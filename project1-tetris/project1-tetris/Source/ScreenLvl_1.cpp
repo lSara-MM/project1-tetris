@@ -8,9 +8,6 @@
 
 #include "ModuleInput.h"
 
-#include "ModuleParticles.h"
-#include "ModuleWindow.h"
-
 #include <iostream>
 using namespace std;
 #include <sstream>
@@ -71,30 +68,19 @@ update_status ScreenLvl_1::Update()
 
 	if (App->input->keys[SDL_SCANCODE_P] == KEY_STATE::KEY_REPEAT)
 	{
-
 		score++;
-
-
 	}
 
 
 	if (App->input->keys[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT)
 	{
-
 		lines++;
-
-
 	}
 
 	if (App->input->keys[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 	{
-
 		linesleft--;
-
-
 	}
-
-
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -102,7 +88,6 @@ update_status ScreenLvl_1::Update()
 // Update: draw background
 update_status ScreenLvl_1::PostUpdate()
 {
-
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
 	//Curtain animation

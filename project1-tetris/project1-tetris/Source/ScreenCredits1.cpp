@@ -3,13 +3,11 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleAudio.h"
-#include "ModuleCollisions.h"
+//#include "ModuleAudio.h"
 
 #include "ModuleInput.h"
 
 #include "ModuleParticles.h"
-#include "ModuleWindow.h"
 #include "ModuleFadeToBlack.h"
 
 ScreenCredits1::ScreenCredits1(bool startEnabled) : Module(startEnabled)
@@ -52,11 +50,7 @@ update_status ScreenCredits1::Update()
 // Update: draw background
 update_status ScreenCredits1::PostUpdate()
 {
-
-
 	App->render->Blit(bg_texture, 100, -100, NULL);
-
-
 
 	App->render->TextDraw("Quokka Games Studios", 125, 270, 255, 157, 0, 255, 20);
 	App->render->TextDraw("Team Members:", 125, 310, 255, 255, 255, 255, 12);

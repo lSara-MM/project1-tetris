@@ -6,14 +6,16 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
-#include "ScreenStart.h"
 #include "ModuleParticles.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
+
+// Screens
 #include "ScreenCredits1.h"
 #include "ScreenCredits2.h"
 #include "ScreenStart.h"
+#include "ScreenDiff.h"
 #include "ScreenLvl_1.h"
 
 
@@ -31,14 +33,16 @@ Application::Application()
 	modules[4] = sCredits1 = new ScreenCredits1(true);
 	modules[5] = sCredits2 = new ScreenCredits2(false);
 	modules[6] = sStart = new ScreenStart(false);
-	modules[7] = sLvl_1 = new ScreenLvl_1(false);		//Gameplay scene starts disabled
-	modules[8] = player = new ModulePlayer(false);	//Player starts disabled
-	modules[9] = particles = new ModuleParticles(true);
+	modules[7] = sDiff = new ScreenDiff(false);
+	modules[8] = sLvl_1 = new ScreenLvl_1(false);		//Gameplay scene starts disabled
+	
+	modules[9] = player = new ModulePlayer(false);	//Player starts disabled
+	modules[10] = particles = new ModuleParticles(true);
 
-	modules[10] = collisions = new ModuleCollisions(true);
-	modules[11] = fade = new ModuleFadeToBlack(true);
+	modules[11] = collisions = new ModuleCollisions(true);
+	modules[12] = fade = new ModuleFadeToBlack(true);
 
-	modules[12] = render = new ModuleRender(true);
+	modules[13] = render = new ModuleRender(true);
 }
 
 Application::~Application()

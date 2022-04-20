@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "SDL/include/SDL.h"
 
-#define NUM_MODULES 13
+#define NUM_MODULES 14
 
 class Module;
 class ModuleWindow;
@@ -15,6 +15,7 @@ class ModulePlayer;
 class ScreenCredits1;
 class ScreenCredits2;
 class ScreenStart;
+class ScreenDiff;
 class ScreenLvl_1;
 class ModuleParticles;
 class ModuleCollisions;
@@ -56,7 +57,10 @@ public:
 	ScreenCredits1* sCredits1 = nullptr;
 	ScreenCredits2* sCredits2 = nullptr;
 	ScreenStart* sStart = nullptr;
+	ScreenDiff* sDiff = nullptr;
 	ScreenLvl_1* sLvl_1 = nullptr;
+
+
 	ModuleParticles* particles = nullptr;
 
 	ModuleCollisions* collisions = nullptr;

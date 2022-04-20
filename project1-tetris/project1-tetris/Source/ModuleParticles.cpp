@@ -1,11 +1,10 @@
 #include "ModuleParticles.h"
 
 #include "Application.h"
-
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleCollisions.h"
 
+#include "ModuleFadeToBlack.h"
 #include "SDL/include/SDL_timer.h"
 
 ModuleParticles::ModuleParticles(bool startEnabled) : Module(startEnabled)
@@ -145,7 +144,6 @@ update_status ModuleParticles::PostUpdate()
 				App->render->Blit(texture_fw2, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
 			}
 		}
-
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -180,7 +178,7 @@ void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
 	{
-		SDL_Delay(500);		// "5 segundos"
+		//SDL_Delay(500);		// "5 segundos"
 	}
 
 	if (x_frame == (SCREEN_WIDTH * 10))
@@ -191,84 +189,84 @@ void ModuleParticles::FwTiming(int x_frame)
 		// canviar tamaño de algunos firework (pending / optional)
 		switch (v_particles)
 		{
-			case 0:
-				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 10);
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 50);
+		case 0:
+			App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 10);
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 50);
 
-				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 125);
-				v_particles++;
+			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 125);
+			v_particles++;
 
-				break;
-			case 1:
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 175);
-				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 180);
+			break;
+		case 1:
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 175);
+			App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 180);
 
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 225);
-				v_particles++;
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 225);
+			v_particles++;
 
-				break;
-			case 2:
-				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 300);
+			break;
+		case 2:
+			App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 300);
 
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 350);
-				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 350);
-				v_particles++;
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 350);
+			App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 350);
+			v_particles++;
 
-				break;
-			case 3:
-				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 450);
+			break;
+		case 3:
+			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 450);
 
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 525);
-				v_particles++;
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 525);
+			v_particles++;
 
-				break;
-			case 4:
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 600);
-				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 600);
+			break;
+		case 4:
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 600);
+			App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 600);
 
-				
-				v_particles++;
-				break;
-			case 5:
-				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 700);
 
-				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 850);
+			v_particles++;
+			break;
+		case 5:
+			App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 700);
 
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 950);
-				v_particles++;
+			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 850);
 
-				break;
-			case 6:
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1050);
-				App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 1060);
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1105);
-				v_particles++;
-				break;
-			case 7:
-				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1175);
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 950);
+			v_particles++;
 
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1250);
-				App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 1260);
-				v_particles++;
+			break;
+		case 6:
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1050);
+			App->particles->AddParticle(App->particles->firework2, 490, 88, 2, 1060);
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1105);
+			v_particles++;
+			break;
+		case 7:
+			App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1175);
 
-				break;
-			case 8:
-				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1300);
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1250);
+			App->particles->AddParticle(App->particles->firework2, 554, 88, 2, 1260);
+			v_particles++;
 
-				App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1350);
-				App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1350);
-				v_particles++;
+			break;
+		case 8:
+			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1300);
 
-				break;
-			case 9:
-				App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1450);
-				App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1470);
+			App->particles->AddParticle(App->particles->firework1, 464, 62, 1, 1350);
+			App->particles->AddParticle(App->particles->firework1, 128, 36, 1, 1350);
+			v_particles++;
 
-				App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
-				v_particles++;
-				break;
-			default:
-				break;
+			break;
+		case 9:
+			App->particles->AddParticle(App->particles->firework2, 36, 89, 2, 1450);
+			App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1470);
+
+			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
+			v_particles++;
+			break;
+		default:
+			break;
 		}
 	}
 }

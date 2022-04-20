@@ -4,10 +4,10 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
-#include "ModuleCollisions.h"
 
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
+#include "ModuleFadeToBlack.h"
 
 #include <iostream>
 using namespace std;
@@ -56,6 +56,12 @@ update_status ScreenStart::Update()
 		App->audio->PlayFx(fxAdd_Credits);
 	}
 
+	if ( credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
+		App->particles->Disable();
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -100,6 +106,8 @@ update_status ScreenStart::PostUpdate()
 		App->render->TextDraw("Credits ", 256, 448, 0, 0, 255, 255, 15);
 		App->render->TextDraw(ch_credits, 384, 448, 0, 0, 255, 255, 15);
 	}
+
+
 
 	// how to draw the copyright symbol?
 	// how to render it after the credits rect?

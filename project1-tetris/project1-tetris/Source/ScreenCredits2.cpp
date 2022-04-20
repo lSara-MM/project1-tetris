@@ -3,14 +3,10 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleAudio.h"
-#include "ModuleCollisions.h"
+//#include "ModuleAudio.h"
 
 #include "ModuleInput.h"
-
-#include "ModuleParticles.h"
-#include "ModuleWindow.h"
-//#include "ModuleFadeToBlack.h"
+#include "ModuleFadeToBlack.h"
 
 ScreenCredits2::ScreenCredits2(bool startEnabled) : Module(startEnabled)
 {
@@ -38,9 +34,12 @@ bool ScreenCredits2::Start()
 
 update_status ScreenCredits2::Update()
 {
-
 	start_screen.Update();
 
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -48,11 +47,7 @@ update_status ScreenCredits2::Update()
 // Update: draw background
 update_status ScreenCredits2::PostUpdate()
 {
-
-
 	App->render->Blit(bg_texture, 75, 40, NULL);
-
-
 
 	App->render->TextDraw("This is a project made by students of the bachelors ", 25, 200, 255, 255, 255, 255, 12);
 	App->render->TextDraw("degree in Video Game Design and Development of the", 25, 230, 255, 255, 255, 255, 12);
@@ -62,7 +57,6 @@ update_status ScreenCredits2::PostUpdate()
 	App->render->TextDraw("Jesus Alonso Alonso", 25, 365, 255, 255, 255, 255, 12);
 	App->render->TextDraw("Marc Torres Jimenez", 25, 395, 255, 255, 255, 255, 12);
 	App->render->TextDraw("https://github.com/lSara-MM/project1-tetris", 25, 425, 255, 255, 255, 255, 12);
-
 
 	return update_status::UPDATE_CONTINUE;
 }
