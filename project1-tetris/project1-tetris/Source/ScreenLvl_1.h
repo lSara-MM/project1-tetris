@@ -41,18 +41,15 @@ public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
-	// Lvl 1 Scene animation
-	Animation start_screen;
 
 	// Music and fx
 	uint fxBlock_Fall = 0;
 	uint fxLine = 0;
 	uint fxLvl = 0;
 
-	/*uint fxYou_DidIt = 0;
+	uint fxYou_DidIt = 0;
 	uint fxClearing_Bars = 0;
 	uint fxGameOver = 0;
-	uint fxLine = 0;*/
 
 
 	// Curtain texture and animation pointer
@@ -65,10 +62,12 @@ public:
 	int linesleft;
 	int linesObjective;
 
+	// counters / timers
 	int lvl_credits;
 	int v_insertCoin;
 	int v_message;
-
+	
+	//int v_fx;
 
 	// Debugging
 	bool lvl_instaLose = false;

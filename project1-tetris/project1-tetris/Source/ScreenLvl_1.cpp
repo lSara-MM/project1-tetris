@@ -64,11 +64,11 @@ bool ScreenLvl_1::Start()
 	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
 
 	// fxLvl = load different depending on what is needed (save space?)
-	/*fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block-fall.wav");
+	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
 	fxYou_DidIt = App->audio->LoadFx("Assets/Audio/FX/you_did_it.wav");
 	fxClearing_Bars = App->audio->LoadFx("Assets/Audio/FX/clearing_bars.wav");
 	fxGameOver = App->audio->LoadFx("Assets/Audio/FX/gameover.wav");
-	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav"); */
+	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav"); 
 
 	score = 0;
 	lines = 0;
@@ -116,10 +116,12 @@ update_status ScreenLvl_1::Update()
 	// Debugging
 	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
 		lvl_instaWin = true;
+		v_message = 0;
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
 		lvl_instaLose = true;
+		v_message = 0;
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -177,9 +179,10 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("to go to", 272, 272, 255, 255, 255, 255, 16);
 		App->render->TextDraw("next round", 257, 305, 255, 255, 255, 255, 16);
 	}
+	LOG("curtain loop %d", curtain.GetLoopCount());
 
 	//Lines left
-	if (linesleft > 0 && linesleft <= linesObjective && curtain.GetLoopCount() > 0) // Last condition is for the "Complete x lines to win"
+	if (linesleft > 0 && linesleft <= linesObjective && v_message != 0) // Last condition is for the "Complete x lines to win"
 	// Appears when spawns first block (SONIA)
 	{
 		App->render->TextDraw("0", 270, 225, 255, 0, 0, 255, 15);
@@ -222,7 +225,7 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("coin", 496, 450, 148, 151, 255, 255, 15);
 		if (v_insertCoin == 260) { v_insertCoin = 0; }
 	}
-	LOG("insert coin counter %d", v_insertCoin);
+	//LOG("insert coin counter %d", v_insertCoin);
 	v_insertCoin++;
 	
 
@@ -261,13 +264,14 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
-	if (v_message >= 0 && v_message < 130)
+	if (v_message >= 0 && v_message < 70)
 	{
 		//You did it
 		App->render->TextDraw("you", 305, 250, 255, 255, 255, 255, 16);
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
+		App->audio->PlayFx(fxYou_DidIt, 0);
 	}
-	if (v_message >= 130)
+	if (v_message >= 140)
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
@@ -275,17 +279,28 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
 
-	//
-	linesleft = -1;
+	//LOG("v_message %d", v_message);
+	v_message++;
+
+	if (v_message == 280) { lvl_instaWin = false; }
 }
 
 void ScreenLvl_1::lvl_lose()
 {
 	// Game Over
-	App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
-	App->render->DrawQuad({ 70, 5, 118, 62 }, 0, 0, 255, 255);
-	App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
-	App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
-	App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
-
+	if (v_message >= 0 && v_message < 100)
+	{
+		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
+		App->render->DrawQuad({ 70, 5, 118, 62 }, 0, 0, 255, 255);
+		App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
+		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
+		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
+		App->audio->PlayFx(fxGameOver, 0);
+		
+		v_message++;
+	}
+	else { lvl_instaLose = false; }
+	
+	
+	
 }
