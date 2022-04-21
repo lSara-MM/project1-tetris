@@ -31,17 +31,32 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
 
+
+	// Lvl conditions
+	void lvl_win();
+	void lvl_lose();
+
 public:
 
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
-	// Start Scene animation
+	// Lvl 1 Scene animation
 	Animation start_screen;
 
+	// Music and fx
+	uint fxBlock_Fall = 0;
+	uint fxLine = 0;
+	uint fxLvl = 0;
 
+	/*uint fxYou_DidIt = 0;
+	uint fxClearing_Bars = 0;
+	uint fxGameOver = 0;
+	uint fxLine = 0;*/
+
+
+	// Curtain texture and animation pointer
 	SDL_Texture* curtain_texture = nullptr;
-
 	Animation curtain;
 
 	int score;
@@ -51,7 +66,13 @@ public:
 	int linesObjective;
 
 	int lvl_credits;
+	int v_insertCoin;
+	int v_message;
 
+
+	// Debugging
+	bool lvl_instaLose = false;
+	bool lvl_instaWin = false;
 };
 
 #endif

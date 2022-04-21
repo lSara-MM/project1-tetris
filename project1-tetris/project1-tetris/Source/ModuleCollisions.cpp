@@ -115,16 +115,16 @@ update_status ModuleCollisions::Update()
 update_status ModuleCollisions::PostUpdate()
 {
 	// Doesn't work from player (why?)
-	if (App->player->godMode == true)
+	//if (App->player->godMode == true)
+	//{
+	//	LOG("God mode on");
+	//	DebugDraw();
+	//}
+
+	if (showCollisions == true || godMode == true)
 	{
-		LOG("God mode on");
 		DebugDraw();
 	}
-
-	/*if (showCollisions == true || godMode == true)
-	{
-		DebugDraw();
-	}*/
 		
 	return update_status::UPDATE_CONTINUE;
 }
@@ -148,14 +148,15 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-			case Collider::Type::ENEMY: // red
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
-			break;
-			case Collider::Type::PLAYER_SHOT: // yellow
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
-			break;
-			case Collider::Type::ENEMY_SHOT: // magenta
-			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+
+			//case Collider::Type::ENEMY: // red
+			//App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			//break;
+			//case Collider::Type::PLAYER_SHOT: // yellow
+			//App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			//break;
+			//case Collider::Type::ENEMY_SHOT: // magenta
+			//App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		}
 	}

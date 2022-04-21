@@ -61,11 +61,6 @@ private:
 public:
 	Particle firework1;
 	Particle firework2;
-
-	//Template particle for an explosion
-	/*Particle explosion;*/
-	//Template particle for a laser
-	Particle laser;
 };
 
 #endif // !__MODULEPARTICLES_H__

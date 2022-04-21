@@ -147,13 +147,14 @@ update_status ModulePlayer::Update()
 		LOG("show Collisions");
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
-		instaWin = true;
-	}
+	// Not here coz its something of each lvl (?)
+	//if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
+	//	instaWin = true;
+	//}
 
-	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
-		instaLose = true;
-	}
+	//if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+	//	instaLose = true;
+	//}
 
 	return update_status::UPDATE_CONTINUE;
 }
