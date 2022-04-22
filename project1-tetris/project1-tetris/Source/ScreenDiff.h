@@ -33,28 +33,34 @@ public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
+	SDL_Texture* green1_texture = nullptr;
+	SDL_Texture* pink1_texture = nullptr;
+	SDL_Texture* sky1_texture = nullptr;
+
+	SDL_Texture* green_block_texture = nullptr;
+	SDL_Texture* pink_block_texture = nullptr;
+	SDL_Texture* sky_block_texture = nullptr;
+	SDL_Texture* orange_block_texture = nullptr;
+	SDL_Texture* yellow_block_texture = nullptr;
+
+	SDL_Texture* yellow4_texture = nullptr;
+	SDL_Texture* orange2_texture = nullptr;
+	SDL_Texture* gray_block_texture = nullptr;
+	SDL_Texture* pink3_texture = nullptr;
+
+	SDL_Texture* arrowleft_texture = nullptr;
+	SDL_Texture* arrowright_texture = nullptr;
+
+
 	// Start Scene animation
-	Animation start_screen;
 
 	// Credit (coins to add 0-9)
-	int credits = 0;
-	uint fxAdd_Credits = 0;
+	int press = 0;
+	uint fxAdd_Press_L_R = 0;
 
+	int enter = 0;
+	uint fxAdd_PressEnter = 0;
 
-
-
-
-	SDL_Texture* curtain_texture = nullptr;
-
-	Animation curtain;
-
-	int score;
-
-	int lines;
-
-	int linesleft;
-
-	int v_scene = 0;
 
 };
 

@@ -34,8 +34,6 @@ bool ScreenCredits2::Start()
 
 update_status ScreenCredits2::Update()
 {
-	start_screen.Update();
-
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
