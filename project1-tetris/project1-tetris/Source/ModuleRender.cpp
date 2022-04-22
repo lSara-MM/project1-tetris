@@ -193,6 +193,7 @@ bool ModuleRender::TextDraw(const char* text, int x, int y, int red, int green, 
 		ret = false;
 	}
 	SDL_DestroyTexture(ttf_texture);
+	ttf_texture = nullptr;
 	TTF_CloseFont(ttf_font);
 
 	return ret;

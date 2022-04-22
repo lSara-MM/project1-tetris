@@ -1,0 +1,11 @@
+Normal size: 
+	- Width: 9
+	- Height: 9
+
+(Aqua) size:
+	- Width: 9
+	- Height: 8
+
+Small size:
+	- Width: 7
+	- Height: 9

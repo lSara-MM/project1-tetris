@@ -8,6 +8,7 @@
 
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
+#include "ModuleFadeToBlack.h"
 
 #include <iostream>
 using namespace std;
@@ -171,7 +172,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	// Mid tower section
 	//Complete x lines to win
-	if (curtain.GetLoopCount() > 0)
+	if (curtain.GetLoopCount() > 0 && v_message == 0)
 	{
 		App->render->TextDraw("complete", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw(ch_linesleft, 272, 242, 255, 255, 255, 255, 16);
@@ -182,7 +183,7 @@ update_status ScreenLvl_1::PostUpdate()
 	LOG("curtain loop %d", curtain.GetLoopCount());
 
 	//Lines left
-	if (linesleft > 0 && linesleft <= linesObjective && v_message != 0) // Last condition is for the "Complete x lines to win"
+	if (linesleft > 0 && linesleft <= linesObjective) // Last condition is for the "Complete x lines to win"
 	// Appears when spawns first block (SONIA)
 	{
 		App->render->TextDraw("0", 270, 225, 255, 0, 0, 255, 15);
@@ -264,14 +265,14 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
-	if (v_message >= 0 && v_message < 70)
+	if (v_message >= 0 && v_message < 100)
 	{
 		//You did it
 		App->render->TextDraw("you", 305, 250, 255, 255, 255, 255, 16);
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 		App->audio->PlayFx(fxYou_DidIt, 0);
 	}
-	if (v_message >= 140)
+	if (v_message >= 200)
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
@@ -282,12 +283,17 @@ void ScreenLvl_1::lvl_win()
 	//LOG("v_message %d", v_message);
 	v_message++;
 
-	if (v_message == 280) { lvl_instaWin = false; }
+	if (v_message == 300) 
+	{ 
+		lvl_instaWin = false; 
+		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+	}
 }
 
 void ScreenLvl_1::lvl_lose()
 {
 	// Game Over
+	App->audio->PlayFx(fxGameOver, 0);
 	if (v_message >= 0 && v_message < 100)
 	{
 		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
@@ -295,8 +301,7 @@ void ScreenLvl_1::lvl_lose()
 		App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
 		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
 		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
-		App->audio->PlayFx(fxGameOver, 0);
-		
+
 		v_message++;
 	}
 	else { lvl_instaLose = false; }
