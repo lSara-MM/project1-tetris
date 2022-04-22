@@ -55,6 +55,7 @@ public:
 	SDL_Texture* orange2_texture = nullptr;
 	SDL_Texture* gray_block_texture = nullptr;
 	SDL_Texture* pink3_texture = nullptr;
+	
 	SDL_Texture* arrowleft_texture = nullptr;
 	SDL_Texture* arrowright_texture = nullptr;
 
