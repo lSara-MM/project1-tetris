@@ -58,7 +58,7 @@ bool ScreenLvl_1::Start()
 	curtain_texture = App->textures->Load("Assets/curtain.png");
 
 	LOG("Loading background music: Loginska");
-	App->audio->PlayMusic("Assets/Audio/Music/Loginska.ogg", 1.0f);
+	App->audio->PlayMusic("Assets/loginska.ogg", 1.0f);
 
 	LOG("Loading sound effects");
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
@@ -257,6 +257,7 @@ update_status ScreenLvl_1::PostUpdate()
 	if (lvl_instaWin == true)
 	{
 		LOG("Level complete (Instant Win)!");
+
 		lvl_win();
 	}
 
