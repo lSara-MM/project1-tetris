@@ -34,6 +34,8 @@ public:
 	// Mix_Music* music is used for handling the current playing music
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
+	// Pause music
+	bool PauseMusic();
 	// Loads a sound fx (WAV) file in memory
 	// Returns an index to the sound fx array
 	// The index will be used to handle the effect (see PlayFx)

@@ -122,6 +122,12 @@ bool ModuleAudio::PlayMusic(const char* path, float fade_time)
 	return ret;
 }
 
+bool ModuleAudio::PauseMusic()
+{
+	Mix_PauseMusic();
+	return true;
+}
+
 uint ModuleAudio::LoadFx(const char* path)
 {
 	uint ret = 0;

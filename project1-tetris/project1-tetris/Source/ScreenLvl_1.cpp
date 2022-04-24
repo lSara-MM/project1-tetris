@@ -19,21 +19,24 @@ using namespace std;
 
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
-	curtain.PushBack({ 816, 3, 157, 126 });
-	curtain.PushBack({ 653, 3, 157, 126 });
-	curtain.PushBack({ 491, 3, 157, 126 });
-	curtain.PushBack({ 328, 3, 157, 126 });
-	curtain.PushBack({ 166, 3, 157, 126 });
-	curtain.PushBack({ 3, 3, 157, 126 });
+	openCurtain.PushBack({ 816, 3, 157, 126 });
+	openCurtain.PushBack({ 653, 3, 157, 126 });
+	openCurtain.PushBack({ 491, 3, 157, 126 });
+	openCurtain.PushBack({ 328, 3, 157, 126 });
+	openCurtain.PushBack({ 166, 3, 157, 126 });
+	openCurtain.PushBack({ 3, 3, 157, 126 });
+	openCurtain.speed = 0.2f;
+	openCurtain.loop = true;
 
-	/*curtain.PushBack({ 166, 3, 157, 126 });
-	curtain.PushBack({ 328, 3, 157, 126 });
-	curtain.PushBack({ 491, 3, 157, 126 });
-	curtain.PushBack({ 653, 3, 157, 126 });
-	curtain.PushBack({ 816, 3, 157, 126 });*/
 
-	curtain.speed = 0.2f;
-	curtain.loop = true;
+	closeCurtain.PushBack({ 166, 3, 157, 126 });
+	closeCurtain.PushBack({ 328, 3, 157, 126 });
+	closeCurtain.PushBack({ 491, 3, 157, 126 });
+	closeCurtain.PushBack({ 653, 3, 157, 126 });
+	closeCurtain.PushBack({ 816, 3, 157, 126 });
+	closeCurtain.speed = 0.2f;
+	closeCurtain.loop = true;
+	
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -57,12 +60,11 @@ bool ScreenLvl_1::Start()
 	bg_texture = App->textures->Load("Assets/ss_easyBg.png");
 	curtain_texture = App->textures->Load("Assets/curtain.png");
 
-	LOG("Loading background music: Loginska");
-	App->audio->PlayMusic("Assets/loginska.ogg", 1.0f);
 
 	LOG("Loading sound effects");
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
 	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
+
 
 	// fxLvl = load different depending on what is needed (save space?)
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
@@ -77,17 +79,25 @@ bool ScreenLvl_1::Start()
 	linesleft = linesObjective;
 
 	lvl_credits = App->sStart->credits - 1;
-
 	v_message = 0;
 	v_insertCoin = 0;
+
+	// Debugging
+	lvl_instaLose = false;
+	lvl_instaWin = false;
+
+	v_loseContinue = 9;
+	v_WinLose = 0;
+	//godMode = false;
+
 	return ret;
 }
 
 update_status ScreenLvl_1::Update()
 {
 
-	if (curtain.GetLoopCount() == 1) { curtain.speed = 0; }
-	else { curtain.Update(); }
+	if (openCurtain.GetLoopCount() == 1) { openCurtain.speed = 0; }
+	else { openCurtain.Update(); }
 	
 	if (App->input->keys[SDL_SCANCODE_P] == KEY_STATE::KEY_REPEAT)
 	{
@@ -109,7 +119,7 @@ update_status ScreenLvl_1::Update()
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		if (lvl_credits < 9) { lvl_credits++; }
-		LOG("Curtain loop count: %d", curtain.GetLoopCount());
+		LOG("Curtain loop count: %d", openCurtain.GetLoopCount());
 	}
 
 
@@ -117,12 +127,12 @@ update_status ScreenLvl_1::Update()
 	// Debugging
 	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
 		lvl_instaWin = true;
-		v_message = 0;
+		v_WinLose = 0;
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
 		lvl_instaLose = true;
-		v_message = 0;
+		v_WinLose = 0;
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -133,9 +143,9 @@ update_status ScreenLvl_1::PostUpdate()
 	App->render->Blit(bg_texture, 0, 10, NULL);
 	
 	//Curtain animation
-	if (curtain.GetLoopCount() == 0)
+	if (openCurtain.GetLoopCount() == 0)
 	{
-		App->render->Blit(curtain_texture, 258, 194, &(curtain.GetCurrentFrame()), 0.85f);
+		App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
 	}
 	
 
@@ -152,8 +162,11 @@ update_status ScreenLvl_1::PostUpdate()
 	string s_credits = to_string(lvl_credits);
 	const char* ch_credits = s_credits.c_str();
 
+	string s_loseContinue = to_string(v_loseContinue);
+	const char* ch_loseContinue = s_loseContinue.c_str();
+
 	// Player 1 section
-	App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16);
+	if (lvl_instaLose == false)	{ App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16); } // TO CHANGE CONDITION
 
 	App->render->TextDraw("Score", 49, 433, 255, 0, 0, 255, 15);
 	App->render->TextDraw(ch_score, 137, 433, 255, 0, 0, 255, 15);
@@ -172,7 +185,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	// Mid tower section
 	//Complete x lines to win
-	if (curtain.GetLoopCount() > 0 && v_message == 0)
+	if (openCurtain.GetLoopCount() > 0 && v_message < 100 && v_message != 0)
 	{
 		App->render->TextDraw("complete", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw(ch_linesleft, 272, 242, 255, 255, 255, 255, 16);
@@ -180,10 +193,15 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("to go to", 272, 272, 255, 255, 255, 255, 16);
 		App->render->TextDraw("next round", 257, 305, 255, 255, 255, 255, 16);
 	}
-	LOG("curtain loop %d", curtain.GetLoopCount());
+
+	else if (v_message == 100)
+	{
+		LOG("Loading background music: Loginska");
+		App->audio->PlayMusic("Assets/loginska.ogg", 1.0f); // plays when first block spawns
+	}
 
 	//Lines left
-	if (linesleft > 0 && linesleft <= linesObjective) // Last condition is for the "Complete x lines to win"
+	else if (linesleft > 0 && linesleft <= linesObjective && v_message > 100)
 	// Appears when spawns first block (SONIA)
 	{
 		App->render->TextDraw("0", 270, 225, 255, 0, 0, 255, 15);
@@ -191,6 +209,8 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("lines", 305, 255, 255, 255, 255, 255, 16);
 		App->render->TextDraw("left", 305, 285, 255, 255, 255, 255, 16);
 	}
+
+	v_message++;
 
 	//if (linesleft == 0)
 	//{
@@ -231,9 +251,10 @@ update_status ScreenLvl_1::PostUpdate()
 	
 
 	// Win conditions
-
 	if (linesleft == 0)
 	{
+		v_message = 0;
+		App->audio->PauseMusic();
 		lvl_win();
 	}
 
@@ -245,8 +266,9 @@ update_status ScreenLvl_1::PostUpdate()
 	}*/
 	if (lvl_instaLose == true)
 	{
-		LOG("Instant Lost!");
-		lvl_lose();
+		//LOG("Instant Lost!");
+		App->audio->PauseMusic();
+		lvl_lose(ch_loseContinue);
 	}
 	
 	/*if (App->player->instaWin == true)
@@ -256,8 +278,9 @@ update_status ScreenLvl_1::PostUpdate()
 	}*/
 	if (lvl_instaWin == true)
 	{
-		LOG("Level complete (Instant Win)!");
-
+		v_message = 0;
+		//LOG("Level complete (Instant Win)!");
+		App->audio->PauseMusic();
 		lvl_win();
 	}
 
@@ -266,47 +289,71 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
-	if (v_message >= 0 && v_message < 100)
+	if (v_WinLose >= 0 && v_WinLose < 100)
 	{
 		//You did it
 		App->render->TextDraw("you", 305, 250, 255, 255, 255, 255, 16);
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 		App->audio->PlayFx(fxYou_DidIt, 0);
 	}
-	if (v_message >= 200)
+	if (v_WinLose >= 200)
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
+		App->audio->PauseMusic();
 	}
 
-	//LOG("v_message %d", v_message);
-	v_message++;
+	v_WinLose++;
 
-	if (v_message == 300) 
+	if (v_WinLose == 300) 
 	{ 
 		lvl_instaWin = false; 
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 }
 
-void ScreenLvl_1::lvl_lose()
+void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 {
 	// Game Over
-	App->audio->PlayFx(fxGameOver, 0);
-	if (v_message >= 0 && v_message < 100)
+	
+	if (v_WinLose >= 0 && v_WinLose < 100)
 	{
+		if (v_WinLose == 0) App->audio->PlayFx(fxGameOver, 0);
+		else { App->audio->PauseMusic(); }
+
 		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
-		App->render->DrawQuad({ 70, 5, 118, 62 }, 0, 0, 255, 255);
+		App->render->DrawQuad({ 70, 5, 118, 56 }, 0, 0, 255, 255);
 		App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
 		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
 		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
-
-		v_message++;
 	}
-	else { lvl_instaLose = false; }
+	else if (v_WinLose > 100)
+	{
+		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
+		{
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+		}
+
+		App->render->TextDraw("Press", 96, 146, 255, 255, 255, 255, 16);
+		App->render->TextDraw("Start", 96, 177, 255, 255, 255, 255, 16);
+		App->render->TextDraw("To", 128, 210, 255, 255, 255, 255, 16);
+		App->render->TextDraw("Continue", 79, 242, 255, 255, 255, 255, 16);
+
+		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
+		if (v_WinLose % 30 == 0) 
+		{
+			v_loseContinue--;
+		}
+		LOG("%d win lose", v_WinLose);
+	}
+
+	if (v_loseContinue == 0)
+	{
+		lvl_instaLose = false;
+		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+	}
 	
-	
-	
+	v_WinLose++;
 }

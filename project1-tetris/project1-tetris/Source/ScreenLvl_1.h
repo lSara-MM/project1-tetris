@@ -34,7 +34,7 @@ public:
 
 	// Lvl conditions
 	void lvl_win();
-	void lvl_lose();
+	void lvl_lose(const char* ch_loseContinue);
 
 public:
 
@@ -54,7 +54,8 @@ public:
 
 	// Curtain texture and animation pointer
 	SDL_Texture* curtain_texture = nullptr;
-	Animation curtain;
+	Animation openCurtain;
+	Animation closeCurtain;
 
 	int score;
 	int lines;
@@ -64,7 +65,9 @@ public:
 
 	// counters / timers
 	int lvl_credits;
+	int v_loseContinue;
 	int v_insertCoin;
+	int v_WinLose;
 	int v_message;
 	
 	//int v_fx;
