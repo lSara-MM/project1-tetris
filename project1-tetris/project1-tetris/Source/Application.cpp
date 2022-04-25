@@ -5,11 +5,13 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
-#include "ModulePlayer.h"
 #include "ModuleParticles.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
+
+#include "ModulePlayer.h"
+#include "ModuleTetronimo.h"
 
 // Screens
 #include "ScreenCredits1.h"
@@ -36,7 +38,8 @@ Application::Application()
 	modules[7] = sDiff = new ScreenDiff(false);
 	modules[8] = sLvl_1 = new ScreenLvl_1(true);		//Gameplay scene starts disabled
 	
-	modules[9] = player = new ModulePlayer(false);	//Player starts disabled
+	//modules[9] = player = new ModulePlayer(false);	//Player starts disabled
+	modules[9] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
 	modules[10] = particles = new ModuleParticles(true);
 
 	modules[11] = collisions = new ModuleCollisions(true);

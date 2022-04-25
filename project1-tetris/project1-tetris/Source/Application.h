@@ -11,16 +11,21 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleAudio;
+class ModuleParticles;
+class ModuleCollisions;
+class ModuleFadeToBlack;
+class ModuleRender;
+
 class ModulePlayer;
+class ModuleTetronimo;
+
+//screens
 class ScreenCredits1;
 class ScreenCredits2;
 class ScreenStart;
 class ScreenDiff;
 class ScreenLvl_1;
-class ModuleParticles;
-class ModuleCollisions;
-class ModuleFadeToBlack;
-class ModuleRender;
+
 
 class Application
 {
@@ -53,6 +58,7 @@ public:
 	ModuleAudio* audio = nullptr;
 
 	ModulePlayer* player = nullptr;
+	ModuleTetronimo* tetronimo = nullptr;
 
 	ScreenCredits1* sCredits1 = nullptr;
 	ScreenCredits2* sCredits2 = nullptr;

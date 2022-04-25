@@ -99,16 +99,15 @@ update_status ModuleCollisions::PreUpdate()
 
 update_status ModuleCollisions::Update()
 {
-	// To change scancode;
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_STATE::KEY_DOWN) {
-		godMode != godMode;
-		LOG("God mode");
-	}
+	//if (App->input->keys[SDL_SCANCODE_F1] == KEY_STATE::KEY_DOWN) {
+	//	godMode != godMode;
+	//	LOG("God mode");
+	//}
 
-	if (App->input->keys[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN) {
-		showCollisions != showCollisions;
-		LOG("show Collisions on");
-	}
+	//if (App->input->keys[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN) {
+	//	showCollisions != showCollisions;
+	//	LOG("show Collisions on");
+	//}
 	return update_status::UPDATE_CONTINUE;
 }
 

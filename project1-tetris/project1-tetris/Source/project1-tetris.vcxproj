@@ -154,6 +154,7 @@
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
+    <ClCompile Include="ModuleTetronimo.cpp" />
     <ClCompile Include="ScreenCredits1.cpp" />
     <ClCompile Include="ScreenCredits2.cpp" />
     <ClCompile Include="ScreenDiff.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
+    <ClInclude Include="ModuleTetronimo.h" />
     <ClInclude Include="ScreenCredits1.h" />
     <ClInclude Include="ScreenCredits2.h" />
     <ClInclude Include="ScreenDiff.h" />

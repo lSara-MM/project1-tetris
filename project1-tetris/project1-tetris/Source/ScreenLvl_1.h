@@ -65,16 +65,16 @@ public:
 
 	// counters / timers
 	int lvl_credits;
-	int v_loseContinue;
+	//int v_loseContinue;
 	int v_insertCoin;
-	int v_WinLose;
+//	int v_WinLose;
 	int v_message;
 	
 	//int v_fx;
 
-	// Debugging
-	bool lvl_instaLose = false;
-	bool lvl_instaWin = false;
+	//// Debugging
+	//bool lvl_instaLose = false;
+	//bool lvl_instaWin = false;
 };
 
 #endif
