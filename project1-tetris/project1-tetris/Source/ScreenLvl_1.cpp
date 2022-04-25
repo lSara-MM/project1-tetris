@@ -102,6 +102,21 @@ update_status ScreenLvl_1::Update()
 		score++;
 	}
 
+	//Score equation
+	//Tetromino placed = d*r(r+h) 
+	//d->1 normal gravity 2 if soft drop (if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) cuando colisiona con linia)
+	//r->number of bars on the rainbow + 1, rainbow llena cada cuatro linias completadas
+	//h->row on which tetomino placed minus 1 (bottom = 0)
+
+	//Score por linia completada
+	//1->50
+	//2->150
+	//3->400
+	//4->900
+
+	//Bonus
+	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
+
 
 	if (App->input->keys[SDL_SCANCODE_M] == KEY_STATE::KEY_REPEAT)
 	{

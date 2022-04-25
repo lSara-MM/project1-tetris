@@ -21,13 +21,34 @@ We are Quokka Games Studios, a group of students of the bachelor's degree in Vid
 
 
 ## Description of the game
-Tetris is a puzzle game in which the player must place the pieces that fall from the top of the screen to create full rows (lines), cleaning the line of blocks.
+Tetris is a puzzle game in which the player must place the pieces(tetrominoes) that fall from the top of the screen to create full rows (lines), cleaning the line of blocks.
 The player wins if they clear the number of lines that the level specifies.
 The player loses if enough pieces pile up to reach the top of the playfield. 
 
+
 ## Controls
+###Tetromino movement
 
+*Move right -> Right arrow key
+*Move left -> Left arrow key
+*Soft drop -> Down arrow key
+*Rotate clockwise -> D
 
+###Initial screen controls
+
+*Insert credit -> Spacebar 
+*Go to difficulty selection screen -> Enter (requires one credit)
+
+###Difficulty selection screen
+
+*Movement -> Left and right arrow keys
+*Select difficulty-> Enter
+
+### Debug controls
+*God Mode -> F1
+*Display colliders -> F2
+*Direct Win -> F3
+*Direct Lose -> F4
 
 
 # License
