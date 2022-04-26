@@ -87,7 +87,7 @@ bool ScreenLvl_1::Start()
 	lvl_credits = App->sStart->credits - 1;
 	v_message = 0;
 	v_insertCoin = 0;
-
+	v_points = 0;
 
 	// Game
 	App->tetronimo->Start();
@@ -124,17 +124,6 @@ update_status ScreenLvl_1::Update()
 	}
 
 
-	
-	//// Debugging
-	//if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
-	//	lvl_instaWin = true;
-	//	v_WinLose = 0;
-	//}
-
-	//if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
-	//	lvl_instaLose = true;
-	//	v_WinLose = 0;
-	//}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -242,10 +231,18 @@ update_status ScreenLvl_1::PostUpdate()
 	h = App->tetronimo->blockRB();
 	if (h != (-1))
 	{
+		v_points = 0;
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
-		score = p_drop * (p_stack + 1) * (p_stack + 1 + h);
+		score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);	
 	}
 
+	string s_points = to_string(p_drop * (p_stack + 1) * (p_stack + 1 + h));
+	const char* ch_points = s_points.c_str();
+	if (v_points < 50)
+	{
+		App->render->TextDraw(ch_points, 100, 405, 0, 0, 255, 255, 16);
+		v_points++;
+	}
 	//Score por linia completada
 	//1->50
 	//2->150
@@ -253,8 +250,8 @@ update_status ScreenLvl_1::PostUpdate()
 	//4->900
 	
 
-	// Rainbow bar
-	if ((lines % 4) == 0)
+	// Rainbow bar			
+	if ((lines % 4) == 0 && lines != 0)		// TO ADD A VARIABLE SO ITS NOT INFINITE
 	{
 		if (p_stack != 10)
 		{
@@ -304,6 +301,7 @@ update_status ScreenLvl_1::PostUpdate()
 		}	
 		
 	}
+
 
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)

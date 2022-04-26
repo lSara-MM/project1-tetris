@@ -70,6 +70,8 @@ public:
 	Animation turn2Anim;
 	Animation turn3Anim;
 
+	int combo;
+
 	// Debugging
 	//bool lvl_continue = true;
 

@@ -49,6 +49,9 @@ bool ModuleTetronimo::Start() {
 		}
 	}
 
+	combo = 0;
+
+
 	lvl_instaLose = false;
 	lvl_instaWin = false;
 
@@ -68,6 +71,8 @@ update_status ModuleTetronimo::Update() {
 
 	App->tetronimo->position.y += speed;
 
+	
+
 	for (int s = 21; s >= 0; s--) {
 		int n = 0;
 		for (int f = 0; f <= 9; f++) {
@@ -79,13 +84,31 @@ update_status ModuleTetronimo::Update() {
 			{
 				App->sLvl_1->linesleft--; 
 				App->sLvl_1->lines++;
-
 				App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+
+				switch (combo)
+				{
+				case 1:
+					App->render->TextDraw("Single  50", 64, 405, 0, 0, 255, 255, 16);
+					break;
+				case 2:
+					App->render->TextDraw("Double 150", 64, 405, 0, 0, 255, 255, 16);
+					break;
+				case 3:
+					App->render->TextDraw("Triple 400", 64, 405, 0, 0, 255, 255, 16);
+					break;
+				case 4:
+					App->render->TextDraw("Tetris 900", 64, 405, 0, 0, 0, 0, 16);
+					break;
+				default:
+					break;
+				}
 			}
 			
 		}
 	}
 
+	combo = 0;
 
 	// Lost
 	for (int f = 0; f <= 9; f++) {
@@ -106,7 +129,7 @@ update_status ModuleTetronimo::Update() {
 
 
 	// Block falling
-	if (deltaTime > 1000) {
+	if (deltaTime > 500) {
 		for (int i = 20; i >= 0; i--) {
 			for (int j = 0; j <= 9; j++) {
 				if (type[j][i] == 'P') {
@@ -774,6 +797,7 @@ bool ModuleTetronimo::lineCompleted(int n, int f, int s)
 				}
 			}
 		}
+		combo++;
 		return true;
 	}
 	return false;
@@ -799,7 +823,7 @@ int ModuleTetronimo::blockRB()
 					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 					Change();
 					SpawnTetronimo();
-					return s;
+					return (21 - s);
 				}
 			}
 		}

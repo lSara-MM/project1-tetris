@@ -69,9 +69,8 @@ public:
 
 	// counters / timers
 	int lvl_credits;
-	//int v_loseContinue;
 	int v_insertCoin;
-//	int v_WinLose;
+	int v_points;
 	int v_message;
 	
 	//int v_fx;
