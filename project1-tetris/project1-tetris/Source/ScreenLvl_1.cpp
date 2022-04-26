@@ -48,7 +48,6 @@ ScreenLvl_1::~ScreenLvl_1()
 // Load assets
 bool ScreenLvl_1::Start()
 {
-	//App->collisions->Enable();
 	App->tetronimo->Enable();
 
 	LOG("Loading lvl 1 background assets");
@@ -123,7 +122,6 @@ update_status ScreenLvl_1::Update()
 		LOG("Curtain loop count: %d", openCurtain.GetLoopCount());
 	}
 
-
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -178,7 +176,7 @@ update_status ScreenLvl_1::PostUpdate()
 	else if (v_message == 100)
 	{
 		LOG("Loading background music: Loginska");
-		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0.5f); 
+		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0.5f);
 		App->tetronimo->SpawnTetronimo();
 	}
 
@@ -193,7 +191,6 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 	v_message++;
 
-
 	App->tetronimo->Update();
 
 	// Bottom tower section
@@ -206,6 +203,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// Player 2 section
+	App->render->TextDraw("next", 605, 25, 137, 137, 235, 255, 16);
 	App->render->TextDraw("stats", 480, 110, 255, 255, 255, 255, 16);
 
 	if (v_insertCoin >= 0 && v_insertCoin < 130)
@@ -234,24 +232,21 @@ update_status ScreenLvl_1::PostUpdate()
 		v_points = 0;
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
 		score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);	
+		value = (p_drop * (p_stack + 1) * (p_stack + 1 + h));
+
 	}
 
-	string s_points = to_string(p_drop * (p_stack + 1) * (p_stack + 1 + h));
-	const char* ch_points = s_points.c_str();
-	if (v_points < 50)
+	if (v_points < 30)
 	{
-		App->render->TextDraw(ch_points, 100, 405, 0, 0, 255, 255, 16);
+		string s_points = to_string(value);
+		const char* ch_points = s_points.c_str();
+
+		App->render->TextDraw(ch_points, 200, 405, 21, 11, 134, 255, 16);
 		v_points++;
 	}
-	//Score por linia completada
-	//1->50
-	//2->150
-	//3->400
-	//4->900
-	
 
 	// Rainbow bar			
-	if ((lines % 4) == 0 && lines != 0)		// TO ADD A VARIABLE SO ITS NOT INFINITE
+	if ((lines % 4) == 0 && lines != 0)
 	{
 		if (p_stack != 10)
 		{
@@ -359,7 +354,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 {
 	// Game Over
 	App->tetronimo->Disable();
-
+	
 	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 200)
 	{
 		if (App->tetronimo->v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);
@@ -398,4 +393,12 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	}
 	
 	App->tetronimo->v_WinLose++;
+}
+
+bool ScreenLvl_1::CleanUp()
+{
+	App->tetronimo->Disable();
+	App->textures->Unload(bg_texture);
+	App->textures->Unload(curtain_texture);
+	return true;
 }

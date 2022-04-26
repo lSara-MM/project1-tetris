@@ -86,6 +86,11 @@ update_status ModuleTetronimo::Update() {
 				App->sLvl_1->lines++;
 				App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 
+				//Score por linia completada
+				//1->50
+				//2->150
+				//3->400
+				//4->900
 				switch (combo)
 				{
 				case 1:
@@ -123,10 +128,6 @@ update_status ModuleTetronimo::Update() {
 			//ACABAR CON GAMEPLAY!
 		}
 	}
-
-	// Block fell down
-	//blockRB();
-
 
 	// Block falling
 	if (deltaTime > 500) {
@@ -808,7 +809,7 @@ int ModuleTetronimo::blockRB()
 	// Block reached bottom
 	for (int f = 0; f <= 9; f++) {
 		if (type[f][21] == 'P') {
-			App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall, 0);
 			Change();
 			SpawnTetronimo();
 			return 0;
@@ -966,4 +967,24 @@ void ModuleTetronimo::Change() {
 			}
 		}
 	}
+}
+
+bool ModuleTetronimo::CleanUp()
+{
+	App->textures->Unload(texture);
+
+	//Eliminar bloques creados como hacia con los enemigos creados en la solucion 8
+
+	//LOG("Freeing all enemies");
+
+	//for (uint i = 0; i < MAX_ENEMIES; ++i)
+	//{
+	//	if (enemies[i] != nullptr)
+	//	{
+	//		delete enemies[i];
+	//		enemies[i] = nullptr;
+	//	}
+	//}
+
+	return true;
 }

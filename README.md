@@ -26,13 +26,14 @@ The player wins if they clear the number of lines that the level specifies.
 The player loses if enough pieces pile up to reach the top of the playfield. 
 
 
-## Controls
+ ## Controls
+
 ###Tetromino movement
 
-*Move right -> Right arrow key
-*Move left -> Left arrow key
-*Soft drop -> Down arrow key
-*Rotate clockwise -> D
+*Move right -> D
+*Move left -> A
+*Soft drop -> S
+*Rotate clockwise -> 
 
 ###Initial screen controls
 
@@ -41,12 +42,12 @@ The player loses if enough pieces pile up to reach the top of the playfield.
 
 ###Difficulty selection screen
 
-*Movement -> Left and right arrow keys
+*Movement -> A/D keys
 *Select difficulty-> Enter
 
 ### Debug controls
 *God Mode -> F1
-*Display colliders -> F2
+*Spawn block manually -> F2
 *Direct Win -> F3
 *Direct Lose -> F4
 

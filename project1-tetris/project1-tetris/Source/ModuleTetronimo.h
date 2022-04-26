@@ -39,6 +39,8 @@ public:
 
 	update_status PostUpdate() override;
 
+	bool CleanUp() override;
+
 	bool lineCompleted(int n, int f, int s);
 
 	int blockRB();

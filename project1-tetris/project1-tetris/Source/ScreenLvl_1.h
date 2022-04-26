@@ -31,6 +31,8 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
 
+	// Intento de solucion a leaks
+	bool CleanUp();
 
 	// Lvl conditions
 	void lvl_win();
@@ -59,7 +61,7 @@ public:
 	Animation closeCurtain;
 
 	// points
-	int p_drop, p_stack, h;		// p_stack = rainbow stack 
+	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
 	int score;
 
 
@@ -72,12 +74,6 @@ public:
 	int v_insertCoin;
 	int v_points;
 	int v_message;
-	
-	//int v_fx;
-
-	//// Debugging
-	//bool lvl_instaLose = false;
-	//bool lvl_instaWin = false;
 };
 
 #endif
