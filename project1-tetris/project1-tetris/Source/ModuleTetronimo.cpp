@@ -973,3 +973,26 @@ void ModuleTetronimo::Change() {
 		}
 	}
 }
+
+
+bool ModuleTetronimo::CleanUp()
+{
+	App->textures->Unload(texture);
+
+	//Eliminar bloques creados como hacia con los enemigos creados en la solucion 8
+	
+	//LOG("Freeing all enemies");
+
+	//for (uint i = 0; i < MAX_ENEMIES; ++i)
+	//{
+	//	if (enemies[i] != nullptr)
+	//	{
+	//		delete enemies[i];
+	//		enemies[i] = nullptr;
+	//	}
+	//}
+
+
+
+	return true;
+}
