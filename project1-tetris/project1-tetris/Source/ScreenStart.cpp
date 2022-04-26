@@ -83,6 +83,7 @@ update_status ScreenStart::PostUpdate()
 
 		//LOG("Press 1 Player Start");
 	}
+
 	if (credits >= 2)
 	{
 		App->render->DrawQuad({ 128, 0, 432, 48 }, 255, 0, 0, 255);
@@ -114,4 +115,18 @@ update_status ScreenStart::PostUpdate()
 	// Draw everything --------------------------------------
 	
 	return update_status::UPDATE_CONTINUE;
+}
+
+
+bool ScreenStart::CleanUp()
+{
+
+	App->textures->Unload(bg_texture);
+
+	App->particles->CleanUp();
+
+	//Elminar textos?
+
+
+	return true;
 }

@@ -54,6 +54,7 @@ public:
 	void Spawn();
 
 	void Debugging();
+
 	//bool CleanUp() override; 
 
 public:

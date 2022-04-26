@@ -32,7 +32,7 @@ public:
 	update_status PostUpdate() override;
 
 	// Intento de solucion a leaks
-	bool CleanUp();
+	bool CleanUp() override;
 
 	// Lvl conditions
 	void lvl_win();
