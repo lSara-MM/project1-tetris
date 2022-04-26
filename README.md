@@ -27,30 +27,28 @@ The player loses if enough pieces pile up to reach the top of the playfield.
 
 
 ## Controls
-
 ###Tetromino movement
 
--Move right -> D
--Move left -> A
--Soft drop -> S
--Rotate clockwise -> 
+*Move right -> Right arrow key
+*Move left -> Left arrow key
+*Soft drop -> Down arrow key
+*Rotate clockwise -> D
 
 ###Initial screen controls
 
--Insert credit -> Spacebar 
--Go to difficulty selection screen -> Enter (requires one credit)
+*Insert credit -> Spacebar 
+*Go to difficulty selection screen -> Enter (requires one credit)
 
 ###Difficulty selection screen
 
--Movement -> Left and right arrow keys
--Select difficulty-> Enter
+*Movement -> Left and right arrow keys
+*Select difficulty-> Enter
 
 ### Debug controls
-
--God Mode -> F1
--Spawn block manually -> F2
--Direct Win -> F3
--Direct Lose -> F4
+*God Mode -> F1
+*Display colliders -> F2
+*Direct Win -> F3
+*Direct Lose -> F4
 
 
 # License
