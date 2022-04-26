@@ -76,9 +76,10 @@ update_status ModuleTetronimo::Update() {
 			}
 
 			if (lineCompleted(n, f, s) == true) 
-			{ 
+			{
 				App->sLvl_1->linesleft--; 
 				App->sLvl_1->lines++;
+
 				App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 			}
 			
@@ -100,18 +101,9 @@ update_status ModuleTetronimo::Update() {
 		}
 	}
 
-	// Block stop
-	for (int s = 0; s <= 21; s++) {
-		for (int f = 0; f <= 9; f++) {
-			if ((type[f][s] == 'P')) {
-				if(type[f][s + 1] == 'B') {
-					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
-					Change();
-					SpawnTetronimo();
-				}
-			}
-		}
-	}
+	// Block fell down
+	//blockRB();
+
 
 	// Block falling
 	if (deltaTime > 1000) {
@@ -131,18 +123,8 @@ update_status ModuleTetronimo::Update() {
 		deltaTime = 0;
 	}
 
-
-	// Block reached bottom
-	for (int f = 0; f <= 9; f++) {
-		if (type[f][21] == 'P') {
-			App->audio->PlayFx(App->sLvl_1->fxLine, 0);
-			Change();
-			SpawnTetronimo();
-		}
-	}
-
 	// Rotations
-	if (App->input->keys[SDL_SCANCODE_R] == KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_DOWN)
 	{
 		rotar++;
 		int bloque = 0;
@@ -797,6 +779,36 @@ bool ModuleTetronimo::lineCompleted(int n, int f, int s)
 	return false;
 }
 
+int ModuleTetronimo::blockRB()
+{
+	// Block reached bottom
+	for (int f = 0; f <= 9; f++) {
+		if (type[f][21] == 'P') {
+			App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+			Change();
+			SpawnTetronimo();
+			return 0;
+		}
+	}
+
+	// Block stop
+	for (int s = 0; s <= 21; s++) {
+		for (int f = 0; f <= 9; f++) {
+			if ((type[f][s] == 'P')) {
+				if (type[f][s + 1] == 'B') {
+					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+					Change();
+					SpawnTetronimo();
+					return s;
+				}
+			}
+		}
+	}
+
+	return -1;
+}
+
+
 update_status ModuleTetronimo::PostUpdate() {
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -922,7 +934,6 @@ void ModuleTetronimo::Print() {
 	}
 }
 
-// 
 void ModuleTetronimo::Change() {
 	for (int m = 0; m <= 21; m++) {
 		for (int l = 0; l <= 9; l++) {

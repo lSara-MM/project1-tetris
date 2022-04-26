@@ -54,12 +54,16 @@ public:
 
 	// Curtain texture and animation pointer
 	SDL_Texture* curtain_texture = nullptr;
+
 	Animation openCurtain;
 	Animation closeCurtain;
 
+	// points
+	int p_drop, p_stack, h;		// p_stack = rainbow stack 
 	int score;
-	int lines;
 
+
+	int lines;
 	int linesleft;
 	int linesObjective;
 

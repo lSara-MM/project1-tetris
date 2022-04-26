@@ -41,6 +41,8 @@ public:
 
 	bool lineCompleted(int n, int f, int s);
 
+	int blockRB();
+
 	void SpawnTetronimo();
 
 	void Print();

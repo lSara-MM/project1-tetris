@@ -16,7 +16,7 @@ using namespace std;
 #include <sstream>
 
 
-//#include "ModuleFadeToBlack.h"
+//	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
 
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
@@ -58,7 +58,7 @@ bool ScreenLvl_1::Start()
 
 	bg_texture = App->textures->Load("Assets/ss_easyBg.png");
 	curtain_texture = App->textures->Load("Assets/curtain.png");
-
+	
 
 	LOG("Loading sound effects");
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
@@ -74,7 +74,12 @@ bool ScreenLvl_1::Start()
 
 
 	// Variables
+
+	// points
+	p_drop = 1;
 	score = 0;
+	h = -1;
+
 	lines = 0;
 	linesObjective = 12;
 	linesleft = linesObjective;
@@ -101,22 +106,6 @@ update_status ScreenLvl_1::Update()
 		score++;
 	}
 
-	//Score equation
-	//Tetromino placed = d*r(r+h) 
-	//d->1 normal gravity 2 if soft drop (if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) cuando colisiona con linia)
-	//r->number of bars on the rainbow + 1, rainbow llena cada cuatro linias completadas
-	//h->row on which tetomino placed minus 1 (bottom = 0)
-
-	//Score por linia completada
-	//1->50
-	//2->150
-	//3->400
-	//4->900
-
-	//Bonus
-	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
-
-
 	if (App->input->keys[SDL_SCANCODE_M] == KEY_STATE::KEY_REPEAT)
 	{
 		lines++;
@@ -135,7 +124,7 @@ update_status ScreenLvl_1::Update()
 	}
 
 
-
+	
 	//// Debugging
 	//if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
 	//	lvl_instaWin = true;
@@ -245,6 +234,81 @@ update_status ScreenLvl_1::PostUpdate()
 	v_insertCoin++;
 	
 
+	// Points
+	//Tetromino placed = p_drop*p_stack(p_stack+h) 
+	//p_drop->1 normal gravity 2 if soft drop (if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) cuando colisiona con linia)
+	//p_stack->number of bars on the rainbow + 1, rainbow llena cada cuatro linias completadas
+	//h->row on which tetomino placed minus 1 (bottom = 0)
+	h = App->tetronimo->blockRB();
+	if (h != (-1))
+	{
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
+		score = p_drop * (p_stack + 1) * (p_stack + 1 + h);
+	}
+
+	//Score por linia completada
+	//1->50
+	//2->150
+	//3->400
+	//4->900
+	
+
+	// Rainbow bar
+	if ((lines % 4) == 0)
+	{
+		if (p_stack != 10)
+		{
+			p_stack++;
+		}
+
+		// Color bars
+		if (p_stack >= 1)		// blue
+		{
+			App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
+		}
+		if (p_stack >= 2)		// cyan
+		{
+			App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
+		}
+
+		if (p_stack >= 3)		// green
+		{
+			App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
+
+		}
+		if (p_stack >= 4)		// "lighter" green
+		{
+			App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
+
+		}
+		if (p_stack >= 5)		// yellow
+		{
+			App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
+
+		}
+		if (p_stack >= 6)		// dark yellow
+		{
+			App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
+		}
+		if (p_stack >= 7)		// orange
+		{
+			App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
+		}
+		if (p_stack >= 8)		// dark orange
+		{
+			App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
+		}
+		if (p_stack >= 9)		// red
+		{
+			App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
+		}	
+		
+	}
+
+	//Bonus
+	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
+
+
 	// Win conditions
 	if (linesleft == 0)
 	{
@@ -269,7 +333,7 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 	}
 
-	if (App->tetronimo->v_WinLose >= 250)
+	if (App->tetronimo->v_WinLose >= 250 && App->tetronimo->v_WinLose < 450)		// depende de las lineas vacias al final
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
@@ -280,14 +344,16 @@ void ScreenLvl_1::lvl_win()
 
 	if (App->tetronimo->v_WinLose >= 450)
 	{
-		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f); }
 	}
-	if (App->tetronimo->v_WinLose == 600)
+	if (App->tetronimo->v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
 		App->tetronimo->lvl_instaWin = false;
 		
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
+
+	LOG("win counter %d", App->tetronimo->v_WinLose);
 	App->tetronimo->v_WinLose++;
 }
 
