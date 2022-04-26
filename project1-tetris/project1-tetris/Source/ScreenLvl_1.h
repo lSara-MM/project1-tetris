@@ -36,10 +36,6 @@ public:
 	void lvl_win();
 	void lvl_lose(const char* ch_loseContinue);
 
-
-	// Intento de solucion a leaks
-	bool CleanUp();
-
 public:
 
 	// The scene sprite sheet loaded into an SDL_Texture
