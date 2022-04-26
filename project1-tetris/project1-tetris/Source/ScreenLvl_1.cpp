@@ -402,3 +402,21 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	
 	App->tetronimo->v_WinLose++;
 }
+
+bool ScreenLvl_1::CleanUp()
+{
+	
+	App->tetronimo->Disable();
+
+
+	App->textures->Unload(bg_texture);
+
+	App->textures->Unload(curtain_texture);
+
+	App->collisions->CleanUp();
+
+	
+
+
+	return true;
+}

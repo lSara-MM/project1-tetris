@@ -52,7 +52,9 @@ public:
 	void Spawn();
 
 	void Debugging();
-	//bool CleanUp() override; 
+
+
+	bool CleanUp() override; 
 
 public:
 
