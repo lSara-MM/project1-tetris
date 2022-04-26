@@ -178,7 +178,7 @@ update_status ScreenLvl_1::PostUpdate()
 	else if (v_message == 100)
 	{
 		LOG("Loading background music: Loginska");
-		App->audio->PlayMusic("Assets/loginska.ogg", 0.5f); 
+		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0.5f); 
 		App->tetronimo->SpawnTetronimo();
 	}
 
