@@ -86,12 +86,6 @@ update_status ModuleTetronimo::Update() {
 				App->sLvl_1->lines++;
 				App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 
-				//Score por linia completada
-				//1->50
-				//2->150
-				//3->400
-				//4->900
-
 				switch (combo)
 				{
 				case 1:
@@ -814,7 +808,7 @@ int ModuleTetronimo::blockRB()
 	// Block reached bottom
 	for (int f = 0; f <= 9; f++) {
 		if (type[f][21] == 'P') {
-			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall, 0);
+			App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 			Change();
 			SpawnTetronimo();
 			return 0;

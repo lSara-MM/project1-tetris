@@ -44,6 +44,7 @@ update_status ModuleInput::PreUpdate()
 			keys[i] = (keys[i] == KEY_REPEAT || keys[i] == KEY_DOWN) ? KEY_UP : KEY_IDLE;
 	}
 
+
 	return update_status::UPDATE_CONTINUE;
 }
 

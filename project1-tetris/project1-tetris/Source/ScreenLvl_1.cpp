@@ -79,7 +79,6 @@ bool ScreenLvl_1::Start()
 	p_drop = 1;
 	score = 0;
 	h = -1;
-	value = 0;
 
 	lines = 0;
 	linesObjective = 12;
@@ -179,7 +178,7 @@ update_status ScreenLvl_1::PostUpdate()
 	else if (v_message == 100)
 	{
 		LOG("Loading background music: Loginska");
-		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0.5f); 
+		App->audio->PlayMusic("Assets/loginska.ogg", 0.5f); 
 		App->tetronimo->SpawnTetronimo();
 	}
 
@@ -207,7 +206,6 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// Player 2 section
-	App->render->TextDraw("next", 605, 25, 137, 137, 235, 255, 16);
 	App->render->TextDraw("stats", 480, 110, 255, 255, 255, 255, 16);
 
 	if (v_insertCoin >= 0 && v_insertCoin < 130)
@@ -233,28 +231,27 @@ update_status ScreenLvl_1::PostUpdate()
 	h = App->tetronimo->blockRB();
 	if (h != (-1))
 	{
-
 		v_points = 0;
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
 		score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);	
-		value = (p_drop * (p_stack + 1) * (p_stack + 1 + h));
 	}
 
-	
-	
-	if (v_points < 30 && score != 0)
+	string s_points = to_string(p_drop * (p_stack + 1) * (p_stack + 1 + h));
+	const char* ch_points = s_points.c_str();
+	if (v_points < 50)
 	{
-		string s_points = to_string(value);
-		const char* ch_points = s_points.c_str();
-
-		//LOG("gravity %d, height %d, stack %d", p_drop, h, p_stack);
-		App->render->TextDraw(ch_points, 200, 405, 21, 11, 134, 255, 16);
+		App->render->TextDraw(ch_points, 100, 405, 0, 0, 255, 255, 16);
 		v_points++;
 	}
-
+	//Score por linia completada
+	//1->50
+	//2->150
+	//3->400
+	//4->900
+	
 
 	// Rainbow bar			
-	if ((lines % 4) == 0 && lines != 0)
+	if ((lines % 4) == 0 && lines != 0)		// TO ADD A VARIABLE SO ITS NOT INFINITE
 	{
 		if (p_stack != 10)
 		{

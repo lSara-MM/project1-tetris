@@ -22,17 +22,53 @@ public:
 	bool Start() override;
 
 	// Called at the middle of the application loop
-	// Processes new input
+	// Processes new input and handles player movement
 	update_status Update() override;
 
 	// Called at the end of the application loop
+	// Performs the render call of the player sprite
 	update_status PostUpdate() override;
 
+	// Collision callback, called when the player intersects with another collider
+	void OnCollision(Collider* c1, Collider* c2) override;
 
 
 public:
-	uint lachimolala;
+	// Position of the player in the map
+	iPoint position;
+
+	// The speed in which we move the player (pixels per frame)
+	int speed = 1;
+
+	// The player spritesheet loaded into an SDL_Texture
+	SDL_Texture* texture = nullptr;
+	
+	// The pointer to the current player animation
+	// It will be switched depending on the player's movement direction
+	Animation* currentAnimation = nullptr;
+
+	// A set of animations
+	Animation idleAnim;
+	Animation upAnim;
+	Animation downAnim;
+
+	// The player's collider
+	Collider* collider = nullptr;
+
+	// A flag to detect when the player has been destroyed
+	bool destroyed = false;
+
+	// A countdown to when the player gets destroyed. After a while, the game exits
+	uint destroyedCountdown = 120;
+
+	// Sound effects indices
+	uint fxFall = 0;
+
 	bool godMode = false;
+	bool showCollisions = false;
+	bool instaWin = false;
+	bool instaLose = false;
+
 };
 
 #endif //!__MODULE_PLAYER_H__

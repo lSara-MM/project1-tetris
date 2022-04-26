@@ -59,7 +59,7 @@ public:
 	Animation closeCurtain;
 
 	// points
-	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
+	int p_drop, p_stack, h;		// p_stack = rainbow stack 
 	int score;
 
 
