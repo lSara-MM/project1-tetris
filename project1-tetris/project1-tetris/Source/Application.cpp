@@ -40,8 +40,8 @@ Application::Application()
 	
 	//modules[9] = player = new ModulePlayer(false);	//Player starts disabled
 	modules[9] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
+	
 	modules[10] = particles = new ModuleParticles(true);
-
 	modules[11] = collisions = new ModuleCollisions(true);
 	modules[12] = fade = new ModuleFadeToBlack(true);
 

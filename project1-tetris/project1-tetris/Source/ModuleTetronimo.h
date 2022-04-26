@@ -18,11 +18,11 @@ enum class TETRONIMO_TYPE {
 	ORANGE,
 	BLUE,
 	SKY,
-	P,
-	B,
-	W,
-	G,
-	N,
+	P,	// player block
+	B,	// static block
+	W,	// wall
+	G,	// ground
+	N,	// null
 };
 
 class ModuleTetronimo : public Module
@@ -39,6 +39,8 @@ public:
 
 	update_status PostUpdate() override;
 
+	bool lineCompleted(int n, int f, int s);
+
 	void SpawnTetronimo();
 
 	void Print();
@@ -46,7 +48,6 @@ public:
 	void Change();
 
 	void Spawn();
-
 
 	void Debugging();
 	//bool CleanUp() override; 
@@ -68,6 +69,8 @@ public:
 	Animation turn3Anim;
 
 	// Debugging
+	//bool lvl_continue = true;
+
 	bool lvl_instaLose = false;
 	bool lvl_instaWin = false;
 

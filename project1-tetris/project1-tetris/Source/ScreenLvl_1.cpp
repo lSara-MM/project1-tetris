@@ -29,7 +29,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	openCurtain.speed = 0.2f;
 	openCurtain.loop = true;
 
-
+	closeCurtain.PushBack({ 3, 3, 157, 126 });
 	closeCurtain.PushBack({ 166, 3, 157, 126 });
 	closeCurtain.PushBack({ 328, 3, 157, 126 });
 	closeCurtain.PushBack({ 491, 3, 157, 126 });
@@ -48,8 +48,7 @@ ScreenLvl_1::~ScreenLvl_1()
 // Load assets
 bool ScreenLvl_1::Start()
 {
-	
-	App->collisions->Enable();
+	//App->collisions->Enable();
 	App->tetronimo->Enable();
 
 	LOG("Loading lvl 1 background assets");
@@ -201,7 +200,8 @@ update_status ScreenLvl_1::PostUpdate()
 	else if (v_message == 100)
 	{
 		LOG("Loading background music: Loginska");
-		App->audio->PlayMusic("Assets/loginska.ogg", 1.0f); // plays when first block spawns
+		App->audio->PlayMusic("Assets/loginska.ogg", 0.5f); 
+		App->tetronimo->SpawnTetronimo();
 	}
 
 	//Lines left
@@ -213,7 +213,6 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("lines", 305, 255, 255, 255, 255, 255, 16);
 		App->render->TextDraw("left", 305, 285, 255, 255, 255, 255, 16);
 	}
-
 	v_message++;
 
 
@@ -254,43 +253,49 @@ update_status ScreenLvl_1::PostUpdate()
 		lvl_win();
 	}
 
-	// Debugging
-
-
 	return update_status::UPDATE_CONTINUE;
 }
 
 void ScreenLvl_1::lvl_win()
 {
-	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 150)
+	App->tetronimo->Disable();
+
+	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 250)
 	{
+		if (App->tetronimo->v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
+		else { App->audio->PauseMusic(); }
 		//You did it
 		App->render->TextDraw("you", 305, 250, 255, 255, 255, 255, 16);
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
-		App->audio->PlayFx(fxYou_DidIt, 0);
 	}
-	if (App->tetronimo->v_WinLose >= 150)
+
+	if (App->tetronimo->v_WinLose >= 250)
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
-		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
-		App->audio->PauseMusic();
+		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);		
 	}
 
-	App->tetronimo->v_WinLose++;
 
-	if (App->tetronimo->v_WinLose == 300)
+	if (App->tetronimo->v_WinLose >= 450)
+	{
+		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+	}
+	if (App->tetronimo->v_WinLose == 600)
 	{ 
 		App->tetronimo->lvl_instaWin = false;
+		
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
+	App->tetronimo->v_WinLose++;
 }
 
 void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 {
 	// Game Over
-	
+	App->tetronimo->Disable();
+
 	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 200)
 	{
 		if (App->tetronimo->v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);

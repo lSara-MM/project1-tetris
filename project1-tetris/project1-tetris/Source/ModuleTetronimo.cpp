@@ -75,27 +75,13 @@ update_status ModuleTetronimo::Update() {
 				n++;
 			}
 
-			if (n == 9) {
-				type[f][s] = 'N';
-				type[f - 1][s] = 'N';
-				type[f - 2][s] = 'N';
-				type[f - 3][s] = 'N';
-				type[f - 4][s] = 'N';
-				type[f - 5][s] = 'N';
-				type[f - 6][s] = 'N';
-				type[f - 7][s] = 'N';
-				type[f - 8][s] = 'N';
-				type[f - 9][s] = 'N';
-
-				for (int m = s; m >= 0; m--) {
-					for (int j = 0; j <= 9; j++) {
-						if (type[j][s - 1] == 'B') {
-							type[j][s - 1] = 'N';
-							type[j][s] = 'B';
-						}
-					}
-				}
+			if (lineCompleted(n, f, s) == true) 
+			{ 
+				App->sLvl_1->linesleft--; 
+				App->sLvl_1->lines++;
+				App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 			}
+			
 		}
 	}
 
@@ -107,7 +93,7 @@ update_status ModuleTetronimo::Update() {
 			string s_loseContinue = to_string(v_loseContinue);
 			const char* ch_loseContinue = s_loseContinue.c_str();
 
-
+			//v_WinLose = 0;
 			App->sLvl_1->lvl_lose(ch_loseContinue);
 			LOG("HAS PERDIDO!");
 			//ACABAR CON GAMEPLAY!
@@ -119,14 +105,15 @@ update_status ModuleTetronimo::Update() {
 		for (int f = 0; f <= 9; f++) {
 			if ((type[f][s] == 'P')) {
 				if(type[f][s + 1] == 'B') {
-						Change();
-						SpawnTetronimo();
+					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+					Change();
+					SpawnTetronimo();
 				}
 			}
 		}
 	}
 
-	// Block fall
+	// Block falling
 	if (deltaTime > 1000) {
 		for (int i = 20; i >= 0; i--) {
 			for (int j = 0; j <= 9; j++) {
@@ -148,8 +135,9 @@ update_status ModuleTetronimo::Update() {
 	// Block reached bottom
 	for (int f = 0; f <= 9; f++) {
 		if (type[f][21] == 'P') {
-				Change();
-				SpawnTetronimo();
+			App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+			Change();
+			SpawnTetronimo();
 		}
 	}
 
@@ -660,7 +648,7 @@ update_status ModuleTetronimo::Update() {
 	// Left movement
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_DOWN)
 	{
-		int move = 0;
+		int move = 0;		// move == 1 No se puede mover // move == 0 Si se puede mover
 
 		for (int s = 0; s <= 21; s++) {
 			for (int f = 9; f >= 0; f--) {
@@ -780,6 +768,33 @@ void ModuleTetronimo::Debugging()
 		App->sLvl_1->lvl_win();
 	}
 
+}
+
+bool ModuleTetronimo::lineCompleted(int n, int f, int s)
+{
+	if (n == 10) {
+		type[f][s] = 'N';
+		type[f - 1][s] = 'N';
+		type[f - 2][s] = 'N';
+		type[f - 3][s] = 'N';
+		type[f - 4][s] = 'N';
+		type[f - 5][s] = 'N';
+		type[f - 6][s] = 'N';
+		type[f - 7][s] = 'N';
+		type[f - 8][s] = 'N';
+		type[f - 9][s] = 'N';
+
+		for (int m = s; m >= 0; m--) {
+			for (int j = 0; j <= 9; j++) {
+				if (type[j][s - 1] == 'B') {
+					type[j][s - 1] = 'N';
+					type[j][s] = 'B';
+				}
+			}
+		}
+		return true;
+	}
+	return false;
 }
 
 update_status ModuleTetronimo::PostUpdate() {
@@ -907,6 +922,7 @@ void ModuleTetronimo::Print() {
 	}
 }
 
+// 
 void ModuleTetronimo::Change() {
 	for (int m = 0; m <= 21; m++) {
 		for (int l = 0; l <= 9; l++) {
