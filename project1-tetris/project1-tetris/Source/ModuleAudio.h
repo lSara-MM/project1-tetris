@@ -36,6 +36,9 @@ public:
 
 	// Pause music
 	bool PauseMusic();
+	// Resume music
+	bool ResumeMusic();
+
 	// Loads a sound fx (WAV) file in memory
 	// Returns an index to the sound fx array
 	// The index will be used to handle the effect (see PlayFx)

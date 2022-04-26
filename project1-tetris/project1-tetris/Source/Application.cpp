@@ -38,11 +38,11 @@ Application::Application()
 	modules[7] = sDiff = new ScreenDiff(false);
 	modules[8] = sLvl_1 = new ScreenLvl_1(true);		//Gameplay scene starts disabled
 	
-	//modules[9] = player = new ModulePlayer(false);	//Player starts disabled
-	modules[9] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
+	modules[9] = player = new ModulePlayer(true);
+	modules[10] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
 	
-	modules[10] = particles = new ModuleParticles(true);
-	modules[11] = collisions = new ModuleCollisions(true);
+	modules[11] = particles = new ModuleParticles(true);
+	//modules[11] = collisions = new ModuleCollisions(true);
 	modules[12] = fade = new ModuleFadeToBlack(true);
 
 	modules[13] = render = new ModuleRender(true);

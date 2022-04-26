@@ -128,6 +128,13 @@ bool ModuleAudio::PauseMusic()
 	return true;
 }
 
+bool ModuleAudio::ResumeMusic()
+{
+	Mix_ResumeMusic();
+	return true;
+}
+
+
 uint ModuleAudio::LoadFx(const char* path)
 {
 	uint ret = 0;
