@@ -741,11 +741,24 @@ void ModuleTetronimo::Debugging()
 
 	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)//(KEY_REPEAT)		// to fix somehow
 	{
-		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
-		//App->player->godMode != App->player->godMode;
-		//App->player->godMode = true;
+
+		/*(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;*/
+		/*App->player->godMode != App->player->godMode;*/
+		
+		App->player->godMode = true;
+
+		
 	}
 
+
+	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)//(KEY_REPEAT)		
+	{
+
+		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivarlo con el mismo boton
+
+
+	}
+	
 	// Manually spawn a block
 	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN)
 	{
@@ -989,6 +1002,7 @@ void ModuleTetronimo::Change() {
 bool ModuleTetronimo::CleanUp()
 {
 	App->textures->Unload(texture);
+	App->textures->Unload(grid_texture);
 
 	//Eliminar bloques creados como hacia con los enemigos creados en la solucion 8
 

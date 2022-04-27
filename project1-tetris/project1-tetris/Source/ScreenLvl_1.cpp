@@ -379,6 +379,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 		App->render->TextDraw("Continue", 79, 242, 255, 255, 255, 255, 16);
 
 		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
+
 		if (App->tetronimo->v_WinLose % 50 == 0)
 		{
 			App->tetronimo->v_loseContinue--;

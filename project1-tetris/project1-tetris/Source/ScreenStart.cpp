@@ -15,14 +15,8 @@ using namespace std;
 
 ScreenStart::ScreenStart(bool startEnabled) : Module(startEnabled)
 {
-	// Start Screen
-	for (int i = 0; i < 11; i++)
-	{
-		start_screen.PushBack({ SCREEN_WIDTH * i, 1, SCREEN_WIDTH, SCREEN_HEIGHT });
-	}
+	
 
-	start_screen.loop = false;
-	start_screen.speed = 0.09f;
 }
 
 ScreenStart::~ScreenStart()
@@ -33,6 +27,15 @@ ScreenStart::~ScreenStart()
 // Load assets
 bool ScreenStart::Start()
 {
+	// Start Screen
+	for (int i = 0; i < 11; i++)
+	{
+		start_screen.PushBack({ SCREEN_WIDTH * i, 1, SCREEN_WIDTH, SCREEN_HEIGHT });
+	}
+
+	start_screen.loop = false;
+	start_screen.speed = 0.09f;
+
 	LOG("Loading background assets");
 	bool ret = true;
 	bg_texture = App->textures->Load("Assets/ss_startBg.png");
