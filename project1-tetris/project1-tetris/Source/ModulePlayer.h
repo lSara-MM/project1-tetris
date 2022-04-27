@@ -30,7 +30,8 @@ public:
 
 public:
 	uint lachimolala = 0;
-	bool godMode = false;
+
+	bool godMode;
 };
 
 #endif //!__MODULE_PLAYER_H__

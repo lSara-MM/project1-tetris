@@ -50,12 +50,6 @@ update_status ModulePlayer::Update()
 	{
 		App->audio->ResumeMusic();
 	}
-
-	// Debugging modes
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_STATE::KEY_DOWN) {
-		godMode != godMode;
-		LOG("God mode");
-	}
 	return update_status::UPDATE_CONTINUE;
 }
 

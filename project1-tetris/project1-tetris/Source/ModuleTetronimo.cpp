@@ -7,6 +7,7 @@
 
 #include "ScreenLvl_1.h"
 #include "ModuleAudio.h"
+#include "ModulePlayer.h"
 
 #include <stdlib.h>
 #include <time.h>
@@ -51,13 +52,17 @@ bool ModuleTetronimo::Start() {
 
 	combo = 0;
 
-
 	lvl_instaLose = false;
 	lvl_instaWin = false;
 
+	App->player->godMode = false;
 	v_loseContinue = 9;
 	v_WinLose = 0;
+
+	LOG("Loading grid_texture");
 	texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
+	grid_texture = App->textures->Load("Assets/ss_grid.png");
+
 	return true;
 }
 
@@ -650,7 +655,6 @@ update_status ModuleTetronimo::Update() {
 		}
 	}
 
-
 	// Left movement
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_DOWN)
 	{
@@ -735,6 +739,13 @@ void ModuleTetronimo::Debugging()
 	string s_loseContinue = to_string(v_loseContinue);
 	const char* ch_loseContinue = s_loseContinue.c_str();
 
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_REPEAT)		// to fix somehow
+	{
+		//(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
+		//App->player->godMode != App->player->godMode;
+		App->player->godMode = true;
+	}
+
 	// Manually spawn a block
 	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN)
 	{
@@ -759,6 +770,12 @@ void ModuleTetronimo::Debugging()
 		Print();
 	}
 
+	// GodMode
+	if (App->player->godMode == true)
+	{
+		LOG("GodMode on");
+		App->render->Blit(grid_texture, 62, 50, NULL);
+	}
 
 	if (lvl_instaLose == true)
 	{

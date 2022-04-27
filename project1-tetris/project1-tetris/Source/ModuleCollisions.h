@@ -46,11 +46,6 @@ private:
 	// The collision matrix. Defines the interaction for two collider types
 	// If set two false, collider 1 will ignore collider 2
 	bool matrix[Collider::Type::MAX][Collider::Type::MAX];
-
-	// Simple debugging flag to draw all colliders
-	bool showCollisions = false;
-	bool godMode = false;
-
 };
 
 #endif // __MODULE_COLLISIONS_H__

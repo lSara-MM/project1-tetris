@@ -236,7 +236,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	}
 
-	if (v_points < 30)
+	if (v_points < 30 && value != 0)
 	{
 		string s_points = to_string(value);
 		const char* ch_points = s_points.c_str();
@@ -398,6 +398,8 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 bool ScreenLvl_1::CleanUp()
 {
 	App->tetronimo->Disable();
+	//App->render->ttfQuit();	// excepcio xd
+	//App->audio->CleanUp();	// excepcio xd
 	App->textures->Unload(bg_texture);
 	App->textures->Unload(curtain_texture);
 	return true;

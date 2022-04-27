@@ -76,16 +76,15 @@ public:
 	int combo;
 
 	// Debugging
-	//bool lvl_continue = true;
-
 	bool lvl_instaLose = false;
 	bool lvl_instaWin = false;
 
 	int v_WinLose;
 	int v_loseContinue;
-private:
 
+private:
 	SDL_Texture* texture = nullptr;
+	SDL_Texture* grid_texture = nullptr;
 };
 
 #endif //__MODULE_TETRONIMO_H__

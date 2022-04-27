@@ -96,7 +96,7 @@ bool ModuleRender::CleanUp()
 	if (renderer != nullptr)
 		SDL_DestroyRenderer(renderer);
 
-	TTF_Quit();
+	
 
 	return true;
 }
@@ -197,4 +197,8 @@ bool ModuleRender::TextDraw(const char* text, int x, int y, int red, int green, 
 	TTF_CloseFont(ttf_font);
 
 	return ret;
+}
+void ModuleRender::ttfQuit()
+{
+	TTF_Quit();
 }

@@ -58,6 +58,9 @@ public:
 	// Render text
 	bool TextDraw(const char* words, int x, int y, int red, int green, int blue, int alpha, int size);
 
+	// ttf cleanup
+	void ttfQuit();
+
 public:
 	// Rendering context used for any rendering action
 	SDL_Renderer* renderer = nullptr;

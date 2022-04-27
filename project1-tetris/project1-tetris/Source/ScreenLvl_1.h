@@ -43,7 +43,6 @@ public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
-
 	// Music and fx
 	uint fxBlock_Fall = 0;
 	uint fxLine = 0;
