@@ -120,13 +120,9 @@ update_status ScreenStart::PostUpdate()
 
 bool ScreenStart::CleanUp()
 {
-
 	App->textures->Unload(bg_texture);
-
 	App->particles->CleanUp();
 
 	//Elminar textos?
-
-
 	return true;
 }

@@ -739,11 +739,11 @@ void ModuleTetronimo::Debugging()
 	string s_loseContinue = to_string(v_loseContinue);
 	const char* ch_loseContinue = s_loseContinue.c_str();
 
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_REPEAT)		// to fix somehow
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)//(KEY_REPEAT)		// to fix somehow
 	{
-		//(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
+		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
 		//App->player->godMode != App->player->godMode;
-		App->player->godMode = true;
+		//App->player->godMode = true;
 	}
 
 	// Manually spawn a block
