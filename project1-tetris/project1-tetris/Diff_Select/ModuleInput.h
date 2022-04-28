@@ -6,8 +6,6 @@
 
 #define MAX_KEYS 256
 #define MAX_PADS 4
-struct _SDL_GameController;
-struct _SDL_Haptic;
 
 struct GamePad
 {
