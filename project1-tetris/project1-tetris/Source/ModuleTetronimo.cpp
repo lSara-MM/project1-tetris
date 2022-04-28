@@ -153,7 +153,7 @@ update_status ModuleTetronimo::Update() {
 	}
 
 	// Block falling
-	if (deltaTime > 200) {
+	if (deltaTime > 500) {
 		int m = 0;
 
 		for (int i = 20; i >= 0; i--) {
