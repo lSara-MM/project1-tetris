@@ -12,10 +12,8 @@ struct _SDL_Haptic;
 struct GamePad
 {
 	// Input data
-	bool start, back, guide;
 	bool x, y, a;
 	bool left, right;
-	float l2, r2;
 	float left_x, left_y, right_x, right_y, left_dz, right_dz;
 
 	// Controller data
