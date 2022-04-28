@@ -152,7 +152,7 @@ void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
 	{
-		//SDL_Delay(500);		// "5 segundos"
+		SDL_Delay(500);		// "5 segundos"
 	}
 
 	if (x_frame == (SCREEN_WIDTH * 10))

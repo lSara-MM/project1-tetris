@@ -1114,10 +1114,10 @@ update_status ModuleTetronimo::Update() {
 						type[f + 1][s + 1] = 'N';
 						type[f + 1][s + 2] = 'N';
 
-						type[f][s] = 'P';
-						type[f + 1][s] = 'P';
-						type[f + 1][s - 1] = 'P';
-						type[f + 2][s - 1] = 'P';
+						type[f - 1][s + 2] = 'P';
+						type[f][s + 2] = 'P';
+						type[f][s + 1] = 'P';
+						type[f + 1][s + 1] = 'P';
 
 						arr[f][s] = 0;
 						arr[f][s + 1] = 0;
@@ -1157,17 +1157,16 @@ update_status ModuleTetronimo::Update() {
 
 						bloque++;
 					}
-
 					if ((type[f][s] == 'P') && (rotar == 1) && (bloque == 0)) {
 						type[f][s] = 'N';
 						type[f + 1][s] = 'N';
 						type[f][s + 1] = 'N';
 						type[f - 1][s + 1] = 'N';
 
-						type[f - 1][s] = 'P';
-						type[f - 1][s + 1] = 'P';
-						type[f][s + 1] = 'P';
-						type[f][s + 2] = 'P';
+						type[f][s - 1] = 'P';
+						type[f][s] = 'P';
+						type[f + 1][s] = 'P';
+						type[f + 1][s + 1] = 'P';
 
 						arr[f][s] = 0;
 						arr[f + 1][s] = 0;
@@ -1192,19 +1191,20 @@ update_status ModuleTetronimo::Update() {
 								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
 								tetronimos[i - 3]->x += (T_WIDTH + 1);
-								tetronimos[i - 3]->y -= (T_HEIGHT + 1)*2;
+								tetronimos[i - 3]->y -= (T_HEIGHT + 1) * 2;
 
 								stop = 1;
 							}
 						}
-						/*rectIdle.x += 10;
+						
+						/* rectIdle.x += 10;
 						rectIdle2.x += 10;
 
 						rectIdle.y -= 20;
 						rectIdle1.y -= 10;
-						rectIdle3.y += 10;*/
+						rectIdle3.y += 10; */
 
-						bloque++;
+							bloque++;
 					}
 				}
 			}
@@ -1213,7 +1213,7 @@ update_status ModuleTetronimo::Update() {
 				rotar = 0;
 			}
 		}
-	}
+		}
 
 	// Left movement
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_DOWN)
