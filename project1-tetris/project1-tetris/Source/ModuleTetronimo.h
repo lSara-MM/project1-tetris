@@ -11,6 +11,8 @@
 #include "SDL2_ttf-2.0.18/include/SDL_ttf.h"
 
 #define MAX_TETRONIMOS 50
+#define T_WIDTH 15
+#define T_HEIGHT 15
 
 struct SDL_Texture;
 
@@ -107,11 +109,8 @@ public:
 	int combo;
 
 	// Debugging
-	bool lvl_instaLose = false;
-	bool lvl_instaWin = false;
-
-	int v_WinLose;
-	int v_loseContinue;
+	bool lvl_instaLose;
+	bool lvl_instaWin;
 
 private:
 	SDL_Texture* texture = nullptr;

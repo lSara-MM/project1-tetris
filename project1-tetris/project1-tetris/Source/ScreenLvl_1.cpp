@@ -17,9 +17,9 @@ using namespace std;
 
 
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
-
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
+	// curtain animation
 	openCurtain.PushBack({ 816, 3, 157, 126 });
 	openCurtain.PushBack({ 653, 3, 157, 126 });
 	openCurtain.PushBack({ 491, 3, 157, 126 });
@@ -87,6 +87,8 @@ bool ScreenLvl_1::Start()
 	v_insertCoin = 0;
 	v_points = 0;
 
+	v_loseContinue = 9;
+	v_WinLose = 0;
 	// Game
 	App->tetronimo->Start();
 
@@ -150,6 +152,7 @@ update_status ScreenLvl_1::PostUpdate()
 	const char* ch_credits = s_credits.c_str();
 
 	
+	//App->tetronimo->Update();
 
 	// Player 1 section
 	if (App->tetronimo->lvl_instaLose == false)	{ App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16); } // TO CHANGE CONDITION
@@ -190,7 +193,7 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 	v_message++;
 
-	App->tetronimo->Update();
+	
 
 	// Bottom tower section
 	App->render->TextDraw("high score", 255, 370, 0, 0, 150, 255, 16);
@@ -243,6 +246,7 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw(ch_points, 200, 405, 21, 11, 134, 255, 16);
 		v_points++;
 	}
+
 
 	// Rainbow bar			
 	if ((lines % 4) == 0 && lines != 0)
@@ -309,6 +313,35 @@ update_status ScreenLvl_1::PostUpdate()
 		lvl_win();
 	}
 
+	// Instant win
+	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
+		lvl_instaWin = true;
+		v_WinLose = 0;
+	}
+
+	// Instant lose
+	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+		lvl_instaLose = true;
+		v_WinLose = 0;
+	}
+
+	if (App->sLvl_1->lvl_instaLose == true)
+	{
+		string s_loseContinue = to_string(v_loseContinue);
+		const char* ch_loseContinue = s_loseContinue.c_str();
+
+		//LOG("Instant Lost!");
+		App->audio->PauseMusic();
+		lvl_lose(ch_loseContinue);
+	}
+	if (lvl_instaWin == true)
+	{
+		v_message = 0;
+		//LOG("Level complete (Instant Win)!");
+		App->audio->PauseMusic();
+		lvl_win();
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -316,16 +349,16 @@ void ScreenLvl_1::lvl_win()
 {
 	App->tetronimo->Disable();
 
-	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 250)
+	if (v_WinLose >= 0 && v_WinLose < 250)
 	{
-		if (App->tetronimo->v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
+		if (v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
 		else { App->audio->PauseMusic(); }
 		//You did it
 		App->render->TextDraw("you", 305, 250, 255, 255, 255, 255, 16);
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 	}
 
-	if (App->tetronimo->v_WinLose >= 250 && App->tetronimo->v_WinLose < 450)		// depende de las lineas vacias al final
+	if (v_WinLose >= 250 && v_WinLose < 450)		// depende de las lineas vacias al final
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
@@ -334,19 +367,19 @@ void ScreenLvl_1::lvl_win()
 	}
 
 
-	if (App->tetronimo->v_WinLose >= 450)
+	if (v_WinLose >= 450)
 	{
 		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f); }
 	}
-	if (App->tetronimo->v_WinLose == 600)		// cambiar (depende del bonus)
+	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
 		App->tetronimo->lvl_instaWin = false;
 		
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 
-	LOG("win counter %d", App->tetronimo->v_WinLose);
-	App->tetronimo->v_WinLose++;
+	LOG("win counter %d", v_WinLose);
+	v_WinLose++;
 }
 
 void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
@@ -354,9 +387,9 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	// Game Over
 	App->tetronimo->Disable();
 	
-	if (App->tetronimo->v_WinLose >= 0 && App->tetronimo->v_WinLose < 200)
+	if (v_WinLose >= 0 && v_WinLose < 200)
 	{
-		if (App->tetronimo->v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);
+		if (v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);
 		else { App->audio->PauseMusic(); }
 
 		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
@@ -365,7 +398,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
 		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
 	}
-	else if (App->tetronimo->v_WinLose > 200)
+	else if (v_WinLose > 200)
 	{
 		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
 		{
@@ -379,20 +412,20 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
 
-		if (App->tetronimo->v_WinLose % 50 == 0)
+		if (v_WinLose % 50 == 0)
 		{
-			App->tetronimo->v_loseContinue--;
+			v_loseContinue--;
 		}
-		LOG("%d win lose", App->tetronimo->v_WinLose);
+		LOG("%d win lose", v_WinLose);
 	}
 
-	if (App->tetronimo->v_loseContinue == 0)
+	if (v_loseContinue == 0)
 	{
 		App->tetronimo->lvl_instaLose = false;
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 	
-	App->tetronimo->v_WinLose++;
+	v_WinLose++;
 }
 
 bool ScreenLvl_1::CleanUp()

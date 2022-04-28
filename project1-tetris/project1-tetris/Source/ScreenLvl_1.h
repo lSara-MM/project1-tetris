@@ -63,16 +63,24 @@ public:
 	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
 	int score;
 
+	bool lvl_instaWin;
+	bool lvl_instaLose;
 
 	int lines;
 	int linesleft;
 	int linesObjective;
+	int lvl_credits;
+
 
 	// counters / timers
-	int lvl_credits;
+	int v_stack;
+
 	int v_insertCoin;
 	int v_points;
 	int v_message;
+
+	int v_loseContinue;
+	int v_WinLose;
 };
 
 #endif

@@ -22,7 +22,7 @@
 //pieza de spawn en y = 0
 
 bool const r = (srand(time(NULL)), true);
-int  num = rand() % 7;
+int  num = rand() % 1;
 int rotar = 0;
 
 SDL_Surface* dots = NULL;
@@ -38,15 +38,13 @@ uint lastTickTime = 0;
 
 ModuleTetronimo::ModuleTetronimo(bool startEnabled) : Module(startEnabled) {
 
-	//currentAnimation = &idleAnim;
 }
 
 
 ModuleTetronimo::~ModuleTetronimo() {
 
-
-
 }
+
 
 bool ModuleTetronimo::Start() {
 
@@ -67,8 +65,6 @@ bool ModuleTetronimo::Start() {
 	lvl_instaWin = false;
 
 	App->player->godMode = false;
-	v_loseContinue = 9;
-	v_WinLose = 0;
 
 	LOG("Loading grid_texture");
 	//texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
@@ -130,7 +126,7 @@ update_status ModuleTetronimo::Update() {
 	for (int f = 0; f <= 9; f++) {
 		if (type[f][1] == 'B') {
 
-			string s_loseContinue = to_string(v_loseContinue);
+			string s_loseContinue = to_string(App->sLvl_1->v_loseContinue);
 			const char* ch_loseContinue = s_loseContinue.c_str();
 
 			//v_WinLose = 0;
@@ -160,7 +156,7 @@ update_status ModuleTetronimo::Update() {
 	//}
 	}
 
-	if (deltaTime > 1000) {
+	if (deltaTime > 500) {
 		int m = 0;
 
 		for (int i = 20; i >= 0; i--) {
@@ -185,10 +181,10 @@ update_status ModuleTetronimo::Update() {
 			{
 				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 				{
-					tetronimos[i]->y += 10;
-					tetronimos[i - 1]->y += 10;
-					tetronimos[i - 2]->y += 10;
-					tetronimos[i - 3]->y += 10;
+					tetronimos[i]->y += (T_HEIGHT + 1);
+					tetronimos[i - 1]->y += (T_HEIGHT + 1);
+					tetronimos[i - 2]->y += (T_HEIGHT + 1);
+					tetronimos[i - 3]->y += (T_HEIGHT + 1);
 					stop = 1;
 				}
 			}
@@ -1271,7 +1267,6 @@ update_status ModuleTetronimo::Update() {
 	// Left movement
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_DOWN)
 	{
-
 		for (int s = 0; s <= 21; s++)
 		{
 			for (int f = 0; f <= 9; f++)
@@ -1309,10 +1304,10 @@ update_status ModuleTetronimo::Update() {
 			{
 				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 				{
-					tetronimos[i]->x -= 10;
-					tetronimos[i - 1]->x -= 10;
-					tetronimos[i - 2]->x -= 10;
-					tetronimos[i - 3]->x -= 10;
+					tetronimos[i]->x -= (T_WIDTH + 1);
+					tetronimos[i - 1]->x -= (T_WIDTH + 1);
+					tetronimos[i - 2]->x -= (T_WIDTH + 1);
+					tetronimos[i - 3]->x -= (T_WIDTH + 1);
 					stop = 1;
 				}
 			}
@@ -1362,10 +1357,10 @@ update_status ModuleTetronimo::Update() {
 			{
 				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 				{
-					tetronimos[i]->x += 10;
-					tetronimos[i - 1]->x += 10;
-					tetronimos[i - 2]->x += 10;
-					tetronimos[i - 3]->x += 10;
+					tetronimos[i]->x += (T_WIDTH + 1);
+					tetronimos[i - 1]->x += (T_WIDTH + 1);
+					tetronimos[i - 2]->x += (T_WIDTH + 1);
+					tetronimos[i - 3]->x += (T_WIDTH + 1);
 					stop = 1;
 				}
 			}
@@ -1374,11 +1369,10 @@ update_status ModuleTetronimo::Update() {
 		move = 0;
 	}
 
-
 	// Fall fast (to do)
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT)
 	{
-		if (deltaTime > 1000) {
+		if (deltaTime > 500) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
 					if ((type[f][s] == 'P')) {
@@ -1402,18 +1396,16 @@ update_status ModuleTetronimo::Update() {
 
 void ModuleTetronimo::Debugging()
 {
-	string s_loseContinue = to_string(v_loseContinue);
-	const char* ch_loseContinue = s_loseContinue.c_str();
 
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)//(KEY_REPEAT)		// to fix somehow
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN) //(KEY_REPEAT)		// to fix somehow
 	{
-		/*(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;*/
+		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
 		/*App->player->godMode != App->player->godMode;*/
 		
-		App->player->godMode = true;	
+		//App->player->godMode = true;	
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)//(KEY_REPEAT)		
+	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	//	just in case		
 	{
 
 		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivarlo con el mismo boton
@@ -1426,17 +1418,17 @@ void ModuleTetronimo::Debugging()
 		SpawnTetronimo();
 	}
 
-	// Instant win
-	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
-		lvl_instaWin = true;
-		v_WinLose = 0;
-	}
+	//// Instant win
+	//if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
+	//	lvl_instaWin = true;
+	//	App->sLvl_1->v_WinLose = 0;
+	//}
 
-	// Instant lose
-	if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
-		lvl_instaLose = true;
-		v_WinLose = 0;
-	}
+	//// Instant lose
+	//if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+	//	lvl_instaLose = true;
+	//	App->sLvl_1->v_WinLose = 0;
+	//}
 
 	// LOG info
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_DOWN)
@@ -1449,20 +1441,6 @@ void ModuleTetronimo::Debugging()
 	{
 		LOG("GodMode on");
 		App->render->Blit(grid_texture, 62, 50, NULL);
-	}
-
-	if (lvl_instaLose == true)
-	{
-		//LOG("Instant Lost!");
-		App->audio->PauseMusic();
-		App->sLvl_1->lvl_lose(ch_loseContinue);
-	}
-	if (lvl_instaWin == true)
-	{
-		App->sLvl_1->v_message = 0;
-		//LOG("Level complete (Instant Win)!");
-		App->audio->PauseMusic();
-		App->sLvl_1->lvl_win();
 	}
 }
 
@@ -1481,7 +1459,7 @@ bool ModuleTetronimo::lineCompleted(int n, int f, int s)
 		type[f - 9][s] = 'N';
 
 		for (int m = s; m >= 0; m--) {
-			for (int j = 0; j <= 9; j++) {
+			for (int j = 0; j <= 10; j++) {
 				if (type[j][s - 1] == 'B') {
 					type[j][s - 1] = 'N';
 					type[j][s] = 'B';
@@ -1503,6 +1481,7 @@ int ModuleTetronimo::blockRB()
 			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall, 0);
 			Change();
 			SpawnTetronimo();
+			rotar = 0;
 			return 0;
 		}
 	}
@@ -1515,6 +1494,7 @@ int ModuleTetronimo::blockRB()
 					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
 					Change();
 					SpawnTetronimo();
+					rotar = 0;
 					return (21 - s);
 				}
 			}
@@ -1525,6 +1505,7 @@ int ModuleTetronimo::blockRB()
 }
 
 update_status ModuleTetronimo::PostUpdate() {
+
 	for (int i = 0; i < MAX_TETRONIMOS; ++i)
 	{
 		if (tetronimos[i] != nullptr) {
@@ -1558,21 +1539,21 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 0)
 	{
+		arr[3][0] = 1;
+		arr[4][0] = 1;
 		arr[5][0] = 1;
 		arr[6][0] = 1;
-		arr[7][0] = 1;
-		arr[8][0] = 1;
 
+		type[3][0] = 'P';
+		type[4][0] = 'P';
 		type[5][0] = 'P';
 		type[6][0] = 'P';
-		type[7][0] = 'P';
-		type[8][0] = 'P';
 
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 170, 30, 9, 9 };
-		Block[3] = { 180, 30, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
+		Block[3] = { 113 + (T_WIDTH + 1) * 3, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1586,20 +1567,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 1)
 	{
-		arr[5][0] = 1;
-		arr[6][0] = 1;
+		arr[3][0] = 1;
+		arr[4][0] = 1;
+		arr[5][1] = 1;
 		arr[6][1] = 1;
-		arr[7][1] = 1;
 
-		type[5][0] = 'P';
-		type[6][0] = 'P';
+		type[3][0] = 'P';
+		type[4][0] = 'P';
+		type[5][1] = 'P';
 		type[6][1] = 'P';
-		type[7][1] = 'P';
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 160, 40, 9, 9 };
-		Block[3] = { 170, 40, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };	// y 40
+		Block[3] = { 113 + (T_WIDTH + 1) * 2 + T_WIDTH + 1, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1613,20 +1594,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 2)
 	{
+		arr[3][0] = 1;
+		arr[4][0] = 1;
 		arr[5][0] = 1;
-		arr[6][0] = 1;
-		arr[7][0] = 1;
-		arr[5][1] = 1;
+		arr[3][1] = 1;
 
+		type[3][0] = 'P';
+		type[4][0] = 'P';
 		type[5][0] = 'P';
-		type[6][0] = 'P';
-		type[7][0] = 'P';
-		type[5][1] = 'P';
+		type[3][1] = 'P';
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 170, 30, 9, 9 };
-		Block[3] = { 150, 40, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1640,20 +1621,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 3)
 	{
+		arr[3][0] = 1;
+		arr[4][0] = 1;
 		arr[5][0] = 1;
-		arr[6][0] = 1;
-		arr[7][0] = 1;
-		arr[7][1] = 1;
+		arr[5][1] = 1;
 
+		type[3][0] = 'P';
+		type[4][0] = 'P';
 		type[5][0] = 'P';
-		type[6][0] = 'P';
-		type[7][0] = 'P';
-		type[7][1] = 'P';
+		type[5][1] = 'P';
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 170, 30, 9, 9 };
-		Block[3] = { 170, 40, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1667,20 +1648,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 4)
 	{
+		arr[3][0] = 1;
+		arr[4][0] = 1;
 		arr[5][0] = 1;
-		arr[6][0] = 1;
-		arr[7][0] = 1;
-		arr[6][1] = 1;
+		arr[4][1] = 1;
 
+		type[3][0] = 'P';
+		type[4][0] = 'P';
 		type[5][0] = 'P';
-		type[6][0] = 'P';
-		type[7][0] = 'P';
-		type[6][1] = 'P';
+		type[4][1] = 'P';
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 170, 30, 9, 9 };
-		Block[3] = { 160, 40, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1694,20 +1675,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 5)
 	{
-		arr[5][0] = 1;
-		arr[6][0] = 1;
-		arr[5][1] = 1;
-		arr[6][1] = 1;
+		arr[3][0] = 1;
+		arr[4][0] = 1;
+		arr[3][1] = 1;
+		arr[4][1] = 1;
 
-		type[5][0] = 'P';
-		type[6][0] = 'P';
-		type[5][1] = 'P';
-		type[6][1] = 'P';
+		type[3][0] = 'P';
+		type[4][0] = 'P';
+		type[3][1] = 'P';
+		type[4][1] = 'P';
 
-		Block[0] = { 150, 30, 9, 9 };
-		Block[1] = { 160, 30, 9, 9 };
-		Block[2] = { 150, 40, 9, 9 };
-		Block[3] = { 160, 40, 9, 9 };
+		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113, 40, T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1721,20 +1702,20 @@ void ModuleTetronimo::Spawn() {
 
 	if (num == 6)
 	{
-		arr[5][1] = 1;
-		arr[6][1] = 1;
-		arr[6][0] = 1;
-		arr[7][0] = 1;
+		arr[3][1] = 1;
+		arr[4][1] = 1;
+		arr[4][0] = 1;
+		arr[5][0] = 1;
 
-		type[5][1] = 'P';
-		type[6][1] = 'P';
-		type[6][0] = 'P';
-		type[7][0] = 'P';
+		type[3][1] = 'P';
+		type[4][1] = 'P';
+		type[4][0] = 'P';
+		type[5][0] = 'P';
 
-		Block[0] = { 150, 40, 9, 9 };
-		Block[1] = { 160, 40, 9, 9 };
-		Block[2] = { 160, 30, 9, 9 };
-		Block[3] = { 170, 30, 9, 9 };
+		Block[0] = { 113, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
