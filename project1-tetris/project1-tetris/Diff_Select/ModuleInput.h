@@ -61,8 +61,7 @@ public:
 	void UpdateGamepadsInput();
 
 	bool ShakeController(int id, int duration, float strength = 0.5f);
-	
-	const char* GetControllerName(int id) const;
+
 
 public:
 	// An array to fill in the state of all the keyboard keys
