@@ -57,10 +57,6 @@ bool ModuleInput::CleanUp()
 
 	// Stop rumble from all gamepads and deactivate SDL functionallity
 
-
-	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-
 	return true;
 }
 
