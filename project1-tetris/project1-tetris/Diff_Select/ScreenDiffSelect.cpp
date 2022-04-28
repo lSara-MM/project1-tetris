@@ -109,25 +109,64 @@ update_status ScreenDiffSelect::Update()
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
 	GamePad& pad = App->input->pads[0];
-
+	
 	//key commands 
 
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || pad.left || pad.left_y < 0.0f) {
-		if (Index < 2)
+		
+		switch (Index)
 		{
-			Index++;
-			p_x -= 210;
-			p2_x -= 244;
-			App->audio->PlayFx(fxAdd_Press_L_R);
+		case 0:
+			if (Index < 2)
+			{
+				Index++;
+				p_x -= 233;
+				p2_x -= 201;
+				App->audio->PlayFx(fxAdd_Press_L_R);
+			}
+			break;
+		case 1: 
+			if (Index < 2)
+			{
+				Index++;
+				p_x -= 210;
+				p2_x -= 244;
+				App->audio->PlayFx(fxAdd_Press_L_R);
+			}
+			break;
+		case 2:
+			if (Index < 2)
+			{
+				Index++;
+				p_x -= 210;
+				p2_x -= 244;
+				App->audio->PlayFx(fxAdd_Press_L_R);
+			}
+			break;
+
 		}
+		
 	}
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || pad.right || pad.left_y > 0.0f) {
-		if (Index > 0)
+		switch (Index)
 		{
-			Index--;
-			p_x += 210;
-			p2_x += 244;
-			App->audio->PlayFx(fxAdd_Press_L_R);
+		case 1:
+			if (Index > 0)
+			{
+				Index--;
+				p_x += 233;
+				p2_x += 201;
+				App->audio->PlayFx(fxAdd_Press_L_R);
+			}
+		case 2:
+
+			if (Index > 0)
+			{
+				Index--;
+				p_x += 210;
+				p2_x += 244;
+				App->audio->PlayFx(fxAdd_Press_L_R);
+			}
 		}
 		
 	}
@@ -140,13 +179,12 @@ update_status ScreenDiffSelect::Update()
 			App->audio->PlayFx(fxAdd_PressEnter);
 
 		}
-		else {
-		}
+		
 	}
 
-	if (App->input->keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN) {		// ESC to close the game
-		return update_status::UPDATE_STOP;
-	}
+
+
+	return update_status::UPDATE_CONTINUE;
 
 		bool const r = (srand(time(NULL)), true);
 		int  colour = rand() % 9;
