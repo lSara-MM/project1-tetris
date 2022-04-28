@@ -6,16 +6,12 @@
 
 #define MAX_KEYS 256
 #define MAX_PADS 4
-struct _SDL_GameController;
-struct _SDL_Haptic;
 
 struct GamePad
 {
 	// Input data
-	bool start, back, guide;
 	bool x, y, a;
 	bool left, right;
-	float l2, r2;
 	float left_x, left_y, right_x, right_y, left_dz, right_dz;
 
 	// Controller data
@@ -24,9 +20,7 @@ struct GamePad
 	_SDL_GameController* controller;
 	_SDL_Haptic* haptic;
 
-	// Rumble controller
-	int rumble_countdown;
-	float rumble_strength;
+
 };
 enum KEY_STATE
 {
@@ -62,10 +56,8 @@ public:
 	// Called at PreUpdate
 	// Iterates through all active gamepads and update all input data
 	void UpdateGamepadsInput();
-
-	bool ShakeController(int id, int duration, float strength = 0.5f);
 	
-	const char* GetControllerName(int id) const;
+
 
 public:
 	// An array to fill in the state of all the keyboard keys
