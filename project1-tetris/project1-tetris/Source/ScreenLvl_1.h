@@ -73,7 +73,7 @@ public:
 
 
 	// counters / timers
-	int v_stack;
+	bool v_stack;
 
 	int v_insertCoin;
 	int v_points;

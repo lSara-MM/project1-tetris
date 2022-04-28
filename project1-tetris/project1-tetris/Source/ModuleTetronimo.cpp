@@ -8,6 +8,7 @@
 #include "ScreenLvl_1.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
+#include "ModuleFadeToBlack.h"
 
 #include <stdlib.h>
 #include <time.h>
@@ -70,6 +71,11 @@ bool ModuleTetronimo::Start() {
 	//texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
 
+
+	//
+	v_loseContinue = 9;
+	v_WinLose = 0;
+
 	return true;
 }
 
@@ -123,39 +129,39 @@ update_status ModuleTetronimo::Update() {
 	combo = 0;
 
 	// Lost
-	for (int f = 0; f <= 9; f++) {
+	//for (int f = 0; f <= 9; f++) {
+	//	if (type[f][1] == 'B') {
+
+	//		string s_loseContinue = to_string(App->sLvl_1->v_loseContinue);
+	//		const char* ch_loseContinue = s_loseContinue.c_str();
+
+	//		App->audio->PauseMusic();
+	//		App->sLvl_1->v_WinLose = 0;
+	//		App->sLvl_1->lvl_lose(ch_loseContinue);
+	//		LOG("HAS PERDIDO!");
+
+	//		//ACABAR CON GAMEPLAY!
+	//	}
+	//}
+
+		for (int f = 0; f <= 9; f++) {
 		if (type[f][1] == 'B') {
 
-			string s_loseContinue = to_string(App->sLvl_1->v_loseContinue);
-			const char* ch_loseContinue = s_loseContinue.c_str();
+			/*string s_loseContinue = to_string(v_loseContinue);
+			const char* ch_loseContinue = s_loseContinue.c_str();*/
 
+			//App->audio->PauseMusic();
 			//v_WinLose = 0;
-			App->sLvl_1->lvl_lose(ch_loseContinue);
+			//lvl_lose(ch_loseContinue);
+
+			App->sLvl_1->lvl_instaLose = true;
 			LOG("HAS PERDIDO!");
+
 			//ACABAR CON GAMEPLAY!
 		}
 	}
 
 	// Block falling
-	{//if (deltaTime > 500) {
-	//	
-	//	for (int i = 20; i >= 0; i--) {
-	//		for (int j = 0; j <= 9; j++) {
-	//			if (type[j][i] == 'P') {
-
-	//				int aux = arr[j][i];
-	//				type[j][i] = 'N';
-	//				type[j][i + 1] = 'P';
-
-	//				arr[j][i] = 0;
-	//				arr[j][i + 1] = aux;
-	//			}
-	//		}
-	//	}
-	//	deltaTime = 0;
-	//}
-	}
-
 	if (deltaTime > 500) {
 		int m = 0;
 
@@ -1139,7 +1145,7 @@ update_status ModuleTetronimo::Update() {
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
 								tetronimos[i - 3]->x -= (T_WIDTH + 1);
-								tetronimos[i - 3]->y += (T_HEIGHT + 1)*2;
+								tetronimos[i - 3]->y += (T_HEIGHT + 1) * 2;
 
 								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
@@ -1504,10 +1510,10 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
-		Block[3] = { 113 + (T_WIDTH + 1) * 3, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };	//150	//30
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };	//160
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };	//170
+		Block[3] = { 113 + (T_WIDTH + 1) * 3, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };	//180
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1531,10 +1537,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][1] = 'P';
 		type[6][1] = 'P';
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };	// y 40
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };	// y 40
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1558,10 +1564,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[3][1] = 'P';
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113, (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1585,10 +1591,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[5][1] = 'P';
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1612,18 +1618,11 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[4][1] = 'P';
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
 
-
-		/*
-		Block[0] = { 113, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
-		Block[1] = { 113 + (T_WIDTH + 1), (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
-		Block[3] = { 113 + (T_WIDTH + 1) * 3, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
-		*/
 		
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1647,10 +1646,10 @@ void ModuleTetronimo::Spawn() {
 		type[3][1] = 'P';
 		type[4][1] = 'P';
 
-		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113, (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1674,10 +1673,10 @@ void ModuleTetronimo::Spawn() {
 		type[4][0] = 'P';
 		type[5][0] = 'P';
 
-		Block[0] = { 113, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1751,6 +1750,52 @@ void ModuleTetronimo::AddTetronimo(const SDL_Rect& tetronimo, const int& r, cons
 		}
 	}
 }
+
+//void ModuleTetronimo::lvl_lose(const char* ch_loseContinue)
+//{
+//	// Game Over
+//	App->tetronimo->Disable();
+//
+//	if (v_WinLose >= 0 && v_WinLose < 200)
+//	{
+//		if (v_WinLose == 5) App->audio->PlayFx(App->sLvl_1->fxGameOver, 0);
+//		else { App->audio->PauseMusic(); }
+//
+//		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
+//		App->render->DrawQuad({ 70, 5, 118, 56 }, 0, 0, 255, 255);
+//		App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
+//		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
+//		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
+//	}
+//	else if (v_WinLose > 200)
+//	{
+//		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
+//		{
+//			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+//		}
+//
+//		App->render->TextDraw("Press", 96, 146, 255, 255, 255, 255, 16);
+//		App->render->TextDraw("Start", 96, 177, 255, 255, 255, 255, 16);
+//		App->render->TextDraw("To", 128, 210, 255, 255, 255, 255, 16);
+//		App->render->TextDraw("Continue", 79, 242, 255, 255, 255, 255, 16);
+//
+//		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
+//
+//		if (v_WinLose % 50 == 0)
+//		{
+//			v_loseContinue--;
+//		}
+//		LOG("%d win lose", v_WinLose);
+//	}
+//
+//	if (v_loseContinue == 0)
+//	{
+//		lvl_instaLose = false;
+//		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+//	}
+//
+//	v_WinLose++;
+//}
 
 bool ModuleTetronimo::CleanUp()
 {

@@ -251,53 +251,57 @@ update_status ScreenLvl_1::PostUpdate()
 	// Rainbow bar			
 	if ((lines % 4) == 0 && lines != 0)
 	{
-		if (p_stack != 10)
+		if (v_stack == true)
 		{
-			p_stack++;
-		}
+			if (p_stack != 10)
+			{
+				p_stack++;
+			}
 
-		// Color bars
-		if (p_stack >= 1)		// blue
-		{
-			App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
-		}
-		if (p_stack >= 2)		// cyan
-		{
-			App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
-		}
+			// Color bars
+			if (p_stack >= 1)		// blue
+			{
+				App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
+			}
+			if (p_stack >= 2)		// cyan
+			{
+				App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
+			}
 
-		if (p_stack >= 3)		// green
-		{
-			App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
+			if (p_stack >= 3)		// green
+			{
+				App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
 
-		}
-		if (p_stack >= 4)		// "lighter" green
-		{
-			App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
+			}
+			if (p_stack >= 4)		// "lighter" green
+			{
+				App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
 
-		}
-		if (p_stack >= 5)		// yellow
-		{
-			App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
+			}
+			if (p_stack >= 5)		// yellow
+			{
+				App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
 
+			}
+			if (p_stack >= 6)		// dark yellow
+			{
+				App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
+			}
+			if (p_stack >= 7)		// orange
+			{
+				App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
+			}
+			if (p_stack >= 8)		// dark orange
+			{
+				App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
+			}
+			if (p_stack >= 9)		// red
+			{
+				App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
+			}
+
+			v_stack = false;
 		}
-		if (p_stack >= 6)		// dark yellow
-		{
-			App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
-		}
-		if (p_stack >= 7)		// orange
-		{
-			App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
-		}
-		if (p_stack >= 8)		// dark orange
-		{
-			App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
-		}
-		if (p_stack >= 9)		// red
-		{
-			App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
-		}	
-		
 	}
 
 
@@ -325,7 +329,7 @@ update_status ScreenLvl_1::PostUpdate()
 		v_WinLose = 0;
 	}
 
-	if (App->sLvl_1->lvl_instaLose == true)
+	if (lvl_instaLose == true)
 	{
 		string s_loseContinue = to_string(v_loseContinue);
 		const char* ch_loseContinue = s_loseContinue.c_str();
