@@ -25,13 +25,20 @@ bool const r = (srand(time(NULL)), true);
 int  num = rand() % 7;
 int rotar = 0;
 
+SDL_Surface* dots = NULL;
+SDL_Surface* screen = NULL;
+
+//The event structure
+SDL_Event event;
+
+//The portions of the sprite map to be blitted
 uint runTime = 0;
 uint deltaTime = 0;
 uint lastTickTime = 0;
 
 ModuleTetronimo::ModuleTetronimo(bool startEnabled) : Module(startEnabled) {
 
-	currentAnimation = &idleAnim;
+	//currentAnimation = &idleAnim;
 }
 
 
@@ -42,6 +49,10 @@ ModuleTetronimo::~ModuleTetronimo() {
 }
 
 bool ModuleTetronimo::Start() {
+
+	//SDL_Init(IMG_INIT_PNG);
+	//SDL_Surface* image = IMG_Load("Assets/Sprites/Tetramino/Spritesheet/ss_tetramino.png");
+	//SDL_Texture* texture = SDL_CreateTextureFromSurface(App->render->renderer, image);
 
 	for (int i = 0; i < 22; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -60,7 +71,7 @@ bool ModuleTetronimo::Start() {
 	v_WinLose = 0;
 
 	LOG("Loading grid_texture");
-	texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
+	//texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
 
 	return true;
@@ -72,11 +83,7 @@ update_status ModuleTetronimo::Update() {
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	currentAnimation = &idleAnim; 
-
-	App->tetronimo->position.y += speed;
-
-	
+	//App->tetronimo->position.y += speed;
 
 	for (int s = 21; s >= 0; s--) {
 		int n = 0;
@@ -114,7 +121,6 @@ update_status ModuleTetronimo::Update() {
 					break;
 				}
 			}
-			
 		}
 	}
 
@@ -135,7 +141,28 @@ update_status ModuleTetronimo::Update() {
 	}
 
 	// Block falling
-	if (deltaTime > 500) {
+	{//if (deltaTime > 500) {
+	//	
+	//	for (int i = 20; i >= 0; i--) {
+	//		for (int j = 0; j <= 9; j++) {
+	//			if (type[j][i] == 'P') {
+
+	//				int aux = arr[j][i];
+	//				type[j][i] = 'N';
+	//				type[j][i + 1] = 'P';
+
+	//				arr[j][i] = 0;
+	//				arr[j][i + 1] = aux;
+	//			}
+	//		}
+	//	}
+	//	deltaTime = 0;
+	//}
+	}
+
+	if (deltaTime > 1000) {
+		int m = 0;
+
 		for (int i = 20; i >= 0; i--) {
 			for (int j = 0; j <= 9; j++) {
 				if (type[j][i] == 'P') {
@@ -146,14 +173,34 @@ update_status ModuleTetronimo::Update() {
 
 					arr[j][i] = 0;
 					arr[j][i + 1] = aux;
+					m = 1;
 				}
 			}
 		}
+
+		if (m == 1) {
+			int stop = 0;
+
+			for (int i = 0; i < MAX_TETRONIMOS; i++)
+			{
+				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+				{
+					tetronimos[i]->y += 10;
+					tetronimos[i - 1]->y += 10;
+					tetronimos[i - 2]->y += 10;
+					tetronimos[i - 3]->y += 10;
+					stop = 1;
+				}
+			}
+
+			m = 0;
+		}
+
 		deltaTime = 0;
 	}
 
 	// Rotations
-	if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_R] == KEY_DOWN)
 	{
 		rotar++;
 		int bloque = 0;
@@ -162,8 +209,8 @@ update_status ModuleTetronimo::Update() {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
 					if ((type[f][s] == 'P') && (rotar == 2) && (bloque == 0)) {
-
-						if (type[9][s] != 'P') {
+						if (type[9][s] != 'P')
+						{
 							type[f][s] = 'N';
 							type[f][s + 1] = 'N';
 							type[f][s + 2] = 'N';
@@ -183,6 +230,33 @@ update_status ModuleTetronimo::Update() {
 							arr[f + 1][s] = 1;
 							arr[f + 2][s] = 1;
 							arr[f + 3][s] = 1;
+
+							int stop = 0;
+
+							for (int i = 0; i < MAX_TETRONIMOS; i++)
+							{
+								if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+								{
+									tetronimos[i - 2]->x += 10;
+									tetronimos[i - 2]->y -= 10;
+
+									tetronimos[i - 1]->x += 20;
+									tetronimos[i - 1]->y -= 20;
+
+									tetronimos[i]->x += 30;
+									tetronimos[i]->y -= 30;
+
+									stop = 1;
+								}
+							}
+
+							/*rectIdle1.x += 10;
+							rectIdle2.x += 20;
+							rectIdle3.x += 30;
+
+							rectIdle1.y -= 10;
+							rectIdle2.y -= 20;
+							rectIdle3.y -= 30;*/
 						}
 						else
 						{
@@ -205,12 +279,41 @@ update_status ModuleTetronimo::Update() {
 							arr[f + 1][s] = 1;
 							arr[f + 2][s] = 1;
 							arr[f + 3][s] = 1;
+
+							int stop = 0;
+
+							for (int i = 0; i < MAX_TETRONIMOS; i++)
+							{
+								if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+								{
+									tetronimos[i - 3]->x -= 30;
+
+									tetronimos[i - 2]->x -= 20;
+									tetronimos[i - 2]->y -= 10;
+
+									tetronimos[i - 1]->x -= 10;
+									tetronimos[i - 1]->y -= 20;
+
+									tetronimos[i]->y -= 30;
+
+									stop = 1;
+								}
+							}
+
+							//rectIdle.x -= 30;
+							//rectIdle1.x -= 20;
+							//rectIdle2.x -= 10;
+
+							//rectIdle1.y -= 10;
+							//rectIdle2.y -= 20;
+							//rectIdle3.y -= 30;
 						}
-						
+
 						bloque++;
 					}
 
-					if ((type[f][s] == 'P') && (rotar == 1) && (bloque == 0)) {
+					if ((type[f][s] == 'P') && (rotar == 1) && (bloque == 0))
+					{
 						type[f][s] = 'N';
 						type[f + 1][s] = 'N';
 						type[f + 2][s] = 'N';
@@ -230,6 +333,34 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f][s + 2] = 1;
 						arr[f][s + 3] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i]->x -= 30;
+								tetronimos[i]->y += 30;
+
+								tetronimos[i - 1]->x -= 20;
+								tetronimos[i - 1]->y += 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y += 10;
+
+								stop = 1;
+							}
+						}
+
+						//rectIdle1.x -= 10;
+						//rectIdle2.x -= 20;
+						//rectIdle3.x -= 30;
+
+						//rectIdle1.y += 10;
+						//rectIdle2.y += 20;
+						//rectIdle3.y += 30;
+
 						bloque++;
 					}
 				}
@@ -244,6 +375,8 @@ update_status ModuleTetronimo::Update() {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
 					if ((type[f][s] == 'P') && (rotar == 2) && (bloque == 0)) {
+						/*if (type[0][s] != 'P')
+						{*/
 						type[f][s] = 'N';
 						type[f][s + 1] = 'N';
 						type[f - 1][s + 1] = 'N';
@@ -263,6 +396,78 @@ update_status ModuleTetronimo::Update() {
 						arr[f - 1][s] = 1;
 						arr[f - 1][s + 1] = 1;
 						arr[f][s + 1] = 1;
+
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x -= 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i]->x += 10;
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+						//}
+
+						//if(type[0][s] == 'P')
+						//{
+
+						//	type[f][s] = 'N';
+						//	type[f][s + 1] = 'N';
+						//	type[f - 1][s + 1] = 'N';
+						//	type[f - 1][s + 2] = 'N';
+
+						//	type[f - 1][s] = 'P';
+						//	type[f][s] = 'P';
+						//	type[f][s + 1] = 'P';
+						//	type[f + 1][s + 1] = 'P';
+
+						//	arr[f][s] = 0;
+						//	arr[f][s + 1] = 0;
+						//	arr[f - 1][s + 1] = 0;
+						//	arr[f - 1][s + 2] = 0;
+
+						//	arr[f - 1][s] = 1;
+						//	arr[f][s] = 1;
+						//	arr[f][s + 1] = 1;
+						//	arr[f + 1][s + 1] = 1;
+
+
+						//	int stop = 0;
+
+						//	for (int i = 0; i < MAX_TETRONIMOS; i++)
+						//	{
+						//		if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+						//		{
+						//			tetronimos[i - 3]->x -= 10;
+
+						//			tetronimos[i - 2]->y -= 10;
+
+						//			tetronimos[i - 1]->x += 10;
+
+						//			tetronimos[i]->x += 20;
+						//			tetronimos[i]->y -= 10;
+
+						//			stop = 1;
+						//		}
+						//	}
+						//}
+
+						///*rectIdle.x -= 20;
+						//rectIdle1.x -= 10;
+						//rectIdle3.x += 10;
+
+						//rectIdle1.y -= 10;
+						//rectIdle3.y -= 10;*/
+
 						bloque++;
 					}
 
@@ -286,6 +491,32 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 2][s + 1] = 1;
 						arr[f + 1][s + 1] = 1;
 						arr[f + 1][s + 2] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x += 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i]->x -= 10;
+								tetronimos[i]->y += 10;
+
+								stop = 1;
+							}
+						}
+
+						//rectIdle.x += 20;
+						//rectIdle1.x += 10;
+						//rectIdle3.x -= 10;
+
+						//rectIdle1.y += 10;
+						//rectIdle3.y += 10;
+
 						bloque++;
 					}
 				}
@@ -319,6 +550,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f - 1][s] = 1;
 						arr[f + 1][s] = 1;
 						arr[f - 1][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x -= 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->y -= 20;
+
+								tetronimos[i]->x -= 10;
+								tetronimos[i]->y += 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle.x -= 20;
+						rectIdle1.x -= 10;
+						rectIdle3.x -= 10;
+
+						rectIdle1.y -= 10;
+						rectIdle2.y -= 20;
+						rectIdle3.y += 10;*/
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 3) && (bloque == 0)) {
@@ -341,6 +601,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f][s - 1] = 1;
 						arr[f - 1][s - 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y -= 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->x += 20;
+
+								tetronimos[i]->x -= 10;
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle1.x += 10;
+						rectIdle2.x += 20;
+						rectIdle3.x -= 10;
+
+						rectIdle.y -= 20;
+						rectIdle1.y -= 10;
+						rectIdle3.y -= 10;*/
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 2) && (bloque == 0)) {
@@ -363,6 +652,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 1][s + 2] = 1;
 						arr[f + 2][s + 2] = 1;
 						arr[f + 2][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x += 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->y += 20;
+
+								tetronimos[i]->x += 10;
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle.x += 20;
+						rectIdle1.x += 10;
+						rectIdle3.x += 10;
+
+						rectIdle1.y += 10;
+						rectIdle2.y += 20;
+						rectIdle3.y -= 10;*/
+
 						bloque++;
 					}
 
@@ -386,6 +704,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f][s + 2] = 1;
 						arr[f + 1][s + 2] = 1;
+
+						//rectIdle1.x -= 10;
+						//rectIdle2.x -= 20;
+						//rectIdle3.x += 10;
+
+						//rectIdle.y += 20;
+						//rectIdle1.y += 10;
+						//rectIdle3.y += 10;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y += 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->x -= 20;
+
+								tetronimos[i]->x += 10;
+								tetronimos[i]->y += 10;
+
+								stop = 1;
+							}
+						}
+
 						bloque++;
 					}
 				}
@@ -419,6 +766,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f - 1][s] = 1;
 						arr[f - 2][s] = 1;
 						arr[f][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x -= 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->y -= 20;
+
+								tetronimos[i]->x += 10;
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle.x -= 20;
+						rectIdle1.x -= 10;
+						rectIdle3.x += 10;
+
+						rectIdle1.y -= 10;
+						rectIdle2.y -= 20;
+						rectIdle3.y -= 10;*/
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 3) && (bloque == 0)) {
@@ -441,6 +817,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 2][s] = 1;
 						arr[f + 2][s - 1] = 1;
 						arr[f + 1][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y -= 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->x += 20;
+
+								tetronimos[i]->x += 10;
+								tetronimos[i]->y += 10;
+
+								stop = 1;
+							}
+						}
+
+						//rectIdle1.x += 10;
+						//rectIdle2.x += 20;
+						//rectIdle3.x += 10;
+
+						//rectIdle.y -= 20;
+						//rectIdle1.y -= 10;
+						//rectIdle3.y += 10;
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 2) && (bloque == 0)) {
@@ -463,6 +868,36 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f + 1][s + 2] = 1;
 						arr[f + 2][s + 2] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x += 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->y += 20;
+
+								tetronimos[i]->x -= 10;
+								tetronimos[i]->y += 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle.x += 20;
+						rectIdle1.x += 10;
+						rectIdle3.x -= 10;
+
+
+						rectIdle1.y += 10;
+						rectIdle2.y += 20;
+						rectIdle3.y += 10;*/
+
 						bloque++;
 					}
 
@@ -486,6 +921,35 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 1][s] = 1;
 						arr[f][s + 1] = 1;
 						arr[f][s + 2] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y += 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->x -= 20;
+
+								tetronimos[i]->x -= 10;
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle1.x -= 10;
+						rectIdle2.x -= 20;
+						rectIdle3.x -= 10;
+
+						rectIdle.y += 20;
+						rectIdle1.y += 10;
+						rectIdle3.y -= 10;*/
+
 						bloque++;
 					}
 				}
@@ -519,6 +983,30 @@ update_status ModuleTetronimo::Update() {
 						arr[f - 1][s] = 1;
 						arr[f - 2][s] = 1;
 						arr[f - 1][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x -= 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->y -= 20;
+
+								stop = 1;
+							}
+						}
+
+						//rectIdle.x -= 20;
+						//rectIdle1.x -= 10;
+
+						//rectIdle1.y -= 10;
+						//rectIdle2.y -= 20;
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 3) && (bloque == 0)) {
@@ -541,6 +1029,30 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f + 1][s + 1] = 1;
 						arr[f + 1][s + 2] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y -= 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 1]->x += 20;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle1.x += 10;
+						rectIdle2.x += 20;
+
+						rectIdle.y -= 20;
+						rectIdle1.y -= 10;*/
+
 						bloque++;
 					}
 					if ((type[f][s] == 'P') && (rotar == 2) && (bloque == 0)) {
@@ -563,6 +1075,30 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 1][s + 1] = 1;
 						arr[f + 2][s + 1] = 1;
 						arr[f + 1][s] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x += 20;
+
+								tetronimos[i - 2]->x += 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->y += 20;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle.x += 20;
+						rectIdle1.x += 10;
+
+						rectIdle1.y += 10;
+						rectIdle2.y += 20;*/
+
 						bloque++;
 					}
 
@@ -586,6 +1122,30 @@ update_status ModuleTetronimo::Update() {
 						arr[f][s + 1] = 1;
 						arr[f][s + 2] = 1;
 						arr[f + 1][s + 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->y += 20;
+
+								tetronimos[i - 2]->x -= 10;
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->x -= 20;
+
+								stop = 1;
+							}
+						}
+
+						/*rectIdle1.x -= 10;
+						rectIdle2.x -= 20;
+
+						rectIdle.y += 20;
+						rectIdle1.y += 10;*/
+
 						bloque++;
 					}
 				}
@@ -621,6 +1181,33 @@ update_status ModuleTetronimo::Update() {
 						arr[f + 1][s] = 1;
 						arr[f + 1][s - 1] = 1;
 						arr[f + 2][s - 1] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i - 3]->x -= 10;
+								tetronimos[i - 3]->y += 20;
+
+								tetronimos[i - 2]->y += 10;
+
+								tetronimos[i - 1]->x -= 10;
+
+								tetronimos[i]->y -= 10;
+
+								stop = 1;
+							}
+						}
+
+						//rectIdle.x -= 10;
+						//rectIdle2.x -= 10;
+
+						//rectIdle.y += 20;
+						//rectIdle1.y += 10;
+						//rectIdle3.y -= 10;
+
 						bloque++;
 					}
 
@@ -644,6 +1231,32 @@ update_status ModuleTetronimo::Update() {
 						arr[f - 1][s + 1] = 1;
 						arr[f][s + 1] = 1;
 						arr[f][s + 2] = 1;
+
+						int stop = 0;
+
+						for (int i = 0; i < MAX_TETRONIMOS; i++)
+						{
+							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+							{
+								tetronimos[i]->y += 10;
+
+								tetronimos[i - 1]->x += 10;
+
+								tetronimos[i - 2]->y -= 10;
+
+								tetronimos[i - 3]->x += 10;
+								tetronimos[i - 3]->y -= 20;
+
+								stop = 1;
+							}
+						}
+						/*rectIdle.x += 10;
+						rectIdle2.x += 10;
+
+						rectIdle.y -= 20;
+						rectIdle1.y -= 10;
+						rectIdle3.y += 10;*/
+
 						bloque++;
 					}
 				}
@@ -658,12 +1271,21 @@ update_status ModuleTetronimo::Update() {
 	// Left movement
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_DOWN)
 	{
-		int move = 0;		// move == 1 No se puede mover // move == 0 Si se puede mover
 
-		for (int s = 0; s <= 21; s++) {
-			for (int f = 9; f >= 0; f--) {
-				if (type[0][s] == 'P') {
+		for (int s = 0; s <= 21; s++)
+		{
+			for (int f = 0; f <= 9; f++)
+			{
+				if (type[0][s] == 'P')
+				{
 					move = 1;
+				}
+
+				if (f != 0)
+				{
+					if ((type[f - 1][s] == 'B') && (type[f][s] == 'P')) {
+						move = 1;
+					}
 				}
 			}
 		}
@@ -679,17 +1301,44 @@ update_status ModuleTetronimo::Update() {
 				}
 			}
 		}
+
+		if (move != 1) {
+			int stop = 0;
+
+			for (int i = 0; i < MAX_TETRONIMOS; i++)
+			{
+				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+				{
+					tetronimos[i]->x -= 10;
+					tetronimos[i - 1]->x -= 10;
+					tetronimos[i - 2]->x -= 10;
+					tetronimos[i - 3]->x -= 10;
+					stop = 1;
+				}
+			}
+		}
+
+		move = 0;
 	}
 
 	// Right movement
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_DOWN)
 	{
-		int move = 0;
 
-		for (int s = 0; s <= 21; s++) {
-			for (int f = 9; f >= 0; f--) {
-				if (type[9][s] == 'P') {
+		for (int s = 0; s <= 21; s++)
+		{
+			for (int f = 9; f >= 0; f--)
+			{
+				if (type[9][s] == 'P')
+				{
 					move = 1;
+				}
+
+				if (f != 9)
+				{
+					if ((type[f + 1][s] == 'B') && (type[f][s] == 'P')) {
+						move = 1;
+					}
 				}
 			}
 		}
@@ -705,7 +1354,26 @@ update_status ModuleTetronimo::Update() {
 				}
 			}
 		}
+
+		if (move != 1) {
+			int stop = 0;
+
+			for (int i = 0; i < MAX_TETRONIMOS; i++)
+			{
+				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+				{
+					tetronimos[i]->x += 10;
+					tetronimos[i - 1]->x += 10;
+					tetronimos[i - 2]->x += 10;
+					tetronimos[i - 3]->x += 10;
+					stop = 1;
+				}
+			}
+		}
+
+		move = 0;
 	}
+
 
 	// Fall fast (to do)
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT)
@@ -727,8 +1395,6 @@ update_status ModuleTetronimo::Update() {
 		}
 	}
 
-	currentAnimation->Update();
-
 	Debugging();
 
 	return update_status::UPDATE_CONTINUE;
@@ -741,27 +1407,22 @@ void ModuleTetronimo::Debugging()
 
 	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)//(KEY_REPEAT)		// to fix somehow
 	{
-
 		/*(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;*/
 		/*App->player->godMode != App->player->godMode;*/
 		
-		App->player->godMode = true;
-
-		
+		App->player->godMode = true;	
 	}
-
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)//(KEY_REPEAT)		
 	{
 
 		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivarlo con el mismo boton
-
-
 	}
 	
 	// Manually spawn a block
 	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN)
 	{
+		rotar = 0;
 		SpawnTetronimo();
 	}
 
@@ -803,7 +1464,6 @@ void ModuleTetronimo::Debugging()
 		App->audio->PauseMusic();
 		App->sLvl_1->lvl_win();
 	}
-
 }
 
 bool ModuleTetronimo::lineCompleted(int n, int f, int s)
@@ -839,6 +1499,7 @@ int ModuleTetronimo::blockRB()
 	// Block reached bottom
 	for (int f = 0; f <= 9; f++) {
 		if (type[f][21] == 'P') {
+
 			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall, 0);
 			Change();
 			SpawnTetronimo();
@@ -863,16 +1524,37 @@ int ModuleTetronimo::blockRB()
 	return -1;
 }
 
-
 update_status ModuleTetronimo::PostUpdate() {
+	for (int i = 0; i < MAX_TETRONIMOS; ++i)
+	{
+		if (tetronimos[i] != nullptr) {
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	App->render->Blit(texture, position.x, position.y - rect.h, &rect);
+			App->render->DrawQuad(*tetronimos[i], *red[i], *green[i], *blue[i], 255);
+
+		}
+	}
+
+	//rectIdle = currentAnimation->GetCurrentSprite();
+	//SDL_Rect rect1 = currentAnimation1->GetCurrentSprite();
+	//SDL_Rect rect2 = currentAnimation2->GetCurrentSprite();
+	//SDL_Rect rect3 = currentAnimation3->GetCurrentSprite();
+
+	/*apply_surface(0, 0, dots, screen, &rectIdle);
+	apply_surface(200, 0, dots, screen, &rectIdle1);
+	apply_surface(0, 200, dots, screen, &rectIdle2);
+	apply_surface(200, 200, dots, screen, &rectIdle3);*/
+
+	//App->render->Blit(texture, rectIdle.position.x, rectIdle.position.y, &rect);
+	//App->render->Blit(texture, rectIdle1.position.x, rectIdle1.position.y, &rect1);
+	//App->render->Blit(texture, rectIdle2.position.x, rectIdle2.position.y, &rect2);
+	//App->render->Blit(texture, rectIdle3.position.x, rectIdle3.position.y, &rect3);
 
 	return update_status::UPDATE_CONTINUE;
 }
 
 void ModuleTetronimo::Spawn() {
+
+	SDL_Rect Block[4];
 
 	if (num == 0)
 	{
@@ -885,6 +1567,21 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[7][0] = 'P';
 		type[8][0] = 'P';
+
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 170, 30, 9, 9 };
+		Block[3] = { 180, 30, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 255;
+		g = 0;
+		b = 0;
 	}
 
 	if (num == 1)
@@ -898,6 +1595,20 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[6][1] = 'P';
 		type[7][1] = 'P';
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 160, 40, 9, 9 };
+		Block[3] = { 170, 40, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 255;
+		g = 152;
+		b = 2;
 	}
 
 	if (num == 2)
@@ -911,6 +1622,20 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[7][0] = 'P';
 		type[5][1] = 'P';
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 170, 30, 9, 9 };
+		Block[3] = { 150, 40, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 255;
+		g = 0;
+		b = 255;
 	}
 
 	if (num == 3)
@@ -924,6 +1649,20 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[7][0] = 'P';
 		type[7][1] = 'P';
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 170, 30, 9, 9 };
+		Block[3] = { 170, 40, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 249;
+		g = 177;
+		b = 7;
 	}
 
 	if (num == 4)
@@ -937,6 +1676,20 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[7][0] = 'P';
 		type[6][1] = 'P';
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 170, 30, 9, 9 };
+		Block[3] = { 160, 40, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 0;
+		g = 161;
+		b = 0;
 	}
 
 	if (num == 5)
@@ -950,6 +1703,20 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 		type[5][1] = 'P';
 		type[6][1] = 'P';
+
+		Block[0] = { 150, 30, 9, 9 };
+		Block[1] = { 160, 30, 9, 9 };
+		Block[2] = { 150, 40, 9, 9 };
+		Block[3] = { 160, 40, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 16;
+		g = 50;
+		b = 229;
 	}
 
 	if (num == 6)
@@ -963,9 +1730,29 @@ void ModuleTetronimo::Spawn() {
 		type[6][1] = 'P';
 		type[6][0] = 'P';
 		type[7][0] = 'P';
+
+		Block[0] = { 150, 40, 9, 9 };
+		Block[1] = { 160, 40, 9, 9 };
+		Block[2] = { 160, 30, 9, 9 };
+		Block[3] = { 170, 30, 9, 9 };
+
+		rectIdle = Block[0];
+		rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		rectIdle3 = Block[3];
+
+		r = 0;
+		g = 163;
+		b = 173;
 	}
 
+	AddTetronimo(rectIdle, r, g, b);
+	AddTetronimo(rectIdle1, r, g, b);
+	AddTetronimo(rectIdle2, r, g, b);
+	AddTetronimo(rectIdle3, r, g, b);
+
 	SDL_Delay(600);
+
 }
 
 void ModuleTetronimo::SpawnTetronimo() {
@@ -977,7 +1764,7 @@ void ModuleTetronimo::SpawnTetronimo() {
 	LOG("NEXT: %d", next);
 
 	Spawn();
-	num = next;
+	//num = next;
 }
 
 void ModuleTetronimo::Print() {
@@ -995,6 +1782,29 @@ void ModuleTetronimo::Change() {
 			if ((type[l][m] == 'P')) {
 				type[l][m] = 'B';
 			}
+		}
+	}
+	num = next;
+}
+
+void ModuleTetronimo::AddTetronimo(const SDL_Rect& tetronimo, const int& r, const int& g, const int& b)
+{
+	for (int i = 0; i < MAX_TETRONIMOS; ++i)
+	{
+		if (tetronimos[i] == nullptr)
+		{
+			int* red1 = new int(r);
+			int* green1 = new int(g);
+			int* blue1 = new int(b);
+
+			red[i] = red1;
+			green[i] = green1;
+			blue[i] = blue1;
+
+			SDL_Rect* t = new SDL_Rect(tetronimo);
+
+			tetronimos[i] = t;
+			break;
 		}
 	}
 }

@@ -37,7 +37,6 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
 	closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
-	
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -73,17 +72,17 @@ bool ScreenLvl_1::Start()
 
 
 	// Variables
+	lines = 0;
+	linesObjective = 12;
+	linesleft = linesObjective;
+	lvl_credits = App->sStart->credits - 1;
 
-	// points
+	// Points
 	p_drop = 1;
 	score = 0;
 	h = -1;
 
-	lines = 0;
-	linesObjective = 12;
-	linesleft = linesObjective;
-
-	lvl_credits = App->sStart->credits - 1;
+	// Counter
 	v_message = 0;
 	v_insertCoin = 0;
 	v_points = 0;
