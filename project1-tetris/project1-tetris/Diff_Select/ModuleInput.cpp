@@ -180,11 +180,4 @@ bool ModuleInput::ShakeController(int id, int duration, float strength)
 	return ret;
 }
 
-const char* ModuleInput::GetControllerName(int id) const
-{
-	// Check if the given id has a valid controller
-	if (id >= 0 && id < MAX_PADS && pads[id].enabled == true && pads[id].controller != nullptr)
-		return SDL_GameControllerName(pads[id].controller);
 
-	return "unplugged";
-}
