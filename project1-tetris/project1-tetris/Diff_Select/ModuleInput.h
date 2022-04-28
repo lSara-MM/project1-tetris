@@ -60,8 +60,6 @@ public:
 	// Iterates through all active gamepads and update all input data
 	void UpdateGamepadsInput();
 
-	bool ShakeController(int id, int duration, float strength = 0.5f);
-
 
 public:
 	// An array to fill in the state of all the keyboard keys
