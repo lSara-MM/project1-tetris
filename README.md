@@ -1,4 +1,3 @@
-
 # Quokka Games Studios
 
 Project 1 - Tetris(1988)
@@ -8,7 +7,8 @@ https://github.com/lSara-MM/project1-tetris
 
 
 ## Description
-We are Quokka Games Studios, a group of students of the bachelor's degree in Video Game Design and Development from CITM, and this is our first project: a tribute to the Tetris created by Atari in 1988.
+We are Quokka Games Studios, a group of students of the bachelor's degree in Video Game Design and Development from CITM, 
+and this is our first project: a tribute to the Tetris created by Atari in 1988.
 
 
 ## Members
@@ -21,19 +21,20 @@ We are Quokka Games Studios, a group of students of the bachelor's degree in Vid
 
 
 ## Description of the game
-Tetris is a puzzle game in which the player must place the pieces(tetrominoes) that fall from the top of the screen to create full rows (lines), cleaning the line of blocks.
+Tetris is a puzzle game in which the player must place the pieces(tetrominoes) that fall from the top of the screen to 
+create full rows (lines), cleaning lines of blocks.
 The player wins if they clear the number of lines that the level specifies.
-The player loses if enough pieces pile up to reach the top of the playfield. 
+The player loses if enough tetrominoes pile up to reach the top of the playfield. 
 
 
- ## Controls
+## Controls
 
 ###Tetromino movement
 
 *Move right -> D
 *Move left -> A
 *Soft drop -> S
-*Rotate clockwise -> 
+*Rotate -> R
 
 ###Initial screen controls
 
