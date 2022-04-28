@@ -107,7 +107,6 @@ bool ModuleInput::CleanUp()
 		}
 	}
 
-	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 
@@ -130,7 +129,6 @@ void ModuleInput::HandleDeviceConnection(int index)
 					LOG("Found a gamepad with id %i named %s", i, SDL_GameControllerName(pad.controller));
 					pad.enabled = true;
 					pad.left_dz = pad.right_dz = 0.1f;
-					pad.haptic = SDL_HapticOpen(index);
 					if (pad.haptic != nullptr) LOG("... gamepad has force feedback capabilities");
 					pad.index = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(pad.controller));
 				}
@@ -147,7 +145,7 @@ void ModuleInput::HandleDeviceRemoval(int index)
 		GamePad& pad = pads[i];
 		if (pad.enabled && pad.index == index)
 		{
-			SDL_HapticClose(pad.haptic);
+		
 			SDL_GameControllerClose(pad.controller);
 			memset(&pad, 0, sizeof(GamePad));
 		}
@@ -178,8 +176,7 @@ void ModuleInput::UpdateGamepadsInput()
 			pad.right_x = (fabsf(pad.right_x) > pad.right_dz) ? pad.right_x : 0.0f;
 			pad.right_y = (fabsf(pad.right_y) > pad.right_dz) ? pad.right_y : 0.0f;
 
-			if (pad.rumble_countdown > 0)
-				pad.rumble_countdown--;
+			
 		}
 	}
 }
@@ -193,27 +190,7 @@ bool ModuleInput::ShakeController(int id, int duration, float strength)
 
 	// Check if the gamepad is active and allows rumble
 	GamePad& pad = pads[id];
-	if (!pad.enabled || pad.haptic == nullptr || SDL_HapticRumbleSupported(pad.haptic) != SDL_TRUE) return ret;
-
-	// If the pad is already in rumble state and the new strength is below the current value, ignore this call
-	if (duration < pad.rumble_countdown && strength < pad.rumble_strength)
-		return ret;
-
-	if (SDL_HapticRumbleInit(pad.haptic) == -1)
-	{
-		LOG("Cannot init rumble for controller number %d", id);
-	}
-	else
-	{
-		SDL_HapticRumbleStop(pad.haptic);
-		SDL_HapticRumblePlay(pad.haptic, strength, duration / 60 * 1000); //Conversion from frames to ms at 60FPS
-
-		pad.rumble_countdown = duration;
-		pad.rumble_strength = strength;
-
-		ret = true;
-	}
-
+	
 	return ret;
 }
 
