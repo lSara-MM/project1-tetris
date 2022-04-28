@@ -25,14 +25,7 @@ bool ModuleInput::Init()
 update_status ModuleInput::PreUpdate()
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	for (int i = 0; i < MAX_KEYS; ++i)
-	{
-		if (keyboard[i])
-			keys[i] = (keys[i] == KEY_IDLE) ? KEY_DOWN : KEY_REPEAT;
-		else
-			keys[i] = (keys[i] == KEY_REPEAT || keys[i] == KEY_DOWN) ? KEY_UP : KEY_IDLE;
-	}
-	//lee nuevos SDL, mayormente de la window
+
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) return update_status::UPDATE_STOP;
