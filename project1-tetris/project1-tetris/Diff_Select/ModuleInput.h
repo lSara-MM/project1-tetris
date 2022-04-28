@@ -24,9 +24,6 @@ struct GamePad
 	_SDL_GameController* controller;
 	_SDL_Haptic* haptic;
 
-	// Rumble controller
-	int rumble_countdown;
-	float rumble_strength;
 };
 enum KEY_STATE
 {
