@@ -167,17 +167,4 @@ void ModuleInput::UpdateGamepadsInput()
 	}
 }
 
-bool ModuleInput::ShakeController(int id, int duration, float strength)
-{
-	bool ret = false;
-
-	// Check if the given id is valid within the array bounds
-	if (id < 0 || id >= MAX_PADS) return ret;
-
-	// Check if the gamepad is active and allows rumble
-	GamePad& pad = pads[id];
-	
-	return ret;
-}
-
 
