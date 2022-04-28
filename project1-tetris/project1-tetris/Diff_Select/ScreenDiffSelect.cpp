@@ -17,7 +17,6 @@ uint run_Time = 0;
 uint delta_Time = 0;
 uint last_TickTime = 0;
 
-
 int pos_x;
 int pos_x1;
 int pos_x2;
@@ -102,89 +101,17 @@ bool ScreenDiffSelect::Start()
 
 update_status ScreenDiffSelect::Update()
 {
-	runTime = SDL_GetTicks();
-	deltaTime += runTime - lastTickTime;
-	lastTickTime = runTime;
-	
+	run_Time = SDL_GetTicks();
+	delta_Time += run_Time - last_TickTime;
+	last_TickTime = run_Time;
+
+
 	App->render->Blit(bg_texture, 0, 3, NULL);
-	
+
 	GamePad& pad = App->input->pads[0];
 	
 	//key commands 
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || pad.left || pad.left_y < 0.0f) {
-		
-		switch (Index)
-		{
-		case 0:
-			if (Index < 2)
-			{
-				Index++;
-				p_x -= 233;
-				p2_x -= 201;
-				App->audio->PlayFx(fxAdd_Press_L_R);
-			}
-			break;
-		case 1: 
-			if (Index < 2)
-			{
-				Index++;
-				p_x -= 210;
-				p2_x -= 244;
-				App->audio->PlayFx(fxAdd_Press_L_R);
-			}
-			break;
-		case 2:
-			if (Index < 2)
-			{
-				Index++;
-				p_x -= 210;
-				p2_x -= 244;
-				App->audio->PlayFx(fxAdd_Press_L_R);
-			}
-			break;
-
-		}
-		
-	}
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || pad.right || pad.left_y > 0.0f) {
-		switch (Index)
-		{
-		case 1:
-			if (Index > 0)
-			{
-				Index--;
-				p_x += 233;
-				p2_x += 201;
-				App->audio->PlayFx(fxAdd_Press_L_R);
-			}
-		case 2:
-
-			if (Index > 0)
-			{
-				Index--;
-				p_x += 210;
-				p2_x += 244;
-				App->audio->PlayFx(fxAdd_Press_L_R);
-			}
-		}
-		
-	}
-
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || pad.a)
-	{
-		if (Index == Easy)
-		{
-			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
-			App->audio->PlayFx(fxAdd_PressEnter);
-
-		}
-		
-	}
-	
-	//random colours
-
-	
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || pad.left || pad.left_y < 0.0f) {
 		
 		switch (Index)
@@ -659,6 +586,327 @@ update_status ScreenDiffSelect::Update()
 		{
 			delta_Time = 0;
 		}
+	
+
+		
+
+
+		/*for (int i = 1; i <= 8; i++)
+		{
+			int  colour = rand() % 9;
+
+			switch (i)
+			{
+			case 1:
+
+				if (colour == 1)
+				{
+					pos_x = 22;
+					pos_y = 130;
+				}
+				if (colour == 2)
+				{
+					pos_x1= 22;
+					pos_y1 = 130;
+
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 22;
+					pos_y2 = 130;
+
+
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 22;
+					pos_y3 = 130;
+
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 22;
+					pos_y4 = 130;
+
+
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 22;
+					pos_y5 = 130;
+
+				}
+				if (colour == 7)
+				{
+					pos_x6 = 22;
+					pos_y6 = 130;
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 22;
+					pos_y7 = 130;
+				}
+				break;
+
+			case 2:
+
+				if (colour == 1)
+				{
+					pos_x = 22;
+					pos_y = 244;
+				}
+				if (colour == 2)
+				{
+					pos_x1 = 22;
+					pos_y1 = 244;
+
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 22;
+					pos_y2 = 244;
+
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 22;
+					pos_y3 = 244;
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 22;
+					pos_y4 = 244;
+
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 22;
+					pos_y5 = 244;
+
+				}
+
+				if (colour == 7)
+				{
+					pos_x6 = 22;
+					pos_y6 = 244;
+
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 22;
+					pos_y7 = 244;
+
+				}
+
+				break;
+			case 3:
+
+				if (colour == 1)
+				{
+					pos_x = 22;
+					pos_y = 365;
+
+				}
+				if (colour == 2)
+				{
+					pos_x1 = 22;
+					pos_y1 = 365;
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 22;
+					pos_y2 = 365;
+
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 22;
+					pos_y3 = 365;
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 22;
+					pos_y4 = 365;
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 22;
+					pos_y5 = 365;
+				}
+
+				if (colour == 7)
+				{
+					pos_x6 = 22;
+					pos_y6 = 365;
+
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 22;
+					pos_y7 = 365;
+				}
+				break;
+
+			case 4:
+
+				if (colour == 1)
+				{
+					pos_x = 200;
+					pos_y = 130;
+
+				}
+				if (colour == 2)
+				{
+					pos_x1 = 200;
+					pos_y1 = 130;
+
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 200;
+					pos_y2 = 130;
+
+
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 200;
+					pos_y3 = 130;
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 200;
+					pos_y4 = 130;
+
+
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 200;
+					pos_y5 = 130;
+				}
+
+				if (colour == 7)
+				{
+					pos_x6 = 200;
+					pos_y6 = 130;
+
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 200;
+					pos_y7 = 130;
+
+				}
+				break;
+
+			case 5:
+
+				if (colour == 1)
+				{
+					pos_x = 200;
+					pos_y = 244;
+
+				}
+				if (colour == 2)
+				{
+					pos_x1 = 200;
+					pos_y1 = 244;
+
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 200;
+					pos_y2 = 244;
+
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 200;
+					pos_y3 = 244;
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 200;
+					pos_y4 = 244;
+
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 200;
+					pos_y5 = 244;
+
+				}
+
+				if (colour == 7)
+				{
+					pos_x6 = 200;
+					pos_y6 = 244;
+
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 200;
+					pos_y7 = 244;
+
+				}
+				break;
+
+			case 6:
+
+				if (colour == 1)
+				{
+					pos_x = 200;
+					pos_y = 365;
+				}
+				if (colour == 2)
+				{
+					pos_x1 = 200;
+					pos_y1 = 365;
+
+				}
+				if (colour == 3)
+				{
+					pos_x2 = 200;
+					pos_y2 = 365;
+				}
+				if (colour == 4)
+				{
+					pos_x3 = 200;
+					pos_y3 = 365;
+
+				}
+				if (colour == 5)
+				{
+					pos_x4 = 200;
+					pos_y4 = 365;
+
+				}
+				if (colour == 6)
+				{
+					pos_x5 = 200;
+					pos_y5 = 365;
+				}
+
+				if (colour == 7)
+				{
+					pos_x6 = 200;
+					pos_y6 = 365;
+
+				}
+				if (colour == 8)
+				{
+					pos_x7 = 200;
+					pos_y7 = 365;
+
+				}
+				break;
+			}*/
 
 	return update_status::UPDATE_CONTINUE;
 }
