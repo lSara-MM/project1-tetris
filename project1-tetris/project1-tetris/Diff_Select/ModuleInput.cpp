@@ -19,22 +19,6 @@ bool ModuleInput::Init()
 	bool ret = true;
 	SDL_Init(0);
 
-	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
-	{
-		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
-		ret = false;
-	}
-	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
-	{
-		LOG("SDL_INIT_GAMECONTROLLER could not initialize! SDL_Error: %s\n", SDL_GetError());
-		ret = false;
-	}
-
-	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
-	{
-		LOG("SDL_INIT_HAPTIC could not initialize! SDL_Error: %s\n", SDL_GetError());
-		ret = false;
-	}
 	return ret;
 }
 
@@ -63,28 +47,6 @@ update_status ModuleInput::PreUpdate()
 			keys[i] = (keys[i] == KEY_REPEAT || keys[i] == KEY_DOWN) ? KEY_UP : KEY_IDLE;
 	}
 
-	while (SDL_PollEvent(&event) != 0)
-	{
-		switch (event.type)
-		{
-		//A structure that contains controller device event information
-		case(SDL_CONTROLLERDEVICEADDED):
-		{
-			HandleDeviceConnection(event.cdevice.which);
-			break;
-		}
-		case(SDL_CONTROLLERDEVICEREMOVED):
-		{
-			HandleDeviceRemoval(event.cdevice.which);
-			break;
-		}
-		case(SDL_QUIT):
-		{
-			return update_status::UPDATE_STOP;
-			break;
-		}
-		}
-	}
 
 	UpdateGamepadsInput();
 	return update_status::UPDATE_CONTINUE;
@@ -92,6 +54,9 @@ update_status ModuleInput::PreUpdate()
 bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
+
+	// Stop rumble from all gamepads and deactivate SDL functionallity
+
 
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
@@ -166,5 +131,4 @@ void ModuleInput::UpdateGamepadsInput()
 		}
 	}
 }
-
 
