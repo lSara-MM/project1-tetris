@@ -112,14 +112,6 @@ public:
 	bool lvl_instaLose;
 	bool lvl_instaWin;
 
-
-	// la sucia
-	void lvl_win();
-	void lvl_lose(const char* ch_loseContinue);
-
-	int v_loseContinue;
-	int v_WinLose;
-
 private:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* grid_texture = nullptr;

@@ -62,19 +62,11 @@ bool ModuleTetronimo::Start() {
 
 	combo = 0;
 
-	lvl_instaLose = false;
-	lvl_instaWin = false;
-
 	App->player->godMode = false;
 
 	LOG("Loading grid_texture");
 	//texture = App->textures->Load("Assets/Sprites/Tetramino/Spritesheet/Block_Spritesheet.png");
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
-
-
-	//
-	v_loseContinue = 9;
-	v_WinLose = 0;
 
 	return true;
 }
@@ -154,11 +146,8 @@ update_status ModuleTetronimo::Update() {
 			//v_WinLose = 0;
 			//lvl_lose(ch_loseContinue);
 
-			//App->sLvl_1->lvl_instaLose = true;
-			LOG("ACTIVE");
-
+			LOG("You Lost");
 			App->sLvl_1->lvl_instaLose = true;
-
 			//ACABAR CON GAMEPLAY!
 		}
 	}
@@ -1402,6 +1391,18 @@ void ModuleTetronimo::Debugging()
 	{
 		LOG("GodMode on");
 		App->render->Blit(grid_texture, 62, 50, NULL);
+
+
+		if (App->input->keys[SDL_SCANCODE_1] == KEY_STATE::KEY_DOWN)
+		{
+			App->sLvl_1->score++;
+		}
+
+		if (App->input->keys[SDL_SCANCODE_2] == KEY_STATE::KEY_DOWN)
+		{
+			App->sLvl_1->lines++;
+			App->sLvl_1->linesleft--;
+		}
 	}
 }
 
@@ -1452,7 +1453,7 @@ int ModuleTetronimo::blockRB()
 		for (int f = 0; f <= 9; f++) {
 			if ((type[f][s] == 'P')) {
 				if (type[f][s + 1] == 'B') {
-					App->audio->PlayFx(App->sLvl_1->fxLine, 0);
+					App->audio->PlayFx(App->sLvl_1->fxBlock_Fall, 0);
 					Change();
 					SpawnTetronimo();
 					rotar = 0;
@@ -1751,52 +1752,6 @@ void ModuleTetronimo::AddTetronimo(const SDL_Rect& tetronimo, const int& r, cons
 		}
 	}
 }
-
-//void ModuleTetronimo::lvl_lose(const char* ch_loseContinue)
-//{
-//	// Game Over
-//	App->tetronimo->Disable();
-//
-//	if (v_WinLose >= 0 && v_WinLose < 200)
-//	{
-//		if (v_WinLose == 5) App->audio->PlayFx(App->sLvl_1->fxGameOver, 0);
-//		else { App->audio->PauseMusic(); }
-//
-//		App->render->DrawQuad({ 63, 0, 131, 66 }, 255, 0, 0, 255);
-//		App->render->DrawQuad({ 70, 5, 118, 56 }, 0, 0, 255, 255);
-//		App->render->DrawQuad({ 80, 15, 98, 34 }, 37, 37, 85, 255);
-//		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
-//		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
-//	}
-//	else if (v_WinLose > 200)
-//	{
-//		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
-//		{
-//			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
-//		}
-//
-//		App->render->TextDraw("Press", 96, 146, 255, 255, 255, 255, 16);
-//		App->render->TextDraw("Start", 96, 177, 255, 255, 255, 255, 16);
-//		App->render->TextDraw("To", 128, 210, 255, 255, 255, 255, 16);
-//		App->render->TextDraw("Continue", 79, 242, 255, 255, 255, 255, 16);
-//
-//		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
-//
-//		if (v_WinLose % 50 == 0)
-//		{
-//			v_loseContinue--;
-//		}
-//		LOG("%d win lose", v_WinLose);
-//	}
-//
-//	if (v_loseContinue == 0)
-//	{
-//		lvl_instaLose = false;
-//		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
-//	}
-//
-//	v_WinLose++;
-//}
 
 bool ModuleTetronimo::CleanUp()
 {
