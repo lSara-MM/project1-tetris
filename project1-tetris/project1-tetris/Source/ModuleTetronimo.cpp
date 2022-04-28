@@ -22,7 +22,7 @@
 //pieza de spawn en y = 0
 
 bool const r = (srand(time(NULL)), true);
-int  num = rand() % 1;
+int  num = rand() % 7;
 int rotar = 0;
 
 SDL_Surface* dots = NULL;
@@ -201,6 +201,7 @@ update_status ModuleTetronimo::Update() {
 		rotar++;
 		int bloque = 0;
 
+		// red
 		if (num == 0) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -233,14 +234,14 @@ update_status ModuleTetronimo::Update() {
 							{
 								if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 								{
-									tetronimos[i - 2]->x += 10;
-									tetronimos[i - 2]->y -= 10;
+									tetronimos[i - 2]->x += (T_WIDTH + 1);
+									tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-									tetronimos[i - 1]->x += 20;
-									tetronimos[i - 1]->y -= 20;
+									tetronimos[i - 1]->x += (T_WIDTH + 1)*2;
+									tetronimos[i - 1]->y -= (T_HEIGHT + 1)*2;
 
-									tetronimos[i]->x += 30;
-									tetronimos[i]->y -= 30;
+									tetronimos[i]->x += (T_WIDTH + 1)*3;
+									tetronimos[i]->y -= (T_HEIGHT + 1)*3;
 
 									stop = 1;
 								}
@@ -282,15 +283,15 @@ update_status ModuleTetronimo::Update() {
 							{
 								if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 								{
-									tetronimos[i - 3]->x -= 30;
+									tetronimos[i - 3]->x -= (T_WIDTH + 1)*3;
 
-									tetronimos[i - 2]->x -= 20;
-									tetronimos[i - 2]->y -= 10;
+									tetronimos[i - 2]->x -= (T_WIDTH + 1)*2;
+									tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-									tetronimos[i - 1]->x -= 10;
-									tetronimos[i - 1]->y -= 20;
+									tetronimos[i - 1]->x -= (T_WIDTH + 1);
+									tetronimos[i - 1]->y -= (T_HEIGHT + 1)*2;
 
-									tetronimos[i]->y -= 30;
+									tetronimos[i]->y -= (T_HEIGHT + 1)*3;
 
 									stop = 1;
 								}
@@ -336,14 +337,14 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i]->x -= 30;
-								tetronimos[i]->y += 30;
+								tetronimos[i]->x -= (T_WIDTH + 1)*3;
+								tetronimos[i]->y += (T_HEIGHT + 1)*3;
 
-								tetronimos[i - 1]->x -= 20;
-								tetronimos[i - 1]->y += 20;
+								tetronimos[i - 1]->x -= (T_WIDTH + 1)*2;
+								tetronimos[i - 1]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -367,6 +368,7 @@ update_status ModuleTetronimo::Update() {
 			}
 		}
 
+		// orange
 		if (num == 1) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -400,70 +402,17 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x -= 20;
+								tetronimos[i - 3]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i]->x += 10;
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->x += (T_WIDTH + 1);
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
 						}
-						//}
-
-						//if(type[0][s] == 'P')
-						//{
-
-						//	type[f][s] = 'N';
-						//	type[f][s + 1] = 'N';
-						//	type[f - 1][s + 1] = 'N';
-						//	type[f - 1][s + 2] = 'N';
-
-						//	type[f - 1][s] = 'P';
-						//	type[f][s] = 'P';
-						//	type[f][s + 1] = 'P';
-						//	type[f + 1][s + 1] = 'P';
-
-						//	arr[f][s] = 0;
-						//	arr[f][s + 1] = 0;
-						//	arr[f - 1][s + 1] = 0;
-						//	arr[f - 1][s + 2] = 0;
-
-						//	arr[f - 1][s] = 1;
-						//	arr[f][s] = 1;
-						//	arr[f][s + 1] = 1;
-						//	arr[f + 1][s + 1] = 1;
-
-
-						//	int stop = 0;
-
-						//	for (int i = 0; i < MAX_TETRONIMOS; i++)
-						//	{
-						//		if ((tetronimos[i + 1] == nullptr) && (stop == 0))
-						//		{
-						//			tetronimos[i - 3]->x -= 10;
-
-						//			tetronimos[i - 2]->y -= 10;
-
-						//			tetronimos[i - 1]->x += 10;
-
-						//			tetronimos[i]->x += 20;
-						//			tetronimos[i]->y -= 10;
-
-						//			stop = 1;
-						//		}
-						//	}
-						//}
-
-						///*rectIdle.x -= 20;
-						//rectIdle1.x -= 10;
-						//rectIdle3.x += 10;
-
-						//rectIdle1.y -= 10;
-						//rectIdle3.y -= 10;*/
-
 						bloque++;
 					}
 
@@ -494,13 +443,13 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x += 20;
+								tetronimos[i - 3]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i]->x -= 10;
-								tetronimos[i]->y += 10;
+								tetronimos[i]->x -= (T_WIDTH + 1);
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -523,6 +472,7 @@ update_status ModuleTetronimo::Update() {
 			}
 		}
 
+		// pink
 		if (num == 2) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -553,15 +503,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x -= 20;
+								tetronimos[i - 3]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y -= 20;
+								tetronimos[i - 1]->y -= (T_HEIGHT + 1)*2;
 
-								tetronimos[i]->x -= 10;
-								tetronimos[i]->y += 10;
+								tetronimos[i]->x -= (T_WIDTH + 1);
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -604,15 +554,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y -= 20;
+								tetronimos[i - 3]->y -= (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x += 20;
+								tetronimos[i - 1]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i]->x -= 10;
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->x -= (T_WIDTH + 1);
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -655,15 +605,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x += 20;
+								tetronimos[i - 3]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y += 20;
+								tetronimos[i - 1]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i]->x += 10;
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->x += (T_WIDTH + 1);
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -715,15 +665,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y += 20;
+								tetronimos[i - 3]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x -= 20;
+								tetronimos[i - 1]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i]->x += 10;
-								tetronimos[i]->y += 10;
+								tetronimos[i]->x += (T_WIDTH + 1);
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -739,6 +689,7 @@ update_status ModuleTetronimo::Update() {
 			}
 		}
 
+		// yellow
 		if (num == 3) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -769,15 +720,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x -= 20;
+								tetronimos[i - 3]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y -= 20;
+								tetronimos[i - 1]->y -= (T_HEIGHT + 1)*2;
 
-								tetronimos[i]->x += 10;
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->x += (T_WIDTH + 1);
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -820,15 +771,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y -= 20;
+								tetronimos[i - 3]->y -= (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x += 20;
+								tetronimos[i - 1]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i]->x += 10;
-								tetronimos[i]->y += 10;
+								tetronimos[i]->x += (T_WIDTH + 1);
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -871,15 +822,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x += 20;
+								tetronimos[i - 3]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y += 20;
+								tetronimos[i - 1]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i]->x -= 10;
-								tetronimos[i]->y += 10;
+								tetronimos[i]->x -= (T_WIDTH + 1);
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -924,15 +875,15 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y += 20;
+								tetronimos[i - 3]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x -= 20;
+								tetronimos[i - 1]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i]->x -= 10;
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->x -= (T_WIDTH + 1);
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -956,6 +907,7 @@ update_status ModuleTetronimo::Update() {
 			}
 		}
 
+		// green
 		if (num == 4) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -986,12 +938,12 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x -= 20;
+								tetronimos[i - 3]->x -= (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y -= 20;
+								tetronimos[i - 1]->y -= (T_HEIGHT + 1)*2;
 
 								stop = 1;
 							}
@@ -1032,12 +984,12 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y -= 20;
+								tetronimos[i - 3]->y -= (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x += 20;
+								tetronimos[i - 1]->x += (T_WIDTH + 1)*2;
 
 								stop = 1;
 							}
@@ -1078,12 +1030,12 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x += 20;
+								tetronimos[i - 3]->x += (T_WIDTH + 1)*2;
 
-								tetronimos[i - 2]->x += 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x += (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->y += 20;
+								tetronimos[i - 1]->y += (T_HEIGHT + 1)*2;
 
 								stop = 1;
 							}
@@ -1125,12 +1077,12 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->y += 20;
+								tetronimos[i - 3]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->x -= 10;
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->x -= (T_WIDTH + 1);
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x -= 20;
+								tetronimos[i - 1]->x -= (T_WIDTH + 1)*2;
 
 								stop = 1;
 							}
@@ -1152,8 +1104,10 @@ update_status ModuleTetronimo::Update() {
 			}
 		}
 
+		// blue
 		//if(num == 5) -> No hace nada 
 
+		// cyan
 		if (num == 6) {
 			for (int s = 0; s <= 21; s++) {
 				for (int f = 0; f <= 9; f++) {
@@ -1184,14 +1138,14 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i - 3]->x -= 10;
-								tetronimos[i - 3]->y += 20;
+								tetronimos[i - 3]->x -= (T_WIDTH + 1);
+								tetronimos[i - 3]->y += (T_HEIGHT + 1)*2;
 
-								tetronimos[i - 2]->y += 10;
+								tetronimos[i - 2]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x -= 10;
+								tetronimos[i - 1]->x -= (T_WIDTH + 1);
 
-								tetronimos[i]->y -= 10;
+								tetronimos[i]->y -= (T_HEIGHT + 1);
 
 								stop = 1;
 							}
@@ -1234,14 +1188,14 @@ update_status ModuleTetronimo::Update() {
 						{
 							if ((tetronimos[i + 1] == nullptr) && (stop == 0))
 							{
-								tetronimos[i]->y += 10;
+								tetronimos[i]->y += (T_HEIGHT + 1);
 
-								tetronimos[i - 1]->x += 10;
+								tetronimos[i - 1]->x += (T_WIDTH + 1);
 
-								tetronimos[i - 2]->y -= 10;
+								tetronimos[i - 2]->y -= (T_HEIGHT + 1);
 
-								tetronimos[i - 3]->x += 10;
-								tetronimos[i - 3]->y -= 20;
+								tetronimos[i - 3]->x += (T_WIDTH + 1);
+								tetronimos[i - 3]->y -= (T_HEIGHT + 1)*2;
 
 								stop = 1;
 							}
@@ -1537,7 +1491,7 @@ void ModuleTetronimo::Spawn() {
 
 	SDL_Rect Block[4];
 
-	if (num == 0)
+	if (num == 0)		// red
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1550,10 +1504,10 @@ void ModuleTetronimo::Spawn() {
 		type[6][0] = 'P';
 
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
-		Block[3] = { 113 + (T_WIDTH + 1) * 3, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
+		Block[3] = { 113 + (T_WIDTH + 1) * 3, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1565,7 +1519,7 @@ void ModuleTetronimo::Spawn() {
 		b = 0;
 	}
 
-	if (num == 1)
+	if (num == 1)		// orange
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1577,10 +1531,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][1] = 'P';
 		type[6][1] = 'P';
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };	// y 40
-		Block[3] = { 113 + (T_WIDTH + 1) * 2 + T_WIDTH + 1, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };	// y 40
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1592,7 +1546,7 @@ void ModuleTetronimo::Spawn() {
 		b = 2;
 	}
 
-	if (num == 2)
+	if (num == 2)		// pink
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1604,10 +1558,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[3][1] = 'P';
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113, (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1619,7 +1573,7 @@ void ModuleTetronimo::Spawn() {
 		b = 255;
 	}
 
-	if (num == 3)
+	if (num == 3)		// yellow
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1631,10 +1585,10 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[5][1] = 'P';
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1646,7 +1600,7 @@ void ModuleTetronimo::Spawn() {
 		b = 7;
 	}
 
-	if (num == 4)
+	if (num == 4)		// green
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1658,11 +1612,19 @@ void ModuleTetronimo::Spawn() {
 		type[5][0] = 'P';
 		type[4][1] = 'P';
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
+
+		/*
+		Block[0] = { 113, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//150	//30
+		Block[1] = { 113 + (T_WIDTH + 1), (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//160
+		Block[2] = { 113 + (T_WIDTH + 1) * 2, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//170
+		Block[3] = { 113 + (T_WIDTH + 1) * 3, (36 - T_HEIGHT), T_WIDTH, T_HEIGHT };	//180
+		*/
+		
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
 		rectIdle2 = Block[2];
@@ -1673,7 +1635,7 @@ void ModuleTetronimo::Spawn() {
 		b = 0;
 	}
 
-	if (num == 5)
+	if (num == 5)		// blue
 	{
 		arr[3][0] = 1;
 		arr[4][0] = 1;
@@ -1685,10 +1647,10 @@ void ModuleTetronimo::Spawn() {
 		type[3][1] = 'P';
 		type[4][1] = 'P';
 
-		Block[0] = { 113, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113, 40, T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113, (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1), (36 + T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1700,7 +1662,7 @@ void ModuleTetronimo::Spawn() {
 		b = 229;
 	}
 
-	if (num == 6)
+	if (num == 6)		// cyan
 	{
 		arr[3][1] = 1;
 		arr[4][1] = 1;
@@ -1712,10 +1674,10 @@ void ModuleTetronimo::Spawn() {
 		type[4][0] = 'P';
 		type[5][0] = 'P';
 
-		Block[0] = { 113, 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
-		Block[1] = { 113 + (T_WIDTH + 1), 66 - (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
-		Block[2] = { 113 + (T_WIDTH + 1), (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
-		Block[3] = { 113 + (T_WIDTH + 1) * 2, (66 - T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[0] = { 113, 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[1] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT * 2), T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 36 + (T_HEIGHT), T_WIDTH, T_HEIGHT };
+		Block[3] = { 113 + (T_WIDTH + 1) * 2, 36 + (T_HEIGHT), T_WIDTH, T_HEIGHT };
 
 		rectIdle = Block[0];
 		rectIdle1 = Block[1];
@@ -1743,7 +1705,7 @@ void ModuleTetronimo::SpawnTetronimo() {
 
 	LOG("NUM: %d", num);
 	LOG("NEXT: %d", next);
-
+	num = 0;
 	Spawn();
 	//num = next;
 }
