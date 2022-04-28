@@ -51,7 +51,7 @@ bool ScreenDiffSelect::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
-	
+
 	bg_texture = App->textures->Load("Assets/ss_DifficultyBg.png");
 	arrowleft_texture = App->textures->Load("Assets/arrow_left.png");
 	arrowright_texture = App->textures->Load("Assets/arrow_right.png");
@@ -95,7 +95,7 @@ bool ScreenDiffSelect::Start()
 
 	fxAdd_Press_L_R = App->audio->LoadFx("Assets/Audio/FX/diff_selection_arrow.wav");
 	fxAdd_PressEnter = App->audio->LoadFx("Assets/Audio/FX/diff_selection_enter.wav");
-	
+
 	return ret;
 }
 
@@ -109,23 +109,23 @@ update_status ScreenDiffSelect::Update()
 	App->render->Blit(bg_texture, 0, 3, NULL);
 
 	GamePad& pad = App->input->pads[0];
-	
+
 	//key commands 
 
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || pad.left || pad.left_y < 0.0f) {
-		
+
 		switch (Index)
 		{
 		case 0:
 			if (Index < 2)
 			{
 				Index++;
-				p_x -= 233;
-				p2_x -= 201;
+				p_x -= 235;
+				p2_x -= 205;
 				App->audio->PlayFx(fxAdd_Press_L_R);
 			}
 			break;
-		case 1: 
+		case 1:
 			if (Index < 2)
 			{
 				Index++;
@@ -145,7 +145,7 @@ update_status ScreenDiffSelect::Update()
 			break;
 
 		}
-		
+
 	}
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || pad.right || pad.left_y > 0.0f) {
 		switch (Index)
@@ -154,8 +154,8 @@ update_status ScreenDiffSelect::Update()
 			if (Index > 0)
 			{
 				Index--;
-				p_x += 233;
-				p2_x += 201;
+				p_x += 235;
+				p2_x += 205;
 				App->audio->PlayFx(fxAdd_Press_L_R);
 			}
 		case 2:
@@ -168,7 +168,7 @@ update_status ScreenDiffSelect::Update()
 				App->audio->PlayFx(fxAdd_Press_L_R);
 			}
 		}
-		
+
 	}
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || pad.a)
@@ -179,734 +179,413 @@ update_status ScreenDiffSelect::Update()
 			App->audio->PlayFx(fxAdd_PressEnter);
 
 		}
-		
+
 	}
 
-	
-		int  colour = rand() % 9;
 
-		if ((delta_Time >= 0) && (delta_Time <= 100))
+	int  colour = rand() % 9;
+
+	if ((delta_Time >= 0) && (delta_Time <= 100))
+	{
+		if (colour == 1)
 		{
-			if (colour == 1)
-			{
-				pos_x = 22;
-				pos_y = 130;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 22;
-				pos_y1 = 130;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
-
-
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 22;
-				pos_y2 = 130;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 22;
-				pos_y3 = 130;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 22;
-				pos_y4 = 130;
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 22;
-				pos_y5 = 130;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 22;
-				pos_y6 = 130;
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
-
-
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 22;
-				pos_y7 = 130;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
-
-			}
+			pos_x = 22;
+			pos_y = 130;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
 		}
-
-		colour = rand() % 9;
-
-		if ((delta_Time >= 100) && (delta_Time <= 200))
+		if (colour == 2)
 		{
-			if (colour == 1)
-			{
-				pos_x = 22;
-				pos_y = 244;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 22;
-				pos_y1 = 244;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+			pos_x1 = 22;
+			pos_y1 = 130;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 
-
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 22;
-				pos_y2 = 244;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 22;
-				pos_y3 = 244;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 22;
-				pos_y4 = 244;
-
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 22;
-				pos_y5 = 244;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 22;
-				pos_y6 = 244;
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
-
-
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 22;
-				pos_y7 = 244;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
-
-			}
-		}
-
-		colour = rand() % 9;
-
-		if ((delta_Time >= 200) && (delta_Time <= 300))
-		{
-			if (colour == 1)
-			{
-				pos_x = 22;
-				pos_y = 365;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 22;
-				pos_y1 = 365;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
-
-
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 22;
-				pos_y2 = 365;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 22;
-				pos_y3 = 365;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 22;
-				pos_y4 = 365;
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 22;
-				pos_y5 = 365;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 22;
-				pos_y6 = 365;
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
-
-
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 22;
-				pos_y7 = 365;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
-
-			}
-		}
-
-		colour = rand() % 9;
-
-		if ((delta_Time >= 300) && (delta_Time <= 400))
-		{
-			if (colour == 1)
-			{
-				pos_x = 200;
-				pos_y = 365;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 200;
-				pos_y1 = 365;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
-
-
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 200;
-				pos_y2 = 365;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 200;
-				pos_y3 = 365;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 200;
-				pos_y4 = 365;
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 200;
-				pos_y5 = 365;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 200;
-				pos_y6 = 365;
-
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
-
-
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 200;
-				pos_y7 = 365;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
-
-			}
 
 		}
-
-		colour = rand() % 9;
-
-		if ((delta_Time >= 400) && (delta_Time <= 500))
+		if (colour == 3)
 		{
-			if (colour == 1)
-			{
-				pos_x = 200;
-				pos_y = 244;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 200;
-				pos_y1 = 244;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+			pos_x2 = 22;
+			pos_y2 = 130;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 
 
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 200;
-				pos_y2 = 244;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 22;
+			pos_y3 = 130;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
 
 
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 200;
-				pos_y3 = 244;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 22;
+			pos_y4 = 130;
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
 
 
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 200;
-				pos_y4 = 244;
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 22;
+			pos_y5 = 130;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 22;
+			pos_y6 = 130;
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
 
 
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 200;
-				pos_y5 = 244;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 22;
+			pos_y7 = 130;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
 
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 200;
-				pos_y6 = 130;
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
+		}
+	}
+
+	colour = rand() % 9;
+
+	if ((delta_Time >= 100) && (delta_Time <= 200))
+	{
+		if (colour == 1)
+		{
+			pos_x = 22;
+			pos_y = 244;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
+		}
+		if (colour == 2)
+		{
+			pos_x1 = 22;
+			pos_y1 = 244;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 
 
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 200;
-				pos_y7 = 244;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
+		}
+		if (colour == 3)
+		{
+			pos_x2 = 22;
+			pos_y2 = 244;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 
-			}
+
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 22;
+			pos_y3 = 244;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
+
+
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 22;
+			pos_y4 = 244;
+
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
+
+
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 22;
+			pos_y5 = 244;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 22;
+			pos_y6 = 244;
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
+
+
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 22;
+			pos_y7 = 244;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
+
+		}
+	}
+
+	colour = rand() % 9;
+
+	if ((delta_Time >= 200) && (delta_Time <= 300))
+	{
+		if (colour == 1)
+		{
+			pos_x = 22;
+			pos_y = 365;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
+		}
+		if (colour == 2)
+		{
+			pos_x1 = 22;
+			pos_y1 = 365;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+
+
+		}
+		if (colour == 3)
+		{
+			pos_x2 = 22;
+			pos_y2 = 365;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
+
+
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 22;
+			pos_y3 = 365;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
+
+
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 22;
+			pos_y4 = 365;
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
+
+
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 22;
+			pos_y5 = 365;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 22;
+			pos_y6 = 365;
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
+
+
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 22;
+			pos_y7 = 365;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
+
+		}
+	}
+
+	colour = rand() % 9;
+
+	if ((delta_Time >= 300) && (delta_Time <= 400))
+	{
+		if (colour == 1)
+		{
+			pos_x = 200;
+			pos_y = 365;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
+		}
+		if (colour == 2)
+		{
+			pos_x1 = 200;
+			pos_y1 = 365;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+
+
+		}
+		if (colour == 3)
+		{
+			pos_x2 = 200;
+			pos_y2 = 365;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
+
+
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 200;
+			pos_y3 = 365;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
+
+
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 200;
+			pos_y4 = 365;
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
+
+
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 200;
+			pos_y5 = 365;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 200;
+			pos_y6 = 365;
+
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
+
+
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 200;
+			pos_y7 = 365;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
+
 		}
 
-		colour = rand() % 9;
+	}
 
-		if ((delta_Time >= 500) && (delta_Time <= 600))
+	colour = rand() % 9;
+
+	if ((delta_Time >= 400) && (delta_Time <= 500))
+	{
+		if (colour == 1)
 		{
-			if (colour == 1)
-			{
-				pos_x = 200;
-				pos_y = 130;
-				App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
-			}
-			if (colour == 2)
-			{
-				pos_x1 = 200;
-				pos_y1 = 130;
-				App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
-
-
-			}
-			if (colour == 3)
-			{
-				pos_x2 = 200;
-				pos_y2 = 130;
-				App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
-			}
-			if (colour == 4)
-			{
-				pos_x3 = 200;
-				pos_y3 = 130;
-				App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-			}
-			if (colour == 5)
-			{
-				pos_x4 = 200;
-				pos_y4 = 130;
-				App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-			}
-			if (colour == 6)
-			{
-				pos_x5 = 200;
-				pos_y5 = 130;
-				App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-			}
-			if (colour == 7)
-			{
-				pos_x6 = 200;
-				pos_y6 = 130;
-				App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
-
-
-			}
-			if (colour == 8)
-			{
-				pos_x7 = 200;
-				pos_y7 = 130;
-				App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
-
-			}
+			pos_x = 200;
+			pos_y = 244;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
 		}
-
-		if ((delta_Time >= 600) && (delta_Time <= 700))
+		if (colour == 2)
 		{
-			delta_Time = 0;
+			pos_x1 = 200;
+			pos_y1 = 244;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+
+
 		}
-	
-
-		
-
-
-		/*for (int i = 1; i <= 8; i++)
+		if (colour == 3)
 		{
-			int  colour = rand() % 9;
-
-			switch (i)
-			{
-			case 1:
-
-				if (colour == 1)
-				{
-					pos_x = 22;
-					pos_y = 130;
-				}
-				if (colour == 2)
-				{
-					pos_x1= 22;
-					pos_y1 = 130;
-
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 22;
-					pos_y2 = 130;
+			pos_x2 = 200;
+			pos_y2 = 244;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 
 
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 22;
-					pos_y3 = 130;
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 200;
+			pos_y3 = 244;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
 
 
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 22;
-					pos_y4 = 130;
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 200;
+			pos_y4 = 244;
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
 
 
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 22;
-					pos_y5 = 130;
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 200;
+			pos_y5 = 244;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
 
-				}
-				if (colour == 7)
-				{
-					pos_x6 = 22;
-					pos_y6 = 130;
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 22;
-					pos_y7 = 130;
-				}
-				break;
-
-			case 2:
-
-				if (colour == 1)
-				{
-					pos_x = 22;
-					pos_y = 244;
-				}
-				if (colour == 2)
-				{
-					pos_x1 = 22;
-					pos_y1 = 244;
-
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 22;
-					pos_y2 = 244;
-
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 22;
-					pos_y3 = 244;
-
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 22;
-					pos_y4 = 244;
-
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 22;
-					pos_y5 = 244;
-
-				}
-
-				if (colour == 7)
-				{
-					pos_x6 = 22;
-					pos_y6 = 244;
-
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 22;
-					pos_y7 = 244;
-
-				}
-
-				break;
-			case 3:
-
-				if (colour == 1)
-				{
-					pos_x = 22;
-					pos_y = 365;
-
-				}
-				if (colour == 2)
-				{
-					pos_x1 = 22;
-					pos_y1 = 365;
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 22;
-					pos_y2 = 365;
-
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 22;
-					pos_y3 = 365;
-
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 22;
-					pos_y4 = 365;
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 22;
-					pos_y5 = 365;
-				}
-
-				if (colour == 7)
-				{
-					pos_x6 = 22;
-					pos_y6 = 365;
-
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 22;
-					pos_y7 = 365;
-				}
-				break;
-
-			case 4:
-
-				if (colour == 1)
-				{
-					pos_x = 200;
-					pos_y = 130;
-
-				}
-				if (colour == 2)
-				{
-					pos_x1 = 200;
-					pos_y1 = 130;
-
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 200;
-					pos_y2 = 130;
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 200;
+			pos_y6 = 130;
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
 
 
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 200;
-					pos_y3 = 130;
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 200;
+			pos_y7 = 244;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
 
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 200;
-					pos_y4 = 130;
+		}
+	}
+
+	colour = rand() % 9;
+
+	if ((delta_Time >= 500) && (delta_Time <= 600))
+	{
+		if (colour == 1)
+		{
+			pos_x = 200;
+			pos_y = 130;
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
+		}
+		if (colour == 2)
+		{
+			pos_x1 = 200;
+			pos_y1 = 130;
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 
 
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 200;
-					pos_y5 = 130;
-				}
+		}
+		if (colour == 3)
+		{
+			pos_x2 = 200;
+			pos_y2 = 130;
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 
-				if (colour == 7)
-				{
-					pos_x6 = 200;
-					pos_y6 = 130;
 
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 200;
-					pos_y7 = 130;
+		}
+		if (colour == 4)
+		{
+			pos_x3 = 200;
+			pos_y3 = 130;
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
 
-				}
-				break;
 
-			case 5:
+		}
+		if (colour == 5)
+		{
+			pos_x4 = 200;
+			pos_y4 = 130;
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
 
-				if (colour == 1)
-				{
-					pos_x = 200;
-					pos_y = 244;
 
-				}
-				if (colour == 2)
-				{
-					pos_x1 = 200;
-					pos_y1 = 244;
+		}
+		if (colour == 6)
+		{
+			pos_x5 = 200;
+			pos_y5 = 130;
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
 
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 200;
-					pos_y2 = 244;
+		}
+		if (colour == 7)
+		{
+			pos_x6 = 200;
+			pos_y6 = 130;
+			App->render->Blit(red_rect_texture, pos_x6, pos_y6, NULL);
 
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 200;
-					pos_y3 = 244;
 
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 200;
-					pos_y4 = 244;
+		}
+		if (colour == 8)
+		{
+			pos_x7 = 200;
+			pos_y7 = 130;
+			App->render->Blit(yellow_rect_texture, pos_x7, pos_y7, NULL);
 
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 200;
-					pos_y5 = 244;
+		}
+	}
 
-				}
-
-				if (colour == 7)
-				{
-					pos_x6 = 200;
-					pos_y6 = 244;
-
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 200;
-					pos_y7 = 244;
-
-				}
-				break;
-
-			case 6:
-
-				if (colour == 1)
-				{
-					pos_x = 200;
-					pos_y = 365;
-				}
-				if (colour == 2)
-				{
-					pos_x1 = 200;
-					pos_y1 = 365;
-
-				}
-				if (colour == 3)
-				{
-					pos_x2 = 200;
-					pos_y2 = 365;
-				}
-				if (colour == 4)
-				{
-					pos_x3 = 200;
-					pos_y3 = 365;
-
-				}
-				if (colour == 5)
-				{
-					pos_x4 = 200;
-					pos_y4 = 365;
-
-				}
-				if (colour == 6)
-				{
-					pos_x5 = 200;
-					pos_y5 = 365;
-				}
-
-				if (colour == 7)
-				{
-					pos_x6 = 200;
-					pos_y6 = 365;
-
-				}
-				if (colour == 8)
-				{
-					pos_x7 = 200;
-					pos_y7 = 365;
-
-				}
-				break;
-			}*/
+	if ((delta_Time >= 600) && (delta_Time <= 700))
+	{
+		delta_Time = 0;
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -914,7 +593,7 @@ update_status ScreenDiffSelect::Update()
 // Update: draw background
 update_status ScreenDiffSelect::PostUpdate()
 {
-	
+
 	App->render->Blit(arrowleft_texture, p_x, p_y, NULL);
 	App->render->Blit(arrowright_texture, p2_x, p2_y, NULL);
 
@@ -929,7 +608,7 @@ update_status ScreenDiffSelect::PostUpdate()
 
 
 	App->render->Blit(pink1_texture, 322, 122, NULL);
-	App->render->Blit(green1_texture, 99, 142, NULL);	
+	App->render->Blit(green1_texture, 99, 142, NULL);
 	App->render->Blit(sky1_texture, 530, 142, NULL);
 
 
