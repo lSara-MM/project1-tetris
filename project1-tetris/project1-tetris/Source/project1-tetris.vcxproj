@@ -157,7 +157,7 @@
     <ClCompile Include="ModuleTetronimo.cpp" />
     <ClCompile Include="ScreenCredits1.cpp" />
     <ClCompile Include="ScreenCredits2.cpp" />
-    <ClCompile Include="ScreenDiff.cpp" />
+    <ClCompile Include="ScreenDiffSelect.cpp" />
     <ClCompile Include="ScreenLvl_1.cpp" />
     <ClCompile Include="ScreenStart.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
@@ -181,7 +181,7 @@
     <ClInclude Include="ModuleTetronimo.h" />
     <ClInclude Include="ScreenCredits1.h" />
     <ClInclude Include="ScreenCredits2.h" />
-    <ClInclude Include="ScreenDiff.h" />
+    <ClInclude Include="ScreenDiffSelect.h" />
     <ClInclude Include="ScreenLvl_1.h" />
     <ClInclude Include="ScreenStart.h" />
     <ClInclude Include="ModuleTextures.h" />

@@ -1,20 +1,25 @@
-#ifndef __ScreenDiff_H__
-#define __ScreenDiff_H__
+#ifndef __SCREENDIFFSELECT_H__
+#define __SCREENDIFFSELECT_H__
 
 #include "Module.h"
 #include "Animation.h"
 #include "ModuleWindow.h"
+#include "p2Point.h"
+
+
+
 
 struct SDL_Texture;
+struct SDL_GetKeyState;
 
-class ScreenDiff : public Module
+class ScreenDiffSelect : public Module
 {
 public:
 	//Constructor
-	ScreenDiff(bool startEnabled);
+	ScreenDiffSelect(bool startEnabled);
 
 	//Destructor
-	~ScreenDiff();
+	~ScreenDiffSelect();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -24,18 +29,57 @@ public:
 	// Updates the scene's background animations
 	update_status Update() override;
 
+
 	// Called at the end of the application loop.
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
+
 
 public:
 
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
+
+	// The scene sprite sheet loaded into an SDL_Texture
+	SDL_Texture* arrowleft_texture = nullptr;
+	SDL_Texture* arrowright_texture = nullptr;
+
+	SDL_Rect p_pos;
+
+	int p_x = 64;
+	int p_y = 64;
+
+	SDL_Rect p_pos2;
+
+	int p2_x = 144;
+	int p2_y = 64;
+
+
+	//The intro animation
+	Animation intro;
+
+	//Menu Buttons
+	const int Easy = 2;
+	const int Medium = 1;
+	const int Hard = 0;
+
+	int Index = 2;
+
+
 	SDL_Texture* green1_texture = nullptr;
 	SDL_Texture* pink1_texture = nullptr;
 	SDL_Texture* sky1_texture = nullptr;
+
+
+	SDL_Texture* green_rect_texture = nullptr;
+	SDL_Texture* red_rect_texture = nullptr;
+	SDL_Texture* yellow_rect_texture = nullptr;
+	SDL_Texture* orange_rect_texture = nullptr;
+	SDL_Texture* white_rect_texture = nullptr;
+	SDL_Texture* blue_rect_texture = nullptr;
+	SDL_Texture* bluedark_rect_texture = nullptr;
+	SDL_Texture* pink_rect_texture = nullptr;
 
 	SDL_Texture* green_block_texture = nullptr;
 	SDL_Texture* pink_block_texture = nullptr;
@@ -43,13 +87,12 @@ public:
 	SDL_Texture* orange_block_texture = nullptr;
 	SDL_Texture* yellow_block_texture = nullptr;
 
+
 	SDL_Texture* yellow4_texture = nullptr;
 	SDL_Texture* orange2_texture = nullptr;
 	SDL_Texture* gray_block_texture = nullptr;
 	SDL_Texture* pink3_texture = nullptr;
 
-	SDL_Texture* arrowleft_texture = nullptr;
-	SDL_Texture* arrowright_texture = nullptr;
 
 
 	// Start Scene animation
@@ -60,6 +103,8 @@ public:
 
 	int enter = 0;
 	uint fxAdd_PressEnter = 0;
+
+	
 
 
 };

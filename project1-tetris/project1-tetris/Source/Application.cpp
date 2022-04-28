@@ -17,7 +17,7 @@
 #include "ScreenCredits1.h"
 #include "ScreenCredits2.h"
 #include "ScreenStart.h"
-#include "ScreenDiff.h"
+#include "ScreenDiffSelect.h"
 #include "ScreenLvl_1.h"
 
 
@@ -35,7 +35,7 @@ Application::Application()
 	modules[4] = sCredits1 = new ScreenCredits1(false);
 	modules[5] = sCredits2 = new ScreenCredits2(false);
 	modules[6] = sStart = new ScreenStart(false);
-	modules[7] = sDiff = new ScreenDiff(false);
+	modules[7] = sDiff = new ScreenDiffSelect(false);
 	modules[8] = sLvl_1 = new ScreenLvl_1(true);		//Gameplay scene starts disabled
 	
 	modules[9] = player = new ModulePlayer(true);	

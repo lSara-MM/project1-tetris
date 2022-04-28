@@ -90,10 +90,10 @@
     <ClCompile Include="ScreenLvl_1.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenDiff.cpp">
+    <ClCompile Include="ModuleTetronimo.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTetronimo.cpp">
+    <ClCompile Include="ScreenDiffSelect.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,10 +161,10 @@
     <ClInclude Include="ScreenLvl_1.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenDiff.h">
+    <ClInclude Include="ModuleTetronimo.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleTetronimo.h">
+    <ClInclude Include="ScreenDiffSelect.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,7 +23,7 @@ class ModuleTetronimo;
 class ScreenCredits1;
 class ScreenCredits2;
 class ScreenStart;
-class ScreenDiff;
+class ScreenDiffSelect;
 class ScreenLvl_1;
 
 
@@ -63,7 +63,7 @@ public:
 	ScreenCredits1* sCredits1 = nullptr;
 	ScreenCredits2* sCredits2 = nullptr;
 	ScreenStart* sStart = nullptr;
-	ScreenDiff* sDiff = nullptr;
+	ScreenDiffSelect* sDiff = nullptr;
 	ScreenLvl_1* sLvl_1 = nullptr;
 
 
