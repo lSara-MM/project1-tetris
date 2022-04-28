@@ -154,15 +154,17 @@ update_status ModuleTetronimo::Update() {
 			//v_WinLose = 0;
 			//lvl_lose(ch_loseContinue);
 
+			//App->sLvl_1->lvl_instaLose = true;
+			LOG("ACTIVE");
+
 			App->sLvl_1->lvl_instaLose = true;
-			LOG("HAS PERDIDO!");
 
 			//ACABAR CON GAMEPLAY!
 		}
 	}
 
 	// Block falling
-	if (deltaTime > 500) {
+	if (deltaTime > 200) {
 		int m = 0;
 
 		for (int i = 20; i >= 0; i--) {
@@ -969,10 +971,10 @@ update_status ModuleTetronimo::Update() {
 						type[f + 1][s + 1] = 'N';
 						type[f][s - 1] = 'N';
 
+						type[f][s] = 'P';
 						type[f + 1][s] = 'P';
-						type[f][s + 1] = 'P';
 						type[f + 1][s + 1] = 'P';
-						type[f + 1][s + 2] = 'P';
+						type[f + 1][s - 1] = 'P';
 
 						arr[f][s] = 0;
 						arr[f - 1][s + 1] = 0;
@@ -1015,10 +1017,10 @@ update_status ModuleTetronimo::Update() {
 						type[f][s + 2] = 'N';
 						type[f + 1][s + 1] = 'N';
 
-						type[f][s + 1] = 'P';
+						type[f][s + 2] = 'P';
+						type[f + 1][s + 2] = 'P';
+						type[f + 2][s + 2] = 'P';
 						type[f + 1][s + 1] = 'P';
-						type[f + 2][s + 1] = 'P';
-						type[f + 1][s] = 'P';
 
 						arr[f][s] = 0;
 						arr[f][s + 1] = 0;
@@ -1341,7 +1343,6 @@ update_status ModuleTetronimo::Update() {
 
 						arr[f][s + 1] = 1;
 						arr[f][s] = 0;
-						SDL_Delay(200);
 					}
 				}
 			}
@@ -1693,20 +1694,15 @@ void ModuleTetronimo::Spawn() {
 	AddTetronimo(rectIdle2, r, g, b);
 	AddTetronimo(rectIdle3, r, g, b);
 
-	SDL_Delay(600);
+	//SDL_Delay(600);
 
 }
 
 void ModuleTetronimo::SpawnTetronimo() {
 
 	bool const r = (srand(time(NULL)), true);
-	int next = rand() % 7;
-
-	LOG("NUM: %d", num);
-	LOG("NEXT: %d", next);
-	num = 0;
+	
 	Spawn();
-	//num = next;
 }
 
 void ModuleTetronimo::Print() {
@@ -1719,6 +1715,8 @@ void ModuleTetronimo::Print() {
 }
 
 void ModuleTetronimo::Change() {
+	int next = rand() % 7;
+
 	for (int m = 0; m <= 21; m++) {
 		for (int l = 0; l <= 9; l++) {
 			if ((type[l][m] == 'P')) {
@@ -1726,6 +1724,9 @@ void ModuleTetronimo::Change() {
 			}
 		}
 	}
+
+	LOG("NUM: %d", num);
+	LOG("NEXT: %d", next);
 	num = next;
 }
 
