@@ -121,20 +121,6 @@ update_status ModuleTetronimo::Update() {
 	combo = 0;
 
 	// Lost
-	//for (int f = 0; f <= 9; f++) {
-	//	if (type[f][1] == 'B') {
-
-	//		string s_loseContinue = to_string(App->sLvl_1->v_loseContinue);
-	//		const char* ch_loseContinue = s_loseContinue.c_str();
-
-	//		App->audio->PauseMusic();
-	//		App->sLvl_1->v_WinLose = 0;
-	//		App->sLvl_1->lvl_lose(ch_loseContinue);
-	//		LOG("HAS PERDIDO!");
-
-	//		//ACABAR CON GAMEPLAY!
-	//	}
-	//}
 
 		for (int f = 0; f <= 9; f++) {
 		if (type[f][1] == 'B') {
@@ -1436,44 +1422,7 @@ void ModuleTetronimo::Debugging()
 		// up
 		if (App->input->keys[SDL_SCANCODE_W] == KEY_DOWN)
 		{
-			if (deltaTime > 50) {
-				int m = 0;
-
-				for (int i = 20; i >= 0; i--) {
-					for (int j = 0; j <= 9; j++) {
-						if (type[j][i] == 'P') {
-
-							int aux = arr[j][i];
-							type[j][i] = 'N';
-							type[j][i - 1] = 'P';
-
-							arr[j][i] = 0;
-							arr[j][i - 1] = aux;
-							m = 1;
-						}
-					}
-				}
-
-				if (m == 1) {
-					int stop = 0;
-
-					for (int i = 0; i < MAX_TETRONIMOS; i++)
-					{
-						if ((tetronimos[i - 1] == nullptr) && (stop == 0))
-						{
-							tetronimos[i]->y -= (T_HEIGHT + 1);
-							tetronimos[i + 1]->y -= (T_HEIGHT + 1);
-							tetronimos[i + 2]->y -= (T_HEIGHT + 1);
-							tetronimos[i + 3]->y -= (T_HEIGHT + 1);
-							stop = 1;
-						}
-					}
-
-					m = 0;
-				}
-
-				deltaTime = 0;
-			}
+			
 		}
 
 		// immediate fall		// not immediate but very fast

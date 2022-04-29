@@ -86,6 +86,10 @@ bool ScreenLvl_1::Start()
 	v_insertCoin = 0;
 	v_points = 0;
 
+	// debug
+	lvl_instaWin = false;
+	lvl_instaLose = false;
+
 	v_loseContinue = 9;
 	v_WinLose = 0;
 	// Game
@@ -365,7 +369,7 @@ void ScreenLvl_1::lvl_win()
 	}
 	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
-		App->tetronimo->lvl_instaWin = false;
+		lvl_instaWin = false;
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 
@@ -414,7 +418,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 	if (v_loseContinue == 0)
 	{
-		App->tetronimo->lvl_instaLose = false;
+		lvl_instaLose = false;
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 	
@@ -423,6 +427,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 bool ScreenLvl_1::CleanUp()
 {
+
 	App->tetronimo->Disable();
 	//App->render->ttfQuit();	// excepcio xd
 	//App->audio->CleanUp();	// excepcio xd
