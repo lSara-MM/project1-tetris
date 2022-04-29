@@ -177,11 +177,8 @@ update_status ScreenDiffSelect::Update()
 		{
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 			App->audio->PlayFx(fxAdd_PressEnter);
-
 		}
-
 	}
-
 
 	return update_status::UPDATE_CONTINUE;
 }

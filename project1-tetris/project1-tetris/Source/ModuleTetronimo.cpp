@@ -153,44 +153,47 @@ update_status ModuleTetronimo::Update() {
 	}
 
 	// Block falling
-	if (deltaTime > 500) {
-		int m = 0;
+		if (App->player->godMode == false)
+		{
+			if (deltaTime > 500) {
+				int m = 0;
 
-		for (int i = 20; i >= 0; i--) {
-			for (int j = 0; j <= 9; j++) {
-				if (type[j][i] == 'P') {
+				for (int i = 20; i >= 0; i--) {
+					for (int j = 0; j <= 9; j++) {
+						if (type[j][i] == 'P') {
 
-					int aux = arr[j][i];
-					type[j][i] = 'N';
-					type[j][i + 1] = 'P';
+							int aux = arr[j][i];
+							type[j][i] = 'N';
+							type[j][i + 1] = 'P';
 
-					arr[j][i] = 0;
-					arr[j][i + 1] = aux;
-					m = 1;
+							arr[j][i] = 0;
+							arr[j][i + 1] = aux;
+							m = 1;
+						}
+					}
 				}
+
+				if (m == 1) {
+					int stop = 0;
+
+					for (int i = 0; i < MAX_TETRONIMOS; i++)
+					{
+						if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+						{
+							tetronimos[i]->y += (T_HEIGHT + 1);
+							tetronimos[i - 1]->y += (T_HEIGHT + 1);
+							tetronimos[i - 2]->y += (T_HEIGHT + 1);
+							tetronimos[i - 3]->y += (T_HEIGHT + 1);
+							stop = 1;
+						}
+					}
+
+					m = 0;
+				}
+
+				deltaTime = 0;
 			}
 		}
-
-		if (m == 1) {
-			int stop = 0;
-
-			for (int i = 0; i < MAX_TETRONIMOS; i++)
-			{
-				if ((tetronimos[i + 1] == nullptr) && (stop == 0))
-				{
-					tetronimos[i]->y += (T_HEIGHT + 1);
-					tetronimos[i - 1]->y += (T_HEIGHT + 1);
-					tetronimos[i - 2]->y += (T_HEIGHT + 1);
-					tetronimos[i - 3]->y += (T_HEIGHT + 1);
-					stop = 1;
-				}
-			}
-
-			m = 0;
-		}
-
-		deltaTime = 0;
-	}
 
 	// Rotations
 	if (App->input->keys[SDL_SCANCODE_R] == KEY_DOWN)
@@ -1320,21 +1323,45 @@ update_status ModuleTetronimo::Update() {
 		move = 0;
 	}
 
-	// Fall fast (to do)
+	// Fall fast
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT)
 	{
-		if (deltaTime > 500) {
-			for (int s = 0; s <= 21; s++) {
-				for (int f = 0; f <= 9; f++) {
-					if ((type[f][s] == 'P')) {
-						type[f][s + 1] = 'P';
-						type[f][s] = 'N';
+		if (deltaTime > 50) {
+			int m = 0;
 
-						arr[f][s + 1] = 1;
-						arr[f][s] = 0;
+			for (int i = 20; i >= 0; i--) {
+				for (int j = 0; j <= 9; j++) {
+					if (type[j][i] == 'P') {
+
+						int aux = arr[j][i];
+						type[j][i] = 'N';
+						type[j][i + 1] = 'P';
+
+						arr[j][i] = 0;
+						arr[j][i + 1] = aux;
+						m = 1;
 					}
 				}
 			}
+
+			if (m == 1) {
+				int stop = 0;
+
+				for (int i = 0; i < MAX_TETRONIMOS; i++)
+				{
+					if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+					{
+						tetronimos[i]->y += (T_HEIGHT + 1);
+						tetronimos[i - 1]->y += (T_HEIGHT + 1);
+						tetronimos[i - 2]->y += (T_HEIGHT + 1);
+						tetronimos[i - 3]->y += (T_HEIGHT + 1);
+						stop = 1;
+					}
+				}
+
+				m = 0;
+			}
+
 			deltaTime = 0;
 		}
 	}
@@ -1351,7 +1378,7 @@ void ModuleTetronimo::Debugging()
 	{
 		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
 		/*App->player->godMode != App->player->godMode;*/
-		
+
 		//App->player->godMode = true;	
 	}
 
@@ -1360,7 +1387,7 @@ void ModuleTetronimo::Debugging()
 
 		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivarlo con el mismo boton
 	}
-	
+
 	// Manually spawn a block
 	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN)
 	{
@@ -1381,7 +1408,7 @@ void ModuleTetronimo::Debugging()
 	//}
 
 	// LOG info
-	if (App->input->keys[SDL_SCANCODE_F5] == KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_F8] == KEY_DOWN)
 	{
 		Print();
 	}
@@ -1389,7 +1416,7 @@ void ModuleTetronimo::Debugging()
 	// GodMode
 	if (App->player->godMode == true)
 	{
-		LOG("GodMode on");
+		//LOG("GodMode on");
 		App->render->Blit(grid_texture, 62, 50, NULL);
 
 
@@ -1402,6 +1429,47 @@ void ModuleTetronimo::Debugging()
 		{
 			App->sLvl_1->lines++;
 			App->sLvl_1->linesleft--;
+		}
+
+		// immediate fall
+		if (App->input->keys[SDL_SCANCODE_X] == KEY_REPEAT)
+		{
+			int m = 0;
+
+			for (int i = 20; i >= 0; i--) {
+				for (int j = 0; j <= 9; j++) {
+					if (type[j][i] == 'P') {
+
+						int aux = arr[j][i];
+						type[j][i] = 'N';
+						type[j][i + 1] = 'P';
+
+						arr[j][i] = 0;
+						arr[j][i + 1] = aux;
+						m = 1;
+					}
+				}
+			}
+
+			if (m == 1) {
+				int stop = 0;
+
+				for (int i = 0; i < MAX_TETRONIMOS; i++)
+				{
+					if ((tetronimos[i + 1] == nullptr) && (stop == 0))
+					{
+						tetronimos[i]->y += (T_HEIGHT + 1);
+						tetronimos[i - 1]->y += (T_HEIGHT + 1);
+						tetronimos[i - 2]->y += (T_HEIGHT + 1);
+						tetronimos[i - 3]->y += (T_HEIGHT + 1);
+						stop = 1;
+					}
+				}
+
+				m = 0;
+			}
+
+
 		}
 	}
 }
@@ -1755,11 +1823,17 @@ void ModuleTetronimo::AddTetronimo(const SDL_Rect& tetronimo, const int& r, cons
 
 bool ModuleTetronimo::CleanUp()
 {
+
+	for (int m = 0; m <= 21; m++) {
+		for (int l = 0; l <= 9; l++) {
+			type[l][m] == 'N';
+		}
+	}
+
 	App->textures->Unload(texture);
 	App->textures->Unload(grid_texture);
 
 	//Eliminar bloques creados como hacia con los enemigos creados en la solucion 8
-
 	//LOG("Freeing all enemies");
 
 	//for (uint i = 0; i < MAX_ENEMIES; ++i)

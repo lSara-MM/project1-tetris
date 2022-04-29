@@ -228,7 +228,7 @@ update_status ScreenLvl_1::PostUpdate()
 			string s_points = to_string(value);
 			const char* ch_points = s_points.c_str();
 
-			App->render->TextDraw(ch_points, 200, 405, 21, 11, 134, 255, 16);
+			App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
 			v_points++;
 		}
 	}
@@ -366,7 +366,6 @@ void ScreenLvl_1::lvl_win()
 	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
 		App->tetronimo->lvl_instaWin = false;
-		
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 
