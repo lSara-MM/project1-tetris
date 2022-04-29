@@ -1431,7 +1431,52 @@ void ModuleTetronimo::Debugging()
 			App->sLvl_1->linesleft--;
 		}
 
-		// immediate fall
+
+		// movements
+		// up
+		if (App->input->keys[SDL_SCANCODE_W] == KEY_DOWN)
+		{
+			if (deltaTime > 50) {
+				int m = 0;
+
+				for (int i = 20; i >= 0; i--) {
+					for (int j = 0; j <= 9; j++) {
+						if (type[j][i] == 'P') {
+
+							int aux = arr[j][i];
+							type[j][i] = 'N';
+							type[j][i - 1] = 'P';
+
+							arr[j][i] = 0;
+							arr[j][i - 1] = aux;
+							m = 1;
+						}
+					}
+				}
+
+				if (m == 1) {
+					int stop = 0;
+
+					for (int i = 0; i < MAX_TETRONIMOS; i++)
+					{
+						if ((tetronimos[i - 1] == nullptr) && (stop == 0))
+						{
+							tetronimos[i]->y -= (T_HEIGHT + 1);
+							tetronimos[i + 1]->y -= (T_HEIGHT + 1);
+							tetronimos[i + 2]->y -= (T_HEIGHT + 1);
+							tetronimos[i + 3]->y -= (T_HEIGHT + 1);
+							stop = 1;
+						}
+					}
+
+					m = 0;
+				}
+
+				deltaTime = 0;
+			}
+		}
+
+		// immediate fall		// not immediate but very fast
 		if (App->input->keys[SDL_SCANCODE_X] == KEY_REPEAT)
 		{
 			int m = 0;
@@ -1471,6 +1516,14 @@ void ModuleTetronimo::Debugging()
 
 
 		}
+
+
+		// spawns
+		if (App->input->keys[SDL_SCANCODE_V] == KEY_REPEAT) { num = 7; next = 7; }		// try to make it always single block
+		
+		if (App->input->keys[SDL_SCANCODE_C] == KEY_DOWN)		// try to make a line without 1 block automatically
+		{
+		}
 	}
 }
 
@@ -1496,6 +1549,7 @@ bool ModuleTetronimo::lineCompleted(int n, int f, int s)
 				}
 			}
 		}
+
 		combo++;
 		return true;
 	}
@@ -1758,6 +1812,33 @@ void ModuleTetronimo::Spawn() {
 		b = 173;
 	}
 
+	if (num == 7)		// single block
+	{
+		arr[3][1] = 0;
+		arr[4][1] = 0;
+		arr[4][0] = 1;
+		arr[5][0] = 0;
+
+		type[3][1] = 'N';
+		type[4][1] = 'N';
+		type[4][0] = 'P';
+		type[5][0] = 'N';
+
+		//Block[0] = { 113, 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
+		//Block[1] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1) * 2, T_WIDTH, T_HEIGHT };
+		Block[2] = { 113 + (T_WIDTH + 1), 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+		//Block[3] = { 113 + (T_WIDTH + 1) * 2, 35 + (T_HEIGHT + 1), T_WIDTH, T_HEIGHT };
+
+		//rectIdle = Block[0];
+		//rectIdle1 = Block[1];
+		rectIdle2 = Block[2];
+		//rectIdle3 = Block[3];
+
+		r = 128;
+		g = 0;
+		b = 255;
+	}
+
 	AddTetronimo(rectIdle, r, g, b);
 	AddTetronimo(rectIdle1, r, g, b);
 	AddTetronimo(rectIdle2, r, g, b);
@@ -1770,7 +1851,7 @@ void ModuleTetronimo::Spawn() {
 void ModuleTetronimo::SpawnTetronimo() {
 
 	bool const r = (srand(time(NULL)), true);
-	
+	num = 0;
 	Spawn();
 }
 

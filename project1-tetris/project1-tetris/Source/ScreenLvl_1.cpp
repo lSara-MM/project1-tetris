@@ -72,7 +72,7 @@ bool ScreenLvl_1::Start()
 
 	// Variables
 	lines = 0;
-	linesObjective = 12;
+	linesObjective = 5;
 	linesleft = linesObjective;
 	lvl_credits = App->sStart->credits - 1;
 
