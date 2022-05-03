@@ -108,10 +108,6 @@ public:
 
 	int combo;
 
-	// Debugging
-	bool lvl_instaLose;
-	bool lvl_instaWin;
-
 private:
 	SDL_Texture* texture = nullptr;
 	SDL_Texture* grid_texture = nullptr;
