@@ -11,6 +11,7 @@
 
 struct SDL_Texture;
 struct SDL_GetKeyState;
+struct SDL_SetTimer;
 
 class ScreenDiffSelect : public Module
 {
@@ -47,6 +48,8 @@ public:
 
 	SDL_Rect p_pos;
 
+	int colour;
+
 	int p_x = 64;
 	int p_y = 64;
 
@@ -54,6 +57,24 @@ public:
 
 	int p2_x = 144;
 	int p2_y = 64;
+
+	int pos_x = 22;
+	int pos_y = 130;
+
+	int pos_x1 = 22;
+	int pos_y1 = 244;
+
+	int pos_x2 = 22;
+	int pos_y2 = 365;
+
+	int pos_x3 = 200;
+	int pos_y3 = 365;
+
+	int pos_x4 = 200;
+	int pos_y4 = 365;
+
+	int pos_x5 = 200;
+	int pos_y5 = 130;
 
 
 	//The intro animation
