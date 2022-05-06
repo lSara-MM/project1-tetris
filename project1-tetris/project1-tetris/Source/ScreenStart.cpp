@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "Points.h"
 
 #include <iostream>
 using namespace std;
@@ -27,6 +28,8 @@ ScreenStart::~ScreenStart()
 // Load assets
 bool ScreenStart::Start()
 {
+	App->points->Enable();
+
 	// Start Screen
 	for (int i = 0; i < 11; i++)
 	{
@@ -39,30 +42,16 @@ bool ScreenStart::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	bg_texture = App->textures->Load("Assets/ss_startBg.png");
-	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX/add_credit.wav");
-
+	
 	return ret;
 }
 
 update_status ScreenStart::Update()
 {
-
 	start_screen.Update();
-	
+
 	App->render->camera.x += 0;
-
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
-	{
-		if (credits < 9) { credits++; }
-		LOG("credits: %d", credits);
-		App->audio->PlayFx(fxAdd_Credits);
-	}
-
-	if ( credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
-	{
-		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
-		App->particles->Disable();
-	}
+	App->points->addCreditsStart();
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -75,7 +64,13 @@ update_status ScreenStart::PostUpdate()
 
 	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
 
-	if (credits == 1)
+
+	if (App->points->credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
+		App->particles->Disable();
+	}
+	if (App->points->credits == 1)
 	{
 		// Rect, r, g, b, alpha (0-255) "opacity"
 		App->render->DrawQuad({ 160, 0, 352, 48 }, 255, 0, 0, 255);
@@ -87,7 +82,7 @@ update_status ScreenStart::PostUpdate()
 		//LOG("Press 1 Player Start");
 	}
 
-	if (credits >= 2)
+	if (App->points->credits >= 2)
 	{
 		App->render->DrawQuad({ 128, 0, 432, 48 }, 255, 0, 0, 255);
 		App->render->DrawQuad({ 132, 4, 424, 40 }, 0, 0, 0, 255);
@@ -98,10 +93,10 @@ update_status ScreenStart::PostUpdate()
 		//LOG("Press 1 or 2 Player Start");
 	}
 
-	if (credits != 0)
+	if (App->points->credits != 0)
 	{
 		// Convert int to const char*
-		string s_credits = to_string(credits);
+		string s_credits = to_string(App->points->credits);
 		const char* ch_credits = s_credits.c_str();
 
 		App->render->DrawQuad({ 256, 448, 114, 18 }, 0, 0, 0, 255);
@@ -113,7 +108,6 @@ update_status ScreenStart::PostUpdate()
 
 
 	// how to draw the copyright symbol?
-	// how to render it after the credits rect?
 	App->render->TextDraw("1988 Atari Games", 242, 462, 255, 0, 0, 255, 15);
 	// Draw everything --------------------------------------
 	
@@ -125,6 +119,7 @@ bool ScreenStart::CleanUp()
 {
 	App->textures->Unload(bg_texture);
 	App->particles->CleanUp();
+//	App->particles->Disable();
 
 	//Elminar textos?
 	return true;

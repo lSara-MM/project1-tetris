@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Modules\Gameplay">
       <UniqueIdentifier>{a3fe2727-c17d-4568-9228-abb0ec8535ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Modules\Gameplay\screens">
+      <UniqueIdentifier>{53ad4b7a-a27f-4487-887b-083557128642}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -72,28 +75,31 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenStart.cpp">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFadeToBlack.cpp">
       <Filter>Source Files\Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenCredits1.cpp">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenCredits2.cpp">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenLvl_1.cpp">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleTetronimo.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenCredits1.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenCredits2.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
     <ClCompile Include="ScreenDiffSelect.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_1.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenStart.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Points.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,9 +143,6 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenStart.h">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="p2Point.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
@@ -152,19 +155,25 @@
     <ClInclude Include="ModuleFadeToBlack.h">
       <Filter>Source Files\Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenCredits1.h">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenCredits2.h">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="ScreenLvl_1.h">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleTetronimo.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
+    <ClInclude Include="ScreenCredits1.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenCredits2.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
     <ClInclude Include="ScreenDiffSelect.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_1.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenStart.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Points.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>

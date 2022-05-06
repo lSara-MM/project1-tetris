@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "SDL/include/SDL.h"
 
-#define NUM_MODULES 14
+#define NUM_MODULES 15
 
 class Module;
 class ModuleWindow;
@@ -18,6 +18,8 @@ class ModuleRender;
 
 class ModulePlayer;
 class ModuleTetronimo;
+class Points;
+
 
 //screens
 class ScreenCredits1;
@@ -59,6 +61,8 @@ public:
 
 	ModulePlayer* player = nullptr;
 	ModuleTetronimo* tetronimo = nullptr;
+	Points* points = nullptr;
+
 
 	ScreenCredits1* sCredits1 = nullptr;
 	ScreenCredits2* sCredits2 = nullptr;

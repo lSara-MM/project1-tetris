@@ -158,6 +158,7 @@
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleTetronimo.cpp" />
+    <ClCompile Include="Points.cpp" />
     <ClCompile Include="ScreenCredits1.cpp" />
     <ClCompile Include="ScreenCredits2.cpp" />
     <ClCompile Include="ScreenDiffSelect.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleTetronimo.h" />
+    <ClInclude Include="Points.h" />
     <ClInclude Include="ScreenCredits1.h" />
     <ClInclude Include="ScreenCredits2.h" />
     <ClInclude Include="ScreenDiffSelect.h" />

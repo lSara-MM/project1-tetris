@@ -1,0 +1,39 @@
+#ifndef __POINTS_H__
+#define __POINTS_H__
+
+#include "Module.h"
+#include "Animation.h"
+#include "ModuleWindow.h"
+
+
+class Points : public Module
+{
+public:
+	//Constructor
+	Points(bool startEnabled);
+	//Destructor
+	~Points();
+
+	// Called when the module is activated
+	// Loads the necessary textures for the map backgroun
+	bool Start() override;
+
+	int calcScore();
+	int addCreditsStart();
+	int addCreditsLvl();
+
+	void RainbowStack();
+
+public:
+
+	// Credit (coins to add 0-9)
+	int credits;
+	uint fxAdd_Credits = 0;
+
+	// points
+	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
+	int score;
+
+};
+
+#endif

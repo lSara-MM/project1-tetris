@@ -9,6 +9,7 @@
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
+#include "Points.h"
 
 #include <stdlib.h>
 #include <time.h>
@@ -1408,7 +1409,7 @@ void ModuleTetronimo::Debugging()
 
 		if (App->input->keys[SDL_SCANCODE_1] == KEY_STATE::KEY_DOWN)
 		{
-			App->sLvl_1->score++;
+			App->points->score++;
 		}
 
 		if (App->input->keys[SDL_SCANCODE_2] == KEY_STATE::KEY_DOWN)

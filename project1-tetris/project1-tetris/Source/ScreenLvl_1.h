@@ -59,18 +59,14 @@ public:
 	Animation openCurtain;
 	Animation closeCurtain;
 
-	// points
-	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
-	int score;
-
 	bool lvl_instaWin;
 	bool lvl_instaLose;
 
 	int lines;
 	int linesleft;
 	int linesObjective;
-	int lvl_credits;
 
+	int value;
 
 	// counters / timers
 	bool v_stack;

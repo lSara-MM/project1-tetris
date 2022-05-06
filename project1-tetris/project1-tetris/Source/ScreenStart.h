@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "ModuleWindow.h"
 
+
 struct SDL_Texture;
 
 class ScreenStart : public Module
@@ -37,13 +38,6 @@ public:
 
 	// Start Scene animation
 	Animation start_screen;
-
-	// Credit (coins to add 0-9)
-	int credits = 0;
-	uint fxAdd_Credits = 0;
-
-
-
 };
 
 #endif

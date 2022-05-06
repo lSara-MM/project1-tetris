@@ -12,6 +12,7 @@
 
 #include "ModulePlayer.h"
 #include "ModuleTetronimo.h"
+#include "Points.h"
 
 // Screens
 #include "ScreenCredits1.h"
@@ -40,12 +41,13 @@ Application::Application()
 	
 	modules[9] = player = new ModulePlayer(true);	
 	modules[10] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
-	
-	modules[11] = particles = new ModuleParticles(true);
-	//modules[11] = collisions = new ModuleCollisions(true);
-	modules[12] = fade = new ModuleFadeToBlack(true);
+	modules[11] = points = new Points(false);
 
-	modules[13] = render = new ModuleRender(true);
+	modules[12] = particles = new ModuleParticles(true);
+	//modules[11] = collisions = new ModuleCollisions(true);
+	modules[13] = fade = new ModuleFadeToBlack(true);
+
+	modules[14] = render = new ModuleRender(true);
 }
 
 Application::~Application()

@@ -10,6 +10,7 @@
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleTetronimo.h"
+#include "Points.h"
 
 #include <iostream>
 using namespace std;
@@ -74,12 +75,8 @@ bool ScreenLvl_1::Start()
 	lines = 0;
 	linesObjective = 5;
 	linesleft = linesObjective;
-	lvl_credits = App->sStart->credits - 1;
+	App->points->credits -= 1;
 
-	// Points
-	p_drop = 1;
-	score = 0;
-	h = -1;
 
 	// Counter
 	v_message = 0;
@@ -106,7 +103,7 @@ update_status ScreenLvl_1::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		if (lvl_credits < 9) { lvl_credits++; }
+		App->points->addCreditsLvl();
 		LOG("Curtain loop count: %d", openCurtain.GetLoopCount());
 	}
 
@@ -126,7 +123,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// strings to const char*
-	string s_score = std::to_string(score);
+	string s_score = std::to_string(App->points->score);
 	const char* ch_score = s_score.c_str();
 
 	string s_lines = std::to_string(lines);
@@ -135,7 +132,7 @@ update_status ScreenLvl_1::PostUpdate()
 	string s_linesleft = std::to_string(linesleft);
 	const char* ch_linesleft = s_linesleft.c_str();
 
-	string s_credits = to_string(lvl_credits);
+	string s_credits = to_string(App->points->credits);
 	const char* ch_credits = s_credits.c_str();
 
 
@@ -217,13 +214,13 @@ update_status ScreenLvl_1::PostUpdate()
 	//h->row on which tetomino placed minus 1 (bottom = 0)
 	if (lvl_instaLose == false)
 	{
-		h = App->tetronimo->blockRB();
-		if (h != (-1))
+		App->points->h = App->tetronimo->blockRB();
+		if (App->points->h != (-1))
 		{
 			v_points = 0;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
-			score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);
-			value = (p_drop * (p_stack + 1) * (p_stack + 1 + h));
+			App->points->calcScore();
+			
+			value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
 
 		}
 
@@ -243,52 +240,6 @@ update_status ScreenLvl_1::PostUpdate()
 	{
 		if (v_stack == true)
 		{
-			if (p_stack != 10)
-			{
-				p_stack++;
-			}
-
-			// Color bars
-			if (p_stack >= 1)		// blue
-			{
-				App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
-			}
-			if (p_stack >= 2)		// cyan
-			{
-				App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
-			}
-
-			if (p_stack >= 3)		// green
-			{
-				App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
-
-			}
-			if (p_stack >= 4)		// "lighter" green
-			{
-				App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
-
-			}
-			if (p_stack >= 5)		// yellow
-			{
-				App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
-
-			}
-			if (p_stack >= 6)		// dark yellow
-			{
-				App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
-			}
-			if (p_stack >= 7)		// orange
-			{
-				App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
-			}
-			if (p_stack >= 8)		// dark orange
-			{
-				App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
-			}
-			if (p_stack >= 9)		// red
-			{
-				App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
-			}
 
 			v_stack = false;
 		}
