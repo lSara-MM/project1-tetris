@@ -1538,6 +1538,7 @@ int ModuleTetronimo::blockRB()
 	return -1;
 }
 
+
 update_status ModuleTetronimo::PostUpdate() {
 
 	for (int i = 0; i < MAX_TETRONIMOS; ++i)
@@ -1854,6 +1855,11 @@ void ModuleTetronimo::AddTetronimo(const SDL_Rect& tetronimo, const int& r, cons
 
 bool ModuleTetronimo::CleanUp()
 {
+
+	for (int i = 0; i < MAX_TETRONIMOS; ++i)
+	{
+		tetronimos[i] = nullptr;
+	}
 
 	for (int m = 0; m <= 21; m++) {
 		for (int l = 0; l <= 9; l++) {

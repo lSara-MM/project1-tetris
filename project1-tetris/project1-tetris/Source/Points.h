@@ -24,6 +24,8 @@ public:
 
 	void RainbowStack();
 
+	void Reset();
+
 public:
 
 	// Credit (coins to add 0-9)

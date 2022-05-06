@@ -37,14 +37,12 @@ int Points::addCreditsStart()
 		LOG("credits: %d", credits);
 		App->audio->PlayFx(fxAdd_Credits);
 	}
-
 	return credits;
 }
 
 int Points::addCreditsLvl()
 {
 	if (credits < 9) { credits++; }
-
 	return credits;
 }
 
@@ -104,4 +102,11 @@ void Points::RainbowStack()
 	{
 		App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
 	}
+}
+
+void Points::Reset()
+{
+	score = 0;
+	p_stack = 0;
+	credits -= 1;
 }

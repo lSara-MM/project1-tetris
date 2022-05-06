@@ -138,7 +138,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	//App->tetronimo->Update();
 
-		// Player 1 section
+	// Player 1 section
 	if (lvl_instaLose == false) { App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16); } // TO CHANGE CONDITION
 
 	App->render->TextDraw("Score", 49, 433, 255, 0, 0, 255, 15);
@@ -235,15 +235,15 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 
 
-	// Rainbow bar			
-	if ((lines % 4) == 0 && lines != 0)
-	{
-		if (v_stack == true)
-		{
+	//// Rainbow bar			
+	//if ((lines % 4) == 0 && lines != 0)
+	//{
+	//	if (v_stack == true)
+	//	{
 
-			v_stack = false;
-		}
-	}
+	//		v_stack = false;
+	//	}
+	//}
 
 
 	//Bonus
@@ -321,6 +321,7 @@ void ScreenLvl_1::lvl_win()
 	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
 		lvl_instaWin = false;
+
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 
@@ -350,6 +351,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	{
 		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
 		{
+			App->points->Reset();
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
 
@@ -370,6 +372,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	if (v_loseContinue == 0)
 	{
 		lvl_instaLose = false;
+		App->points->Reset();
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 	
