@@ -7,21 +7,6 @@
 #define MAX_KEYS 256
 #define MAX_PADS 4
 
-struct GamePad
-{
-	// Input data
-	bool x, y, a;
-	bool left, right;
-	float left_x, left_y, right_x, right_y, left_dz, right_dz;
-
-	// Controller data
-	bool enabled;
-	int index;
-	_SDL_GameController* controller;
-	_SDL_Haptic* haptic;
-
-
-};
 enum KEY_STATE
 {
 	KEY_IDLE,
