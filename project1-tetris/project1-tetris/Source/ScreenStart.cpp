@@ -60,6 +60,7 @@ update_status ScreenStart::Update()
 update_status ScreenStart::PostUpdate()
 {
 	ModuleParticles fireworks(true);
+
 	fireworks.FwTiming(start_screen.GetCurrentFrame().x);
 
 	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
@@ -119,7 +120,9 @@ bool ScreenStart::CleanUp()
 {
 	App->textures->Unload(bg_texture);
 	App->particles->CleanUp();
-//	App->particles->Disable();
+	App->points->Disable();
+	//App->render->ttfQuit();
+	//App->particles->Disable();
 
 	//Elminar textos?
 	return true;
