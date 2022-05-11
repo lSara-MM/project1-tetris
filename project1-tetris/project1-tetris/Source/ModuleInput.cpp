@@ -5,9 +5,7 @@
 
 ModuleInput::ModuleInput(bool startEnabled) : Module(startEnabled)
 {
-	for (uint i = 0; i < MAX_KEYS; ++i) keys[i] = KEY_IDLE;
 
-	memset(&pads[0], 0, sizeof(GamePad) * MAX_PADS);
 }
 
 ModuleInput::~ModuleInput()
@@ -40,7 +38,7 @@ update_status ModuleInput::PreUpdate()
 			keys[i] = (keys[i] == KEY_REPEAT || keys[i] == KEY_DOWN) ? KEY_UP : KEY_IDLE;
 	}
 
-	UpdateGamepadsInput();
+
 	return update_status::UPDATE_CONTINUE;
 }
 bool ModuleInput::CleanUp()
@@ -50,70 +48,4 @@ bool ModuleInput::CleanUp()
 	// Stop rumble from all gamepads and deactivate SDL functionallity
 
 	return true;
-}
-
-/*GAMEPAD RELATED*/
-void ModuleInput::HandleDeviceConnection(int index)
-{
-	if (SDL_IsGameController(index))
-	{
-		for (int i = 0; i < MAX_PADS; ++i)
-		{
-			GamePad& pad = pads[i];
-
-			if (pad.enabled == false)
-			{
-				if (pad.controller = SDL_GameControllerOpen(index))
-				{
-					LOG("Found a gamepad with id %i named %s", i, SDL_GameControllerName(pad.controller));
-					pad.enabled = true;
-					pad.left_dz = pad.right_dz = 0.1f;
-					if (pad.haptic != nullptr) LOG("... gamepad has force feedback capabilities");
-					pad.index = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(pad.controller));
-				}
-			}
-		}
-	}
-}
-
-void ModuleInput::HandleDeviceRemoval(int index)
-{
-	// If an existing gamepad has the given index, deactivate all SDL device functionallity
-	for (int i = 0; i < MAX_PADS; ++i)
-	{
-		GamePad& pad = pads[i];
-		if (pad.enabled && pad.index == index)
-		{
-			SDL_GameControllerClose(pad.controller);
-			memset(&pad, 0, sizeof(GamePad));
-		}
-	}
-}
-
-void ModuleInput::UpdateGamepadsInput()
-{
-	// Iterate through all active gamepads and update all input data
-	for (int i = 0; i < MAX_PADS; ++i)
-	{
-		GamePad& pad = pads[i];
-
-		if (pad.enabled == true)
-		{
-			pad.a = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_A) == 1;
-			pad.left = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == 1;
-			pad.right = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == 1;
-
-			pad.left_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTX)) / 32767.0f;
-			pad.left_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTY)) / 32767.0f;
-			pad.right_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTX)) / 32767.0f;
-			pad.right_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTY)) / 32767.0f;
-
-			// Apply deadzone. All values below the deadzone will be discarded
-			pad.left_x = (fabsf(pad.left_x) > pad.left_dz) ? pad.left_x : 0.0f;
-			pad.left_y = (fabsf(pad.left_y) > pad.left_dz) ? pad.left_y : 0.0f;
-			pad.right_x = (fabsf(pad.right_x) > pad.right_dz) ? pad.right_x : 0.0f;
-			pad.right_y = (fabsf(pad.right_y) > pad.right_dz) ? pad.right_y : 0.0f;
-
-		}
-	}
 }
