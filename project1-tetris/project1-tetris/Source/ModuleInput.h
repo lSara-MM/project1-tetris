@@ -31,24 +31,9 @@ public:
 	update_status PreUpdate() override;
 	bool CleanUp() override;
 
-
-	// Activates SDL device funcionallity when a gamepad has been connected
-	void HandleDeviceConnection(int index);
-
-	// Deactivates SDL device funcionallity when a gamepad has been disconnected
-	void HandleDeviceRemoval(int index);
-
-	// Called at PreUpdate
-	// Iterates through all active gamepads and update all input data
-	void UpdateGamepadsInput();
-	
-
-
 public:
 	// An array to fill in the state of all the keyboard keys
 	KEY_STATE keys[MAX_KEYS] = { KEY_IDLE };
-	// An array to fill in all detected gamepads
-	GamePad pads[MAX_PADS];
 };
 
 #endif // __ModuleInput_H__
