@@ -90,12 +90,11 @@ update_status ScreenDiffSelect::Update()
 
 	App->render->Blit(bg_texture, 0, 3, NULL);
 
-	GamePad& pad = App->input->pads[0];
 
 	//key commands 
 
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || pad.left || pad.left_y < 0.0f) {
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 
 		switch (Index)
 		{
@@ -153,7 +152,7 @@ update_status ScreenDiffSelect::Update()
 
 				pos_x5 = 200;
 				pos_y5 = 130;
-			
+
 			}
 			break;
 
@@ -163,7 +162,8 @@ update_status ScreenDiffSelect::Update()
 
 
 	}
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || pad.right || pad.left_y > 0.0f) {
+
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
 		switch (Index)
 		{
 		case 1:
@@ -173,7 +173,7 @@ update_status ScreenDiffSelect::Update()
 				p_x += 235;
 				p2_x += 205;
 				App->audio->PlayFx(fxAdd_Press_L_R);
-				
+
 
 				pos_x = 470;
 				pos_y = 130;
@@ -192,7 +192,7 @@ update_status ScreenDiffSelect::Update()
 
 				pos_x5 = 648;
 				pos_y5 = 130;
-			
+
 			}
 		case 2:
 
@@ -228,7 +228,7 @@ update_status ScreenDiffSelect::Update()
 
 
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || pad.a)
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		if (Index == Easy)
 		{
@@ -237,11 +237,10 @@ update_status ScreenDiffSelect::Update()
 		}
 	}
 
-	
+
 	colour = rand() % 9;
 
-
-	if ((delta_Time >= 0) && (delta_Time <= 100))
+	if ((delta_Time >= 0) && (delta_Time <= 50))
 	{
 		LOG("Loading");
 
@@ -300,7 +299,7 @@ update_status ScreenDiffSelect::Update()
 
 	colour = rand() % 9;
 
-	if ((delta_Time >= 100) && (delta_Time <= 200))
+	if ((delta_Time >= 50) && (delta_Time <= 100))
 	{
 		if (colour == 1)
 		{
@@ -309,7 +308,7 @@ update_status ScreenDiffSelect::Update()
 		}
 		if (colour == 2)
 		{
-	
+
 			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 
 
@@ -359,7 +358,7 @@ update_status ScreenDiffSelect::Update()
 
 	colour = rand() % 9;
 
-	if ((delta_Time >= 200) && (delta_Time <= 300))
+	if ((delta_Time >= 100) && (delta_Time <= 150))
 	{
 
 		if (colour == 1)
@@ -408,7 +407,7 @@ update_status ScreenDiffSelect::Update()
 
 	colour = rand() % 9;
 
-	if ((delta_Time >= 300) && (delta_Time <= 400))
+	if ((delta_Time >= 150) && (delta_Time <= 200))
 	{
 		if (colour == 1)
 		{
@@ -466,7 +465,7 @@ update_status ScreenDiffSelect::Update()
 
 	colour = rand() % 9;
 
-	if ((delta_Time >= 400) && (delta_Time <= 500))
+	if ((delta_Time >= 200) && (delta_Time <= 250))
 	{
 		if (colour == 1)
 		{
@@ -522,7 +521,7 @@ update_status ScreenDiffSelect::Update()
 
 	colour = rand() % 9;
 
-	if ((delta_Time >= 500) && (delta_Time <= 600))
+	if ((delta_Time >= 250) && (delta_Time <= 300))
 	{
 		if (colour == 1)
 		{
@@ -580,23 +579,20 @@ update_status ScreenDiffSelect::Update()
 	}
 
 
-	if ((delta_Time >= 600) && (delta_Time <= 700))
+	if ((delta_Time >= 350) && (delta_Time <= 400))
 	{
 		delta_Time = 7000;
 
-
 	}
 
-<<<<<<< Updated upstream
-	if ((delta_Time > 700))
+	if ((delta_Time > 400))
 	{
 		delta_Time = 0;
 
 
 	}
 
-=======
->>>>>>> Stashed changes
+
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -606,16 +602,6 @@ update_status ScreenDiffSelect::PostUpdate()
 
 	App->render->Blit(arrowleft_texture, p_x, p_y, NULL);
 	App->render->Blit(arrowright_texture, p2_x, p2_y, NULL);
-
-	/*App->render->Blit(arrowleft_texture, 64, 64, NULL);*/
-	//App->render->Blit(arrowleft_texture, 274, 64, NULL);
-	//App->render->Blit(arrowleft_texture, 510, 64, NULL);
-
-
-	//App->render->Blit(arrowright_texture, 144, 64, NULL);
-	//App->render->Blit(arrowright_texture, 388, 64, NULL);
-	//App->render->Blit(arrowright_texture, 589, 64, NULL);
-
 
 	App->render->Blit(pink1_texture, 322, 122, NULL);
 	App->render->Blit(green1_texture, 99, 142, NULL);
@@ -703,43 +689,3 @@ update_status ScreenDiffSelect::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
-<<<<<<< Updated upstream
-=======
-
-bool ScreenDiffSelect::CleanUp()
-{
-	App->textures->Unload(bg_texture);
-	App->textures->Unload(arrowleft_texture);
-	App->textures->Unload(arrowright_texture);
-
-	App->textures->Unload(green1_texture);
-	App->textures->Unload(pink1_texture);
-	App->textures->Unload(sky1_texture);
-
-	App->textures->Unload(green_rect_texture);
-	App->textures->Unload(blue_rect_texture);
-	App->textures->Unload(bluedark_rect_texture);
-
-	App->textures->Unload(yellow_rect_texture);
-	App->textures->Unload(orange_rect_texture);
-	App->textures->Unload(white_rect_texture);
-	
-	App->textures->Unload(pink_rect_texture);
-	App->textures->Unload(red_rect_texture);
-
-	App->textures->Unload(sky_block_texture);
-	App->textures->Unload(pink_block_texture);
-	App->textures->Unload(orange_block_texture);
-	App->textures->Unload(green_block_texture);
-	App->textures->Unload(yellow_block_texture);
-
-	App->textures->Unload(yellow4_texture);
-	App->textures->Unload(orange2_texture);
-	App->textures->Unload(gray_block_texture);
-	App->textures->Unload(pink3_texture);
-
-	//audio?
-
-	return true;
-}
->>>>>>> Stashed changes
