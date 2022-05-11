@@ -1863,7 +1863,7 @@ bool ModuleTetronimo::CleanUp()
 
 	for (int m = 0; m <= 21; m++) {
 		for (int l = 0; l <= 9; l++) {
-			type[l][m] == 'N';
+			type[l][m] = 'N';
 		}
 	}
 
