@@ -35,8 +35,6 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
 
-	//Leaks
-	bool CleanUp() override;
 
 public:
 
@@ -73,8 +71,8 @@ public:
 	int pos_y3 = 365;
 
 	int pos_x4 = 200;
-	int pos_y4 = 244;
-	
+	int pos_y4 = 365;
+
 	int pos_x5 = 200;
 	int pos_y5 = 130;
 
@@ -127,7 +125,7 @@ public:
 	int enter = 0;
 	uint fxAdd_PressEnter = 0;
 
-	
+
 
 
 };
