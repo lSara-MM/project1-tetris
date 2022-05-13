@@ -38,11 +38,11 @@ bool ModuleRender::Init()
 		ret = false;
 	}
 
-	if (TTF_Init() != 0)
+	/*if (TTF_Init() != 0)
 	{
 		LOG("True Type Font could not initialize. SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}
+	}*/
 
 	return ret;
 }
@@ -50,11 +50,16 @@ bool ModuleRender::Init()
 // Called every draw update
 update_status ModuleRender::PreUpdate()
 {
+	if (TTF_Init() != 0)
+	{
+		LOG("True Type Font could not initialize. SDL_Error: %s\n", SDL_GetError());
+	}
 	//Set the color used for drawing operations
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
 	//Clear rendering target
 	SDL_RenderClear(renderer);
+
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -158,7 +163,6 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 bool ModuleRender::TextDraw(const char* text, int x, int y, int red, int green, int blue, int alpha, int size)
 {
 	bool ret = true;
-
 	ttf_font = TTF_OpenFont("Assets/font_tetris.ttf", size);
 	if (!ttf_font)
 	{
@@ -180,25 +184,27 @@ bool ModuleRender::TextDraw(const char* text, int x, int y, int red, int green, 
 		LOG("Cannot open font. SDL_Surface* error: %s", SDL_GetError());
 		ret = false;
 	}
-
-	ttf_rect.x = x * SCREEN_SIZE;
-	ttf_rect.y = y * SCREEN_SIZE;
-	ttf_rect.w = ttf_surface->w * SCREEN_SIZE;
-	ttf_rect.h = ttf_surface->h * SCREEN_SIZE;
-
-	SDL_FreeSurface(ttf_surface);
-	if (SDL_RenderCopy(renderer, ttf_texture, NULL, &ttf_rect) != 0)
+	else
 	{
-		LOG("Cannot render text to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
+		ttf_rect.x = x * SCREEN_SIZE;
+		ttf_rect.y = y * SCREEN_SIZE;
+		ttf_rect.w = ttf_surface->w * SCREEN_SIZE;
+		ttf_rect.h = ttf_surface->h * SCREEN_SIZE;
+
+		SDL_FreeSurface(ttf_surface);
+		if (SDL_RenderCopy(renderer, ttf_texture, NULL, &ttf_rect) != 0)
+		{
+			LOG("Cannot render text to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+		SDL_DestroyTexture(ttf_texture);
+		ttf_texture = nullptr;
+		TTF_CloseFont(ttf_font);
 	}
-	SDL_DestroyTexture(ttf_texture);
-	ttf_texture = nullptr;
-	TTF_CloseFont(ttf_font);
 
 	return ret;
 }
 void ModuleRender::ttfQuit()
 {
-	TTF_Quit();
+	//TTF_Quit();
 }

@@ -121,7 +121,7 @@ bool ScreenStart::CleanUp()
 	App->textures->Unload(bg_texture);
 	App->particles->CleanUp();
 	App->points->Disable();
-	//App->render->ttfQuit();
+	App->render->ttfQuit();
 	//App->particles->Disable();
 
 	//Elminar textos?
