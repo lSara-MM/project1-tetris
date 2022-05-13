@@ -91,6 +91,8 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 
 bool ModuleTextures::Unload(SDL_Texture* texture)
 {
+	LOG("Unloading texture");
+
 	bool ret = false;
 
 	if (texture != nullptr)

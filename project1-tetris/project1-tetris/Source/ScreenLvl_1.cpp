@@ -381,7 +381,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 bool ScreenLvl_1::CleanUp()
 {
-
+	LOG("Disable Tetronimo");
 	App->tetronimo->Disable();
 	//App->render->ttfQuit();	// excepcio xd
 	//App->audio->CleanUp();	// excepcio xd

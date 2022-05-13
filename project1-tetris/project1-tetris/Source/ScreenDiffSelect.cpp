@@ -689,3 +689,41 @@ update_status ScreenDiffSelect::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+bool ScreenDiffSelect::CleanUp()
+{
+
+	App->textures->Unload(bg_texture);
+	App->textures->Unload(arrowleft_texture);
+	App->textures->Unload(arrowright_texture);
+
+	App->textures->Unload(green1_texture);
+	App->textures->Unload(pink1_texture);
+	App->textures->Unload(sky1_texture);
+
+	App->textures->Unload(green_rect_texture);
+	App->textures->Unload(blue_rect_texture);
+	App->textures->Unload(bluedark_rect_texture);
+
+	App->textures->Unload(yellow_rect_texture);
+	App->textures->Unload(orange_rect_texture);
+	App->textures->Unload(white_rect_texture);
+
+	App->textures->Unload(pink_rect_texture);
+	App->textures->Unload(red_rect_texture);
+
+	App->textures->Unload(sky_block_texture);
+	App->textures->Unload(pink_block_texture);
+	App->textures->Unload(orange_block_texture);
+	App->textures->Unload(green_block_texture);
+	App->textures->Unload(yellow_block_texture);
+
+	App->textures->Unload(yellow4_texture);
+	App->textures->Unload(orange2_texture);
+	App->textures->Unload(gray_block_texture);
+	App->textures->Unload(pink3_texture);
+
+	//audio?
+
+	return true;
+}
