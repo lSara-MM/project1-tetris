@@ -75,8 +75,12 @@ bool ScreenLvl_1::Start()
 	lines = 0;
 	linesObjective = 5;
 	linesleft = linesObjective;
+	if (App->points->credits < 0)
+	{
+		App->points->credits = 1;
+	}
 	App->points->credits -= 1;
-
+	App->points->score = 0;
 
 	// Counter
 	v_message = 0;
