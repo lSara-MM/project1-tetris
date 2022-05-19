@@ -57,12 +57,7 @@ update_status ModulePlayer::Update()
 		App->audio->ResumeMusic();
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_REPEAT)		// to change when have more levels
-	{
-		App->fade->FadeToBlack(App->sCredits1, (Module*)App->sLvl_1, 0);
-		App->fade->FadeToBlack(App->sCredits2, (Module*)App->sLvl_1, 0);
-		App->fade->FadeToBlack(App->sStart, (Module*)App->sLvl_1, 0);
-	}
+	
 
 	return update_status::UPDATE_CONTINUE;
 }

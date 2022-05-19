@@ -56,5 +56,13 @@ update_status ScreenCredits2::PostUpdate()
 	App->render->TextDraw("Marc Torres Jimenez", 25, 395, 255, 255, 255, 255, 12);
 	App->render->TextDraw("https://github.com/lSara-MM/project1-tetris", 25, 425, 255, 255, 255, 255, 12);
 
+	//Saltar pantalla nivel 1
+
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
