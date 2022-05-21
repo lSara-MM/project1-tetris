@@ -197,6 +197,7 @@ bool ModuleTetronimo::blockFall()
 	}
 	else
 		return false;
+}
 
 void ModuleTetronimo::Debugging()
 {
