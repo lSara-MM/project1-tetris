@@ -26,7 +26,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	openCurtain.PushBack({ 328, 3, 157, 126 });
 	openCurtain.PushBack({ 166, 3, 157, 126 });
 	openCurtain.PushBack({ 3, 3, 157, 126 });
-	openCurtain.speed = 0.2f;
+	//openCurtain.speed = 0.2f;
 	openCurtain.loop = true;
 
 	closeCurtain.PushBack({ 3, 3, 157, 126 });
@@ -35,7 +35,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 491, 3, 157, 126 });
 	closeCurtain.PushBack({ 653, 3, 157, 126 });
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
-	closeCurtain.speed = 0.2f;
+	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
 }
 
@@ -96,12 +96,26 @@ bool ScreenLvl_1::Start()
 	// Game
 	App->tetronimo->Start();
 
+	openCurtain.loopCount = 0;
+	openCurtain.speed = 0.2f;
+
+	closeCurtain.loopCount = 0;
+	closeCurtain.speed = 0.2f;
+
+
 	return ret;
 }
 
 update_status ScreenLvl_1::Update()
 {
-	if (openCurtain.GetLoopCount() == 1) { openCurtain.speed = 0; }
+
+	if (openCurtain.GetLoopCount() == 1) {
+		
+		openCurtain.speed = 0; 
+	
+	}
+
+
 	else { openCurtain.Update(); }
 
 
@@ -309,7 +323,7 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 	}
 
-	if (v_WinLose >= 250 && v_WinLose < 450)		// depende de las lineas vacias al final
+	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
@@ -318,9 +332,12 @@ void ScreenLvl_1::lvl_win()
 	}
 
 
-	if (v_WinLose >= 450)
+	if (v_WinLose >= 574)
 	{
-		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f); }
+		LOG("Close Curtain");
+		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+		closeCurtain.Update();
+		
 	}
 	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{ 
