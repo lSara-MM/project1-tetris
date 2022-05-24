@@ -65,28 +65,31 @@ bool ModuleTetronimo::Start()
 
 	LOG("Loading grid_texture");
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
-
+	blockTexture = App->textures->Load("Assets/Sprites/ss_tetronimos.png");
 	return true;
 }
 
 
 update_status ModuleTetronimo::Update() 
 {
-
 	runTime = SDL_GetTicks();
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	nextT = spawnTetronimo(nextT);
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+	{
+		blockFall();
+	}
+	//blockFall();		// to fix
 	Debugging();
 	for (int i = 0; i < 22; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			blockUpdate(&tileSet[j][i]);
+			tileSet[j][i].pSection = &tileSet[j][i].section;
 		}
 	}
-	
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -101,7 +104,7 @@ update_status ModuleTetronimo::PostUpdate()
 		{
 			if (tileSet[j][i].id != -1)
 			{
-				App->render->Blit(blockTexture, (65 + (j * (B_WIDTH + 1))), (51 + (i * (B_HEIGHT + 1))), tileSet[j][i].section);
+				App->render->Blit(blockTexture, (65 + (j * (B_WIDTH + 1))), (51 + (i * (B_HEIGHT + 1))), tileSet[j][i].pSection);
 			}
 		}
 	}
@@ -116,6 +119,7 @@ bool ModuleTetronimo::CleanUp()
 
 int ModuleTetronimo::spawnTetronimo(int next)
 {
+	next = BLOCK_TYPE::RED;
 	switch (next)
 	{
 	case BLOCK_TYPE::RED:
@@ -123,6 +127,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 2;
 		tileSet[5][0].id = 2;
 		tileSet[6][0].id = 3;
+
+		tileSet[3][0].section = { 0, 0, 16, 16 };
+		tileSet[4][0].section = { 17, 0, 16, 16 };
+		tileSet[5][0].section = { 17, 0, 16, 16 };
+		tileSet[6][0].section = { 34, 0, 16, 16 };
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
@@ -199,30 +208,46 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 bool ModuleTetronimo::blockFall()
 {
-	if (b1->tileY + 1 < 21 && b2->tileY + 1 < 21 &&
-		b3->tileY + 1 < 21 && b4->tileY + 1 < 21)
+	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
 	{
-		if (tileSet[b1->tileX][b1->tileY + 1].id == -1 &&
-			tileSet[b2->tileX][b2->tileY + 1].id == -1 &&
-			tileSet[b3->tileX][b3->tileY + 1].id == -1 &&
-			tileSet[b4->tileX][b4->tileY + 1].id == -1)
+		if (b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
+			b3->tileY + 1 < 22 && b4->tileY + 1 < 22)
 		{
-			tileSet[b1->tileX][b1->tileY].id = -1;
-			tileSet[b2->tileX][b2->tileY].id = -1;
-			tileSet[b3->tileX][b3->tileY].id = -1;
-			tileSet[b4->tileX][b4->tileY].id = -1;
+			if (tileSet[b1->tileX][b1->tileY + 1].id == -1 &&
+				tileSet[b2->tileX][b2->tileY + 1].id == -1 &&
+				tileSet[b3->tileX][b3->tileY + 1].id == -1 &&
+				tileSet[b4->tileX][b4->tileY + 1].id == -1)
+			{
+				/*tileSet[b1->tileX][b1->tileY].id = -1;
+				tileSet[b2->tileX][b2->tileY].id = -1;
+				tileSet[b3->tileX][b3->tileY].id = -1;
+				tileSet[b4->tileX][b4->tileY].id = -1;*/
 
-			b1->tileY++;
-			b2->tileY++;
-			b3->tileY++;
-			b4->tileY++;
+				b1->tileY++;
+				b2->tileY++;
+				b3->tileY++;
+				b4->tileY++;
 
-			SDL_Delay(100);
-			return true;
+				tileSet[b1->tileX][b1->tileY] = *b1;
+				tileSet[b2->tileX][b2->tileY] = *b2;
+				tileSet[b3->tileX][b3->tileY] = *b3;
+				tileSet[b4->tileX][b4->tileY] = *b4;
+
+				tileSet[b1->tileX][b1->tileY - 1].id = -1;
+				tileSet[b2->tileX][b2->tileY - 1].id = -1;
+				tileSet[b3->tileX][b3->tileY - 1].id = -1;
+				tileSet[b4->tileX][b4->tileY - 1].id = -1;
+
+				//SDL_Delay(100);
+				return true;
+			}
+		}
+		else
+		{
+			nextT = spawnTetronimo(nextT);
+			return false;
 		}
 	}
-	else
-		return false;
 }
 
 void ModuleTetronimo::Debugging()

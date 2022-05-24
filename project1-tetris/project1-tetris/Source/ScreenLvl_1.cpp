@@ -77,6 +77,7 @@ bool ScreenLvl_1::Start()
 	linesleft = linesObjective;
 	if (App->points->credits < 0)
 	{
+		App->points->Reset();
 		App->points->credits = 1;
 	}
 	App->points->credits -= 1;
@@ -110,12 +111,8 @@ update_status ScreenLvl_1::Update()
 {
 
 	if (openCurtain.GetLoopCount() == 1) {
-
 		openCurtain.speed = 0;
-
 	}
-
-
 	else { openCurtain.Update(); }
 
 

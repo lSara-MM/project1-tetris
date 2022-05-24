@@ -51,7 +51,8 @@ public:
 		int bX, bY;		// x, y in screen
 		int tileX, tileY;		// tile position
 
-		SDL_Rect* section;	// { spritesheet coords, B_WIDTH, B_HEIGHT }
+		SDL_Rect section;
+		SDL_Rect* pSection;	// { spritesheet coords, B_WIDTH, B_HEIGHT }
 
 	private:
 		SDL_Texture* blockTexture = nullptr;
@@ -77,7 +78,7 @@ public:
 
 
 	//class
-	Block tileSet[22][10];
+	Block tileSet[10][22];
 	Block* b1, *b2, *b3, *b4;
 
 private:
