@@ -77,10 +77,10 @@ bool ScreenLvl_1::Start()
 	linesleft = linesObjective;
 	if (App->points->credits < 0)
 	{
+		App->points->Reset();
 		App->points->credits = 1;
 	}
 	App->points->credits -= 1;
-	App->points->score = 0;
 
 	// Counter
 	v_message = 0;

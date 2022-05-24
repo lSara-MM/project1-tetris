@@ -106,7 +106,9 @@ void Points::RainbowStack()
 
 void Points::Reset()
 {
-	score = 0;
+	p_drop = 1;
 	p_stack = 0;
+	score = 0;
+	h = -1;
 	credits -= 1;
 }
