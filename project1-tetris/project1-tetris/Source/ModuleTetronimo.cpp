@@ -54,6 +54,7 @@ bool ModuleTetronimo::Start()
 			tileSet[j][i].id = -1;
 			tileSet[j][i].tileX = j;
 			tileSet[j][i].tileY = i;
+			tileSet[j][i].tetronimo = 0;
 			//tileSetInt[j][i] = 0;
 		}
 	}
@@ -76,7 +77,7 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	blockFall();
+	//blockFall();
 	Debugging();
 	for (int i = 0; i < 22; i++)
 	{
@@ -85,6 +86,16 @@ update_status ModuleTetronimo::Update()
 			blockUpdate(&tileSet[j][i]);
 			tileSet[j][i].pSection = &tileSet[j][i].section;
 		}
+	}
+
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+	{
+		blockMovement(-1);
+	}
+
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
+	{
+		blockMovement(1);
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -128,6 +139,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[6][0];
+
+		b1->tetronimo = 1;
+		b2->tetronimo = 1;
+		b3->tetronimo = 1;
+		b4->tetronimo = 1;
 
 		break;
 
@@ -233,24 +249,24 @@ bool ModuleTetronimo::blockFall()
 			tileSet[b3->tileX][b3->tileY + 1].id == -1 &&
 			tileSet[b4->tileX][b4->tileY + 1].id == -1)
 		{
-			var = *b1;
+			var1 = *b1;
 			tileSet[b1->tileX][b1->tileY].id = -1;
-			tileSet[b1->tileX][++b1->tileY] = var;
+			tileSet[b1->tileX][++b1->tileY] = var1;
 			b1 = &tileSet[b1->tileX][b1->tileY];
 
-			var = *b2;
+			var1 = *b2;
 			tileSet[b2->tileX][b2->tileY].id = -1;
-			tileSet[b2->tileX][++b2->tileY] = var;
+			tileSet[b2->tileX][++b2->tileY] = var1;
 			b2 = &tileSet[b2->tileX][b2->tileY];
 
-			var = *b3;
+			var1 = *b3;
 			tileSet[b3->tileX][b3->tileY].id = -1;
-			tileSet[b3->tileX][++b3->tileY] = var;
+			tileSet[b3->tileX][++b3->tileY] = var1;
 			b3 = &tileSet[b3->tileX][b3->tileY];
 
-			var = *b4;
+			var1 = *b4;
 			tileSet[b4->tileX][b4->tileY].id = -1;
-			tileSet[b4->tileX][++b4->tileY] = var;
+			tileSet[b4->tileX][++b4->tileY] = var1;
 			b4 = &tileSet[b4->tileX][b4->tileY];
 
 			SDL_Delay(100);
@@ -260,6 +276,49 @@ bool ModuleTetronimo::blockFall()
 		{
 			nextT = spawnTetronimo(nextT);
 			return false;
+		}
+	}
+}
+
+
+void ModuleTetronimo::blockMovement(int p)
+{
+	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
+	{
+
+		if (b1->tileX + p > -1 && b1->tileX + p < 10 &&
+			b2->tileX + p > -1 && b2->tileX + p < 10 &&
+			b3->tileX + p > -1 && b3->tileX + p < 10 &&
+			b4->tileX + p > -1 && b4->tileX + p < 10 &&
+			(tileSet[b1->tileX + p][b1->tileY].id == -1 || tileSet[b1->tileX + p][b1->tileY].tetronimo == b1->tetronimo) &&
+			(tileSet[b2->tileX + p][b2->tileY].id == -1 || tileSet[b2->tileX + p][b2->tileY].tetronimo == b2->tetronimo) &&
+			(tileSet[b3->tileX + p][b3->tileY].id == -1 || tileSet[b3->tileX + p][b3->tileY].tetronimo == b3->tetronimo) &&
+			(tileSet[b4->tileX + p][b4->tileY].id == -1 || tileSet[b4->tileX + p][b4->tileY].tetronimo == b4->tetronimo))
+		{
+			var1 = *b1;
+			var2 = *b2;
+			var3 = *b3;
+			var4 = *b4;
+			tileSet[b1->tileX][b1->tileY].id = -1;
+			tileSet[b2->tileX][b2->tileY].id = -1;
+			tileSet[b3->tileX][b3->tileY].id = -1;
+			tileSet[b4->tileX][b4->tileY].id = -1;
+
+			b1->tileX += p;
+			b2->tileX += p;
+			b3->tileX += p;
+			b4->tileX += p;
+
+			tileSet[b1->tileX][b1->tileY] = var1;
+			b1 = &tileSet[b1->tileX][b1->tileY];
+			tileSet[b2->tileX][b2->tileY] = var2;
+			b2 = &tileSet[b2->tileX][b2->tileY];
+			tileSet[b3->tileX][b3->tileY] = var3;
+			b3 = &tileSet[b3->tileX][b3->tileY];
+			tileSet[b4->tileX][b4->tileY] = var4;
+			b4 = &tileSet[b4->tileX][b4->tileY];
+
+			//SDL_Delay(100);
 		}
 	}
 }
@@ -278,7 +337,7 @@ void ModuleTetronimo::Debugging()
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	//	just in case		
 	{
 
-		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivarlo con el mismo boton
+		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivar1lo con el mismo boton
 	}
 
 	// Manually spawn a block

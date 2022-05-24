@@ -50,6 +50,7 @@ public:
 		int id;
 		int bX, bY;		// x, y in screen
 		int tileX, tileY;		// tile position
+		int tetronimo;
 
 		SDL_Rect section;
 		SDL_Rect* pSection;	// { spritesheet coords, B_WIDTH, B_HEIGHT }
@@ -61,6 +62,7 @@ public:
 	int spawnTetronimo(int next);
 	void blockUpdate(Block *block);
 	bool blockFall();
+	void blockMovement(int p);
 	bool lineCheck();
 	void Debugging();
 	
@@ -79,7 +81,7 @@ public:
 
 	//class
 	Block tileSet[10][22];
-	Block* b1, *b2, *b3, *b4, var;
+	Block* b1, *b2, *b3, *b4, var1, var2, var3, var4;
 
 private:
 	SDL_Texture* grid_texture = nullptr;
