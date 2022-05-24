@@ -79,6 +79,14 @@ update_status ModuleTetronimo::Update()
 
 	nextT = spawnTetronimo(nextT);
 	Debugging();
+	for (int i = 0; i < 22; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			blockUpdate(&tileSet[j][i]);
+		}
+	}
+	
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -87,7 +95,6 @@ update_status ModuleTetronimo::Update()
 update_status ModuleTetronimo::PostUpdate()
 {
 	//Tile Set
-
 	for (int i = 0; i < 22; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -176,6 +183,16 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 void ModuleTetronimo::blockUpdate(Block* block)
 {
+
+	switch (block->id)
+	{
+	case 0:
+		block->section = ;
+	default:
+		break;
+	}
+
+
 	block->bX = 65 + (block->tileX * (B_WIDTH + 1));
 	block->bY = 51 + (block->tileY * (B_HEIGHT + 1));
 }
