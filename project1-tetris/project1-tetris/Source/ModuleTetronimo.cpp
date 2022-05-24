@@ -52,6 +52,8 @@ bool ModuleTetronimo::Start()
 		for (int j = 0; j < 10; j++)
 		{
 			tileSet[j][i].id = -1;
+			tileSet[j][i].tileX = j;
+			tileSet[j][i].tileY = i;
 			//tileSetInt[j][i] = 0;
 		}
 	}
@@ -90,7 +92,10 @@ update_status ModuleTetronimo::PostUpdate()
 	{
 		for (int j = 0; j < 10; j++)
 		{
-
+			if (tileSet[j][i].id != -1)
+			{
+				App->render->Blit(blockTexture, (65 + (j * (B_WIDTH + 1))), (51 + (i * (B_HEIGHT + 1))), tileSet[j][i].section);
+			}
 		}
 	}
 
@@ -116,6 +121,7 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[6][0];
+
 		break;
 
 		/*case BLOCK_TYPE::GREEN:
@@ -163,7 +169,9 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		break;
 	}
 
-	return rand() % 7 + 1;
+	//return rand() % 7 + 1;
+
+	return BLOCK_TYPE::RED;
 }
 
 void ModuleTetronimo::blockUpdate(Block* block)
@@ -192,6 +200,7 @@ bool ModuleTetronimo::blockFall()
 			b3->tileY++;
 			b4->tileY++;
 
+			SDL_Delay(100);
 			return true;
 		}
 	}

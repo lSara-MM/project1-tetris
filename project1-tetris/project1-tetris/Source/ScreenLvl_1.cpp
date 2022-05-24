@@ -163,7 +163,7 @@ update_status ScreenLvl_1::PostUpdate()
 	{
 		LOG("Loading background music: Loginska");
 		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0.5f);
-		App->tetronimo->SpawnTetronimo();
+		//App->tetronimo->SpawnTetronimo();
 	}
 
 	//Lines left
@@ -214,7 +214,7 @@ update_status ScreenLvl_1::PostUpdate()
 	//h->row on which tetomino placed minus 1 (bottom = 0)
 	if (lvl_instaLose == false)
 	{
-		App->points->h = App->tetronimo->blockRB();
+		//App->points->h = App->tetronimo->blockRB();
 		if (App->points->h != (-1))
 		{
 			v_points = 0;
