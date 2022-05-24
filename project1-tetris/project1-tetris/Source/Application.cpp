@@ -33,14 +33,14 @@ Application::Application()
 	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
 
-	modules[4] = sCredits1 = new ScreenCredits1(true);
+	modules[4] = sCredits1 = new ScreenCredits1(false);
 	modules[5] = sCredits2 = new ScreenCredits2(false);
 	modules[6] = sStart = new ScreenStart(false);
 	modules[7] = sDiff = new ScreenDiffSelect(false);
-	modules[8] = sLvl_1 = new ScreenLvl_1(false);		//Gameplay scene starts disabled
+	modules[8] = sLvl_1 = new ScreenLvl_1(true);		//Gameplay scene starts disabled
 	
 	modules[9] = player = new ModulePlayer(true);	
-	modules[10] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
+	modules[10] = tetronimo = new ModuleTetronimo(true);	//Player starts disabled
 	modules[11] = points = new Points(false);
 
 	modules[12] = particles = new ModuleParticles(true);

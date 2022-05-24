@@ -187,7 +187,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 	switch (block->id)
 	{
 	case 0:
-		block->section = ;
+		//block->section = ;
 	default:
 		break;
 	}
