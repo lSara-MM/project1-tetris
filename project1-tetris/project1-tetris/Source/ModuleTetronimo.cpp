@@ -76,11 +76,7 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
-	{
-		blockFall();
-	}
-	//blockFall();		// to fix
+	blockFall();
 	Debugging();
 	for (int i = 0; i < 22; i++)
 	{
@@ -127,11 +123,6 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 2;
 		tileSet[5][0].id = 2;
 		tileSet[6][0].id = 3;
-
-		tileSet[3][0].section = { 0, 0, 16, 16 };
-		tileSet[4][0].section = { 17, 0, 16, 16 };
-		tileSet[5][0].section = { 17, 0, 16, 16 };
-		tileSet[6][0].section = { 34, 0, 16, 16 };
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
@@ -196,11 +187,36 @@ void ModuleTetronimo::blockUpdate(Block* block)
 	switch (block->id)
 	{
 	case 0:
-		//block->section = ;
+			//block->section = { 0, 0, 16, 16 };;
+			break;
+	case 1:
+		block->section = { 0, 0, 16, 16 };
+		break;
+
+	case 2:
+		block->section = { 17, 0, 16, 16 };
+		break;
+
+	case 3:
+		block->section = { 34, 0, 16, 16 };
+		break;
+
+	case 4:
+		//block->section = { 34, 0, 16, 16 };
+		break;
+
 	default:
 		break;
 	}
 
+	for (int i = 0; i < 22; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			tileSet[j][i].tileX = j;
+			tileSet[j][i].tileY = i;
+		}
+	}
 
 	block->bX = 65 + (block->tileX * (B_WIDTH + 1));
 	block->bY = 51 + (block->tileY * (B_HEIGHT + 1));
@@ -210,37 +226,35 @@ bool ModuleTetronimo::blockFall()
 {
 	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
 	{
-		if (b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
-			b3->tileY + 1 < 22 && b4->tileY + 1 < 22)
+		if ((b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
+			b3->tileY + 1 < 22 && b4->tileY + 1 < 22) &&
+			tileSet[b1->tileX][b1->tileY + 1].id == -1 &&
+			tileSet[b2->tileX][b2->tileY + 1].id == -1 &&
+			tileSet[b3->tileX][b3->tileY + 1].id == -1 &&
+			tileSet[b4->tileX][b4->tileY + 1].id == -1)
 		{
-			if (tileSet[b1->tileX][b1->tileY + 1].id == -1 &&
-				tileSet[b2->tileX][b2->tileY + 1].id == -1 &&
-				tileSet[b3->tileX][b3->tileY + 1].id == -1 &&
-				tileSet[b4->tileX][b4->tileY + 1].id == -1)
-			{
-				/*tileSet[b1->tileX][b1->tileY].id = -1;
-				tileSet[b2->tileX][b2->tileY].id = -1;
-				tileSet[b3->tileX][b3->tileY].id = -1;
-				tileSet[b4->tileX][b4->tileY].id = -1;*/
+			var = *b1;
+			tileSet[b1->tileX][b1->tileY].id = -1;
+			tileSet[b1->tileX][++b1->tileY] = var;
+			b1 = &tileSet[b1->tileX][b1->tileY];
 
-				b1->tileY++;
-				b2->tileY++;
-				b3->tileY++;
-				b4->tileY++;
+			var = *b2;
+			tileSet[b2->tileX][b2->tileY].id = -1;
+			tileSet[b2->tileX][++b2->tileY] = var;
+			b2 = &tileSet[b2->tileX][b2->tileY];
 
-				tileSet[b1->tileX][b1->tileY] = *b1;
-				tileSet[b2->tileX][b2->tileY] = *b2;
-				tileSet[b3->tileX][b3->tileY] = *b3;
-				tileSet[b4->tileX][b4->tileY] = *b4;
+			var = *b3;
+			tileSet[b3->tileX][b3->tileY].id = -1;
+			tileSet[b3->tileX][++b3->tileY] = var;
+			b3 = &tileSet[b3->tileX][b3->tileY];
 
-				tileSet[b1->tileX][b1->tileY - 1].id = -1;
-				tileSet[b2->tileX][b2->tileY - 1].id = -1;
-				tileSet[b3->tileX][b3->tileY - 1].id = -1;
-				tileSet[b4->tileX][b4->tileY - 1].id = -1;
+			var = *b4;
+			tileSet[b4->tileX][b4->tileY].id = -1;
+			tileSet[b4->tileX][++b4->tileY] = var;
+			b4 = &tileSet[b4->tileX][b4->tileY];
 
-				//SDL_Delay(100);
-				return true;
-			}
+			SDL_Delay(100);
+			return true;
 		}
 		else
 		{

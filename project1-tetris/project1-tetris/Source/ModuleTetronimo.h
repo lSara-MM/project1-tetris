@@ -79,7 +79,7 @@ public:
 
 	//class
 	Block tileSet[10][22];
-	Block* b1, *b2, *b3, *b4;
+	Block* b1, *b2, *b3, *b4, var;
 
 private:
 	SDL_Texture* grid_texture = nullptr;
