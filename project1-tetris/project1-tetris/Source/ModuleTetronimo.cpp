@@ -92,6 +92,10 @@ update_status ModuleTetronimo::Update()
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
 	{
 		blockFall();
+		//b1->id = blockFall(b1);
+		///*blockFall(b2);
+		//blockFall(b3);
+		//blockFall(b4);*/
 	}
 
 	Debugging();
@@ -101,6 +105,15 @@ update_status ModuleTetronimo::Update()
 		{
 			blockUpdate(&tileSet[j][i]);
 			tileSet[j][i].pSection = &tileSet[j][i].section;
+		}
+	}
+
+	for (int i = 0; i < 22; i++)
+	{
+		if (lineCheck(i) == true)
+		{
+			deleteLine(i);
+			// put a function to delete and do the animations of line
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -294,7 +307,7 @@ bool ModuleTetronimo::blockFall()
 			return false;
 		}
 	}
-}
+}		// idk perque no me dixa ferho per a un block individual
 
 void ModuleTetronimo::blockMovement(int p)
 {
@@ -345,6 +358,37 @@ void ModuleTetronimo::blockMovement(int p)
 	}
 }
 
+bool ModuleTetronimo::lineCheck(int i)
+{
+	for (int j = 0; j < 10; j++)
+	{
+		if (tileSet[j][i].id == -1)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool ModuleTetronimo::deleteLine(int i)		// probably doesnt work yet
+{
+	for (int j = 0; j < 10; j++)
+	{
+		tileSet[j][i].id = -1;
+	}
+
+	for (int i = 0; i < 22; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			b1 = &tileSet[j][i];
+			blockFall();
+		}
+	}
+
+	return true;
+}
+
 void ModuleTetronimo::Debugging()
 {
 
@@ -359,7 +403,7 @@ void ModuleTetronimo::Debugging()
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	//	just in case		
 	{
 
-		App->player->godMode = false; //Muy cutre, no he encontrado la manera de desactivar1lo con el mismo boton
+		App->player->godMode = false;
 	}
 
 	// Manually spawn a block

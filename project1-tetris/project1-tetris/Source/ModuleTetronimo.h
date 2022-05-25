@@ -63,7 +63,8 @@ public:
 	void blockUpdate(Block *block);
 	bool blockFall();
 	void blockMovement(int p);
-	bool lineCheck();
+	bool lineCheck(int i);
+	bool deleteLine(int i);
 	void Debugging();
 	
 
