@@ -137,12 +137,12 @@ int ModuleTetronimo::spawnTetronimo(int next)
 	case BLOCK_TYPE::RED:
 		tileSet[3][0].id = 1;
 		tileSet[4][0].id = 2;
-		tileSet[4][1].id = 2;
+		tileSet[5][0].id = 2;
 		tileSet[6][0].id = 3;
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
-		b3 = &tileSet[4][1];
+		b3 = &tileSet[5][0];
 		b4 = &tileSet[6][0];
 
 		break;
@@ -295,7 +295,6 @@ bool ModuleTetronimo::blockFall()
 		}
 	}
 }
-
 
 void ModuleTetronimo::blockMovement(int p)
 {
