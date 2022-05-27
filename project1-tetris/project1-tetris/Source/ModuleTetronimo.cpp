@@ -78,20 +78,38 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	//blockFall();
-
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
-	{
-		blockMovement(-1);
-	}
-
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
-	{
-		blockMovement(1);
-	}
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+	if (deltaTime > 700) 
 	{
 		blockFall();
+		deltaTime = 0;
+	}
+
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+	{
+		if (deltaTime > 25)
+		{
+			blockMovement(-1);
+			deltaTime = 0;
+		}
+	}
+
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+	{
+		if (deltaTime > 25)
+		{
+			blockMovement(1);
+			deltaTime = 0;
+		}
+	}
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+	{
+		if (deltaTime > 25)
+		{
+			blockFall();
+			deltaTime = 0;
+		}
+
+		//blockFall(b1);
 		//b1->id = blockFall(b1);
 		///*blockFall(b2);
 		//blockFall(b3);
@@ -309,6 +327,41 @@ bool ModuleTetronimo::blockFall()
 	}
 }		// idk perque no me dixa ferho per a un block individual
 
+bool ModuleTetronimo::blockFall(Block* block)
+{
+	if (block != nullptr)
+	{
+		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
+		if ((block->tileY + 1 < 22 ) &&
+			(tileSet[block->tileX][block->tileY + 1].id == -1 || tileSet[block->tileX][block->tileY + 1].tetronimo == block->tetronimo)			)
+		{
+			// save current block info
+			var1 = *block;
+
+			// increment the Y position
+			var1.tileY++;
+
+
+			// make the block non printable 
+			tileSet[block->tileX][block->tileY].id = -1;
+
+			// fill the next block with the current block info
+			tileSet[block->tileX][var1.tileY] = var1;
+
+			// change the pointer's position
+			block = &tileSet[block->tileX][var1.tileY];
+
+			//SDL_Delay(200);		// to change because it causes problems with movement X
+			return true;
+		}
+		else
+		{
+			nextT = spawnTetronimo(nextT);
+			return false;
+		}
+	}
+}
+
 void ModuleTetronimo::blockMovement(int p)
 {
 	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
@@ -377,11 +430,14 @@ bool ModuleTetronimo::deleteLine(int i)		// probably doesnt work yet
 		tileSet[j][i].id = -1;
 	}
 
-	for (int i = 0; i < 22; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			b1 = &tileSet[j][i];
+			//b2 = &tileSet[j][i];
+			//b3 = &tileSet[j][i];
+			//b4 = &tileSet[j][i];
 			blockFall();
 		}
 	}
@@ -429,4 +485,3 @@ void ModuleTetronimo::Debugging()
 		App->render->Blit(grid_texture, 62, 50, NULL);
 	}
 }
-

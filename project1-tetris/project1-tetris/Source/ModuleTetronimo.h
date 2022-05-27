@@ -62,6 +62,7 @@ public:
 	int spawnTetronimo(int next);
 	void blockUpdate(Block *block);
 	bool blockFall();
+	bool blockFall(Block* block);
 	void blockMovement(int p);
 	bool lineCheck(int i);
 	bool deleteLine(int i);

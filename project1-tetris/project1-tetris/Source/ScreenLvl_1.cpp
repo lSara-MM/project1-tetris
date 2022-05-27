@@ -230,7 +230,7 @@ update_status ScreenLvl_1::PostUpdate()
 	if (lvl_instaLose == false)
 	{
 		//App->points->h = App->tetronimo->blockRB();
-		if (App->points->h != (-1))
+		/*if (App->points->h != (-1))
 		{
 			v_points = 0;
 			App->points->calcScore();
@@ -246,7 +246,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 			App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
 			v_points++;
-		}
+		}*/
 	}
 
 
