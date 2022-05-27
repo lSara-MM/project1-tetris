@@ -28,6 +28,11 @@ ScreenStart::~ScreenStart()
 // Load assets
 bool ScreenStart::Start()
 {
+	LOG("Loading background assets");
+	bool ret = true;
+
+
+	bg_texture = App->textures->Load("Assets/ss_startBg.png");
 	App->points->Enable();
 
 	// Start Screen
@@ -39,9 +44,6 @@ bool ScreenStart::Start()
 	start_screen.loop = false;
 	start_screen.speed = 0.09f;
 
-	LOG("Loading background assets");
-	bool ret = true;
-	bg_texture = App->textures->Load("Assets/ss_startBg.png");
 	
 	return ret;
 }
@@ -71,6 +73,7 @@ update_status ScreenStart::PostUpdate()
 		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
 		App->particles->Disable();
 	}
+
 	if (App->points->credits == 1)
 	{
 		// Rect, r, g, b, alpha (0-255) "opacity"
@@ -129,6 +132,7 @@ bool ScreenStart::CleanUp()
 	App->particles->CleanUp();
 	App->points->Disable();
 	App->render->ttfQuit();
+	
 	//App->particles->Disable();
 
 	//Elminar textos?

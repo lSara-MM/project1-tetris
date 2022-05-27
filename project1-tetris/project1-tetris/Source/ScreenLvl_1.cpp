@@ -140,6 +140,7 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 
 
+
 	// strings to const char*
 	string s_score = std::to_string(App->points->score);
 	const char* ch_score = s_score.c_str();
@@ -331,16 +332,20 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);		
 	}
 
-
 	if (v_WinLose >= 574)
 	{
 		LOG("Close Curtain");
-		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+
+		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+
 		closeCurtain.Update();
 		
 	}
-	if (v_WinLose == 600)		// cambiar (depende del bonus)
+
+	if (v_WinLose == 604)		// cambiar (depende del bonus)
 	{ 
+		closeCurtain.speed = 0;
+
 		lvl_instaWin = false;
 
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
