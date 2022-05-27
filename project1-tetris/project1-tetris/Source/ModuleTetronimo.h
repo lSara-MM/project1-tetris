@@ -61,9 +61,12 @@ public:
 
 	int spawnTetronimo(int next);
 	void blockUpdate(Block *block);
+
 	bool blockFall();
 	bool blockFall(Block* block);
 	void blockMovement(int p);
+	void Rotation(int num);
+
 	bool lineCheck(int i);
 	bool deleteLine(int i);
 	void Debugging();
@@ -72,6 +75,7 @@ public:
 public:
 	
 	int nextT;
+	int rotation;
 	//int num;
 	int combo;
 
@@ -83,7 +87,7 @@ public:
 
 	//class
 	Block tileSet[10][22];
-	Block* b1, *b2, *b3, *b4, var1, var2, var3, var4;
+	Block* b1, *b2, *b3, *b4, var1, var2, var3, var4, *v;
 
 private:
 	SDL_Texture* grid_texture = nullptr;

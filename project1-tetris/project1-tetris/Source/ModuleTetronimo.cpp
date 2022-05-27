@@ -55,12 +55,14 @@ bool ModuleTetronimo::Start()
 			tileSet[j][i].tileX = j;
 			tileSet[j][i].tileY = i;
 			tileSet[j][i].tetronimo = 0;
+			
+			//tileSet[j][i].tetronimo = 0;
 			//tileSetInt[j][i] = 0;
 		}
 	}
 
 
-
+	rotation = 0;
 	combo = 0;
 
 	App->player->godMode = false;
@@ -109,7 +111,9 @@ update_status ModuleTetronimo::Update()
 			deltaTime = 0;
 		}
 
-		//blockFall(b1);
+		/*v = b1;
+		blockFall(v);*/
+		/*b1 = v;*/
 		//b1->id = blockFall(b1);
 		///*blockFall(b2);
 		//blockFall(b3);
@@ -325,41 +329,30 @@ bool ModuleTetronimo::blockFall()
 			return false;
 		}
 	}
-}		// idk perque no me dixa ferho per a un block individual
+}		
 
-bool ModuleTetronimo::blockFall(Block* block)
+bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per a un block individual
 {
 	if (block != nullptr)
 	{
-		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
-		if ((block->tileY + 1 < 22 ) &&
-			(tileSet[block->tileX][block->tileY + 1].id == -1 || tileSet[block->tileX][block->tileY + 1].tetronimo == block->tetronimo)			)
+		if ((block->tileY + 1 < 22) &&
+			(tileSet[block->tileX][block->tileY + 1].id == -1 ||
+				tileSet[block->tileX][block->tileY + 1].tetronimo == block->tetronimo))
 		{
-			// save current block info
 			var1 = *block;
-
-			// increment the Y position
 			var1.tileY++;
-
-
-			// make the block non printable 
 			tileSet[block->tileX][block->tileY].id = -1;
-
-			// fill the next block with the current block info
 			tileSet[block->tileX][var1.tileY] = var1;
-
-			// change the pointer's position
 			block = &tileSet[block->tileX][var1.tileY];
-
-			//SDL_Delay(200);		// to change because it causes problems with movement X
-			return true;
 		}
-		else
-		{
-			nextT = spawnTetronimo(nextT);
-			return false;
-		}
+		return true;
 	}
+	else
+	{
+		nextT = spawnTetronimo(nextT);
+		return false;
+	}
+
 }
 
 void ModuleTetronimo::blockMovement(int p)
@@ -411,6 +404,20 @@ void ModuleTetronimo::blockMovement(int p)
 	}
 }
 
+void ModuleTetronimo::Rotation(int num)
+{
+	rotation;
+	int stop = 0;
+
+	switch (num)
+	{
+	case BLOCK_TYPE::RED:
+		break;
+	default:
+		break;
+	}
+}
+
 bool ModuleTetronimo::lineCheck(int i)
 {
 	for (int j = 0; j < 10; j++)
@@ -430,20 +437,29 @@ bool ModuleTetronimo::deleteLine(int i)		// probably doesnt work yet
 		tileSet[j][i].id = -1;
 	}
 
-	for (int i = 0; i < 5; i++)
+	// do a function to make blocks fall once
+	v = &tileSet[0][21];
+	for (int i = 22; i > 2; i--)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			b1 = &tileSet[j][i];
-			//b2 = &tileSet[j][i];
-			//b3 = &tileSet[j][i];
-			//b4 = &tileSet[j][i];
-			blockFall();
+
+			if ((v->tileY + 1 < 22 && b2->tileY + 1 < 22) &&
+				(tileSet[v->tileX][v->tileY + 1].id == -1 ||
+				 tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
+			{
+				var1 = *v;
+				var1.tileY++;
+				tileSet[v->tileX][v->tileY].id = -1;
+				tileSet[v->tileX][var1.tileY] = var1;
+				v = &tileSet[v->tileX][var1.tileY];
+			}
 		}
 	}
 
 	return true;
 }
+
 
 void ModuleTetronimo::Debugging()
 {
