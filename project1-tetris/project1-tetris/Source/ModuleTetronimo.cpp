@@ -35,7 +35,7 @@ uint runTime = 0;
 uint deltaTime = 0;
 uint lastTickTime = 0;
 
-ModuleTetronimo::ModuleTetronimo(bool startEnabled) : Module(startEnabled) 
+ModuleTetronimo::ModuleTetronimo(bool startEnabled) : Module(startEnabled)
 {}
 
 
@@ -44,7 +44,7 @@ ModuleTetronimo::~ModuleTetronimo()
 }
 
 
-bool ModuleTetronimo::Start() 
+bool ModuleTetronimo::Start()
 {
 	//Tile Set
 	for (int i = 0; i < 22; i++)
@@ -55,7 +55,7 @@ bool ModuleTetronimo::Start()
 			tileSet[j][i].tileX = j;
 			tileSet[j][i].tileY = i;
 			tileSet[j][i].tetronimo = 0;
-			
+
 			//tileSet[j][i].tetronimo = 0;
 			//tileSetInt[j][i] = 0;
 		}
@@ -74,13 +74,13 @@ bool ModuleTetronimo::Start()
 }
 
 
-update_status ModuleTetronimo::Update() 
+update_status ModuleTetronimo::Update()
 {
 	runTime = SDL_GetTicks();
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	if (deltaTime > 700) 
+	if (deltaTime > 700)
 	{
 		blockFall();
 		deltaTime = 0;
@@ -166,7 +166,22 @@ bool ModuleTetronimo::CleanUp()
 
 int ModuleTetronimo::spawnTetronimo(int next)
 {
-	next = BLOCK_TYPE::RED;
+
+	bool const r = (srand(time(NULL)), true);
+	int  tetronimo = rand() % 3;
+
+	if (tetronimo == 0) {
+		next = BLOCK_TYPE::RED;
+	}
+
+	else if (tetronimo == 1) {
+		next = BLOCK_TYPE::GREEN;
+	}
+
+	else if (tetronimo == 2) {
+		next = BLOCK_TYPE::BLUE;
+	}
+
 	switch (next)
 	{
 	case BLOCK_TYPE::RED:
@@ -182,47 +197,59 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 		break;
 
-		/*case BLOCK_TYPE::GREEN:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;
+	case BLOCK_TYPE::GREEN:
+		tileSet[3][0].id = 11;
+		tileSet[4][0].id = 12;
+		tileSet[5][0].id = 13;
+		tileSet[4][1].id = 14;
 
-		case BLOCK_TYPE::BLUE:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;
+		b1 = &tileSet[3][0];
+		b2 = &tileSet[4][0];
+		b3 = &tileSet[5][0];
+		b4 = &tileSet[4][1];
 
-		case BLOCK_TYPE::YELLOW:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;
+		break;
 
-		case BLOCK_TYPE::PINK:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;
+	case BLOCK_TYPE::BLUE:
+		tileSet[3][0].id = 31;
+		tileSet[4][0].id = 32;
+		tileSet[3][1].id = 33;
+		tileSet[4][1].id = 34;
 
-		case BLOCK_TYPE::CYAN:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;
+		b1 = &tileSet[3][0];
+		b2 = &tileSet[4][0];
+		b3 = &tileSet[3][1];
+		b4 = &tileSet[4][1];
 
-		case BLOCK_TYPE::ORANGE:
-			tileSet[3][0].id = 1;
-			tileSet[4][0].id = 2;
-			tileSet[5][0].id = 2;
-			tileSet[6][0].id = 3;
-			break;*/
+		break;
+		/*
+	case BLOCK_TYPE::YELLOW:
+		tileSet[3][0].id = 1;
+		tileSet[4][0].id = 2;
+		tileSet[5][0].id = 2;
+		tileSet[6][0].id = 3;
+		break;
+
+	case BLOCK_TYPE::PINK:
+		tileSet[3][0].id = 1;
+		tileSet[4][0].id = 2;
+		tileSet[5][0].id = 2;
+		tileSet[6][0].id = 3;
+		break;
+
+	case BLOCK_TYPE::CYAN:
+		tileSet[3][0].id = 1;
+		tileSet[4][0].id = 2;
+		tileSet[5][0].id = 2;
+		tileSet[6][0].id = 3;
+		break;
+
+	case BLOCK_TYPE::ORANGE:
+		tileSet[3][0].id = 1;
+		tileSet[4][0].id = 2;
+		tileSet[5][0].id = 2;
+		tileSet[6][0].id = 3;
+		break;*/
 	default:
 		break;
 	}
@@ -234,17 +261,29 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 	//return rand() % 7 + 1;
 
+	//if (tetronimo == 0) {
 	return BLOCK_TYPE::RED;
+	//}
+
+	//else if (tetronimo == 1) {
+	return BLOCK_TYPE::GREEN;
+	//}
+
+	//else if (tetronimo == 2) {
+	return BLOCK_TYPE::BLUE;
+	//}
 }
 
 void ModuleTetronimo::blockUpdate(Block* block)
 {
-
 	switch (block->id)
 	{
+		//red
+
 	case 0:
-			//block->section = { 0, 0, 16, 16 };;
-			break;
+		block->section = { 238, 0, 16, 16 };
+		break;
+
 	case 1:
 		block->section = { 0, 0, 16, 16 };
 		break;
@@ -258,8 +297,269 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 	case 4:
-		//block->section = { 34, 0, 16, 16 };
+		block->section = { 51, 0, 16, 16 };
 		break;
+
+	case 5:
+		block->section = { 68, 0, 16, 16 };
+		break;
+
+	case 6:
+		block->section = { 85, 0, 16, 16 };
+		break;
+
+		//green
+
+	case 10:
+		block->section = { 238, 17, 16, 16 };
+		break;
+
+	case 11:
+		block->section = { 0, 17, 16, 16 };
+		break;
+
+	case 12:
+		block->section = { 136, 17, 16, 16 };
+		break;
+
+	case 13:
+		block->section = { 34, 17, 16, 16 };
+		break;
+
+	case 14:
+		block->section = { 85, 17, 16, 16 };
+		break;
+
+	case 15:
+		block->section = { 51, 17, 16, 16 };
+		break;
+
+	case 16:
+		block->section = { 119, 17, 16, 16 };
+		break;
+
+	case 17:
+		block->section = { 102, 17, 16, 16 };
+		break;
+
+	case 18:
+		block->section = { 153, 17, 16, 16 };
+		break;
+
+	case 19:
+		block->section = { 17, 17, 16, 16 };
+		break;
+
+	case 20:
+		block->section = { 204, 17, 16, 16 };
+		break;
+
+	case 21:
+		block->section = { 170, 17, 16, 16 };
+		break;
+
+	case 22:
+		block->section = { 187, 17, 16, 16 };
+		break;
+
+	case 23:
+		block->section = { 221, 17, 16, 16 };
+		break;
+
+		//blue
+
+	case 31:
+		block->section = { 170, 34, 16, 16 };
+		break;
+
+	case 32:
+		block->section = { 221, 34, 16, 16 };
+		break;
+
+	case 33:
+		block->section = { 204, 34, 16, 16 };
+		break;
+
+	case 34:
+		block->section = { 187, 34, 16, 16 };
+		break;
+
+	case 35:
+		block->section = { 0, 34, 16, 16 };
+		break;
+
+	case 36:
+		block->section = { 34, 34, 16, 16 };
+		break;
+
+		//yellow
+
+	case 40:
+		block->section = { 238, 51, 16, 16 };
+		break;
+
+	case 41:
+		block->section = { 0, 51, 16, 16 };
+		break;
+
+	case 42:
+		block->section = { 17, 51, 16, 16 };
+		break;
+
+	case 43:
+		block->section = { 221, 51, 16, 16 };
+		break;
+
+	case 44:
+		block->section = { 85, 51, 16, 16 };
+		break;
+
+	case 45:
+		block->section = { 170, 51, 16, 16 };
+		break;
+
+	case 46:
+		block->section = { 68, 51, 16, 16 };
+		break;
+
+	case 47:
+		block->section = { 34, 51, 16, 16 };
+		break;
+
+	case 48:
+		block->section = { 51, 51, 16, 16 };
+		break;
+
+	case 49:
+		block->section = { 204, 51, 16, 16 };
+		break;
+
+	case 50:
+		block->section = { 187, 51, 16, 16 };
+		break;
+
+		//pink
+
+	case 51:
+		block->section = { 170, 68, 16, 16 };
+		break;
+
+	case 52:
+		block->section = { 17, 68, 16, 16 };
+		break;
+
+	case 53:
+		block->section = { 34, 68, 16, 16 };
+		break;
+
+	case 54:
+		block->section = { 85, 68, 16, 16 };
+		break;
+
+	case 55:
+		block->section = { 51, 68, 16, 16 };
+		break;
+
+	case 56:
+		block->section = { 68, 68, 16, 16 };
+		break;
+
+	case 57:
+		block->section = { 204, 68, 16, 16 };
+		break;
+
+	case 58:
+		block->section = { 0, 68, 16, 16 };
+		break;
+
+	case 59:
+		block->section = { 187, 68, 16, 16 };
+		break;
+
+	case 60:
+		block->section = { 221, 68, 16, 16 };
+		break;
+
+	case 61:
+		block->section = { 238, 68, 16, 16 };
+		break;
+
+		//sky
+
+	case 70:
+		block->section = { 238, 85, 16, 16 };
+		break;
+
+	case 71:
+		block->section = { 0, 85, 16, 16 };
+		break;
+
+	case 72:
+		block->section = { 187, 85, 16, 16 };
+		break;
+
+	case 73:
+		block->section = { 170, 85, 16, 16 };
+		break;
+
+	case 74:
+		block->section = { 34, 85, 16, 16 };
+		break;
+
+	case 75:
+		block->section = { 51, 85, 16, 16 };
+		break;
+
+	case 76:
+		block->section = { 204, 85, 16, 16 };
+		break;
+
+	case 77:
+		block->section = { 221, 85, 16, 16 };
+		break;
+
+	case 78:
+		block->section = { 85, 85, 16, 16 };
+		break;
+
+		//orange
+
+	case 80:
+		block->section = { 138, 102, 16, 16 };
+		break;
+
+	case 81:
+		block->section = { 0, 102, 16, 16 };
+		break;
+
+	case 82:
+		block->section = { 221, 102, 16, 16 };
+		break;
+
+	case 83:
+		block->section = { 224, 102, 16, 16 };
+		break;
+
+	case 84:
+		block->section = { 34, 102, 16, 16 };
+		break;
+
+	case 85:
+		block->section = { 51, 102, 16, 16 };
+		break;
+
+	case 86:
+		block->section = { 187, 102, 16, 16 };
+		break;
+
+	case 87:
+		block->section = { 170, 102, 16, 16 };
+		break;
+
+	case 88:
+		block->section = { 85, 102, 16, 16 };
+		break;
+
 
 	default:
 		break;
@@ -312,7 +612,7 @@ bool ModuleTetronimo::blockFall()
 			tileSet[b1->tileX][var1.tileY] = var1;
 			tileSet[b2->tileX][var2.tileY] = var2;
 			tileSet[b3->tileX][var3.tileY] = var3;
-			tileSet[b4->tileX][var4.tileY]= var4;
+			tileSet[b4->tileX][var4.tileY] = var4;
 
 			// change the pointer's position
 			b1 = &tileSet[b1->tileX][var1.tileY];
@@ -329,7 +629,7 @@ bool ModuleTetronimo::blockFall()
 			return false;
 		}
 	}
-}		
+}
 
 bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per a un block individual
 {
@@ -363,7 +663,7 @@ void ModuleTetronimo::blockMovement(int p)
 		if (b1->tileX + p > -1 && b1->tileX + p < 10 &&
 			b2->tileX + p > -1 && b2->tileX + p < 10 &&
 			b3->tileX + p > -1 && b3->tileX + p < 10 &&
-			b4->tileX + p > -1 && b4->tileX + p < 10 &&	
+			b4->tileX + p > -1 && b4->tileX + p < 10 &&
 			(tileSet[b1->tileX + p][b1->tileY].id == -1 || tileSet[b1->tileX + p][b1->tileY].tetronimo == b1->tetronimo) &&
 			(tileSet[b2->tileX + p][b2->tileY].id == -1 || tileSet[b2->tileX + p][b2->tileY].tetronimo == b2->tetronimo) &&
 			(tileSet[b3->tileX + p][b3->tileY].id == -1 || tileSet[b3->tileX + p][b3->tileY].tetronimo == b3->tetronimo) &&
@@ -380,13 +680,13 @@ void ModuleTetronimo::blockMovement(int p)
 			var2.tileX += p;
 			var3.tileX += p;
 			var4.tileX += p;
-			
+
 			// make the block non printable 
 			tileSet[b1->tileX][b1->tileY].id = -1;
 			tileSet[b2->tileX][b2->tileY].id = -1;
 			tileSet[b3->tileX][b3->tileY].id = -1;
 			tileSet[b4->tileX][b4->tileY].id = -1;
-			
+
 			// fill the next block with the current block info
 			tileSet[var1.tileX][b1->tileY] = var1;
 			tileSet[var2.tileX][b2->tileY] = var2;
@@ -446,7 +746,7 @@ bool ModuleTetronimo::deleteLine(int i)		// probably doesnt work yet
 
 			if ((v->tileY + 1 < 22 && b2->tileY + 1 < 22) &&
 				(tileSet[v->tileX][v->tileY + 1].id == -1 ||
-				 tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
+					tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
 			{
 				var1 = *v;
 				var1.tileY++;
