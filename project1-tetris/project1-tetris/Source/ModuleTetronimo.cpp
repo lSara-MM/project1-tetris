@@ -166,9 +166,7 @@ bool ModuleTetronimo::CleanUp()
 
 int ModuleTetronimo::spawnTetronimo(int next)
 {
-
-	bool const r = (srand(time(NULL)), true);
-	int  tetronimo = rand() % 3;
+	int  tetronimo = rand() % 7;
 
 	if (tetronimo == 0) {
 		next = BLOCK_TYPE::RED;
@@ -180,6 +178,22 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 	else if (tetronimo == 2) {
 		next = BLOCK_TYPE::BLUE;
+	}
+
+	else if (tetronimo == 3) {
+		next = BLOCK_TYPE::YELLOW;
+	}
+
+	else if (tetronimo == 4) {
+		next = BLOCK_TYPE::PINK;
+	}
+
+	else if (tetronimo == 5) {
+		next = BLOCK_TYPE::CYAN;
+	}
+
+	else if (tetronimo == 6) {
+		next = BLOCK_TYPE::ORANGE;
 	}
 
 	switch (next)
@@ -222,34 +236,58 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b4 = &tileSet[4][1];
 
 		break;
-		/*
+
 	case BLOCK_TYPE::YELLOW:
-		tileSet[3][0].id = 1;
-		tileSet[4][0].id = 2;
-		tileSet[5][0].id = 2;
-		tileSet[6][0].id = 3;
+		tileSet[3][0].id = 41;
+		tileSet[4][0].id = 42;
+		tileSet[5][0].id = 43;
+		tileSet[5][1].id = 44;
+
+		b1 = &tileSet[3][0];
+		b2 = &tileSet[4][0];
+		b3 = &tileSet[5][0];
+		b4 = &tileSet[5][1];
+
 		break;
 
 	case BLOCK_TYPE::PINK:
-		tileSet[3][0].id = 1;
-		tileSet[4][0].id = 2;
-		tileSet[5][0].id = 2;
-		tileSet[6][0].id = 3;
+		tileSet[3][0].id = 51;
+		tileSet[4][0].id = 52;
+		tileSet[5][0].id = 53;
+		tileSet[3][1].id = 54;
+
+		b1 = &tileSet[3][0];
+		b2 = &tileSet[4][0];
+		b3 = &tileSet[5][0];
+		b4 = &tileSet[3][1];
+
 		break;
 
 	case BLOCK_TYPE::CYAN:
-		tileSet[3][0].id = 1;
-		tileSet[4][0].id = 2;
-		tileSet[5][0].id = 2;
-		tileSet[6][0].id = 3;
+		tileSet[3][1].id = 71;
+		tileSet[4][1].id = 72;
+		tileSet[4][0].id = 73;
+		tileSet[5][0].id = 74;
+
+		b1 = &tileSet[3][1];
+		b2 = &tileSet[4][1];
+		b3 = &tileSet[4][0];
+		b4 = &tileSet[5][0];
+
 		break;
 
 	case BLOCK_TYPE::ORANGE:
-		tileSet[3][0].id = 1;
-		tileSet[4][0].id = 2;
-		tileSet[5][0].id = 2;
-		tileSet[6][0].id = 3;
-		break;*/
+		tileSet[3][0].id = 81;
+		tileSet[4][0].id = 82;
+		tileSet[4][1].id = 83;
+		tileSet[5][1].id = 84;
+
+		b1 = &tileSet[3][0];
+		b2 = &tileSet[4][0];
+		b3 = &tileSet[4][1];
+		b4 = &tileSet[5][1];
+
+		break;
 	default:
 		break;
 	}
@@ -261,6 +299,7 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 	//return rand() % 7 + 1;
 
+
 	//if (tetronimo == 0) {
 	return BLOCK_TYPE::RED;
 	//}
@@ -271,6 +310,22 @@ int ModuleTetronimo::spawnTetronimo(int next)
 
 	//else if (tetronimo == 2) {
 	return BLOCK_TYPE::BLUE;
+	//}
+
+	//else if (tetronimo == 3) {
+	return BLOCK_TYPE::YELLOW;
+	//}
+
+	//else if (tetronimo == 4) {
+	return BLOCK_TYPE::PINK;
+	//}
+
+	//else if (tetronimo == 5) {
+	return BLOCK_TYPE::CYAN;
+	//}
+
+	//else if (tetronimo == 6) {
+	return BLOCK_TYPE::ORANGE;
 	//}
 }
 
@@ -537,7 +592,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 	case 83:
-		block->section = { 224, 102, 16, 16 };
+		block->section = { 204, 102, 16, 16 };
 		break;
 
 	case 84:
