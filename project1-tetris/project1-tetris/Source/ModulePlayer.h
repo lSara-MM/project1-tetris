@@ -30,7 +30,6 @@ public:
 
 public:
 	uint lachimolala = 0;
-
 	bool godMode;
 };
 

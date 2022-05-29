@@ -22,6 +22,7 @@ bool Points::Start()
 	score = 0;
 	h = -1;
 
+	lvl = 1;
 	credits = 0;
 
 	LOG("Loading credits fx");

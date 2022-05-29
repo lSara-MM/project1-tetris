@@ -36,6 +36,8 @@ public:
 	int p_drop, p_stack, h, value;		// p_stack = rainbow stack 
 	int score;
 
+
+	int lvl;
 };
 
 #endif

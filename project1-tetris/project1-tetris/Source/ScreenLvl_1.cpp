@@ -53,8 +53,20 @@ bool ScreenLvl_1::Start()
 	LOG("Loading curtain assets\n");
 
 	bool ret = true;
-
-	bg_texture = App->textures->Load("Assets/ss_easyBg.png");
+	App->points->lvl = 4;
+	if (App->points->lvl <= 3 )
+	{
+		bg_texture = App->textures->Load("Assets/ss_easyBg.png");
+	}
+	if (App->points->lvl > 3 && App->points->lvl <= 6)
+	{
+		bg_texture = App->textures->Load("Assets/ss_mediumBg.png");
+	}
+	if (App->points->lvl > 6 && App->points->lvl <=  9)
+	{
+		bg_texture = App->textures->Load("Assets/ss_hardBg.png");
+	}
+	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
 
 
@@ -139,6 +151,9 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// strings to const char*
+	string s_round = std::to_string(App->points->lvl);
+	const char* c_round = s_round.c_str();
+
 	string s_score = std::to_string(App->points->score);
 	const char* ch_score = s_score.c_str();
 
@@ -177,8 +192,27 @@ update_status ScreenLvl_1::PostUpdate()
 
 	else if (v_message == 100)
 	{
-		LOG("Loading background music: Loginska");
-		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0);
+		if (App->points->lvl == 1)
+		{
+			LOG("Loading background music: Loginska");
+			App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0);
+		}
+		if (App->points->lvl == 2)
+		{
+			LOG("Loading background music: Loginska");
+			App->audio->PlayMusic("Assets/Audio/Music/04_Bradinsky.ogg", 0);
+		}
+		if (App->points->lvl == 3)
+		{
+			LOG("Loading background music: Loginska");
+			App->audio->PlayMusic("Assets/Audio/Music/07_Karinka.ogg", 0);
+		}
+		if (App->points->lvl == 4)
+		{
+			LOG("Loading background music: Loginska");
+			App->audio->PlayMusic("Assets/Audio/Music/10_Troika.ogg", 0);
+		}
+
 		//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 	}
 
@@ -199,7 +233,7 @@ update_status ScreenLvl_1::PostUpdate()
 	App->render->TextDraw("high score", 255, 370, 0, 0, 150, 255, 16);
 	App->render->TextDraw("10000", 288, 385, 0, 0, 150, 255, 16);
 	App->render->TextDraw("round", 255, 418, 0, 0, 150, 255, 16);
-	App->render->TextDraw("1", 353, 418, 0, 0, 150, 255, 16);
+	App->render->TextDraw(c_round, 353, 418, 0, 0, 150, 255, 16);
 	App->render->TextDraw("credits", 255, 450, 0, 0, 150, 255, 16);
 	App->render->TextDraw(ch_credits, 385, 450, 0, 0, 150, 255, 16);
 
@@ -312,6 +346,23 @@ void ScreenLvl_1::lvl_win()
 {
 	App->tetronimo->Disable();
 
+	// Ruso
+	/*
+		if (App->points->lvl == 3)
+		{
+
+		}
+		if (App->points->lvl == 6)
+		{
+
+		}
+		if (App->points->lvl == 9)
+		{
+
+		}
+	*/
+	
+
 	if (v_WinLose >= 0 && v_WinLose < 250)
 	{
 		if (v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
@@ -340,7 +391,7 @@ void ScreenLvl_1::lvl_win()
 	if (v_WinLose == 600)		// cambiar (depende del bonus)
 	{
 		lvl_instaWin = false;
-
+		App->points->lvl++;
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
 
