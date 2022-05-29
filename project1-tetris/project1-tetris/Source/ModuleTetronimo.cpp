@@ -163,8 +163,10 @@ bool ModuleTetronimo::CleanUp()
 	return true;
 }
 
+int t = 0;
 int ModuleTetronimo::spawnTetronimo(int next)
 {
+	t++;
 	switch (next)
 	{
 	case BLOCK_TYPE::RED:
@@ -261,10 +263,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		break;
 	}
 
-	b1->tetronimo++;
-	b2->tetronimo++;
-	b3->tetronimo++;
-	b4->tetronimo++;
+	b1->tetronimo = t;
+	b2->tetronimo = t;
+	b3->tetronimo = t;
+	b4->tetronimo = t;
 
 	return rand() % 7 + 1;
 }
@@ -627,7 +629,7 @@ bool ModuleTetronimo::blockFall()
 	}
 }
 
-bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per a un block individual
+/*bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per a un block individual
 {
 	if (block != nullptr)
 	{
@@ -649,7 +651,7 @@ bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per
 		return false;
 	}
 
-}
+}*/
 
 void ModuleTetronimo::blockMovement(int p)
 {
@@ -728,30 +730,30 @@ bool ModuleTetronimo::lineCheck(int i)
 
 bool ModuleTetronimo::deleteLine(int i)		// probably doesnt work yet
 {
-	for (int j = 0; j < 10; j++)
-	{
-		tileSet[j][i].id = -1;
-	}
-
-	// do a function to make blocks fall once
-	v = &tileSet[0][21];
-	for (int i = 22; i > 2; i--)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-
-			if ((v->tileY + 1 < 22 && b2->tileY + 1 < 22) &&
-				(tileSet[v->tileX][v->tileY + 1].id == -1 ||
-					tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
-			{
-				var1 = *v;
-				var1.tileY++;
-				tileSet[v->tileX][v->tileY].id = -1;
-				tileSet[v->tileX][var1.tileY] = var1;
-				v = &tileSet[v->tileX][var1.tileY];
-			}
-		}
-	}
+//	for (int j = 0; j < 10; j++)
+//	{
+//		tileSet[j][i].id = -1;
+//	}
+//
+//	// do a function to make blocks fall once
+//	v = &tileSet[0][21];
+//	for (int i = 22; i > 2; i--)
+//	{
+//		for (int j = 0; j < 10; j++)
+//		{
+//
+//			if ((v->tileY + 1 < 22 && b2->tileY + 1 < 22) &&
+//				(tileSet[v->tileX][v->tileY + 1].id == -1 ||
+//					tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
+//			{
+//				var1 = *v;
+//				var1.tileY++;
+//				tileSet[v->tileX][v->tileY].id = -1;
+//				tileSet[v->tileX][var1.tileY] = var1;
+//				v = &tileSet[v->tileX][var1.tileY];
+//			}
+//		}
+//	}
 
 	return true;
 }

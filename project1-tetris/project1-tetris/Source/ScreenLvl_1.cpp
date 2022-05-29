@@ -134,6 +134,7 @@ update_status ScreenLvl_1::PostUpdate()
 	if (openCurtain.GetLoopCount() == 0)
 	{
 		App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
+		App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 	}
 
 
@@ -178,7 +179,7 @@ update_status ScreenLvl_1::PostUpdate()
 	{
 		LOG("Loading background music: Loginska");
 		App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0);
-		App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
+		//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 	}
 
 	//Lines left
