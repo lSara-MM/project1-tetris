@@ -166,6 +166,8 @@ bool ModuleTetronimo::CleanUp()
 
 int ModuleTetronimo::spawnTetronimo(int next)
 {
+	//a
+
 	int  tetronimo = rand() % 7;
 
 	if (tetronimo == 0) {
