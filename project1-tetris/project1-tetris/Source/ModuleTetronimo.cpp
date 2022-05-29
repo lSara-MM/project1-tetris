@@ -27,7 +27,6 @@ using namespace std;
 //pieza de spawn en y = 0
 
 bool const r = (srand(time(NULL)), true);
-int  num = rand() % 7;
 int rotar = 0;
 
 //The portions of the sprite map to be blitted
@@ -61,7 +60,7 @@ bool ModuleTetronimo::Start()
 		}
 	}
 
-
+	nextT = rand() % 7;
 	rotation = 0;
 	combo = 0;
 
@@ -166,38 +165,6 @@ bool ModuleTetronimo::CleanUp()
 
 int ModuleTetronimo::spawnTetronimo(int next)
 {
-	//a
-
-	int  tetronimo = rand() % 7;
-
-	if (tetronimo == 0) {
-		next = BLOCK_TYPE::RED;
-	}
-
-	else if (tetronimo == 1) {
-		next = BLOCK_TYPE::GREEN;
-	}
-
-	else if (tetronimo == 2) {
-		next = BLOCK_TYPE::BLUE;
-	}
-
-	else if (tetronimo == 3) {
-		next = BLOCK_TYPE::YELLOW;
-	}
-
-	else if (tetronimo == 4) {
-		next = BLOCK_TYPE::PINK;
-	}
-
-	else if (tetronimo == 5) {
-		next = BLOCK_TYPE::CYAN;
-	}
-
-	else if (tetronimo == 6) {
-		next = BLOCK_TYPE::ORANGE;
-	}
-
 	switch (next)
 	{
 	case BLOCK_TYPE::RED:
@@ -299,36 +266,7 @@ int ModuleTetronimo::spawnTetronimo(int next)
 	b3->tetronimo++;
 	b4->tetronimo++;
 
-	//return rand() % 7 + 1;
-
-
-	//if (tetronimo == 0) {
-	return BLOCK_TYPE::RED;
-	//}
-
-	//else if (tetronimo == 1) {
-	return BLOCK_TYPE::GREEN;
-	//}
-
-	//else if (tetronimo == 2) {
-	return BLOCK_TYPE::BLUE;
-	//}
-
-	//else if (tetronimo == 3) {
-	return BLOCK_TYPE::YELLOW;
-	//}
-
-	//else if (tetronimo == 4) {
-	return BLOCK_TYPE::PINK;
-	//}
-
-	//else if (tetronimo == 5) {
-	return BLOCK_TYPE::CYAN;
-	//}
-
-	//else if (tetronimo == 6) {
-	return BLOCK_TYPE::ORANGE;
-	//}
+	return rand() % 7 + 1;
 }
 
 void ModuleTetronimo::blockUpdate(Block* block)
@@ -682,6 +620,7 @@ bool ModuleTetronimo::blockFall()
 		}
 		else
 		{
+			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
 			nextT = spawnTetronimo(nextT);
 			return false;
 		}
