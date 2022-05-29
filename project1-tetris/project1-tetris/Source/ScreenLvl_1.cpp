@@ -108,8 +108,11 @@ bool ScreenLvl_1::Start()
 		App->points->Reset();
 		App->points->credits = 1;
 	}
-	App->points->credits -= 1;
-	App->points->score = 0;
+	if (App->points->lvl == 1)
+	{
+		App->points->credits -= 1;
+		App->points->score = 0;
+	}
 
 	// Counter
 	v_message = 0;
