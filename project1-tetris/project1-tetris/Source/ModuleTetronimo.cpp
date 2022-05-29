@@ -263,10 +263,13 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		break;
 	}
 
-	b1->tetronimo = t;
-	b2->tetronimo = t;
-	b3->tetronimo = t;
-	b4->tetronimo = t;
+	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
+	{
+		b1->tetronimo = t;
+		b2->tetronimo = t;
+		b3->tetronimo = t;
+		b4->tetronimo = t;
+	}
 
 	return rand() % 7 + 1;
 }

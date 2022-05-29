@@ -112,4 +112,5 @@ void Points::Reset()
 	score = 0;
 	h = -1;
 	credits -= 1;
+	App->points->lvl = 1;
 }

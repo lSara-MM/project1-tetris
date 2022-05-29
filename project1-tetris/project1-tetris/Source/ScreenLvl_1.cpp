@@ -53,7 +53,6 @@ bool ScreenLvl_1::Start()
 	LOG("Loading curtain assets\n");
 
 	bool ret = true;
-	App->points->lvl = 4;
 	if (App->points->lvl <= 3 )
 	{
 		bg_texture = App->textures->Load("Assets/ss_easyBg.png");
@@ -163,7 +162,7 @@ update_status ScreenLvl_1::PostUpdate()
 	if (openCurtain.GetLoopCount() == 0)
 	{
 		App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
-		App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
+		//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 	}
 
 
@@ -230,7 +229,7 @@ update_status ScreenLvl_1::PostUpdate()
 			App->audio->PlayMusic("Assets/Audio/Music/10_Troika.ogg", 0);
 		}
 
-		//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
+		App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 	}
 
 	//Lines left
@@ -409,7 +408,7 @@ void ScreenLvl_1::lvl_win()
 	{
 		lvl_instaWin = false;
 		App->points->lvl++;
-		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 	}
 
 	LOG("win counter %d", v_WinLose);
