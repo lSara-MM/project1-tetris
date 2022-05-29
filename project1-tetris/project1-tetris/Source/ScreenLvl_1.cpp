@@ -68,6 +68,23 @@ bool ScreenLvl_1::Start()
 	}
 	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
+	ruso_texture = App->textures->Load("Assets/curtain.png");
+
+	if (App->points->lvl == 3)
+	{
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+
+
+	}
+	dancingRus.loop = false;
+	dancingRus.speed = 0.2;
 
 
 	LOG("Loading sound effects");

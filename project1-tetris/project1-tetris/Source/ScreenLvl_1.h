@@ -59,6 +59,10 @@ public:
 	Animation openCurtain;
 	Animation closeCurtain;
 
+	// Dancing rus texture
+	SDL_Texture* ruso_texture = nullptr;
+	Animation dancingRus;
+
 	bool lvl_instaWin;
 	bool lvl_instaLose;
 
