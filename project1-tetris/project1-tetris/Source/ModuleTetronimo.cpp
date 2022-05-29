@@ -63,7 +63,7 @@ bool ModuleTetronimo::Start()
 	nextT = rand() % 7;
 	rotation = 0;
 	combo = 0;
-
+	t = 0;
 	App->player->godMode = false;
 
 	LOG("Loading grid_texture");
@@ -163,7 +163,7 @@ bool ModuleTetronimo::CleanUp()
 	return true;
 }
 
-int t = 0;
+
 int ModuleTetronimo::spawnTetronimo(int next)
 {
 	t++;
@@ -622,8 +622,15 @@ bool ModuleTetronimo::blockFall()
 		}
 		else
 		{
-			App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
-			nextT = spawnTetronimo(nextT);
+			if ((b1->tileY == 1 || b2->tileY == 1 || b3->tileY == 1 || b4->tileY == 1))
+			{
+				App->sLvl_1->lvl_instaLose = true;
+			}
+			else
+			{
+				App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
+				nextT = spawnTetronimo(nextT);
+			}
 			return false;
 		}
 	}

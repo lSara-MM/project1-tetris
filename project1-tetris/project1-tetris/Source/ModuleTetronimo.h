@@ -73,7 +73,8 @@ public:
 	
 
 public:
-	
+
+	int t;
 	int nextT;
 	int rotation;
 	//int num;
