@@ -73,7 +73,7 @@ public:
 	int pos_y3 = 365;
 
 	int pos_x4 = 200;
-	int pos_y4 = 365;
+	int pos_y4 = 244;
 
 	int pos_x5 = 200;
 	int pos_y5 = 130;
