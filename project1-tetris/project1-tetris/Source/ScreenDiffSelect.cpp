@@ -33,7 +33,7 @@ bool ScreenDiffSelect::Start()
 	bool ret = true;
 
 
-	bg_texture = App->textures->Load("Assets/ss_DifficultyBg.png");
+	bg_texture = App->textures->Load("Assets/Diff_Select.png");
 	arrowleft_texture = App->textures->Load("Assets/arrow_left.png");
 	arrowright_texture = App->textures->Load("Assets/arrow_right.png");
 
@@ -46,13 +46,6 @@ bool ScreenDiffSelect::Start()
 	p_pos2.x = p2_x;
 	p_pos2.y = p2_y;
 
-	green1_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_green_1.png");
-	pink1_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_pink_1.png");
-	sky1_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_sky_1.png");
-
-	green_rect_texture = App->textures->Load("Assets/Rect/green_rect.png");
-	blue_rect_texture = App->textures->Load("Assets/Rect/blue_rect.png");
-	bluedark_rect_texture = App->textures->Load("Assets/Rect/bluedark_rect.png");
 
 	yellow_rect_texture = App->textures->Load("Assets/Rect/yellow_rect.png");
 	orange_rect_texture = App->textures->Load("Assets/Rect/orange_rect.png");
@@ -61,18 +54,6 @@ bool ScreenDiffSelect::Start()
 	pink_rect_texture = App->textures->Load("Assets/Rect/pink_rect.png");
 	red_rect_texture = App->textures->Load("Assets/Rect/red_rect.png");
 
-
-	sky_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_sky_Block.png");
-	pink_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_pink_Block.png");
-	orange_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_orange_Block.png");
-	green_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_green_Block.png");
-	yellow_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_yellow_Block.png");
-
-
-	yellow4_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_yellow_4.png");
-	orange2_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_orange_2.png");
-	gray_block_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_gray_Block.png");
-	pink3_texture = App->textures->Load("Assets/Sprites/Tetramino/SelectDiff/tetra_pink_3.png");
 
 	fxAdd_Press_L_R = App->audio->LoadFx("Assets/Audio/FX/diff_selection_arrow.wav");
 	fxAdd_PressEnter = App->audio->LoadFx("Assets/Audio/FX/diff_selection_enter.wav");
@@ -603,64 +584,6 @@ update_status ScreenDiffSelect::PostUpdate()
 	App->render->Blit(arrowleft_texture, p_x, p_y, NULL);
 	App->render->Blit(arrowright_texture, p2_x, p2_y, NULL);
 
-	App->render->Blit(pink1_texture, 322, 122, NULL);
-	App->render->Blit(green1_texture, 99, 142, NULL);
-	App->render->Blit(sky1_texture, 530, 142, NULL);
-
-
-	// middle left
-
-	App->render->Blit(orange_block_texture, 258, 270, NULL);
-
-	App->render->Blit(green_block_texture, 258, 287, NULL);
-
-	App->render->Blit(yellow_block_texture, 258, 304, NULL);
-
-	App->render->Blit(sky_block_texture, 258, 321, NULL);
-
-	App->render->Blit(pink_block_texture, 258, 338, NULL);
-
-	App->render->Blit(orange_block_texture, 258, 355, NULL);
-
-	App->render->Blit(green_block_texture, 258, 372, NULL);
-
-	App->render->Blit(yellow_block_texture, 258, 389, NULL);
-
-
-	// middle right
-
-	App->render->Blit(orange_block_texture, 401, 270, NULL);
-
-	App->render->Blit(green_block_texture, 401, 287, NULL);
-
-	App->render->Blit(yellow_block_texture, 401, 304, NULL);
-
-	App->render->Blit(sky_block_texture, 401, 321, NULL);
-
-	App->render->Blit(pink_block_texture, 401, 338, NULL);
-
-	App->render->Blit(orange_block_texture, 401, 355, NULL);
-
-	App->render->Blit(green_block_texture, 401, 372, NULL);
-
-	App->render->Blit(yellow_block_texture, 401, 389, NULL);
-
-	// left 
-
-	App->render->Blit(green1_texture, 482, 373, NULL);
-
-	App->render->Blit(yellow4_texture, 551, 357, NULL);
-
-	App->render->Blit(orange2_texture, 581, 357, NULL);
-
-	App->render->Blit(pink3_texture, 596, 375, NULL);
-
-	App->render->Blit(gray_block_texture, 483, 373, NULL);
-
-	App->render->Blit(gray_block_texture, 550, 374, NULL);
-
-	App->render->Blit(gray_block_texture, 627, 358, NULL);
-
 
 	App->render->TextDraw("DIFFICULTY SELECT", 185, 12, 255, 0, 0, 255, 20);
 
@@ -697,10 +620,6 @@ bool ScreenDiffSelect::CleanUp()
 	App->textures->Unload(arrowleft_texture);
 	App->textures->Unload(arrowright_texture);
 
-	App->textures->Unload(green1_texture);
-	App->textures->Unload(pink1_texture);
-	App->textures->Unload(sky1_texture);
-
 	App->textures->Unload(green_rect_texture);
 	App->textures->Unload(blue_rect_texture);
 	App->textures->Unload(bluedark_rect_texture);
@@ -708,20 +627,6 @@ bool ScreenDiffSelect::CleanUp()
 	App->textures->Unload(yellow_rect_texture);
 	App->textures->Unload(orange_rect_texture);
 	App->textures->Unload(white_rect_texture);
-
-	App->textures->Unload(pink_rect_texture);
-	App->textures->Unload(red_rect_texture);
-
-	App->textures->Unload(sky_block_texture);
-	App->textures->Unload(pink_block_texture);
-	App->textures->Unload(orange_block_texture);
-	App->textures->Unload(green_block_texture);
-	App->textures->Unload(yellow_block_texture);
-
-	App->textures->Unload(yellow4_texture);
-	App->textures->Unload(orange2_texture);
-	App->textures->Unload(gray_block_texture);
-	App->textures->Unload(pink3_texture);
 
 	//audio?
 
