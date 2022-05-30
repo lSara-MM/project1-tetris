@@ -99,8 +99,7 @@ ScreenLvl_1::~ScreenLvl_1()
 bool ScreenLvl_1::Start()
 {
 	App->tetronimo->Enable();
-	//App->points->Disable();
-	App->points->Enable();
+	App->points->Enable();		// just for debugging correctly
 
 	LOG("Loading lvl 1 background assets");
 	LOG("Loading curtain assets\n");
@@ -436,7 +435,7 @@ void ScreenLvl_1::lvl_win()
 			if (App->points->lvl == 3)
 			{
 				// La musica peta
-				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
 				dancingRus3.Update();
 				App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
 			}
