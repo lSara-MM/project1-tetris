@@ -30,7 +30,7 @@ public:
 	// Updates the scene's background animations
 	update_status Update() override;
 
-
+	int ColourRandom();
 	// Called at the end of the application loop.
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
@@ -50,8 +50,6 @@ public:
 
 	SDL_Rect p_pos;
 
-	int colour;
-
 	int p_x = 64;
 	int p_y = 64;
 
@@ -60,6 +58,7 @@ public:
 	int p2_x = 144;
 	int p2_y = 64;
 
+	//Colour Random
 	int pos_x = 22;
 	int pos_y = 130;
 
@@ -70,22 +69,18 @@ public:
 	int pos_y2 = 365;
 
 	int pos_x3 = 200;
-	int pos_y3 = 365;
+	int pos_y3 = 244;
 
 	int pos_x4 = 200;
-	int pos_y4 = 244;
+	int pos_y4 = 365;
 
 	int pos_x5 = 200;
 	int pos_y5 = 130;
 
 
-	Animation intro;
+	int colour;
 
-	//Menu Buttons
 	const int Easy = 2;
-	const int Medium = 1;
-	const int Hard = 0;
-
 	int Index = 2;
 
 	SDL_Texture* green_rect_texture = nullptr;
