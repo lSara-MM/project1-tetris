@@ -99,6 +99,8 @@ ScreenLvl_1::~ScreenLvl_1()
 bool ScreenLvl_1::Start()
 {
 	App->tetronimo->Enable();
+	//App->points->Disable();
+	App->points->Enable();
 
 	LOG("Loading lvl 1 background assets");
 	LOG("Loading curtain assets\n");
@@ -146,8 +148,6 @@ bool ScreenLvl_1::Start()
 	{
 		App->points->Reset();
 		App->points->credits = 1;
-
-		App->points->lvl = 3;
 	}
 	if (App->points->lvl == 1)
 	{
@@ -425,34 +425,55 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
 
-	if (v_WinLose >= 374)
+	
+
+	if (App->points->lvl == 3)
 	{
-		// Ruso
-		// cuando acaba la cortinita esa rara de los bloques grises
-		if (App->points->lvl == 3)
+		if (v_WinLose >= 374)
 		{
-			App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
-			dancingRus3.Update();
-			App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
-		}
-		if (App->points->lvl == 6)
-		{
+			// Ruso
+			// cuando acaba la cortinita esa rara de los bloques grises
+			if (App->points->lvl == 3)
+			{
+				// La musica peta
+				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				dancingRus3.Update();
+				App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
+			}
+			if (App->points->lvl == 6)
+			{
 
-		}
-		if (App->points->lvl == 9)
-		{
+			}
+			if (App->points->lvl == 9)
+			{
 
+			}
+		}
+		if (dancingRus3.HasFinished() == true)
+		{
+			LOG("Close Curtain");
+			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+			closeCurtain.Update();
+
+
+			if (v_WinLose == 1000)		// cambiar (depende del bonus)
+			{
+				lvl_instaWin = false;
+				App->points->lvl++;
+				App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+			}
 		}
 	}
-
-	if (dancingRus3.HasFinished() == true)
+	else
 	{
-		LOG("Close Curtain");
-		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-		closeCurtain.Update();
+		if (v_WinLose >= 574)
+		{
+			LOG("Close Curtain");
+			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+			closeCurtain.Update();
+		}
 
-
-		if (v_WinLose == 1000)		// cambiar (depende del bonus)
+		if (v_WinLose == 600)		// cambiar (depende del bonus)
 		{
 			lvl_instaWin = false;
 			App->points->lvl++;
