@@ -37,6 +37,110 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
+	
+	if (App->points->lvl == 3)
+	{
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 335, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+
+		dancingRus.PushBack({ 541, 168, 133, 165 });
+		dancingRus.PushBack({ 541, 168, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 168, 133, 165 });
+
+		dancingRus.PushBack({ 541, 168, 133, 165 });
+		dancingRus.PushBack({ 541, 168, 133, 165 });
+		dancingRus.PushBack({ 271, 335, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 271, 1, 133, 165 });
+
+		dancingRus.PushBack({ 271, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 406, 168, 133, 165 });
+		dancingRus.PushBack({ 406, 1, 133, 165 });
+
+		dancingRus.PushBack({ 406, 1, 133, 165 });
+		dancingRus.PushBack({ 406, 168, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 271, 1, 133, 165 });
+
+		dancingRus.PushBack({ 136, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 1, 168, 133, 165 });
+		dancingRus.PushBack({ 1, 168, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 168, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 1, 168, 133, 165 });
+		dancingRus.PushBack({ 1, 168, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+		dancingRus.PushBack({ 406, 335, 133, 165 });
+
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 168, 133, 165 });
+		dancingRus.PushBack({ 136, 168, 133, 165 });
+		dancingRus.PushBack({ 541, 1, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 1, 502, 133, 165 });
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 271, 168, 133, 165 });
+		dancingRus.PushBack({ 271, 168, 133, 165 });
+
+		dancingRus.PushBack({ 136, 335, 133, 165 });
+		dancingRus.PushBack({ 1, 1, 133, 165 });
+	}
+	dancingRus.loop = false;
+	dancingRus.speed = 0.2;
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -67,23 +171,7 @@ bool ScreenLvl_1::Start()
 	}
 	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
-	ruso_texture = App->textures->Load("Assets/curtain.png");
-
-	if (App->points->lvl == 3)
-	{
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-
-
-	}
-	dancingRus.loop = false;
-	dancingRus.speed = 0.2;
+	ruso_texture = App->textures->Load("Assets/Sprites/Rus/3_spritesheet.png");
 
 
 	LOG("Loading sound effects");
@@ -146,6 +234,7 @@ update_status ScreenLvl_1::Update()
 	}
 	else { openCurtain.Update(); }
 
+	dancingRus.Update();
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
@@ -161,6 +250,7 @@ update_status ScreenLvl_1::PostUpdate()
 {
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
+	App->render->Blit(ruso_texture, 269, 94, &(dancingRus.GetCurrentFrame()), 0.85f);
 	//Curtain animation
 	if (openCurtain.GetLoopCount() == 0)
 	{
@@ -380,7 +470,9 @@ void ScreenLvl_1::lvl_win()
 
 		}
 	*/
-	
+	//App->render->Blit(ruso_texture, 258, 194, &(dancingRus.GetCurrentFrame()), 0.85f);
+
+
 
 	if (v_WinLose >= 0 && v_WinLose < 250)
 	{
