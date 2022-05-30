@@ -88,6 +88,7 @@ update_status ScreenDiffSelect::Update()
 
 				App->audio->PlayFx(fxAdd_Press_L_R);
 
+				//Colour random
 				pos_x = 245;
 				pos_y = 130;
 
@@ -116,6 +117,7 @@ update_status ScreenDiffSelect::Update()
 
 				App->audio->PlayFx(fxAdd_Press_L_R);
 
+				//Colour random
 				pos_x = 22;
 				pos_y = 130;
 
@@ -155,7 +157,7 @@ update_status ScreenDiffSelect::Update()
 				p2_x += 205;
 				App->audio->PlayFx(fxAdd_Press_L_R);
 
-
+				//Colour random
 				pos_x = 470;
 				pos_y = 130;
 
@@ -218,6 +220,19 @@ update_status ScreenDiffSelect::Update()
 		}
 	}
 
+	ColourRandom();
+
+
+	return update_status::UPDATE_CONTINUE;
+}
+
+
+int ScreenDiffSelect::ColourRandom()
+{
+	Time = SDL_GetTicks();
+	delta_Time += Time - last_TickTime;
+	last_TickTime = Time;
+
 
 	colour = rand() % 9;
 
@@ -230,47 +245,47 @@ update_status ScreenDiffSelect::Update()
 		{
 			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 
 			App->render->Blit(blue_rect_texture, pos_x, pos_y, NULL);
 
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x, pos_y, NULL);
 
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x, pos_y, NULL);
 
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x, pos_y, NULL);
 
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x, pos_y, NULL);
 
 
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x, pos_y, NULL);
 
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x, pos_y, NULL);
 
@@ -287,48 +302,48 @@ update_status ScreenDiffSelect::Update()
 			App->render->Blit(green_rect_texture, pos_x1, pos_y1, NULL);
 
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 
 			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x1, pos_y1, NULL);
 
 
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x1, pos_y1, NULL);
 
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x1, pos_y1, NULL);
 
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x1, pos_y1, NULL);
 
 
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x1, pos_y1, NULL);
 
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x1, pos_y1, NULL);
 
@@ -346,39 +361,39 @@ update_status ScreenDiffSelect::Update()
 		{
 			App->render->Blit(green_rect_texture, pos_x2, pos_y2, NULL);
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x2, pos_y2, NULL);
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x2, pos_y2, NULL);
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x2, pos_y2, NULL);
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x2, pos_y2, NULL);
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x2, pos_y2, NULL);
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x2, pos_y2, NULL);
 
@@ -395,46 +410,46 @@ update_status ScreenDiffSelect::Update()
 			App->render->Blit(green_rect_texture, pos_x3, pos_y3, NULL);
 
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x3, pos_y3, NULL);
 
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
 
 
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x3, pos_y3, NULL);
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x3, pos_y3, NULL);
 
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x3, pos_y3, NULL);
 
 
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x3, pos_y3, NULL);
 
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x3, pos_y3, NULL);
 
@@ -453,48 +468,48 @@ update_status ScreenDiffSelect::Update()
 			App->render->Blit(green_rect_texture, pos_x4, pos_y4, NULL);
 
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x4, pos_y4, NULL);
 
 
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x4, pos_y4, NULL);
 
 
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
 
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 
 			App->render->Blit(yellow_rect_texture, pos_x4, pos_y4, NULL);
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x4, pos_y4, NULL);
 
 
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x4, pos_y4, NULL);
 
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x4, pos_y4, NULL);
 		}
@@ -509,47 +524,47 @@ update_status ScreenDiffSelect::Update()
 			App->render->Blit(green_rect_texture, pos_x5, pos_y5, NULL);
 
 		}
-		if (colour == 2)
+		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x5, pos_y5, NULL);
 
 
 
 		}
-		if (colour == 3)
+		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x5, pos_y5, NULL);
 
 
 		}
-		if (colour == 4)
+		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x5, pos_y5, NULL);
 
 
 
 		}
-		if (colour == 5)
+		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x5, pos_y5, NULL);
 
 
 
 		}
-		if (colour == 6)
+		else if (colour == 6)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x5, pos_y5, NULL);
 
 
 		}
-		if (colour == 7)
+		else if (colour == 7)
 		{
 			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
 
 
 
 		}
-		if (colour == 8)
+		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x5, pos_y5, NULL);
 
@@ -562,7 +577,7 @@ update_status ScreenDiffSelect::Update()
 
 	if ((delta_Time >= 350) && (delta_Time <= 400))
 	{
-		delta_Time = 7000;
+		delta_Time = 400;
 
 	}
 
@@ -573,8 +588,7 @@ update_status ScreenDiffSelect::Update()
 
 	}
 
-
-	return update_status::UPDATE_CONTINUE;
+	return 0;
 }
 
 // Update: draw background
