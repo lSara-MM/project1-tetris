@@ -79,7 +79,6 @@ public:
 	int pos_y5 = 130;
 
 
-	//The intro animation
 	Animation intro;
 
 	//Menu Buttons
@@ -88,12 +87,6 @@ public:
 	const int Hard = 0;
 
 	int Index = 2;
-
-
-	SDL_Texture* green1_texture = nullptr;
-	SDL_Texture* pink1_texture = nullptr;
-	SDL_Texture* sky1_texture = nullptr;
-
 
 	SDL_Texture* green_rect_texture = nullptr;
 	SDL_Texture* red_rect_texture = nullptr;
@@ -104,31 +97,11 @@ public:
 	SDL_Texture* bluedark_rect_texture = nullptr;
 	SDL_Texture* pink_rect_texture = nullptr;
 
-	SDL_Texture* green_block_texture = nullptr;
-	SDL_Texture* pink_block_texture = nullptr;
-	SDL_Texture* sky_block_texture = nullptr;
-	SDL_Texture* orange_block_texture = nullptr;
-	SDL_Texture* yellow_block_texture = nullptr;
-
-
-	SDL_Texture* yellow4_texture = nullptr;
-	SDL_Texture* orange2_texture = nullptr;
-	SDL_Texture* gray_block_texture = nullptr;
-	SDL_Texture* pink3_texture = nullptr;
-
-
-
-	// Start Scene animation
-
-	// Credit (coins to add 0-9)
 	int press = 0;
 	uint fxAdd_Press_L_R = 0;
 
 	int enter = 0;
 	uint fxAdd_PressEnter = 0;
-
-
-
 
 };
 
