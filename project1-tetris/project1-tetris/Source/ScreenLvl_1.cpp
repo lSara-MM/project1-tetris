@@ -38,109 +38,56 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
 	
-	if (App->points->lvl == 3)
+	// rus 3
+	for (int i = 0; i < 30; i++)
 	{
-		dancingRus.PushBack({ 1, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 335, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
+		for (int j = 0; j < 11; j++) 
+		{
+			// the animation has only 8 sprites in a 3x3
+			if (j == 4 && i == 29)
+			{
+				break;
+			}
+			dancingRus3.PushBack({ 65 * j, 78 * i, 65, 78 });
 
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
+		}
+	} 
+	dancingRus3.loop = false;
+	dancingRus3.speed = 0.7;
+	
+	// rus 6
+	for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 11; j++)
+		{
+			// the animation has only 8 sprites in a 3x3
+			if (j == 4 && i == 29)
+			{
+				break;
+			}
+			dancingRus6.PushBack({ 65 * j, 78 * i, 65, 78 });
 
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-
-		dancingRus.PushBack({ 541, 168, 133, 165 });
-		dancingRus.PushBack({ 541, 168, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 168, 133, 165 });
-
-		dancingRus.PushBack({ 541, 168, 133, 165 });
-		dancingRus.PushBack({ 541, 168, 133, 165 });
-		dancingRus.PushBack({ 271, 335, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 271, 1, 133, 165 });
-
-		dancingRus.PushBack({ 271, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 406, 168, 133, 165 });
-		dancingRus.PushBack({ 406, 1, 133, 165 });
-
-		dancingRus.PushBack({ 406, 1, 133, 165 });
-		dancingRus.PushBack({ 406, 168, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 271, 1, 133, 165 });
-
-		dancingRus.PushBack({ 136, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 1, 168, 133, 165 });
-		dancingRus.PushBack({ 1, 168, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 168, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 1, 168, 133, 165 });
-		dancingRus.PushBack({ 1, 168, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-		dancingRus.PushBack({ 406, 335, 133, 165 });
-
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 168, 133, 165 });
-		dancingRus.PushBack({ 136, 168, 133, 165 });
-		dancingRus.PushBack({ 541, 1, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 1, 502, 133, 165 });
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 271, 168, 133, 165 });
-		dancingRus.PushBack({ 271, 168, 133, 165 });
-
-		dancingRus.PushBack({ 136, 335, 133, 165 });
-		dancingRus.PushBack({ 1, 1, 133, 165 });
+		}
 	}
-	dancingRus.loop = false;
-	dancingRus.speed = 0.2;
+	dancingRus6.loop = false;
+	dancingRus6.speed = 0.7;
+
+	// rus 9
+	for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 11; j++)
+		{
+			// the animation has only 8 sprites in a 3x3
+			if (j == 4 && i == 29)
+			{
+				break;
+			}
+			dancingRus9.PushBack({ 67 * j, 78 * i, 67, 78 });
+
+		}
+	}
+	dancingRus9.loop = false;
+	dancingRus9.speed = 0.7;
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -171,7 +118,11 @@ bool ScreenLvl_1::Start()
 	}
 	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
-	ruso_texture = App->textures->Load("Assets/Sprites/Rus/3_spritesheet.png");
+
+	LOG("Loading ruso sexy moves");
+	ruso_texture3 = App->textures->Load("Assets/Sprites/Rus/3_spritesheet2.png");
+	//ruso_texture6 = App->textures->Load("Assets/Sprites/Rus/6_spritesheet.png");
+	//ruso_texture9 = App->textures->Load("Assets/Sprites/Rus/9_spritesheet.png");
 
 
 	LOG("Loading sound effects");
@@ -195,6 +146,8 @@ bool ScreenLvl_1::Start()
 	{
 		App->points->Reset();
 		App->points->credits = 1;
+
+		App->points->lvl = 3;
 	}
 	if (App->points->lvl == 1)
 	{
@@ -234,7 +187,7 @@ update_status ScreenLvl_1::Update()
 	}
 	else { openCurtain.Update(); }
 
-	dancingRus.Update();
+	//dancingRus3.Update();
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
@@ -250,7 +203,7 @@ update_status ScreenLvl_1::PostUpdate()
 {
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
-	App->render->Blit(ruso_texture, 269, 94, &(dancingRus.GetCurrentFrame()), 0.85f);
+	//App->render->Blit(ruso_texture3, 269, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
 	//Curtain animation
 	if (openCurtain.GetLoopCount() == 0)
 	{
@@ -455,25 +408,6 @@ void ScreenLvl_1::lvl_win()
 {
 	App->tetronimo->Disable();
 
-	// Ruso
-	/*
-		if (App->points->lvl == 3)
-		{
-
-		}
-		if (App->points->lvl == 6)
-		{
-
-		}
-		if (App->points->lvl == 9)
-		{
-
-		}
-	*/
-	//App->render->Blit(ruso_texture, 258, 194, &(dancingRus.GetCurrentFrame()), 0.85f);
-
-
-
 	if (v_WinLose >= 0 && v_WinLose < 250)
 	{
 		if (v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
@@ -491,20 +425,41 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
 
+	if (v_WinLose >= 374)
+	{
+		// Ruso
+		// cuando acaba la cortinita esa rara de los bloques grises
+		if (App->points->lvl == 3)
+		{
+			App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+			dancingRus3.Update();
+			App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
+		}
+		if (App->points->lvl == 6)
+		{
 
-	if (v_WinLose >= 574)
+		}
+		if (App->points->lvl == 9)
+		{
+
+		}
+	}
+
+	if (dancingRus3.HasFinished() == true)
 	{
 		LOG("Close Curtain");
-		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+		if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 		closeCurtain.Update();
 
+
+		if (v_WinLose == 1000)		// cambiar (depende del bonus)
+		{
+			lvl_instaWin = false;
+			App->points->lvl++;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+		}
 	}
-	if (v_WinLose == 600)		// cambiar (depende del bonus)
-	{
-		lvl_instaWin = false;
-		App->points->lvl++;
-		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
-	}
+	
 
 	LOG("win counter %d", v_WinLose);
 	v_WinLose++;
