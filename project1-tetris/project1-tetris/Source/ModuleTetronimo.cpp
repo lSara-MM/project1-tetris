@@ -136,9 +136,14 @@ update_status ModuleTetronimo::Update()
 	{
 		if (lineCheck(i) == true)
 		{
+			pause = true;
 			deleteLine(i);
 			App->audio->PlayFx(App->sLvl_1->fxLine);
 			// put a function to delete and do the animations of line
+		}
+
+		if (lineCheck(i) == false) {
+			pause = false;
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -1077,62 +1082,65 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 bool ModuleTetronimo::blockFall()
 {
-	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
+	if (pause == false)
 	{
-		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
-		if ((b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
-			b3->tileY + 1 < 22 && b4->tileY + 1 < 22) &&
-			(tileSet[b1->tileX][b1->tileY + 1].id == -1 || tileSet[b1->tileX][b1->tileY + 1].tetronimo == b1->tetronimo) &&
-			(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
-			(tileSet[b3->tileX][b3->tileY + 1].id == -1 || tileSet[b3->tileX][b3->tileY + 1].tetronimo == b3->tetronimo) &&
-			(tileSet[b4->tileX][b4->tileY + 1].id == -1 || tileSet[b4->tileX][b4->tileY + 1].tetronimo == b4->tetronimo))
+		if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
 		{
-			// save current block info
-			var1 = *b1;
-			var2 = *b2;
-			var3 = *b3;
-			var4 = *b4;
-
-			// increment the Y position
-			var1.tileY++;
-			var2.tileY++;
-			var3.tileY++;
-			var4.tileY++;
-
-			// make the block non printable 
-			tileSet[b1->tileX][b1->tileY].id = -1;
-			tileSet[b2->tileX][b2->tileY].id = -1;
-			tileSet[b3->tileX][b3->tileY].id = -1;
-			tileSet[b4->tileX][b4->tileY].id = -1;
-
-			// fill the next block with the current block info
-			tileSet[b1->tileX][var1.tileY] = var1;
-			tileSet[b2->tileX][var2.tileY] = var2;
-			tileSet[b3->tileX][var3.tileY] = var3;
-			tileSet[b4->tileX][var4.tileY] = var4;
-
-			// change the pointer's position
-			b1 = &tileSet[b1->tileX][var1.tileY];
-			b2 = &tileSet[b2->tileX][var2.tileY];
-			b3 = &tileSet[b3->tileX][var3.tileY];
-			b4 = &tileSet[b4->tileX][var4.tileY];
-
-			//SDL_Delay(200);		// to change because it causes problems with movement X
-			return true;
-		}
-		else
-		{
-			if ((b1->tileY == 1 || b2->tileY == 1 || b3->tileY == 1 || b4->tileY == 1))
+			// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
+			if ((b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
+				b3->tileY + 1 < 22 && b4->tileY + 1 < 22) &&
+				(tileSet[b1->tileX][b1->tileY + 1].id == -1 || tileSet[b1->tileX][b1->tileY + 1].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b3->tileX][b3->tileY + 1].id == -1 || tileSet[b3->tileX][b3->tileY + 1].tetronimo == b3->tetronimo) &&
+				(tileSet[b4->tileX][b4->tileY + 1].id == -1 || tileSet[b4->tileX][b4->tileY + 1].tetronimo == b4->tetronimo))
 			{
-				App->sLvl_1->lvl_instaLose = true;
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
+
+				// increment the Y position
+				var1.tileY++;
+				var2.tileY++;
+				var3.tileY++;
+				var4.tileY++;
+
+				// make the block non printable 
+				tileSet[b1->tileX][b1->tileY].id = -1;
+				tileSet[b2->tileX][b2->tileY].id = -1;
+				tileSet[b3->tileX][b3->tileY].id = -1;
+				tileSet[b4->tileX][b4->tileY].id = -1;
+
+				// fill the next block with the current block info
+				tileSet[b1->tileX][var1.tileY] = var1;
+				tileSet[b2->tileX][var2.tileY] = var2;
+				tileSet[b3->tileX][var3.tileY] = var3;
+				tileSet[b4->tileX][var4.tileY] = var4;
+
+				// change the pointer's position
+				b1 = &tileSet[b1->tileX][var1.tileY];
+				b2 = &tileSet[b2->tileX][var2.tileY];
+				b3 = &tileSet[b3->tileX][var3.tileY];
+				b4 = &tileSet[b4->tileX][var4.tileY];
+
+				//SDL_Delay(200);		// to change because it causes problems with movement X
+				return true;
 			}
 			else
 			{
-				App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
-				rotar = 0;
-				nextT = spawnTetronimo(nextT);
+				if ((b1->tileY == 1 || b2->tileY == 1 || b3->tileY == 1 || b4->tileY == 1))
+				{
+					App->sLvl_1->lvl_instaLose = true;
+				}
+				else
+				{
+					App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
+					rotar = 0;
+					nextT = spawnTetronimo(nextT);
+				}
+				return false;
 			}
-			return false;
 		}
 	}
 }
@@ -1204,21 +1212,29 @@ bool ModuleTetronimo::lineCheck(int i)
 
 bool ModuleTetronimo::deleteLine(int i)	
 {
-	int b = 0;
+	//int b = 0;
+
+	for (int j = 0; j < 10; j++)
+	{
+		tileSet[j][i].id = -1;
+	}
 
 	//alberto
-	for (int m = i - 1; m >= 0; m--)
-	{
-		for (int n = 0; n < 10; n++)
+		for (int m = i - 1; m >= 0; m--)
 		{
-			if (tileSet[n][m].id != -1)
+			for (int n = 0; n < 10; n++)
 			{
-				v = tileSet[n][m];
-				tileSet[n][m].id = -1;
-				tileSet[n][m + 1].id = v.id;
+				if (m != 0 && m != 1) 
+				{
+					if (tileSet[n][m].id != -1)
+					{
+						v = tileSet[n][m];
+						tileSet[n][m].id = -1;
+						tileSet[n][m + 1].id = v.id;
+					}
+				}
 			}
 		}
-	}
 
 	/*for (int j = 0; j < 10; j++)
 	{
