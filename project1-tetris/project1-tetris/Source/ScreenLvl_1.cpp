@@ -56,16 +56,11 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	dancingRus3.speed = 0.7;
 	
 	// rus 6
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 41; i++)
 	{
-		for (int j = 0; j < 11; j++)
+		for (int j = 0; j < 7; j++)
 		{
-			// the animation has only 8 sprites in a 3x3
-			if (j == 4 && i == 29)
-			{
-				break;
-			}
-			dancingRus6.PushBack({ 65 * j, 78 * i, 65, 78 });
+			dancingRus6.PushBack({ 62 * j, 82 * i, 62, 82 });
 
 		}
 	}
@@ -122,7 +117,7 @@ bool ScreenLvl_1::Start()
 
 	LOG("Loading ruso sexy moves");
 	ruso_texture3 = App->textures->Load("Assets/Sprites/Rus/3_spritesheet2.png");
-	//ruso_texture6 = App->textures->Load("Assets/Sprites/Rus/6_spritesheet.png");
+	ruso_texture6 = App->textures->Load("Assets/Sprites/Rus/6_spritesheet2.png");
 	//ruso_texture9 = App->textures->Load("Assets/Sprites/Rus/9_spritesheet.png");
 
 
@@ -253,22 +248,22 @@ update_status ScreenLvl_1::PostUpdate()
 
 	else if (v_message == 100)
 	{
-		if (App->points->lvl == 1)
+		if (App->points->lvl == 1 || App->points->lvl == 5 || App->points->lvl == 9)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0);
 		}
-		if (App->points->lvl == 2)
+		if (App->points->lvl == 2 || App->points->lvl == 6 || App->points->lvl == 10)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/04_Bradinsky.ogg", 0);
 		}
-		if (App->points->lvl == 3)
+		if (App->points->lvl == 3 || App->points->lvl == 7)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/07_Karinka.ogg", 0);
 		}
-		if (App->points->lvl == 4)
+		if (App->points->lvl == 4 || App->points->lvl == 8)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/10_Troika.ogg", 0);
@@ -426,22 +421,24 @@ void ScreenLvl_1::lvl_win()
 
 	
 
-	if (App->points->lvl == 3)
+	if (App->points->lvl == 3 || App->points->lvl == 6 || App->points->lvl == 9)
 	{
 		if (v_WinLose >= 374)
 		{
 			// Ruso
 			// cuando acaba la cortinita esa rara de los bloques grises
-			if (App->points->lvl == 3)
+			if (App->points->lvl == 3 && dancingRus3.HasFinished() == false)
 			{
 				// La musica peta
-				App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
 				dancingRus3.Update();
 				App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
 			}
-			if (App->points->lvl == 6)
+			if (App->points->lvl == 6 && dancingRus6.HasFinished() == false)
 			{
-
+				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				dancingRus6.Update();
+				App->render->Blit(ruso_texture6, 272, 98, &(dancingRus6.GetCurrentFrame()), 0.85f);
 			}
 			if (App->points->lvl == 9)
 			{
