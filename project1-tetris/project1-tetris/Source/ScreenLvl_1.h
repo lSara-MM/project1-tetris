@@ -70,7 +70,7 @@ public:
 	bool lvl_instaWin;
 	bool lvl_instaLose;
 
-	int lines;
+	//int lines;
 	int linesleft;
 	int linesObjective;
 

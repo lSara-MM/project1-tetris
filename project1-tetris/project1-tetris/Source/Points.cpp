@@ -24,6 +24,7 @@ bool Points::Start()
 
 	lvl = 6;
 	credits = 0;
+	lines = 0;
 
 	LOG("Loading credits fx");
 	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX/add_credit.wav");
@@ -112,5 +113,6 @@ void Points::Reset()
 	score = 0;
 	h = -1;
 	credits -= 1;
-	App->points->lvl = 1;
+	lvl = 1;
+	lines = 0;
 }

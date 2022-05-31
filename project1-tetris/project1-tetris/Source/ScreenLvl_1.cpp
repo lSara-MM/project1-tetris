@@ -65,7 +65,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	}
 	dancingRus6.loop = false;
-	dancingRus6.speed = 1.0;
+	dancingRus6.speed = 0.7;
 
 	// rus 9
 	for (int i = 0; i < 30; i++)
@@ -135,9 +135,47 @@ bool ScreenLvl_1::Start()
 
 
 	// Variables
-	lines = 0;
-	linesObjective = 5;
+	//lines = 0;
+
+	switch (App->points->lvl)
+	{
+	case 1:
+		linesObjective = 5;
+		break;
+	case 2:
+		linesObjective = 10;
+		break;
+	case 3:
+		linesObjective = 12;
+		break;
+	case 4:
+		linesObjective = 10;
+		break;
+	case 5:
+		linesObjective = 13;
+		break;
+	case 6:
+		linesObjective = 16;
+		break;
+	case 7:
+		linesObjective = 12;
+		break;
+	case 8:
+		linesObjective = 15;
+		break;
+	case 9:
+		linesObjective = 18;
+		break;
+	case 10:
+		linesObjective = 12;
+		break;
+	default:
+		break;
+	}
+
 	linesleft = linesObjective;
+
+
 	if (App->points->credits < 0)
 	{
 		App->points->Reset();
@@ -213,7 +251,7 @@ update_status ScreenLvl_1::PostUpdate()
 	string s_score = std::to_string(App->points->score);
 	const char* ch_score = s_score.c_str();
 
-	string s_lines = std::to_string(lines);
+	string s_lines = std::to_string(App->points->lines);
 	const char* ch_lines = s_lines.c_str();
 
 	string s_linesleft = std::to_string(linesleft);
