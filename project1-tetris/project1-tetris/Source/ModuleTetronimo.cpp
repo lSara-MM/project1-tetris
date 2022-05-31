@@ -64,6 +64,7 @@ bool ModuleTetronimo::Start()
 	rotation = 0;
 	combo = 0;
 	t = 0;
+	pause = false;
 	App->player->godMode = false;
 
 	LOG("Loading grid_texture");
@@ -79,44 +80,48 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	if (deltaTime > 700)
+	if (pause == false)
 	{
-		blockFall();
-		deltaTime = 0;
-	}
+		if (deltaTime > 700)
+		{
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-	{
-		if (deltaTime > 25)
-		{
-			blockMovement(-1);
-			deltaTime = 0;
-		}
-	}
-
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-	{
-		if (deltaTime > 25)
-		{
-			blockMovement(1);
-			deltaTime = 0;
-		}
-	}
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-	{
-		if (deltaTime > 25)
-		{
 			blockFall();
 			deltaTime = 0;
 		}
 
-		/*v = b1;
-		blockFall(v);*/
-		/*b1 = v;*/
-		//b1->id = blockFall(b1);
-		///*blockFall(b2);
-		//blockFall(b3);
-		//blockFall(b4);*/
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		{
+			if (deltaTime > 25)
+			{
+				blockMovement(-1);
+				deltaTime = 0;
+			}
+		}
+
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+		{
+			if (deltaTime > 25)
+			{
+				blockMovement(1);
+				deltaTime = 0;
+			}
+		}
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		{
+			if (deltaTime > 25)
+			{
+				blockFall();
+				deltaTime = 0;
+			}
+
+			/*v = b1;
+			blockFall(v);*/
+			/*b1 = v;*/
+			//b1->id = blockFall(b1);
+			///*blockFall(b2);
+			//blockFall(b3);
+			//blockFall(b4);*/
+		}
 	}
 
 	Debugging();
@@ -176,6 +181,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 2;
 		tileSet[6][0].id = 3;
 
+		tileSet[3][0].bType = BLOCK_TYPE::RED;
+		tileSet[4][0].bType = BLOCK_TYPE::RED;
+		tileSet[5][0].bType = BLOCK_TYPE::RED;
+		tileSet[6][0].bType = BLOCK_TYPE::RED;
+
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
@@ -188,6 +198,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 12;
 		tileSet[5][0].id = 13;
 		tileSet[4][1].id = 14;
+
+		tileSet[3][0].bType = BLOCK_TYPE::GREEN;
+		tileSet[4][0].bType = BLOCK_TYPE::GREEN;
+		tileSet[5][0].bType = BLOCK_TYPE::GREEN;
+		tileSet[4][1].bType = BLOCK_TYPE::GREEN;
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
@@ -202,6 +217,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[3][1].id = 33;
 		tileSet[4][1].id = 34;
 
+		tileSet[3][0].bType = BLOCK_TYPE::BLUE;
+		tileSet[4][0].bType = BLOCK_TYPE::BLUE;
+		tileSet[3][1].bType = BLOCK_TYPE::BLUE;
+		tileSet[4][1].bType = BLOCK_TYPE::BLUE;
+
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[3][1];
@@ -214,6 +234,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 42;
 		tileSet[5][0].id = 43;
 		tileSet[5][1].id = 44;
+
+		tileSet[3][0].bType = BLOCK_TYPE::YELLOW;
+		tileSet[4][0].bType = BLOCK_TYPE::YELLOW;
+		tileSet[5][0].bType = BLOCK_TYPE::YELLOW;
+		tileSet[5][1].bType = BLOCK_TYPE::YELLOW;
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
@@ -228,6 +253,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 53;
 		tileSet[3][1].id = 54;
 
+		tileSet[3][0].bType = BLOCK_TYPE::PINK;
+		tileSet[4][0].bType = BLOCK_TYPE::PINK;
+		tileSet[5][0].bType = BLOCK_TYPE::PINK;
+		tileSet[3][1].bType = BLOCK_TYPE::PINK;
+
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
@@ -241,6 +271,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 73;
 		tileSet[5][0].id = 74;
 
+		tileSet[3][1].bType = BLOCK_TYPE::CYAN;
+		tileSet[4][1].bType = BLOCK_TYPE::CYAN;
+		tileSet[4][0].bType = BLOCK_TYPE::CYAN;
+		tileSet[5][0].bType = BLOCK_TYPE::CYAN;
+
 		b1 = &tileSet[3][1];
 		b2 = &tileSet[4][1];
 		b3 = &tileSet[4][0];
@@ -253,6 +288,11 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 82;
 		tileSet[4][1].id = 83;
 		tileSet[5][1].id = 84;
+
+		tileSet[3][0].bType = BLOCK_TYPE::ORANGE;
+		tileSet[4][0].bType = BLOCK_TYPE::ORANGE;
+		tileSet[4][1].bType = BLOCK_TYPE::ORANGE;
+		tileSet[5][1].bType = BLOCK_TYPE::ORANGE;
 
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
@@ -280,7 +320,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 	switch (block->id)
 	{
 		//red
-
 	case 0:
 		block->section = { 238, 0, 16, 16 };
 		break;
@@ -640,30 +679,6 @@ bool ModuleTetronimo::blockFall()
 	}
 }
 
-/*bool ModuleTetronimo::blockFall(Block* block)	// idk perque no me dixa ferho per a un block individual
-{
-	if (block != nullptr)
-	{
-		if ((block->tileY + 1 < 22) &&
-			(tileSet[block->tileX][block->tileY + 1].id == -1 ||
-				tileSet[block->tileX][block->tileY + 1].tetronimo == block->tetronimo))
-		{
-			var1 = *block;
-			var1.tileY++;
-			tileSet[block->tileX][block->tileY].id = -1;
-			tileSet[block->tileX][var1.tileY] = var1;
-			block = &tileSet[block->tileX][var1.tileY];
-		}
-		return true;
-	}
-	else
-	{
-		nextT = spawnTetronimo(nextT);
-		return false;
-	}
-
-}*/
-
 void ModuleTetronimo::blockMovement(int p)
 {
 	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
@@ -745,12 +760,44 @@ bool ModuleTetronimo::lineCheck(int i)
 
 bool ModuleTetronimo::deleteLine(int i)	
 {
+	int b = 0;
+
+	//alberto
+	//for (int m = i - 1; m > -1; m--)
+	//{
+	//	for (int n = 0; n < 10; n++)
+	//	{
+	//		if (tileSet[n][m].id != -1)
+	//		{
+	//			v = tileSet[n][m];
+	//			tileSet[n][m].id == -1;
+	//			tileSet[n][m + 1].id == v.id;
+	//		}
+	//	}
+	//}
+
 	for (int j = 0; j < 10; j++)
 	{
 		v = tileSet[j][i - 1];
 		tileSet[j][i - 1].id = -1;
 		tileSet[j][i] = v;
+		
+		
+		switch (b)
+		{
+		case 1:
+		{
+
+			break;
+		}
+		default:
+			break;
+		}
+		
+		b = 0;
 	}
+
+	
 
 	//// do a function to make blocks fall once		 //this doesnt work xd
 	//v = &tileSet[0][21];
@@ -887,20 +934,15 @@ void ModuleTetronimo::Debugging()
 		}
 	}
 
-	//// Instant win
-	//if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN) {
-	//	lvl_instaWin = true;
-	//	App->sLvl_1->v_WinLose = 0;
-	//}
-
-	//// Instant lose
-	//if (App->input->keys[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
-	//	lvl_instaLose = true;
-	//	App->sLvl_1->v_WinLose = 0;
-	//}
+	// Pause movement
+	if (App->input->keys[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN)
+	{
+		(pause == false) ? pause = true : pause = false;
+	}
 
 	if (App->player->godMode == true)
 	{
 		App->render->Blit(grid_texture, 62, 50, NULL);
 	}
+
 }

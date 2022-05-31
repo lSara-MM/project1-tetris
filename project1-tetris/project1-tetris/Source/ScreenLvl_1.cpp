@@ -438,7 +438,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
-	App->tetronimo->Disable();
+	App->tetronimo->pause = true;
 
 	if (v_WinLose >= 0 && v_WinLose < 250)
 	{
@@ -550,7 +550,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	LOG("v_WinLose: %d", v_WinLose);
 
 	// Game Over
-	App->tetronimo->Disable();
+	App->tetronimo->pause = true;
 
 	if (v_WinLose >= 0 && v_WinLose < 200)
 	{

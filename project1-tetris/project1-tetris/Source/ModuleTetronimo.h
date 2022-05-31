@@ -51,6 +51,7 @@ public:
 		int bX, bY;		// x, y in screen
 		int tileX, tileY;		// tile position
 		int tetronimo;
+		int bType;
 
 		SDL_Rect section;
 		SDL_Rect* pSection;	// { spritesheet coords, B_WIDTH, B_HEIGHT }
@@ -75,11 +76,12 @@ public:
 public:
 
 	int t;
+	int currentT;
 	int nextT;
 	int rotation;
-	//int num;
 	int combo;
 
+	bool pause;
 	////int
 	//int tileSetInt[22][10];
 	//int bX, bY;
