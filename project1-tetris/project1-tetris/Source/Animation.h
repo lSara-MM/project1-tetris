@@ -10,12 +10,12 @@ public:
 	bool loop = true;
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
+	int loopCount = 0;
 
 private:
 	float currentFrame = 0.0f;
 	int totalFrames = 0;
-	int loopCount = 0;
-
+	
 public:
 
 	void PushBack(const SDL_Rect& rect)

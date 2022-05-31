@@ -782,14 +782,76 @@ void ModuleTetronimo::Debugging()
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	//	just in case		
 	{
-
 		App->player->godMode = false;
 	}
 
 	// Manually spawn a block
-	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_F2] == KEY_REPEAT)
 	{
-
+		if (App->input->keys[SDL_SCANCODE_0] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(rand() % 7 + 1);
+		}
+		else if (App->input->keys[SDL_SCANCODE_1] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::RED);
+		}
+		else if(App->input->keys[SDL_SCANCODE_2] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::GREEN);
+		}
+		else if (App->input->keys[SDL_SCANCODE_3] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::BLUE);
+		}
+		else if (App->input->keys[SDL_SCANCODE_4] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::YELLOW);
+		}
+		else if (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::PINK);
+		}
+		else if (App->input->keys[SDL_SCANCODE_6] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::CYAN);
+		}
+		else if (App->input->keys[SDL_SCANCODE_7] == KEY_DOWN)
+		{
+			b1->id = -1;
+			b2->id = -1;
+			b3->id = -1;
+			b4->id = -1;
+			spawnTetronimo(BLOCK_TYPE::ORANGE);
+		}
 	}
 
 	//// Instant win

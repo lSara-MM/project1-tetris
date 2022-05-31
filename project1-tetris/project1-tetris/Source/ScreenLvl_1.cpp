@@ -163,12 +163,12 @@ bool ScreenLvl_1::Start()
 	// Game
 	App->tetronimo->Start();
 
-	/*openCurtain.loopCount = 0;
-	openCurtain.speed = 0.2f;
-
-	closeCurtain.loopCount = 0;
-	closeCurtain.speed = 0.2f;*/
-
+	//openCurtain.loopCount = 0;
+	////openCurtain.speed = 0.2f;
+	//closeCurtain.loopCount = 0;
+	////closeCurtain.speed = 0.2f;
+	//openCurtain.Reset();
+	//closeCurtain.Reset();
 
 	return ret;
 }
@@ -461,7 +461,7 @@ void ScreenLvl_1::lvl_win()
 			closeCurtain.Update();
 
 
-			if (v_WinLose == 1000)		// cambiar (depende del bonus)
+			if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
 			{
 				lvl_instaWin = false;
 				App->points->lvl++;
@@ -478,9 +478,25 @@ void ScreenLvl_1::lvl_win()
 			closeCurtain.Update();
 		}
 
-		if (v_WinLose == 600)		// cambiar (depende del bonus)
+		if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
 		{
 			lvl_instaWin = false;
+
+			openCurtain.Reset();	//  no fa res xd
+			closeCurtain.Reset();
+
+			// Counter
+			v_message = 0;
+			v_insertCoin = 0;
+			v_points = 0;
+
+			// debug
+			lvl_instaWin = false;
+			lvl_instaLose = false;
+
+			v_loseContinue = 9;
+			v_WinLose = 0;
+
 			App->points->lvl++;
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
@@ -513,7 +529,6 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	{
 		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
 		{
-			App->points->Reset();
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
 
@@ -549,5 +564,25 @@ bool ScreenLvl_1::CleanUp()
 	//App->audio->CleanUp();	// excepcio xd
 	App->textures->Unload(bg_texture);
 	App->textures->Unload(curtain_texture);
+	App->textures->Unload(ruso_texture3);
+	App->textures->Unload(ruso_texture6);
+	App->textures->Unload(ruso_texture9);
+
+	
+	openCurtain.Reset();	//  no fa res xd
+	closeCurtain.Reset();
+
+	// Counter
+	v_message = 0;
+	v_insertCoin = 0;
+	v_points = 0;
+
+	// debug
+	lvl_instaWin = false;
+	lvl_instaLose = false;
+
+	v_loseContinue = 9;
+	v_WinLose = 0;
+
 	return true;
 }
