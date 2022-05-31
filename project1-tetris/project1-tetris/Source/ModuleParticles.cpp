@@ -147,10 +147,11 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
+int v_particles = 0;		// counter
 
 void ModuleParticles::FwTiming(int x_frame)
 {
-	int v_particles = 0;		// counter
+
 	if (x_frame == 0)
 	{
 		SDL_Delay(500);		// "5 segundos"
@@ -238,7 +239,8 @@ void ModuleParticles::FwTiming(int x_frame)
 			App->particles->AddParticle(App->particles->firework2, 490, 85, 2, 1470);
 
 			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
-			v_particles++;
+			//v_particles++;
+			v_particles = 0;
 			break;
 		default:
 			break;
