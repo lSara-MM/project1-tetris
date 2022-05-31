@@ -65,7 +65,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	}
 	dancingRus6.loop = false;
-	dancingRus6.speed = 0.7;
+	dancingRus6.speed = 1.0;
 
 	// rus 9
 	for (int i = 0; i < 30; i++)
@@ -429,23 +429,32 @@ void ScreenLvl_1::lvl_win()
 			// cuando acaba la cortinita esa rara de los bloques grises
 			if (App->points->lvl == 3 && dancingRus3.HasFinished() == false)
 			{
-				// La musica peta
-				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				if (v_WinLose == 374)
+				{
+					App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg", 0);
+				}
 				dancingRus3.Update();
 				App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
 			}
-			if (App->points->lvl == 6 && dancingRus6.HasFinished() == false)
+
+			if (App->points->lvl == 6)
 			{
-				//App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg");
+				if (v_WinLose == 374)
+				{
+					App->audio->PlayMusic("Assets/Audio/Music/06_(Round_6).ogg", 0);
+				}
 				dancingRus6.Update();
 				App->render->Blit(ruso_texture6, 272, 98, &(dancingRus6.GetCurrentFrame()), 0.85f);
 			}
+
 			if (App->points->lvl == 9)
 			{
 
 			}
 		}
-		if (dancingRus3.HasFinished() == true)
+		if ((App->points->lvl == 3 && dancingRus3.HasFinished() == true) ||
+			(App->points->lvl == 6 && dancingRus6.HasFinished() == true) ||
+			(App->points->lvl == 9 && dancingRus9.HasFinished() == true))
 		{
 			LOG("Close Curtain");
 			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
