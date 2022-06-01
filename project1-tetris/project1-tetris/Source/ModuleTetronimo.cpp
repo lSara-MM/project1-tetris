@@ -84,7 +84,6 @@ update_status ModuleTetronimo::Update()
 	{
 		if (deltaTime > 700)
 		{
-
 			blockFall();
 			deltaTime = 0;
 		}
@@ -107,14 +106,6 @@ update_status ModuleTetronimo::Update()
 				blockFall();
 				deltaTime = 0;
 			}
-
-			/*v = b1;
-			blockFall(v);*/
-			/*b1 = v;*/
-			//b1->id = blockFall(b1);
-			///*blockFall(b2);
-			//blockFall(b3);
-			//blockFall(b4);*/
 		}
 
 		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
@@ -1720,32 +1711,86 @@ bool ModuleTetronimo::deleteLine(int i)
 	{
 		switch (tileSet[j][i].id)
 		{
+			// red
 		case 4:
-			if (tileSet[j][i + 1].id == 6 && tileSet[j][i].tetronimo == tileSet[j][i + 1].tetronimo)
+			if (tileSet[j][i + 1].id == 6)
 			{
 				tileSet[j][i + 1].id = 0;
 			}
-			if (tileSet[j][i + 1].id == 5 && tileSet[j][i].tetronimo == tileSet[j][i + 1].tetronimo)
+			if (tileSet[j][i + 1].id == 5)
 			{
 				tileSet[j][i + 1].id = 4;
 			}
 			break;
 		case 5:
-			if (tileSet[j][i - 1].id == 4 && tileSet[j][i].tetronimo == tileSet[j][i - 1].tetronimo)
+			if (tileSet[j][i - 1].id == 4)
 			{
 				tileSet[j][i - 1].id = 4;
 			}
 			break;
 		case 6:
-			if (tileSet[j][i - 1].id == 4 && tileSet[j][i].tetronimo == tileSet[j][i - 1].tetronimo)
+			if (tileSet[j][i - 1].id == 4)
 			{
 				tileSet[j][i - 1].id = 0;
 			}
-			if (tileSet[j][i - 1].id == 5 && tileSet[j][i].tetronimo == tileSet[j][i - 1].tetronimo)
+			if (tileSet[j][i - 1].id == 5)
 			{
 				tileSet[j][i - 1].id = 6;
 			}
+			break;
 
+			// green
+		case 12:
+			tileSet[j][i + 1].id = 19;
+			break;
+		case 14:
+			if (tileSet[j][i - 1].id == 12)
+			{
+				tileSet[j][i - 1].id = 10;
+			}
+			if (tileSet[j][i - 1].id == 16)
+			{
+				tileSet[j][i - 1].id = 20;
+			}
+			if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
+			{
+				tileSet[j][i - 1].id = 11;
+			}
+			break;
+		case 15:
+			if (tileSet[j][i + 1].id == 16)
+			{
+				tileSet[j][i].id = 21;
+			}
+			if (tileSet[j][i + 1].id == 18)
+			{
+				tileSet[j][i].id = 23;
+			}
+			if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+			{
+				tileSet[j][i].id = 11;
+			}
+			break;
+		case 16:
+			tileSet[j][i - 1].id = 15;
+			break;
+		case 17:
+			tileSet[j][i - 1].id = 10;
+			break;
+		case 18:
+			tileSet[j][i - 1].id = 15;
+			break;
+		case 20:
+			tileSet[j][i - 1].id = 10;
+			break;
+		case 21:
+			tileSet[j][i + 1].id = 10;
+			break;
+		case 22:
+			tileSet[j][i + 1].id = 10;
+			break;
+		case 23:
+			tileSet[j][i + 1].id = 10;
 			break;
 		default:
 
