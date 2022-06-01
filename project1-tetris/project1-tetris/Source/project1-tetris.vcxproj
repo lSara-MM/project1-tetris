@@ -163,6 +163,13 @@
     <ClCompile Include="ScreenCredits2.cpp" />
     <ClCompile Include="ScreenDiffSelect.cpp" />
     <ClCompile Include="ScreenLvl_1.cpp" />
+    <ClCompile Include="ScreenLvl_10.cpp" />
+    <ClCompile Include="ScreenLvl_2.cpp" />
+    <ClCompile Include="ScreenLvl_3.cpp" />
+    <ClCompile Include="ScreenLvl_4.cpp" />
+    <ClCompile Include="ScreenLvl_5.cpp" />
+    <ClCompile Include="ScreenLvl_6.cpp" />
+    <ClCompile Include="ScreenLvl_7.cpp" />
     <ClCompile Include="ScreenStart.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
@@ -188,6 +195,13 @@
     <ClInclude Include="ScreenCredits2.h" />
     <ClInclude Include="ScreenDiffSelect.h" />
     <ClInclude Include="ScreenLvl_1.h" />
+    <ClInclude Include="ScreenLvl_10.h" />
+    <ClInclude Include="ScreenLvl_2.h" />
+    <ClInclude Include="ScreenLvl_3.h" />
+    <ClInclude Include="ScreenLvl_4.h" />
+    <ClInclude Include="ScreenLvl_5.h" />
+    <ClInclude Include="ScreenLvl_6.h" />
+    <ClInclude Include="ScreenLvl_7.h" />
     <ClInclude Include="ScreenStart.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />

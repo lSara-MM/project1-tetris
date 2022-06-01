@@ -1,5 +1,5 @@
-#ifndef __SCREENLVL1_H__
-#define __SCREENLVL1_H__
+#ifndef __SCREENLVL7_H__
+#define __SCREENLVL7_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -10,14 +10,14 @@
 
 struct SDL_Texture;
 
-class ScreenLvl_1 : public Module
+class ScreenLvl_7 : public Module
 {
 public:
 	//Constructor
-	ScreenLvl_1(bool startEnabled);
+	ScreenLvl_7(bool startEnabled);
 
 	//Destructor
-	~ScreenLvl_1();
+	~ScreenLvl_7();
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -59,6 +59,13 @@ public:
 	Animation openCurtain;
 	Animation closeCurtain;
 
+	// Dancing rus texture
+	SDL_Texture* ruso_texture3 = nullptr;
+	SDL_Texture* ruso_texture6 = nullptr;
+	SDL_Texture* ruso_texture9 = nullptr;
+	Animation dancingRus3;
+	Animation dancingRus6;
+	Animation dancingRus9;
 
 	bool lvl_instaWin;
 	bool lvl_instaLose;

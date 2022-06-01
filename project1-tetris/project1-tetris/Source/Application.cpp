@@ -20,6 +20,13 @@
 #include "ScreenStart.h"
 #include "ScreenDiffSelect.h"
 #include "ScreenLvl_1.h"
+#include "ScreenLvl_2.h"
+#include "ScreenLvl_3.h"
+#include "ScreenLvl_4.h"
+#include "ScreenLvl_5.h"
+#include "ScreenLvl_6.h"
+#include "ScreenLvl_7.h"
+#include "ScreenLvl_10.h"
 
 
 Application::Application()
@@ -37,17 +44,24 @@ Application::Application()
 	modules[5] = sCredits2 = new ScreenCredits2(false);
 	modules[6] = sStart = new ScreenStart(false);
 	modules[7] = sDiff = new ScreenDiffSelect(false);
-	modules[8] = sLvl_1 = new ScreenLvl_1(true);		//Gameplay scene starts disabled
-	
-	modules[9] = player = new ModulePlayer(true);	
-	modules[10] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
-	modules[11] = points = new Points(false);
+	modules[8] = sLvl_1 = new ScreenLvl_1(true);
+	modules[9] = sLvl_2 = new ScreenLvl_2(false);//Gameplay scene starts disabled
+	modules[10] = sLvl_3 = new ScreenLvl_3(false);
+	modules[11] = sLvl_4 = new ScreenLvl_4(false);
+	modules[12] = sLvl_5 = new ScreenLvl_5(false);
+	modules[13] = sLvl_6 = new ScreenLvl_6(false);
+	modules[14] = sLvl_7 = new ScreenLvl_7(false);
+	modules[15] = sLvl_10 = new ScreenLvl_10(false);
 
-	modules[12] = particles = new ModuleParticles(true);
-	//modules[11] = collisions = new ModuleCollisions(true);
-	modules[13] = fade = new ModuleFadeToBlack(true);
 
-	modules[14] = render = new ModuleRender(true);
+	modules[16] = player = new ModulePlayer(true);	
+	modules[17] = tetronimo = new ModuleTetronimo(false);	//Player starts disabled
+	modules[18] = points = new Points(false);
+
+	modules[19] = particles = new ModuleParticles(true);
+	modules[20] = fade = new ModuleFadeToBlack(true);
+
+	modules[21] = render = new ModuleRender(true);
 }
 
 Application::~Application()

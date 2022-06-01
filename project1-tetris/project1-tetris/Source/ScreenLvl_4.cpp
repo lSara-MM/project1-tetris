@@ -1,4 +1,4 @@
-#include "ScreenLvl_1.h"
+#include "ScreenLvl_4.h"
 
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -17,7 +17,7 @@ using namespace std;
 #include <sstream>
 
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
-ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
+ScreenLvl_4::ScreenLvl_4(bool startEnabled) : Module(startEnabled)
 {
 	// curtain animation
 	openCurtain.PushBack({ 816, 3, 157, 126 });
@@ -39,24 +39,24 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.loop = true;
 }
 
-ScreenLvl_1::~ScreenLvl_1()
+ScreenLvl_4::~ScreenLvl_4()
 {
 
 }
 
 // Load assets
-bool ScreenLvl_1::Start()
+bool ScreenLvl_4::Start()
 {
 	App->tetronimo->Enable();
 
-	LOG("Loading lvl 1 background assets");
+	LOG("Loading lvl 4 background assets");
 	LOG("Loading curtain assets\n");
 
 	bool ret = true;
 
-	bg_texture = App->textures->Load("Assets/ss_easyBg.png");
+	bg_texture = App->textures->Load("Assets/ss_mediumBg.png");
 	curtain_texture = App->textures->Load("Assets/curtain.png");
-	
+
 
 	LOG("Loading sound effects");
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
@@ -68,12 +68,12 @@ bool ScreenLvl_1::Start()
 	fxYou_DidIt = App->audio->LoadFx("Assets/Audio/FX/you_did_it.wav");
 	fxClearing_Bars = App->audio->LoadFx("Assets/Audio/FX/clearing_bars.wav");
 	fxGameOver = App->audio->LoadFx("Assets/Audio/FX/gameover.wav");
-	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav"); 
+	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
 
 
 	// Variables
 	lines = 0;
-	linesObjective = 5;
+	linesObjective = 10;
 	linesleft = linesObjective;
 	if (App->points->credits < 0)
 	{
@@ -106,13 +106,13 @@ bool ScreenLvl_1::Start()
 	return ret;
 }
 
-update_status ScreenLvl_1::Update()
+update_status ScreenLvl_4::Update()
 {
 
 	if (openCurtain.GetLoopCount() == 1) {
-		
-		openCurtain.speed = 0; 
-	
+
+		openCurtain.speed = 0;
+
 	}
 
 
@@ -129,14 +129,14 @@ update_status ScreenLvl_1::Update()
 }
 
 // Update: draw background
-update_status ScreenLvl_1::PostUpdate()
+update_status ScreenLvl_4::PostUpdate()
 {
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
 	//Curtain animation
 	if (openCurtain.GetLoopCount() == 0)
 	{
-		App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
+		App->render->Blit(curtain_texture, 258, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
 	}
 
 
@@ -202,7 +202,7 @@ update_status ScreenLvl_1::PostUpdate()
 	App->render->TextDraw("high score", 255, 370, 0, 0, 150, 255, 16);
 	App->render->TextDraw("10000", 288, 385, 0, 0, 150, 255, 16);
 	App->render->TextDraw("round", 255, 418, 0, 0, 150, 255, 16);
-	App->render->TextDraw("1", 353, 418, 0, 0, 150, 255, 16);
+	App->render->TextDraw("4", 353, 418, 0, 0, 150, 255, 16);
 	App->render->TextDraw("credits", 255, 450, 0, 0, 150, 255, 16);
 	App->render->TextDraw(ch_credits, 385, 450, 0, 0, 150, 255, 16);
 
@@ -238,7 +238,7 @@ update_status ScreenLvl_1::PostUpdate()
 		{
 			v_points = 0;
 			App->points->calcScore();
-			
+
 			value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
 
 		}
@@ -311,7 +311,7 @@ update_status ScreenLvl_1::PostUpdate()
 }
 
 
-void ScreenLvl_1::lvl_win()
+void ScreenLvl_4::lvl_win()
 {
 	App->tetronimo->Disable();
 
@@ -329,39 +329,39 @@ void ScreenLvl_1::lvl_win()
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
-		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);		
+		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
 
 	if (v_WinLose >= 574)
 	{
 		LOG("Close Curtain");
 
-		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.85f); }
+		if (openCurtain.GetLoopCount() == 1) { App->render->Blit(curtain_texture, 258, 192, &(closeCurtain.GetCurrentFrame()), 0.85f); }
 
 		closeCurtain.Update();
-		
+
 	}
 
 	if (v_WinLose == 604)		// cambiar (depende del bonus)
-	{ 
+	{
 		closeCurtain.speed = 0;
 
 		lvl_instaWin = false;
 
-		App->fade->FadeToBlack(this, (Module*)App->sLvl_2, 0);
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_5, 0);
 	}
 
 	LOG("win counter %d", v_WinLose);
 	v_WinLose++;
 }
 
-void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
+void ScreenLvl_4::lvl_lose(const char* ch_loseContinue)
 {
 	LOG("v_WinLose: %d", v_WinLose);
 
 	// Game Over
 	App->tetronimo->Disable();
-	
+
 	if (v_WinLose >= 0 && v_WinLose < 200)
 	{
 		if (v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);
@@ -401,11 +401,11 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 		App->points->Reset();
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}
-	
+
 	v_WinLose++;
 }
 
-bool ScreenLvl_1::CleanUp()
+bool ScreenLvl_4::CleanUp()
 {
 	LOG("Disable Tetronimo");
 	App->tetronimo->Disable();

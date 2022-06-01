@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "SDL/include/SDL.h"
 
-#define NUM_MODULES 15
+#define NUM_MODULES 22
 
 class Module;
 class ModuleWindow;
@@ -27,7 +27,13 @@ class ScreenCredits2;
 class ScreenStart;
 class ScreenDiffSelect;
 class ScreenLvl_1;
-
+class ScreenLvl_2;
+class ScreenLvl_3;
+class ScreenLvl_4;
+class ScreenLvl_5;
+class ScreenLvl_6;
+class ScreenLvl_7;
+class ScreenLvl_10;
 
 class Application
 {
@@ -69,7 +75,13 @@ public:
 	ScreenStart* sStart = nullptr;
 	ScreenDiffSelect* sDiff = nullptr;
 	ScreenLvl_1* sLvl_1 = nullptr;
-
+	ScreenLvl_2* sLvl_2 = nullptr;
+	ScreenLvl_3* sLvl_3 = nullptr;
+	ScreenLvl_4* sLvl_4 = nullptr;
+	ScreenLvl_5* sLvl_5 = nullptr;
+	ScreenLvl_6* sLvl_6 = nullptr;
+	ScreenLvl_7* sLvl_7 = nullptr; 
+	ScreenLvl_10* sLvl_10 = nullptr;
 
 	ModuleParticles* particles = nullptr;
 

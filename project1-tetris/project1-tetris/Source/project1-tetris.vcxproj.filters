@@ -102,6 +102,27 @@
     <ClCompile Include="Points.cpp">
       <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenLvl_2.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_3.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_4.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_5.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_6.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_7.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenLvl_10.cpp">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -175,6 +196,27 @@
     </ClInclude>
     <ClInclude Include="Points.h">
       <Filter>Source Files\Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_2.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_3.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_4.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_5.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_6.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_7.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenLvl_10.h">
+      <Filter>Source Files\Modules\Gameplay\screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
