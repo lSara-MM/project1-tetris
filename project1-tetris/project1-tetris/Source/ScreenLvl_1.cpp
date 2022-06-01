@@ -268,6 +268,43 @@ update_status ScreenLvl_1::PostUpdate()
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
 
+	if (lines == linesObjective - 5)
+		{
+			App->render->TextDraw("5", 14, 138, 0, 0, 255, 255, 28);
+		}
+		else if (lines == linesObjective - 4)
+		{
+			App->render->TextDraw("4", 14, 192, 0, 0, 255, 255, 28);
+		}
+		else if (lines == linesObjective - 3)
+		{
+			App->render->TextDraw("3", 14, 246, 0, 0, 255, 255, 28);
+		}
+		else if (lines == linesObjective - 2)
+		{
+			App->render->TextDraw("2", 14, 300, 0, 0, 255, 255, 28);
+		}
+		else if (lines == linesObjective - 1)
+		{
+			if ((delta__Time >= 0) & (delta__Time <= 150))
+			{
+				App->render->TextDraw("1", 14, 246, 0, 0, 255, 255, 28);
+			}
+			if ((delta__Time >= 150) & (delta__Time <= 250))
+			{
+				App->render->TextDraw("1", 14, 246, 255, 255, 255, 255, 28);
+			}
+
+			if ((delta__Time >= 250) & (delta__Time <= 250))
+			{
+				delta__Time = 250;
+			}
+
+			if ((delta__Time > 250))
+			{
+				delta__Time = 0;
+			}
+		}
 
 	// Win conditions
 	if (linesleft == 0)
