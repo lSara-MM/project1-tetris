@@ -1701,11 +1701,6 @@ bool ModuleTetronimo::deleteLine(int i)
 {
 	int arr[10];
 	pause = true;
-	//for (int j = 0; j < 10; j++)
-	//{
-	//	arr[j] = tileSet[j][i].id;
-	//	tileSet[j][i].id = -1;
-	//}
 	
 	for (int j = 0; j < 10; j++)
 	{
@@ -1741,57 +1736,87 @@ bool ModuleTetronimo::deleteLine(int i)
 
 			// green
 		case 12:
-			tileSet[j][i + 1].id = 19;
+			tileSet[j][i + 1].id = 10;
 			break;
 		case 14:
-			if (tileSet[j][i - 1].id == 12)
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
 			{
-				tileSet[j][i - 1].id = 10;
-			}
-			if (tileSet[j][i - 1].id == 16)
-			{
-				tileSet[j][i - 1].id = 20;
-			}
-			if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
-			{
-				tileSet[j][i - 1].id = 11;
+				if (tileSet[j][i - 1].id == 12)
+				{
+					tileSet[j][i - 1].id = 19;
+				}
+				if (tileSet[j][i - 1].id == 16)
+				{
+					tileSet[j][i - 1].id = 20;
+				}
+				if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
+				{
+					tileSet[j][i - 1].id = 11;
+				}
 			}
 			break;
 		case 15:
-			if (tileSet[j][i + 1].id == 16)
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
 			{
-				tileSet[j][i].id = 21;
+				if (tileSet[j][i + 1].id == 14)
+				{
+					tileSet[j][i + 1].id = 10;
+				}
+				if (tileSet[j][i + 1].id == 16)
+				{
+					tileSet[j][i + 1].id = 21;
+				}
+				if (tileSet[j][i + 1].id == 18)
+				{
+					tileSet[j][i + 1].id = 23;
+				}
+				if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+				{
+					tileSet[j][i + 1].id = 11;
+				}
 			}
-			if (tileSet[j][i + 1].id == 18)
+			break;
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
 			{
-				tileSet[j][i].id = 23;
+				case 16:
+					tileSet[j][i - 1].id = 15;
+					break;
+				case 17:
+					tileSet[j][i - 1].id = 10;
+					break;
+				case 18:
+					tileSet[j][i - 1].id = 15;
+					break;
+				case 20:
+					tileSet[j][i - 1].id = 10;
+					break;
 			}
-			if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
 			{
-				tileSet[j][i].id = 11;
+				case 21:
+					tileSet[j][i + 1].id = 10;
+					break;
+				case 22:
+					tileSet[j][i + 1].id = 10;
+					break;
+				case 23:
+					tileSet[j][i + 1].id = 10;
+					break;
 			}
+			// blue
+		case 31:
+			tileSet[j][i + 1].id = 35;
 			break;
-		case 16:
-			tileSet[j][i - 1].id = 15;
+		case 32:
+			tileSet[j][i + 1].id = 36;
 			break;
-		case 17:
-			tileSet[j][i - 1].id = 10;
+		case 33:
+			tileSet[j][i - 1].id = 35;
 			break;
-		case 18:
-			tileSet[j][i - 1].id = 15;
+		case 34:
+			tileSet[j][i - 1].id = 36;
 			break;
-		case 20:
-			tileSet[j][i - 1].id = 10;
-			break;
-		case 21:
-			tileSet[j][i + 1].id = 10;
-			break;
-		case 22:
-			tileSet[j][i + 1].id = 10;
-			break;
-		case 23:
-			tileSet[j][i + 1].id = 10;
-			break;
+			
 		default:
 
 			break;
