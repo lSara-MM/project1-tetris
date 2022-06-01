@@ -106,7 +106,6 @@ update_status ModuleTetronimo::Update()
 	{
 		if (deltaTime > 700)
 		{
-
 			blockFall();
 			deltaTime = 0;
 		}
@@ -129,14 +128,6 @@ update_status ModuleTetronimo::Update()
 				blockFall();
 				deltaTime = 0;
 			}
-
-			/*v = b1;
-			blockFall(v);*/
-			/*b1 = v;*/
-			//b1->id = blockFall(b1);
-			///*blockFall(b2);
-			//blockFall(b3);
-			//blockFall(b4);*/
 		}
 
 		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN || button_press)
@@ -159,16 +150,13 @@ update_status ModuleTetronimo::Update()
 	{
 		if (lineCheck(i) == true)
 		{
-			pause = true;
 			deleteLine(i);
 			App->audio->PlayFx(App->sLvl_1->fxLine);
-			// put a function to delete and do the animations of line
-		}
-
-		if (lineCheck(i) == false) {
-			pause = false;
+			App->points->lines++;
+			App->sLvl_1->linesleft--;
 		}
 	}
+	
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -1731,75 +1719,157 @@ bool ModuleTetronimo::lineCheck(int i)
 	}
 }
 
-bool ModuleTetronimo::deleteLine(int i)	
+bool ModuleTetronimo::deleteLine(int i)
 {
-	//int b = 0;
-
+	int arr[10];
+	pause = true;
+	
 	for (int j = 0; j < 10; j++)
 	{
+		switch (tileSet[j][i].id)
+		{
+			// red
+		case 4:
+			if (tileSet[j][i + 1].id == 6)
+			{
+				tileSet[j][i + 1].id = 0;
+			}
+			if (tileSet[j][i + 1].id == 5)
+			{
+				tileSet[j][i + 1].id = 4;
+			}
+			break;
+		case 5:
+			if (tileSet[j][i - 1].id == 4)
+			{
+				tileSet[j][i - 1].id = 4;
+			}
+			break;
+		case 6:
+			if (tileSet[j][i - 1].id == 4)
+			{
+				tileSet[j][i - 1].id = 0;
+			}
+			if (tileSet[j][i - 1].id == 5)
+			{
+				tileSet[j][i - 1].id = 6;
+			}
+			break;
+
+			// green
+		case 12:
+			tileSet[j][i + 1].id = 10;
+			break;
+		case 14:
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i - 1].id == 12)
+				{
+					tileSet[j][i - 1].id = 19;
+				}
+				if (tileSet[j][i - 1].id == 16)
+				{
+					tileSet[j][i - 1].id = 20;
+				}
+				if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
+				{
+					tileSet[j][i - 1].id = 11;
+				}
+			}
+			break;
+		case 15:
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i + 1].id == 14)
+				{
+					tileSet[j][i + 1].id = 10;
+				}
+				if (tileSet[j][i + 1].id == 16)
+				{
+					tileSet[j][i + 1].id = 21;
+				}
+				if (tileSet[j][i + 1].id == 18)
+				{
+					tileSet[j][i + 1].id = 23;
+				}
+				if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+				{
+					tileSet[j][i + 1].id = 11;
+				}
+			}
+			break;
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				case 16:
+					tileSet[j][i - 1].id = 15;
+					break;
+				case 17:
+					tileSet[j][i - 1].id = 10;
+					break;
+				case 18:
+					tileSet[j][i - 1].id = 15;
+					break;
+				case 20:
+					tileSet[j][i - 1].id = 10;
+					break;
+			}
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				case 21:
+					tileSet[j][i + 1].id = 10;
+					break;
+				case 22:
+					tileSet[j][i + 1].id = 10;
+					break;
+				case 23:
+					tileSet[j][i + 1].id = 10;
+					break;
+			}
+			// blue
+		case 31:
+			tileSet[j][i + 1].id = 35;
+			break;
+		case 32:
+			tileSet[j][i + 1].id = 36;
+			break;
+		case 33:
+			tileSet[j][i - 1].id = 35;
+			break;
+		case 34:
+			tileSet[j][i - 1].id = 36;
+			break;
+			
+		default:
+
+			break;
+		}
 		tileSet[j][i].id = -1;
 	}
 
 	//alberto
-		for (int m = i - 1; m >= 0; m--)
+	for (int m = i - 1; m >= 0; m--)
+	{
+		for (int n = 0; n < 10; n++)
 		{
-			for (int n = 0; n < 10; n++)
+			if (m != 0 && m != 1)
 			{
-				if (m != 0 && m != 1) 
+				if (tileSet[n][m].id != -1)
 				{
-					if (tileSet[n][m].id != -1)
-					{
-						v = tileSet[n][m];
-						tileSet[n][m].id = -1;
-						tileSet[n][m + 1].id = v.id;
-					}
+					v = tileSet[n][m];
+					tileSet[n][m].id = -1;
+					tileSet[n][m + 1].id = v.id;
 				}
 			}
 		}
+	}
 
-	/*for (int j = 0; j < 10; j++)
-	{
-		v = tileSet[j][i - 1];
-		tileSet[j][i - 1].id = -1;
-		tileSet[j][i] = v;
-		
-		
-		switch (b)
-		{
-		case 1:
-		{
+	b1 = nullptr;
+	b2 = nullptr;
+	b3 = nullptr;
+	b4 = nullptr;
+	pause = false;
 
-			break;
-		}
-		default:
-			break;
-		}
-		
-		b = 0;
-	}*/
-
-	
-
-	//// do a function to make blocks fall once		 //this doesnt work xd
-	//v = &tileSet[0][21];
-	//for (int i = 22; i > 2; i--)
-	//{
-	//	for (int j = 0; j < 10; j++)
-	//	{
-
-	//		if ((v->tileY + 1 < 22 && b2->tileY + 1 < 22) &&
-	//			(tileSet[v->tileX][v->tileY + 1].id == -1 ||
-	//				tileSet[v->tileX][v->tileY + 1].tetronimo == v->tetronimo))
-	//		{
-	//			var1 = *v;
-	//			var1.tileY++;
-	//			tileSet[v->tileX][v->tileY].id = -1;
-	//			tileSet[v->tileX][var1.tileY] = var1;
-	//			v = &tileSet[v->tileX][var1.tileY];
-	//		}
-	//	}
-	//}
-
+	spawnTetronimo(currentT);
 	return true;
 }
 
