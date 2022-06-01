@@ -5,23 +5,9 @@
 #include "Globals.h"
 
 #define MAX_KEYS 256
-#define MAX_PADS 4
-
-struct GamePad
-{
-	// Input data
-	bool x, y, a;
-	bool left, right;
-	float left_x, left_y, right_x, right_y, left_dz, right_dz;
-
-	// Controller data
-	bool enabled;
-	int index;
-	_SDL_GameController* controller;
-	_SDL_Haptic* haptic;
+#define MAX_PADS 8
 
 
-};
 enum KEY_STATE
 {
 	KEY_IDLE,
@@ -30,6 +16,23 @@ enum KEY_STATE
 	KEY_UP
 
 };
+
+struct GamePad
+{
+	// Input data
+	bool x, y, a;
+	bool left, right;
+	float left_x, left_y, right_x, right_y, left_dz, right_dz;
+	KEY_STATE buttons[SDL_CONTROLLER_BUTTON_MAX];
+
+	// Controller data
+	bool enabled;
+	int index;
+	_SDL_Haptic* haptic;
+
+};
+
+
 
 class ModuleInput : public Module
 {
@@ -48,22 +51,29 @@ public:
 
 
 	// Activates SDL device funcionallity when a gamepad has been connected
-	void HandleDeviceConnection(int index);
+	//void HandleDeviceConnection(int index);
 
-	// Deactivates SDL device funcionallity when a gamepad has been disconnected
-	void HandleDeviceRemoval(int index);
+	////// Deactivates SDL device funcionallity when a gamepad has been disconnected
+	//void HandleDeviceRemoval(int index);
 
-	// Called at PreUpdate
-	// Iterates through all active gamepads and update all input data
-	void UpdateGamepadsInput();
-	
+	//// Called at PreUpdate
+	//// Iterates through all active gamepads and update all input data
+	//void UpdateGamepadsInput();
+
 
 
 public:
 	// An array to fill in the state of all the keyboard keys
+
 	KEY_STATE keys[MAX_KEYS] = { KEY_IDLE };
+
 	// An array to fill in all detected gamepads
+
 	GamePad pads[MAX_PADS];
+
+	SDL_GameController* sdl_controllers[MAX_PADS];
+
+	int num_controllers; 
 };
 
 #endif // __ModuleInput_H__

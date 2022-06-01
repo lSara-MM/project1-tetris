@@ -74,11 +74,33 @@ bool ModuleTetronimo::Start()
 	return true;
 }
 
+float reduce_val(float v1, float min, float clamp_to) {
+	float sign = v1 / fabs(v1);
+	float reduced = v1 - ((fabs(v1) > min) ? sign * min : v1);
+	float to_1 = reduced / (float)(SDL_MAX_SINT16);
+	float reclamped = to_1 * clamp_to;
+	return reclamped;
+}
+
 update_status ModuleTetronimo::Update()
 {
 	runTime = SDL_GetTicks();
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
+
+	bool button_press = false;
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+
+	float fx = 0, fy = 0;
+	fx += reduce_val(App->input->pads[0].left_x, 3000, 2);
+	fy += reduce_val(App->input->pads[0].left_y, 3000, 2);
+	fx += reduce_val(App->input->pads[0].right_x, 3000, 2);
+	fy += reduce_val(App->input->pads[0].right_y, 3000, 2);
+	
 
 	if (pause == false)
 	{
@@ -89,18 +111,18 @@ update_status ModuleTetronimo::Update()
 			deltaTime = 0;
 		}
 
-		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0)
 		{
 			blockMovement(-1);
 		}
 
 
-		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0)
 		{
 			blockMovement(1);
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || fy > 0)
 		{
 			if (deltaTime > 25)
 			{
@@ -117,7 +139,7 @@ update_status ModuleTetronimo::Update()
 			//blockFall(b4);*/
 		}
 
-		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN || button_press)
 		{
 			Rotation(currentT);
 		}

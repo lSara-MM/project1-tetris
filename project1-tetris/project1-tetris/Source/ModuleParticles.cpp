@@ -160,7 +160,7 @@ void ModuleParticles::FwTiming(int x_frame)
 		// (Particle, int x position, int y position, int firework id, int delay) -> a millorar la mecanica del id
 
 		// TO DO:
-		// canviar tamaño de algunos firework (pending / optional)
+		// canviar tamaï¿½o de algunos firework (pending / optional)
 		switch (v_particles)
 		{
 		case 0:
