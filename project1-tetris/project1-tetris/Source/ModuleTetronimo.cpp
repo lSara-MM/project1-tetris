@@ -70,9 +70,9 @@ bool ModuleTetronimo::Start()
 	LOG("Loading grid_texture");
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
 	blockTexture = App->textures->Load("Assets/Sprites/ss_tetronimos.png");
+
 	return true;
 }
-
 
 update_status ModuleTetronimo::Update()
 {
@@ -93,6 +93,7 @@ update_status ModuleTetronimo::Update()
 		{
 			blockMovement(-1);
 		}
+
 
 		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
@@ -607,6 +608,284 @@ void ModuleTetronimo::Rotation(int next) {
 		if (rotar == 4) {
 			rotar = 0;
 		}
+
+		case BLOCK_TYPE::YELLOW:
+			// yellow
+						//if ((rotar == 3) && (bloque == 0)) 
+						//{
+						//	if (type[1][s] != 'P')
+						//	{
+						//		if (type[f - 1][s] == 'B') {
+						//			LOG("Sorry bro, you can't");
+						//		}
+						//		else if (type[f - 2][s] == 'B') {
+						//			LOG("Sorry bro, you can't");
+						//		}
+						//		else
+						//		{
+						//			type[f][s] = 'N';
+						//			type[f][s + 1] = 'N';
+						//			type[f][s + 2] = 'N';
+						//			type[f - 1][s + 2] = 'N';
+
+						//			type[f][s] = 'P';
+						//			type[f - 1][s] = 'P';
+						//			type[f - 2][s] = 'P';
+						//			type[f][s + 1] = 'P';
+
+						//			rotar++;
+						//		}
+						//	}
+						//	else
+						//	{
+						//		if (type[f - 1][s] == 'B') {
+						//			LOG("Sorry bro, you can't");
+						//		}
+						//		else if (type[f + 1][s] == 'B') {
+						//			LOG("Sorry bro, you can't");
+						//		}
+						//		else if (type[f + 1][s + 1] == 'B') {
+						//			LOG("Sorry bro, you can't");
+						//		}
+						//		else
+						//		{
+						//			type[f][s] = 'N';
+						//			type[f][s + 1] = 'N';
+						//			type[f][s + 2] = 'N';
+						//			type[f - 1][s + 2] = 'N';
+
+						//			type[f][s] = 'P';
+						//			type[f - 1][s] = 'P';
+						//			type[f + 1][s] = 'P';
+						//			type[f + 1][s + 1] = 'P';
+
+						//			rotar++;
+						//		}
+						//	}
+
+							/*rectIdle.x -= 20;
+							rectIdle1.x -= 10;
+							rectIdle3.x += 10;
+
+							rectIdle1.y -= 10;
+							rectIdle2.y -= 20;
+							rectIdle3.y -= 10;*/
+
+						//	bloque++;
+						//}
+						if ((rotar == 2) && (bloque == 0)) {
+							if ((tileSet[b1->tileX][b1->tileY - 2].id == -1 || tileSet[b1->tileX][b1->tileY - 2].tetronimo == b1->tetronimo) &&
+								(tileSet[b2->tileX + 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY - 1].tetronimo == b2->tetronimo))
+							{
+								// save current block info
+								var1 = *b1;
+								var2 = *b2;
+								var3 = *b3;
+								var4 = *b4;
+
+								// Change Y position
+								var1.tileY -= 2;
+								var2.tileY--;
+								var4.tileY++;
+
+								// Change X position
+								var2.tileX++;
+								var3.tileX += 2;
+								var4.tileX++;
+
+								//Change id's
+								var1.id = 48;
+								var2.id = 46;
+								var3.id = 50;
+								var4.id = 41;
+
+								rotar++;
+							}
+
+							//rectIdle1.x += 10;
+							//rectIdle2.x += 20;
+							//rectIdle3.x += 10;
+
+							//rectIdle.y -= 20;
+							//rectIdle1.y -= 10;
+							//rectIdle3.y += 10;
+
+							bloque++;
+						}
+						if ((rotar == 1) && (bloque == 0)) 
+						{
+							if ((b1->tileX == 8) &&
+								(tileSet[b1->tileX + 1][b1->tileY].id == -1 || tileSet[b1->tileX + 1][b1->tileY].tetronimo == b1->tetronimo) &&
+								(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
+								(tileSet[b3->tileX - 1][b3->tileY + 2].id == -1 || tileSet[b3->tileX - 1][b3->tileY + 2].tetronimo == b3->tetronimo) &&
+								(tileSet[b4->tileX - 2][b4->tileY + 1].id == -1 || tileSet[b4->tileX - 2][b4->tileY + 1].tetronimo == b4->tetronimo))
+							{
+								// save current block info
+								var1 = *b1;
+								var2 = *b2;
+								var3 = *b3;
+								var4 = *b4;
+
+								// Change Y position
+								var2.tileY++;
+								var3.tileY += 2;
+								var4.tileY++;
+
+								// Change X position
+								var1.tileX++;
+								var3.tileX--;
+								var4.tileX -= 2;
+
+								//Change id's
+								var1.id = 47;
+								var2.id = 42;
+								var3.id = 49;
+								var4.id = 48;
+
+									rotar++;
+							}
+						}
+							else {
+								if ((b1->tileX + 2 < 10 && b2->tileX + 1 < 10) &&
+									(tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
+									(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY + 1].tetronimo == b2->tetronimo))
+								{
+									// save current block info
+									var1 = *b1;
+									var2 = *b2;
+									var3 = *b3;
+									var4 = *b4;
+
+									// Change Y position
+									var2.tileY++;
+									var3.tileY += 2;
+									var4.tileY++;
+
+									// Change X position
+									var1.tileX += 2;
+									var2.tileX++;
+									var4.tileX--;
+
+									//Change id's
+									var1.id = 47;
+									var2.id = 42;
+									var3.id = 49;
+									var4.id = 48;
+
+									rotar++;
+								}
+
+							/*rectIdle.x += 20;
+							rectIdle1.x += 10;
+							rectIdle3.x -= 10;
+
+
+							rectIdle1.y += 10;
+							rectIdle2.y += 20;
+							rectIdle3.y += 10;*/
+
+							bloque++;
+						}
+
+						if ((rotar == 0) && (bloque == 0)) 
+						{
+							if ((b1->tileY + 2 < 22 && b2->tileY + 1 < 22) &&
+								(tileSet[b1->tileX][b1->tileY + 2].id == -1 || tileSet[b1->tileX][b1->tileY + 2].tetronimo == b1->tetronimo) &&
+								(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY + 1].tetronimo == b2->tetronimo)) 
+							{
+								// save current block info
+								var1 = *b1;
+								var2 = *b2;
+								var3 = *b3;
+								var4 = *b4;
+
+								// Change Y position
+								var2.tileY++;
+								var3.tileY += 2;
+								var4.tileY++;
+
+								// Change X position
+								var2.tileX--;
+								var3.tileX -= 2;
+								var4.tileX--;
+
+								//Change id's
+								var1.id = 44;
+								var2.id = 45;
+								var3.id = 46;
+								var4.id = 47;
+
+								rotar++;
+							}
+
+							/*rectIdle1.x -= 10;
+							rectIdle2.x -= 20;
+							rectIdle3.x -= 10;
+
+							rectIdle.y += 20;
+							rectIdle1.y += 10;
+							rectIdle3.y -= 10;*/
+
+							bloque++;
+						}
+
+				if (rotar == 4) {
+					rotar = 0;
+				}
+
+	case BLOCK_TYPE::CYAN:
+		if ((rotar == 1) && (bloque == 0)) 
+		{
+			if ()
+			{
+
+				rotar++;
+			}
+			else
+			{
+				if () 
+				{
+					
+
+					rotar++;
+				}
+			}
+
+			//rectIdle.x -= 10;
+			//rectIdle2.x -= 10;
+
+			//rectIdle.y += 20;
+			//rectIdle1.y += 10;
+			//rectIdle3.y -= 10;
+
+			bloque++;
+		}
+
+		if ((rotar == 0) && (bloque == 0)) 
+		{
+			if () 
+			{
+				
+			
+
+
+				rotar++;
+			}
+
+			/*rectIdle.x += 10;
+			rectIdle2.x += 10;
+
+			rectIdle.y -= 20;
+			rectIdle1.y -= 10;
+			rectIdle3.y += 10;*/
+
+			bloque++;
+		}
+
+			if (rotar == 2) 
+			{
+				rotar = 0;
+			}
 
 	default:
 		break;
