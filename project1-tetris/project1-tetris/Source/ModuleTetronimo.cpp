@@ -88,48 +88,39 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
-	bool button_press = false;
 	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
 		if (App->input->pads[0].buttons[i] == KEY_DOWN)
 		{
 			button_press = true; break;
 		}
-
-	float fx = 0, fy = 0;
 	fx += reduce_val(App->input->pads[0].left_x, 3000, 2);
 	fy += reduce_val(App->input->pads[0].left_y, 3000, 2);
 	fx += reduce_val(App->input->pads[0].right_x, 3000, 2);
 	fy += reduce_val(App->input->pads[0].right_y, 3000, 2);
 	
-
 	if (pause == false)
 	{
 		if (deltaTime > 700)
 		{
-			blockFall();
+			blockFall(1);
 			deltaTime = 0;
 		}
-
 		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0)
 		{
-			blockMovement(-1);
+			blockMoveX(-1);
 		}
-
-
 		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0 && App->input->num_controllers > 0)
 		{
-			blockMovement(1);
+			blockMoveX(1);
 		}
-
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || fy > 0 && App->input->num_controllers > 0)
 		{
 			if (deltaTime > 25)
 			{
-				blockFall();
+				blockFall(1);
 				deltaTime = 0;
 			}
 		}
-
 		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN || button_press)
 		{
 			Rotation(currentT);
@@ -218,17 +209,7 @@ void ModuleTetronimo::Rotation(int next) {
 				var4.id = 3;
 
 				rotar++;
-
-
-				//rectIdle.x -= 30;
-				//rectIdle1.x -= 20;
-				//rectIdle2.x -= 10;
-
-				//rectIdle1.y -= 10;
-				//rectIdle2.y -= 20;
-				//rectIdle3.y -= 30;
 			}
-
 			else if ((b1->tileX == 8) &&
 				(tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo) &&
 				(tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
@@ -258,7 +239,6 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
 			else if ((b1->tileX == 7) &&
 				(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
 				(tileSet[b2->tileX][b2->tileY - 1].id == -1 || tileSet[b2->tileX][b2->tileY - 1].tetronimo == b2->tetronimo) &&
@@ -316,15 +296,6 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
-			/*rectIdle1.x += 10;
-			rectIdle2.x += 20;
-			rectIdle3.x += 30;
-
-			rectIdle1.y -= 10;
-			rectIdle2.y -= 20;
-			rectIdle3.y -= 30;*/
-
 			bloque++;
 		}
 
@@ -334,24 +305,7 @@ void ModuleTetronimo::Rotation(int next) {
 				(tileSet[b3->tileX - 2][b3->tileY + 2].id == -1 || tileSet[b3->tileX - 2][b3->tileY - 2].tetronimo == b3->tetronimo) &&
 				(tileSet[b4->tileX - 3][b4->tileY + 3].id == -1 || tileSet[b4->tileX - 3][b4->tileY + 3].tetronimo == b4->tetronimo))
 			{
-
-				/*
-					tileSet[f][s].id = -1;
-					tileSet[f + 1][s].id = -1;
-					tileSet[f + 2][s].id = -1;
-					tileSet[f + 3][s].id = -1;
-
-					tileSet[f][s].id = 4;
-					tileSet[f][s + 1].id = 5;
-					tileSet[f][s + 2].id = 5;
-					tileSet[f][s + 3].id = 6;
-
-					b1 = &tileSet[f][s];
-					b2 = &tileSet[f][s + 1];
-					b3 = &tileSet[f][s + 2];
-					b4 = &tileSet[f][s + 3];*/
-
-					// save current block info
+				// save current block info
 				var1 = *b1;
 				var2 = *b2;
 				var3 = *b3;
@@ -375,26 +329,14 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
 			bloque++;
-
-			//rectIdle1.x -= 10;
-			//rectIdle2.x -= 20;
-			//rectIdle3.x -= 30;
-
-			//rectIdle1.y += 10;
-			//rectIdle2.y += 20;
-			//rectIdle3.y += 30;
 		}
-
 		if (rotar == 2) {
 			rotar = 0;
 		}
-
 		break;
 
 	case BLOCK_TYPE::GREEN:
-
 		if ((rotar == 3) && (bloque == 0))
 		{
 			if ((b1->tileX == 1) &&
@@ -454,13 +396,6 @@ void ModuleTetronimo::Rotation(int next) {
 					rotar++;
 				}
 			}
-
-			//rectIdle.x -= 20;
-			//rectIdle1.x -= 10;
-
-			//rectIdle1.y -= 10;
-			//rectIdle2.y -= 20;
-
 			bloque++;
 		}
 		if ((rotar == 2) && (bloque == 0))
@@ -491,13 +426,6 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
-			/*rectIdle1.x += 10;
-			rectIdle2.x += 20;
-
-			rectIdle.y -= 20;
-			rectIdle1.y -= 10;*/
-
 			bloque++;
 		}
 
@@ -537,7 +465,6 @@ void ModuleTetronimo::Rotation(int next) {
 					(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY + 1].tetronimo == b2->tetronimo) &&
 					(tileSet[b3->tileX][b3->tileY + 2].id == -1 || tileSet[b3->tileX][b3->tileY + 2].tetronimo == b3->tetronimo))
 				{
-
 					// save current block info
 					var1 = *b1;
 					var2 = *b2;
@@ -561,13 +488,6 @@ void ModuleTetronimo::Rotation(int next) {
 					rotar++;
 				}
 			}
-
-			/*rectIdle.x += 20;
-			rectIdle1.x += 10;
-
-			rectIdle1.y += 10;
-			rectIdle2.y += 20;*/
-
 			bloque++;
 		}
 
@@ -577,12 +497,6 @@ void ModuleTetronimo::Rotation(int next) {
 				(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY + 1].tetronimo == b2->tetronimo) &&
 				(tileSet[b3->tileX - 2][b3->tileY].id == -1 || tileSet[b3->tileX - 2][b3->tileY].tetronimo == b3->tetronimo))
 			{
-
-				//type[f][s] = 'P';
-				//type[f][s + 1] = 'P';
-				//type[f][s + 2] = 'P';
-				//type[f + 1][s + 1] = 'P';
-
 				// save current block info
 				var1 = *b1;
 				var2 = *b2;
@@ -605,264 +519,218 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
+			bloque++;
+		}
+		if (rotar == 4) {
+			rotar = 0;
+		}
+		break;
 
-			/*rectIdle1.x -= 10;
-			rectIdle2.x -= 20;
+	case BLOCK_TYPE::YELLOW:
+		if ((rotar == 3) && (bloque == 0))
+		{
+			if ((b1->tileX == 1) &&
+				(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX][b2->tileY - 1].id == -1 || tileSet[b2->tileX][b2->tileY - 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b3->tileX + 1][b3->tileY - 2].id == -1 || tileSet[b3->tileX + 1][b3->tileY - 2].tetronimo == b3->tetronimo) &&
+				(tileSet[b4->tileX + 2][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 2][b4->tileY - 1].tetronimo == b4->tetronimo))
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-			rectIdle.y += 20;
-			rectIdle1.y += 10;*/
+				// Change Y position
+				var2.tileY--;
+				var3.tileY -= 2;
+				var4.tileY--;
 
+				// Change X position
+				var1.tileX--;
+				var3.tileX++;
+				var4.tileX += 2;
+
+				//Change id's
+				var1.id = 41;
+				var2.id = 42;
+				var3.id = 43;
+				var4.id = 44;
+
+				rotar++;
+			}
+			else
+			{
+				if ((tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo) &&
+					(tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
+					(tileSet[b3->tileX][b3->tileY - 2].id == -1 || tileSet[b3->tileX][b3->tileY - 2].tetronimo == b3->tetronimo) &&
+					(tileSet[b4->tileX + 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 1].tetronimo == b4->tetronimo))
+				{
+					// save current block info
+					var1 = *b1;
+					var2 = *b2;
+					var3 = *b3;
+					var4 = *b4;
+
+					// Change Y position
+					var2.tileY--;
+					var3.tileY -= 2;
+					var4.tileY--;
+
+					// Change X position
+					var1.tileX -= 2;
+					var2.tileX--;
+					var4.tileX++;
+
+					//Change id's
+					var1.id = 41;
+					var2.id = 42;
+					var3.id = 43;
+					var4.id = 44;
+
+					rotar++;
+				}
+			}
+			bloque++;
+		}
+		if ((rotar == 2) && (bloque == 0))
+		{
+			if ((tileSet[b1->tileX][b1->tileY - 2].id == -1 || tileSet[b1->tileX][b1->tileY - 2].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX + 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY - 1].tetronimo == b2->tetronimo))
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
+
+				// Change Y position
+				var1.tileY -= 2;
+				var2.tileY--;
+				var4.tileY++;
+
+				// Change X position
+				var2.tileX++;
+				var3.tileX += 2;
+				var4.tileX++;
+
+				//Change id's
+				var1.id = 48;
+				var2.id = 46;
+				var3.id = 50;
+				var4.id = 41;
+
+				rotar++;
+			}
+			bloque++;
+		}
+		if ((rotar == 1) && (bloque == 0))
+		{
+			if ((b1->tileX == 8) &&
+				(tileSet[b1->tileX + 1][b1->tileY].id == -1 || tileSet[b1->tileX + 1][b1->tileY].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b3->tileX - 1][b3->tileY + 2].id == -1 || tileSet[b3->tileX - 1][b3->tileY + 2].tetronimo == b3->tetronimo) &&
+				(tileSet[b4->tileX - 2][b4->tileY + 1].id == -1 || tileSet[b4->tileX - 2][b4->tileY + 1].tetronimo == b4->tetronimo))
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
+
+				// Change Y position
+				var2.tileY++;
+				var3.tileY += 2;
+				var4.tileY++;
+
+				// Change X position
+				var1.tileX++;
+				var3.tileX--;
+				var4.tileX -= 2;
+
+				//Change id's
+				var1.id = 47;
+				var2.id = 42;
+				var3.id = 49;
+				var4.id = 48;
+
+				rotar++;
+			}
+			else
+			{
+				if ((b1->tileX + 2 < 10 && b2->tileX + 1 < 10) &&
+					(tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
+					(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY + 1].tetronimo == b2->tetronimo))
+				{
+					// save current block info
+					var1 = *b1;
+					var2 = *b2;
+					var3 = *b3;
+					var4 = *b4;
+
+					// Change Y position
+					var2.tileY++;
+					var3.tileY += 2;
+					var4.tileY++;
+
+					// Change X position
+					var1.tileX += 2;
+					var2.tileX++;
+					var4.tileX--;
+
+					//Change id's
+					var1.id = 47;
+					var2.id = 42;
+					var3.id = 49;
+					var4.id = 48;
+
+					rotar++;
+				}
+			}
+
+			bloque++;
+		}
+
+		if ((rotar == 0) && (bloque == 0))
+		{
+			if ((b1->tileY + 2 < 22) &&
+				(tileSet[b1->tileX][b1->tileY + 2].id == -1 || tileSet[b1->tileX][b1->tileY + 2].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY + 1].tetronimo == b2->tetronimo))
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
+
+				// Change Y position
+				var1.tileY += 2;
+				var2.tileY++;
+				var4.tileY--;
+
+				// Change X position
+				var2.tileX--;
+				var3.tileX -= 2;
+				var4.tileX--;
+
+				//Change id's
+				var1.id = 44;
+				var2.id = 46;
+				var3.id = 45;
+				var4.id = 47;
+
+				rotar++;
+			}
 			bloque++;
 		}
 
 		if (rotar == 4) {
 			rotar = 0;
 		}
-
 		break;
 
-	case BLOCK_TYPE::YELLOW:
-						// yellow
-						if ((rotar == 3) && (bloque == 0)) 
-						{
-							if ((b1->tileX == 1) &&
-								(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
-								(tileSet[b2->tileX][b2->tileY - 1].id == -1 || tileSet[b2->tileX][b2->tileY - 1].tetronimo == b2->tetronimo) &&
-								(tileSet[b3->tileX + 1][b3->tileY - 2].id == -1 || tileSet[b3->tileX + 1][b3->tileY - 2].tetronimo == b3->tetronimo) &&
-								(tileSet[b4->tileX + 2][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 2][b4->tileY - 1].tetronimo == b4->tetronimo))
-							{
-								// save current block info
-								var1 = *b1;
-								var2 = *b2;
-								var3 = *b3;
-								var4 = *b4;
-
-								// Change Y position
-								var2.tileY--;
-								var3.tileY -= 2;
-								var4.tileY--;
-
-								// Change X position
-								var1.tileX--;
-								var3.tileX++;
-								var4.tileX += 2;
-
-								//Change id's
-								var1.id = 41;
-								var2.id = 42;
-								var3.id = 43;
-								var4.id = 44;
-
-									rotar++;
-							}
-							else
-							{
-								if ((tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo) &&
-									(tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
-									(tileSet[b3->tileX][b3->tileY - 2].id == -1 || tileSet[b3->tileX][b3->tileY - 2].tetronimo == b3->tetronimo) &&
-									(tileSet[b4->tileX + 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 1].tetronimo == b4->tetronimo))
-								{
-									// save current block info
-									var1 = *b1;
-									var2 = *b2;
-									var3 = *b3;
-									var4 = *b4;
-
-									// Change Y position
-									var2.tileY--;
-									var3.tileY -= 2;
-									var4.tileY--;
-
-									// Change X position
-									var1.tileX -= 2;
-									var2.tileX--;
-									var4.tileX++;
-
-									//Change id's
-									var1.id = 41;
-									var2.id = 42;
-									var3.id = 43;
-									var4.id = 44;
-
-									rotar++;
-								}
-							}
-
-							/*rectIdle.x -= 20;
-							rectIdle1.x -= 10;
-							rectIdle3.x += 10;
-
-							rectIdle1.y -= 10;
-							rectIdle2.y -= 20;
-							rectIdle3.y -= 10;*/
-
-							bloque++;
-						}
-						if ((rotar == 2) && (bloque == 0)) 
-						{
-							if ((tileSet[b1->tileX][b1->tileY - 2].id == -1 || tileSet[b1->tileX][b1->tileY - 2].tetronimo == b1->tetronimo) &&
-								(tileSet[b2->tileX + 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY - 1].tetronimo == b2->tetronimo))
-							{
-								// save current block info
-								var1 = *b1;
-								var2 = *b2;
-								var3 = *b3;
-								var4 = *b4;
-
-								// Change Y position
-								var1.tileY -= 2;
-								var2.tileY--;
-								var4.tileY++;
-
-								// Change X position
-								var2.tileX++;
-								var3.tileX += 2;
-								var4.tileX++;
-
-								//Change id's
-								var1.id = 48;
-								var2.id = 46;
-								var3.id = 50;
-								var4.id = 41;
-
-								rotar++;
-							}
-
-							//rectIdle1.x += 10;
-							//rectIdle2.x += 20;
-							//rectIdle3.x += 10;
-
-							//rectIdle.y -= 20;
-							//rectIdle1.y -= 10;
-							//rectIdle3.y += 10;
-
-							bloque++;
-						}
-						if ((rotar == 1) && (bloque == 0)) 
-						{
-							if ((b1->tileX == 8) &&
-								(tileSet[b1->tileX + 1][b1->tileY].id == -1 || tileSet[b1->tileX + 1][b1->tileY].tetronimo == b1->tetronimo) &&
-								(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
-								(tileSet[b3->tileX - 1][b3->tileY + 2].id == -1 || tileSet[b3->tileX - 1][b3->tileY + 2].tetronimo == b3->tetronimo) &&
-								(tileSet[b4->tileX - 2][b4->tileY + 1].id == -1 || tileSet[b4->tileX - 2][b4->tileY + 1].tetronimo == b4->tetronimo))
-							{
-								// save current block info
-								var1 = *b1;
-								var2 = *b2;
-								var3 = *b3;
-								var4 = *b4;
-
-								// Change Y position
-								var2.tileY++;
-								var3.tileY += 2;
-								var4.tileY++;
-
-								// Change X position
-								var1.tileX++;
-								var3.tileX--;
-								var4.tileX -= 2;
-
-								//Change id's
-								var1.id = 47;
-								var2.id = 42;
-								var3.id = 49;
-								var4.id = 48;
-
-									rotar++;
-							}
-							else 
-							{
-								if ((b1->tileX + 2 < 10 && b2->tileX + 1 < 10) &&
-									(tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
-									(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY + 1].tetronimo == b2->tetronimo))
-								{
-									// save current block info
-									var1 = *b1;
-									var2 = *b2;
-									var3 = *b3;
-									var4 = *b4;
-
-									// Change Y position
-									var2.tileY++;
-									var3.tileY += 2;
-									var4.tileY++;
-
-									// Change X position
-									var1.tileX += 2;
-									var2.tileX++;
-									var4.tileX--;
-
-									//Change id's
-									var1.id = 47;
-									var2.id = 42;
-									var3.id = 49;
-									var4.id = 48;
-
-									rotar++;
-								}
-
-							/*rectIdle.x += 20;
-							rectIdle1.x += 10;
-							rectIdle3.x -= 10;
-
-
-							rectIdle1.y += 10;
-							rectIdle2.y += 20;
-							rectIdle3.y += 10;*/
-							}
-
-							bloque++;
-						}
-
-						if ((rotar == 0) && (bloque == 0)) 
-						{
-							if ((b1->tileY + 2 < 22) &&
-								(tileSet[b1->tileX][b1->tileY + 2].id == -1 || tileSet[b1->tileX][b1->tileY + 2].tetronimo == b1->tetronimo) &&
-								(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY + 1].tetronimo == b2->tetronimo)) 
-							{
-								// save current block info
-								var1 = *b1;
-								var2 = *b2;
-								var3 = *b3;
-								var4 = *b4;
-
-								// Change Y position
-								var1.tileY += 2;
-								var2.tileY++;
-								var4.tileY--;
-
-								// Change X position
-								var2.tileX--;
-								var3.tileX -= 2;
-								var4.tileX--;
-
-								//Change id's
-								var1.id = 44;
-								var2.id = 46;
-								var3.id = 45;
-								var4.id = 47;
-
-								rotar++;
-							}
-
-							/*rectIdle1.x -= 10;
-							rectIdle2.x -= 20;
-							rectIdle3.x -= 10;
-
-							rectIdle.y += 20;
-							rectIdle1.y += 10;
-							rectIdle3.y -= 10;*/
-
-							bloque++;
-						}
-
-				if (rotar == 4) {
-					rotar = 0;
-				}
-				break;
-
 	case BLOCK_TYPE::CYAN:
-		if ((rotar == 1) && (bloque == 0)) 
+		if ((rotar == 1) && (bloque == 0))
 		{
 			if ((b1->tileX == 8) &&
 				(tileSet[b1->tileX - 1][b1->tileY + 1].id == -1 || tileSet[b1->tileX - 1][b1->tileY + 1].tetronimo == b1->tetronimo) &&
@@ -890,47 +758,36 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-			else
+			else if ((tileSet[b3->tileX][b3->tileY - 1].id == -1 || tileSet[b3->tileX][b3->tileY - 1].tetronimo == b3->tetronimo) &&
+				(tileSet[b4->tileX + 1][b4->tileY - 2].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 2].tetronimo == b4->tetronimo))
 			{
-				if ((tileSet[b3->tileX][b3->tileY - 1].id == -1 || tileSet[b3->tileX][b3->tileY - 1].tetronimo == b3->tetronimo) &&
-					(tileSet[b4->tileX + 1][b4->tileY - 2].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 2].tetronimo == b4->tetronimo))
-				{
-													
-								var1 = *b1;
-								var2 = *b2;
-								var3 = *b3;
-								var4 = *b4;
 
-								// Change Y position
-								var1.tileY++;
-								var3.tileY--;
-								var4.tileY -= 2;
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-								// Change X position
-								var2.tileX++;
-								var4.tileX++;
+				// Change Y position
+				var1.tileY++;
+				var3.tileY--;
+				var4.tileY -= 2;
 
-								//Change id's
-								var1.id = 71;
-								var2.id = 72;
-								var3.id = 73;
-								var4.id = 74;
+				// Change X position
+				var2.tileX++;
+				var4.tileX++;
 
-					rotar++;
-				}
+				//Change id's
+				var1.id = 71;
+				var2.id = 72;
+				var3.id = 73;
+				var4.id = 74;
+
+				rotar++;
 			}
-
-			//rectIdle.x -= 10;
-			//rectIdle2.x -= 10;
-
-			//rectIdle.y += 20;
-			//rectIdle1.y += 10;
-			//rectIdle3.y -= 10;
-
 			bloque++;
 		}
 
-		if ((rotar == 0) && (bloque == 0)) 
+		if ((rotar == 0) && (bloque == 0))
 		{
 			if ((b1->tileY < 22) &&
 				(tileSet[b1->tileX][b1->tileY - 1].id == -1 || tileSet[b1->tileX][b1->tileY - 1].tetronimo == b1->tetronimo) &&
@@ -959,166 +816,133 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
-			/*rectIdle.x += 10;
-			rectIdle2.x += 10;
-
-			rectIdle.y -= 20;
-			rectIdle1.y -= 10;
-			rectIdle3.y += 10;*/
-
 			bloque++;
 		}
-			case BLOCK_TYPE::ORANGE:
 
-				if ((rotar == 1) && (bloque == 0))
-				{
-					if (((b3->tileX == 0) &&
-						(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
-						(tileSet[b4->tileX + 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 1].tetronimo == b4->tetronimo)))
-					{
+	case BLOCK_TYPE::ORANGE:
+		if ((rotar == 1) && (bloque == 0))
+		{
+			if (((b3->tileX == 0) &&
+				(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
+				(tileSet[b4->tileX + 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 1].tetronimo == b4->tetronimo)))
+			{
 
-						// save current block info
-						var1 = *b1;
-						var2 = *b2;
-						var3 = *b3;
-						var4 = *b4;
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-						// Change Y position
-						var2.tileY--;
-						var4.tileY--;
+				// Change Y position
+				var2.tileY--;
+				var4.tileY--;
 
-						// Change X position
-						var1.tileX--;
-						var3.tileX++;
-						var4.tileX += 2;
-						//var4.tileX--;
+				// Change X position
+				var1.tileX--;
+				var3.tileX++;
+				var4.tileX += 2;
+				//var4.tileX--;
 
-						//Change id's
-						var1.id = 81;
-						var2.id = 82;
-						var3.id = 83;
-						var4.id = 84;
+				//Change id's
+				var1.id = 81;
+				var2.id = 82;
+				var3.id = 83;
+				var4.id = 84;
 
-						rotar++;
-					}
-					else {
+				rotar++;
+			}
+			else if ((tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo)) {
 
-						if ((tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
-							(tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo)) {
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-							// save current block info
-							var1 = *b1;
-							var2 = *b2;
-							var3 = *b3;
-							var4 = *b4;
+				// Change Y position
+				var2.tileY--;
+				var4.tileY--;
 
-							// Change Y position
-							var2.tileY--;
-							var4.tileY--;
+				// Change X position
+				var1.tileX -= 2;
+				var2.tileX--;
+				var4.tileX++;
 
-							// Change X position
-							var1.tileX -= 2;
-							var2.tileX--;
-							var4.tileX++;
+				//Change id's
+				var1.id = 81;
+				var2.id = 82;
+				var3.id = 83;
+				var4.id = 84;
 
-							//Change id's
-							var1.id = 81;
-							var2.id = 82;
-							var3.id = 83;
-							var4.id = 84;
+				rotar++;
+			}
+			bloque++;
+		}
 
-							rotar++;
-						}
-					}
+		if ((rotar == 0) && (bloque == 0))
+		{
+			if (((b3->tileY < 21) &&
+				(tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
+				(tileSet[b4->tileX - 1][b4->tileY + 2].id == -1 || tileSet[b4->tileX - 1][b4->tileY + 2].tetronimo == b4->tetronimo)))
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-					//rectIdle.x -= 10;
-					//rectIdle2.x -= 10;
+				// Change Y position
+				var2.tileY++;
+				var4.tileY++;
 
-					//rectIdle.y += 20;
-					//rectIdle1.y += 10;
-					//rectIdle3.y -= 10;
+				// Change X position
+				var1.tileX += 2;
+				var2.tileX++;
+				var4.tileX--;
 
-					bloque++;
-				}
+				//Change id's
+				var1.id = 85;
+				var2.id = 86;
+				var3.id = 87;
+				var4.id = 88;
 
-				if ((rotar == 0) && (bloque == 0))
-				{
-					if (((b3->tileY < 21) &&
-						(tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
-						(tileSet[b4->tileX - 1][b4->tileY + 2].id == -1 || tileSet[b4->tileX - 1][b4->tileY + 2].tetronimo == b4->tetronimo)))
-					{
+				rotar++;
+			}
+			else if ((tileSet[b1->tileX + 2][b1->tileY - 1].id == -1 || tileSet[b1->tileX + 2][b1->tileY - 1].tetronimo == b1->tetronimo) &&
+				(tileSet[b2->tileX + 1][b2->tileY].id == -1 || tileSet[b2->tileX + 1][b2->tileY].tetronimo == b2->tetronimo)) 
+			{
+				// save current block info
+				var1 = *b1;
+				var2 = *b2;
+				var3 = *b3;
+				var4 = *b4;
 
-						// save current block info
-						var1 = *b1;
-						var2 = *b2;
-						var3 = *b3;
-						var4 = *b4;
+				// Change Y position
+				var1.tileY--;
+				var3.tileY--;
 
-						// Change Y position
-						var2.tileY++;
-						var4.tileY++;
+				// Change X position
+				var1.tileX += 2;
+				var2.tileX++;
+				var4.tileX--;
 
-						// Change X position
-						var1.tileX += 2;
-						var2.tileX++;
-						var4.tileX--;
+				//Change id's
+				var1.id = 85;
+				var2.id = 86;
+				var3.id = 87;
+				var4.id = 88;
+			}
+			bloque++;
+		}
+		if (rotar == 2)
+		{
+			rotar = 0;
+		}
 
-						//Change id's
-						var1.id = 85;
-						var2.id = 86;
-						var3.id = 87;
-						var4.id = 88;
-
-
-						rotar++;
-					}
-					else {
-
-						if ((tileSet[b1->tileX + 2][b1->tileY - 1].id == -1 || tileSet[b1->tileX + 2][b1->tileY - 1].tetronimo == b1->tetronimo) &&
-							(tileSet[b2->tileX + 1][b2->tileY].id == -1 || tileSet[b2->tileX + 1][b2->tileY].tetronimo == b2->tetronimo)) {
-
-							// save current block info
-							var1 = *b1;
-							var2 = *b2;
-							var3 = *b3;
-							var4 = *b4;
-
-							// Change Y position
-							var1.tileY--;
-							var3.tileY--;
-
-							// Change X position
-							var1.tileX += 2;
-							var2.tileX++;
-							var4.tileX--;
-
-							//Change id's
-							var1.id = 85;
-							var2.id = 86;
-							var3.id = 87;
-							var4.id = 88;
-
-						}
-					}
-					/*rectIdle.x += 10;
-					rectIdle2.x += 10;
-
-					rectIdle.y -= 20;
-					rectIdle1.y -= 10;
-					rectIdle3.y += 10;*/
-
-					bloque++;
-				}
-
-				if (rotar == 2)
-				{
-					rotar = 0;
-				}
-
-				break;
-			default:
-				break;
+		break;
+	default:
+		break;
 	}
 
 	// make the block non printable 
@@ -1151,16 +975,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 2;
 		tileSet[6][0].id = 3;
 
-		tileSet[3][0].bType = BLOCK_TYPE::RED;
-		tileSet[4][0].bType = BLOCK_TYPE::RED;
-		tileSet[5][0].bType = BLOCK_TYPE::RED;
-		tileSet[6][0].bType = BLOCK_TYPE::RED;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[6][0];
-
 		break;
 
 	case BLOCK_TYPE::GREEN:
@@ -1169,16 +987,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 13;
 		tileSet[4][1].id = 14;
 
-		tileSet[3][0].bType = BLOCK_TYPE::GREEN;
-		tileSet[4][0].bType = BLOCK_TYPE::GREEN;
-		tileSet[5][0].bType = BLOCK_TYPE::GREEN;
-		tileSet[4][1].bType = BLOCK_TYPE::GREEN;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[4][1];
-
 		break;
 
 	case BLOCK_TYPE::BLUE:
@@ -1187,16 +999,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[3][1].id = 33;
 		tileSet[4][1].id = 34;
 
-		tileSet[3][0].bType = BLOCK_TYPE::BLUE;
-		tileSet[4][0].bType = BLOCK_TYPE::BLUE;
-		tileSet[3][1].bType = BLOCK_TYPE::BLUE;
-		tileSet[4][1].bType = BLOCK_TYPE::BLUE;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[3][1];
 		b4 = &tileSet[4][1];
-
 		break;
 
 	case BLOCK_TYPE::YELLOW:
@@ -1205,16 +1011,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 43;
 		tileSet[5][1].id = 44;
 
-		tileSet[3][0].bType = BLOCK_TYPE::YELLOW;
-		tileSet[4][0].bType = BLOCK_TYPE::YELLOW;
-		tileSet[5][0].bType = BLOCK_TYPE::YELLOW;
-		tileSet[5][1].bType = BLOCK_TYPE::YELLOW;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[5][1];
-
 		break;
 
 	case BLOCK_TYPE::PINK:
@@ -1223,16 +1023,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[5][0].id = 53;
 		tileSet[3][1].id = 54;
 
-		tileSet[3][0].bType = BLOCK_TYPE::PINK;
-		tileSet[4][0].bType = BLOCK_TYPE::PINK;
-		tileSet[5][0].bType = BLOCK_TYPE::PINK;
-		tileSet[3][1].bType = BLOCK_TYPE::PINK;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[3][1];
-
 		break;
 
 	case BLOCK_TYPE::CYAN:
@@ -1241,16 +1035,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][0].id = 73;
 		tileSet[5][0].id = 74;
 
-		tileSet[3][1].bType = BLOCK_TYPE::CYAN;
-		tileSet[4][1].bType = BLOCK_TYPE::CYAN;
-		tileSet[4][0].bType = BLOCK_TYPE::CYAN;
-		tileSet[5][0].bType = BLOCK_TYPE::CYAN;
-
 		b1 = &tileSet[3][1];
 		b2 = &tileSet[4][1];
 		b3 = &tileSet[4][0];
 		b4 = &tileSet[5][0];
-
 		break;
 
 	case BLOCK_TYPE::ORANGE:
@@ -1259,16 +1047,10 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		tileSet[4][1].id = 83;
 		tileSet[5][1].id = 84;
 
-		tileSet[3][0].bType = BLOCK_TYPE::ORANGE;
-		tileSet[4][0].bType = BLOCK_TYPE::ORANGE;
-		tileSet[4][1].bType = BLOCK_TYPE::ORANGE;
-		tileSet[5][1].bType = BLOCK_TYPE::ORANGE;
-
 		b1 = &tileSet[3][0];
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[4][1];
 		b4 = &tileSet[5][1];
-
 		break;
 	default:
 		break;
@@ -1281,7 +1063,6 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b3->tetronimo = t;
 		b4->tetronimo = t;
 	}
-
 	currentT = next;
 	return rand() % 7 + 1;
 }
@@ -1320,7 +1101,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//green
-
 	case 10:
 		block->section = { 238, 17, 16, 16 };
 		break;
@@ -1378,7 +1158,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//blue
-
 	case 31:
 		block->section = { 170, 34, 16, 16 };
 		break;
@@ -1404,7 +1183,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//yellow
-
 	case 40:
 		block->section = { 238, 51, 16, 16 };
 		break;
@@ -1450,7 +1228,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//pink
-
 	case 51:
 		block->section = { 170, 68, 16, 16 };
 		break;
@@ -1495,8 +1272,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 238, 68, 16, 16 };
 		break;
 
-		//sky
-
+		//cyan
 	case 70:
 		block->section = { 238, 85, 16, 16 };
 		break;
@@ -1534,7 +1310,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//orange
-
 	case 80:
 		block->section = { 138, 102, 16, 16 };
 		break;
@@ -1571,7 +1346,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 85, 102, 16, 16 };
 		break;
 
-
 	default:
 		break;
 	}
@@ -1584,77 +1358,72 @@ void ModuleTetronimo::blockUpdate(Block* block)
 			tileSet[j][i].tileY = i;
 		}
 	}
-
 	block->bX = 65 + (block->tileX * (B_WIDTH + 1));
 	block->bY = 51 + (block->tileY * (B_HEIGHT + 1));
 }
 
-bool ModuleTetronimo::blockFall()
+bool ModuleTetronimo::blockFall(int p)
 {
-	if (pause == false)
+	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
 	{
-		if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
+		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
+		if (((p == 1 && (b1->tileY + p < 22 && b2->tileY + p < 22 && b3->tileY + p < 22 && b4->tileY + p < 22)) ||
+			(p == -1 && (b1->tileY + p > 1 && b2->tileY + p > 1 && b3->tileY + p > 1 && b4->tileY + p > 1))) &&
+			(tileSet[b1->tileX][b1->tileY + p].id == -1 || tileSet[b1->tileX][b1->tileY + p].tetronimo == b1->tetronimo) &&
+			(tileSet[b2->tileX][b2->tileY + p].id == -1 || tileSet[b2->tileX][b2->tileY + p].tetronimo == b2->tetronimo) &&
+			(tileSet[b3->tileX][b3->tileY + p].id == -1 || tileSet[b3->tileX][b3->tileY + p].tetronimo == b3->tetronimo) &&
+			(tileSet[b4->tileX][b4->tileY + p].id == -1 || tileSet[b4->tileX][b4->tileY + p].tetronimo == b4->tetronimo))
 		{
-			// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
-			if ((b1->tileY + 1 < 22 && b2->tileY + 1 < 22 &&
-				b3->tileY + 1 < 22 && b4->tileY + 1 < 22) &&
-				(tileSet[b1->tileX][b1->tileY + 1].id == -1 || tileSet[b1->tileX][b1->tileY + 1].tetronimo == b1->tetronimo) &&
-				(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
-				(tileSet[b3->tileX][b3->tileY + 1].id == -1 || tileSet[b3->tileX][b3->tileY + 1].tetronimo == b3->tetronimo) &&
-				(tileSet[b4->tileX][b4->tileY + 1].id == -1 || tileSet[b4->tileX][b4->tileY + 1].tetronimo == b4->tetronimo))
+			// save current block info
+			var1 = *b1;
+			var2 = *b2;
+			var3 = *b3;
+			var4 = *b4;
+
+			// change the Y position
+			var1.tileY += p;
+			var2.tileY += p;
+			var3.tileY += p;
+			var4.tileY += p;
+
+			// make the block non printable 
+			tileSet[b1->tileX][b1->tileY].id = -1;
+			tileSet[b2->tileX][b2->tileY].id = -1;
+			tileSet[b3->tileX][b3->tileY].id = -1;
+			tileSet[b4->tileX][b4->tileY].id = -1;
+
+			// fill the next block with the current block info
+			tileSet[b1->tileX][var1.tileY] = var1;
+			tileSet[b2->tileX][var2.tileY] = var2;
+			tileSet[b3->tileX][var3.tileY] = var3;
+			tileSet[b4->tileX][var4.tileY] = var4;
+
+			// change the pointer's position
+			b1 = &tileSet[b1->tileX][var1.tileY];
+			b2 = &tileSet[b2->tileX][var2.tileY];
+			b3 = &tileSet[b3->tileX][var3.tileY];
+			b4 = &tileSet[b4->tileX][var4.tileY];
+
+			return true;
+		}
+		else if (p == 1)
+		{
+			if ((b1->tileY == 1 || b2->tileY == 1 || b3->tileY == 1 || b4->tileY == 1) && App->player->godMode == false)
 			{
-				// save current block info
-				var1 = *b1;
-				var2 = *b2;
-				var3 = *b3;
-				var4 = *b4;
-
-				// increment the Y position
-				var1.tileY++;
-				var2.tileY++;
-				var3.tileY++;
-				var4.tileY++;
-
-				// make the block non printable 
-				tileSet[b1->tileX][b1->tileY].id = -1;
-				tileSet[b2->tileX][b2->tileY].id = -1;
-				tileSet[b3->tileX][b3->tileY].id = -1;
-				tileSet[b4->tileX][b4->tileY].id = -1;
-
-				// fill the next block with the current block info
-				tileSet[b1->tileX][var1.tileY] = var1;
-				tileSet[b2->tileX][var2.tileY] = var2;
-				tileSet[b3->tileX][var3.tileY] = var3;
-				tileSet[b4->tileX][var4.tileY] = var4;
-
-				// change the pointer's position
-				b1 = &tileSet[b1->tileX][var1.tileY];
-				b2 = &tileSet[b2->tileX][var2.tileY];
-				b3 = &tileSet[b3->tileX][var3.tileY];
-				b4 = &tileSet[b4->tileX][var4.tileY];
-
-				//SDL_Delay(200);		// to change because it causes problems with movement X
-				return true;
+				App->sLvl_1->lvl_instaLose = true;
 			}
 			else
 			{
-				if ((b1->tileY == 1 || b2->tileY == 1 || b3->tileY == 1 || b4->tileY == 1))
-				{
-					App->sLvl_1->lvl_instaLose = true;
-				}
-				else
-				{
-					App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
-					rotar = 0;
-					nextT = spawnTetronimo(nextT);
-				}
-				return false;
+				App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
+				rotar = 0;
+				nextT = spawnTetronimo(nextT);
 			}
+			return false;
 		}
 	}
 }
 
-void ModuleTetronimo::blockMovement(int p)
+void ModuleTetronimo::blockMoveX(int p)
 {
 	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
 	{
@@ -1702,7 +1471,50 @@ void ModuleTetronimo::blockMovement(int p)
 		}
 	}
 }
+void ModuleTetronimo::blockUp()
+{
+	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
+	{
+		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
+		if ((b1->tileY - 1 > 0 && b2->tileY - 1 > 0 &&
+			b3->tileY - 1 > 0 && b4->tileY - 1 > 0) &&
+			(tileSet[b1->tileX][b1->tileY - 1].id == -1 || tileSet[b1->tileX][b1->tileY - 1].tetronimo == b1->tetronimo) &&
+			(tileSet[b2->tileX][b2->tileY - 1].id == -1 || tileSet[b2->tileX][b2->tileY - 1].tetronimo == b2->tetronimo) &&
+			(tileSet[b3->tileX][b3->tileY - 1].id == -1 || tileSet[b3->tileX][b3->tileY - 1].tetronimo == b3->tetronimo) &&
+			(tileSet[b4->tileX][b4->tileY - 1].id == -1 || tileSet[b4->tileX][b4->tileY - 1].tetronimo == b4->tetronimo))
+		{
+			// save current block info
+			var1 = *b1;
+			var2 = *b2;
+			var3 = *b3;
+			var4 = *b4;
 
+			// increment the Y position
+			var1.tileY--;
+			var2.tileY--;
+			var3.tileY--;
+			var4.tileY--;
+
+			// make the block non printable 
+			tileSet[b1->tileX][b1->tileY].id = -1;
+			tileSet[b2->tileX][b2->tileY].id = -1;
+			tileSet[b3->tileX][b3->tileY].id = -1;
+			tileSet[b4->tileX][b4->tileY].id = -1;
+
+			// fill the next block with the current block info
+			tileSet[b1->tileX][var1.tileY] = var1;
+			tileSet[b2->tileX][var2.tileY] = var2;
+			tileSet[b3->tileX][var3.tileY] = var3;
+			tileSet[b4->tileX][var4.tileY] = var4;
+
+			// change the pointer's position
+			b1 = &tileSet[b1->tileX][var1.tileY];
+			b2 = &tileSet[b2->tileX][var2.tileY];
+			b3 = &tileSet[b3->tileX][var3.tileY];
+			b4 = &tileSet[b4->tileX][var4.tileY];
+		}
+	}
+}
 bool ModuleTetronimo::lineCheck(int i)
 {
 	for (int j = 0; j < 10; j++)
@@ -1715,6 +1527,7 @@ bool ModuleTetronimo::lineCheck(int i)
 	
 	if (b1->tileY != i && b2->tileY != i && b3->tileY != i && b4->tileY != i)
 	{
+		App->audio->PlayFx(App->sLvl_1->fxLine);
 		return true;
 	}
 }
@@ -2033,7 +1846,6 @@ bool ModuleTetronimo::deleteLine(int i)
 		tileSet[j][i].id = -1;
 	}
 
-	//alberto
 	for (int m = i - 1; m >= 0; m--)
 	{
 		for (int n = 0; n < 10; n++)
@@ -2060,16 +1872,12 @@ bool ModuleTetronimo::deleteLine(int i)
 	return true;
 }
 
-
 void ModuleTetronimo::Debugging()
 {
 
 	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN) //(KEY_REPEAT)		// to fix somehow
 	{
 		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
-		/*App->player->godMode != App->player->godMode;*/
-
-		//App->player->godMode = true;	
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	
@@ -2182,7 +1990,29 @@ void ModuleTetronimo::Debugging()
 
 	if (App->player->godMode == true)
 	{
+		pause = true;
 		App->render->Blit(grid_texture, 62, 50, NULL);
+
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0)
+		{
+			blockMoveX(-1);
+		}
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0 && App->input->num_controllers > 0)
+		{
+			blockMoveX(1);
+		}
+		if (App->input->keys[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || fx > 0 && App->input->num_controllers > 0)
+		{
+			blockFall(-1);
+		}
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || fy > 0 && App->input->num_controllers > 0)
+		{
+				blockFall(1);
+		}
+		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN || button_press)
+		{
+			Rotation(currentT);
+		}
 	}
 
 }

@@ -547,10 +547,6 @@ void ScreenLvl_1::lvl_win()
 		{
 			lvl_instaWin = false;
 
-			/*closeCurtain.loopCount = 0;*/
-			//openCurtain.Reset();	//  no fa res xd
-			//closeCurtain.Reset();
-
 			// Counter
 			v_message = 0;
 			v_insertCoin = 0;
@@ -567,7 +563,6 @@ void ScreenLvl_1::lvl_win()
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
 	}
-	
 
 	LOG("win counter %d", v_WinLose);
 	v_WinLose++;
@@ -593,6 +588,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	}
 	else if (v_WinLose > 200)
 	{
+		App->tetronimo->Disable();
 		if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
 		{
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
