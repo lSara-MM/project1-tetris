@@ -54,7 +54,8 @@ bool ModuleTetronimo::Start()
 
 	nextT = rand() % 7;
 	rotation = 0;
-	combo = 0;
+	v_lines = 0;
+	v_4L = 0;
 	t = 0;
 	pause = false;
 	App->player->godMode = false;
@@ -89,7 +90,7 @@ update_status ModuleTetronimo::Update()
 	fy += reduce_val(App->input->pads[0].left_y, 3000, 2);
 	fx += reduce_val(App->input->pads[0].right_x, 3000, 2);
 	fy += reduce_val(App->input->pads[0].right_y, 3000, 2);
-	
+
 	if (pause == false)
 	{
 		if (deltaTime > 700)
@@ -137,9 +138,47 @@ update_status ModuleTetronimo::Update()
 			App->audio->PlayFx(App->sLvl_1->fxLine);
 			App->points->lines++;
 			App->sLvl_1->linesleft--;
+			v_4L++;
+			v_lines++;
 		}
 	}
-	
+
+	switch (v_lines)
+	{
+	case 1:
+		App->render->TextDraw("Single  50", 64, 405, 0, 0, 255, 255, 16);
+		App->points->score += 50;
+		v_lines = 0;
+		break;
+	case 2:
+		App->render->TextDraw("Double 150", 64, 405, 0, 0, 255, 255, 16);
+		App->points->score += 150;
+		v_lines = 0;
+		break;
+	case 3:
+		App->render->TextDraw("Triple 400", 64, 405, 0, 0, 255, 255, 16);
+		App->points->score += 400;
+		v_lines = 0;
+		break;
+	case 4:
+		App->render->TextDraw("Tetris 900", 64, 405, 0, 0, 0, 0, 16);
+		App->points->score += 900;
+		v_lines = 0;
+		break;
+	default:
+		v_lines = 0;
+		break;
+	}
+	if (v_4L == 4)
+	{
+		if (App->points->p_stack < 10)
+		{
+			App->points->p_stack++;
+		}
+		//App->sLvl_1->v_stack = true;
+		v_4L = 0;
+	}
+	App->sLvl_1->v_points++;
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -1303,7 +1342,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 		//orange
 	case 80:
-		block->section = { 237, 102, 16, 16 };
+		block->section = { 238, 102, 16, 16 };
 		break;
 
 	case 81:
@@ -1396,7 +1435,7 @@ bool ModuleTetronimo::blockFall(int p)
 			b3 = &tileSet[b3->tileX][var3.tileY];
 			b4 = &tileSet[b4->tileX][var4.tileY];
 
-			App->sLvl_1->fall = true;
+			App->sLvl_1->v_fall = true;
 			return true;
 		}
 		else if (p == 1)
@@ -1426,7 +1465,7 @@ bool ModuleTetronimo::blockFall(int p)
 				rotar = 0;
 				nextT = spawnTetronimo(nextT);
 			}
-			App->sLvl_1->fall = false;
+			App->sLvl_1->v_fall = false;
 			return false;
 		}
 	}
@@ -1851,13 +1890,6 @@ void ModuleTetronimo::Debugging()
 		}
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	
-	{
-		//App->player->godMode = false;
-		App->sLvl_1->linesleft--;
-		App->points->lines++;
-	}
-
 	// Manually spawn a block
 	if (App->input->keys[SDL_SCANCODE_F2] == KEY_REPEAT)
 	{
@@ -1950,6 +1982,18 @@ void ModuleTetronimo::Debugging()
 				b4->id = -1;
 			}
 			spawnTetronimo(BLOCK_TYPE::ORANGE);
+		}
+	}
+
+	// +- lines
+	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)
+	{
+		//App->player->godMode = false;
+		if (App->sLvl_1->linesleft > 0)
+		{
+			v_lines++;
+			App->sLvl_1->linesleft--;
+			App->points->lines++;
 		}
 	}
 

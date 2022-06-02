@@ -18,7 +18,7 @@ public:
 	// Loads the necessary textures for the map backgroun
 	bool Start() override;
 
-	int calcScore(int value);
+	void calcScore(int value);
 	int addCreditsStart();
 	int addCreditsLvl();
 

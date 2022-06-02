@@ -188,7 +188,7 @@ bool ScreenLvl_1::Start()
 	}
 
 	// Counter
-	fall = true;
+	v_fall = true;
 	v_message = 0;
 	v_insertCoin = 0;
 	v_points = 0;
@@ -349,7 +349,7 @@ update_status ScreenLvl_1::PostUpdate()
 	//p_drop->1 normal gravity 2 if soft drop (if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) cuando colisiona con linia)
 	//p_stack->number of bars on the rainbow + 1, rainbow llena cada cuatro linias completadas
 	//h->row on which tetomino placed minus 1 (bottom = 0)
-	if (lvl_instaLose == false && fall == false)
+	if (lvl_instaLose == false && v_fall == false)
 	{
 		v_points = 0;
 		
@@ -358,32 +358,58 @@ update_status ScreenLvl_1::PostUpdate()
 		value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
 		App->points->calcScore(value);
 
-		
-		
-		if (v_points < 60 && value != 0)
-		{
-			string s_points = to_string(value);
-			const char* ch_points = s_points.c_str();
+	}
+	if (v_points < 30 && value != 0 && App->tetronimo->v_lines == 0)
+	{
+		string s_points = to_string(value);
+		const char* ch_points = s_points.c_str();
 
-			App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
-			v_points++;
-		}
-		/*else
-		{
-			v_points = 0;
-		}*/
+		App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
+		v_points++;
 	}
 
+	// Rainbow bar			
 
-	//// Rainbow bar			
-	//if ((lines % 4) == 0 && lines != 0)
-	//{
-	//	if (v_stack == true)
-	//	{
 
-	//		v_stack = false;
-	//	}
-	//}
+		// Color bars
+		if (App->points->p_stack >= 1)		// blue
+		{
+			App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
+		}
+		if (App->points->p_stack >= 2)		// cyan
+		{
+			App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
+		}
+		if (App->points->p_stack >= 3)		// green
+		{
+			App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 4)		// "lighter" green
+		{
+			App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 5)		// yellow
+		{
+			App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 6)		// dark yellow
+		{
+			App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 7)		// orange
+		{
+			App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 8)		// dark orange
+		{
+			App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
+		}
+		if (App->points->p_stack >= 9)		// red
+		{
+			App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
+		}
+	
+	
 
 
 	//Bonus
@@ -617,6 +643,7 @@ bool ScreenLvl_1::CleanUp()
 	closeCurtain.Reset();
 
 	// Counter
+	v_fall = true;
 	v_message = 0;
 	v_insertCoin = 0;
 	v_points = 0;

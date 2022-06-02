@@ -73,11 +73,12 @@ public:
 
 public:
 
-	int t;
+	int t;		// tetronimo's counter
 	int currentT;
 	int nextT;
 	int rotation;
-	int combo;
+	int v_lines;
+	int v_4L;
 
 	bool pause;
 	////int

@@ -50,13 +50,12 @@ int Points::addCreditsLvl()
 	return credits;
 }
 
-int Points::calcScore(int value)
+void Points::calcScore(int value)
 {
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
 	score = score + App->sLvl_1->value;
 
-	App->sLvl_1->fall = true;
-	return score;
+	App->sLvl_1->v_fall = true;
 }
 
 void Points::RainbowStack()
