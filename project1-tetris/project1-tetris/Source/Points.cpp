@@ -7,6 +7,8 @@
 #include "ModuleRender.h"
 #include "ModuleAudio.h"
 
+#include "ScreenLvl_1.h"
+
 Points::Points(bool startEnabled) : Module(startEnabled)
 {
 
@@ -53,6 +55,7 @@ int Points::calcScore()
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
 	score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);
 
+	App->sLvl_1->fall = true;
 	return score;
 }
 

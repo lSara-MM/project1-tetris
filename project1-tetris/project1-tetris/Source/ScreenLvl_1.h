@@ -79,6 +79,7 @@ public:
 	int value;
 
 	// counters / timers
+	bool fall;
 	bool v_stack;
 
 	int v_insertCoin;

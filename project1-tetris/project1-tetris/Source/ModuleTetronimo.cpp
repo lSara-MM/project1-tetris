@@ -23,9 +23,6 @@ using namespace std;
 
 //20 (22 spawn) y
 //10 x
-//pieza de spawn en x = 5
-//pieza de spawn en y = 0
-
 bool const r = (srand(time(NULL)), true);
 int rotar = 0;
 
@@ -39,9 +36,7 @@ ModuleTetronimo::ModuleTetronimo(bool startEnabled) : Module(startEnabled)
 
 
 ModuleTetronimo::~ModuleTetronimo()
-{
-}
-
+{}
 
 bool ModuleTetronimo::Start()
 {
@@ -54,9 +49,6 @@ bool ModuleTetronimo::Start()
 			tileSet[j][i].tileX = j;
 			tileSet[j][i].tileY = i;
 			tileSet[j][i].tetronimo = 0;
-
-			//tileSet[j][i].tetronimo = 0;
-			//tileSetInt[j][i] = 0;
 		}
 	}
 
@@ -1404,6 +1396,7 @@ bool ModuleTetronimo::blockFall(int p)
 			b3 = &tileSet[b3->tileX][var3.tileY];
 			b4 = &tileSet[b4->tileX][var4.tileY];
 
+			App->sLvl_1->fall = true;
 			return true;
 		}
 		else if (p == 1)
@@ -1414,10 +1407,26 @@ bool ModuleTetronimo::blockFall(int p)
 			}
 			else
 			{
+				int arr[] = { b1->tileY , b2->tileY , b3->tileY , b4->tileY };
+				for (int i = 0; i < 4 - 1; i++)
+				{
+					for (int j = 0; j < 4 - i - 1; j++)
+					{
+						if (arr[j] > arr[j + 1])
+						{
+							int temp = arr[j];
+							arr[j] = arr[j + 1];
+							arr[j + 1] = temp;
+						}
+					}
+				}
+				App->points->h = 21 - arr[0];
+
 				App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
 				rotar = 0;
 				nextT = spawnTetronimo(nextT);
 			}
+			App->sLvl_1->fall = false;
 			return false;
 		}
 	}
@@ -1828,8 +1837,7 @@ bool ModuleTetronimo::deleteLine(int i)
 
 void ModuleTetronimo::Debugging()
 {
-
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN) //(KEY_REPEAT)		// to fix somehow
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN)
 	{
 		if (App->player->godMode == false)
 		{
@@ -1841,7 +1849,6 @@ void ModuleTetronimo::Debugging()
 			App->player->godMode = false;
 			pause = false;
 		}
-
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	
@@ -1986,5 +1993,4 @@ void ModuleTetronimo::Debugging()
 			Rotation(currentT);
 		}
 	}
-
 }

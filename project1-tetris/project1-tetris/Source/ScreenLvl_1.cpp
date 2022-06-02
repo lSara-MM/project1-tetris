@@ -363,23 +363,17 @@ update_status ScreenLvl_1::PostUpdate()
 	//LOG("insert coin counter %d", v_insertCoin);
 	v_insertCoin++;
 
-
 	// Points
 	//Tetromino placed = p_drop*p_stack(p_stack+h) 
 	//p_drop->1 normal gravity 2 if soft drop (if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) cuando colisiona con linia)
 	//p_stack->number of bars on the rainbow + 1, rainbow llena cada cuatro linias completadas
 	//h->row on which tetomino placed minus 1 (bottom = 0)
-	if (lvl_instaLose == false)
+	if (lvl_instaLose == false && fall == false)
 	{
-		//App->points->h = App->tetronimo->blockRB();
-		/*if (App->points->h != (-1))
-		{
-			v_points = 0;
-			App->points->calcScore();
+		v_points = 0;
+		App->points->calcScore();
 
-			value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
-
-		}
+		value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
 
 		if (v_points < 30 && value != 0)
 		{
@@ -388,7 +382,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 			App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
 			v_points++;
-		}*/
+		}
 	}
 
 
