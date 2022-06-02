@@ -1422,7 +1422,6 @@ bool ModuleTetronimo::blockFall(int p)
 		}
 	}
 }
-
 void ModuleTetronimo::blockMoveX(int p)
 {
 	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
@@ -1471,50 +1470,7 @@ void ModuleTetronimo::blockMoveX(int p)
 		}
 	}
 }
-void ModuleTetronimo::blockUp()
-{
-	if (b1 != nullptr && b2 != nullptr && b3 != nullptr && b4 != nullptr)
-	{
-		// check border's - check if tile below is null OR if it's not, if the block is from the same tetronim, move.
-		if ((b1->tileY - 1 > 0 && b2->tileY - 1 > 0 &&
-			b3->tileY - 1 > 0 && b4->tileY - 1 > 0) &&
-			(tileSet[b1->tileX][b1->tileY - 1].id == -1 || tileSet[b1->tileX][b1->tileY - 1].tetronimo == b1->tetronimo) &&
-			(tileSet[b2->tileX][b2->tileY - 1].id == -1 || tileSet[b2->tileX][b2->tileY - 1].tetronimo == b2->tetronimo) &&
-			(tileSet[b3->tileX][b3->tileY - 1].id == -1 || tileSet[b3->tileX][b3->tileY - 1].tetronimo == b3->tetronimo) &&
-			(tileSet[b4->tileX][b4->tileY - 1].id == -1 || tileSet[b4->tileX][b4->tileY - 1].tetronimo == b4->tetronimo))
-		{
-			// save current block info
-			var1 = *b1;
-			var2 = *b2;
-			var3 = *b3;
-			var4 = *b4;
 
-			// increment the Y position
-			var1.tileY--;
-			var2.tileY--;
-			var3.tileY--;
-			var4.tileY--;
-
-			// make the block non printable 
-			tileSet[b1->tileX][b1->tileY].id = -1;
-			tileSet[b2->tileX][b2->tileY].id = -1;
-			tileSet[b3->tileX][b3->tileY].id = -1;
-			tileSet[b4->tileX][b4->tileY].id = -1;
-
-			// fill the next block with the current block info
-			tileSet[b1->tileX][var1.tileY] = var1;
-			tileSet[b2->tileX][var2.tileY] = var2;
-			tileSet[b3->tileX][var3.tileY] = var3;
-			tileSet[b4->tileX][var4.tileY] = var4;
-
-			// change the pointer's position
-			b1 = &tileSet[b1->tileX][var1.tileY];
-			b2 = &tileSet[b2->tileX][var2.tileY];
-			b3 = &tileSet[b3->tileX][var3.tileY];
-			b4 = &tileSet[b4->tileX][var4.tileY];
-		}
-	}
-}
 bool ModuleTetronimo::lineCheck(int i)
 {
 	for (int j = 0; j < 10; j++)
@@ -1531,7 +1487,6 @@ bool ModuleTetronimo::lineCheck(int i)
 		return true;
 	}
 }
-
 bool ModuleTetronimo::deleteLine(int i)
 {
 	pause = true;
@@ -1655,7 +1610,6 @@ bool ModuleTetronimo::deleteLine(int i)
 			// yellow
 		case 43:
 			tileSet[j][i + 1].id = 40;
-
 			break;
 		case 44:
 			if (tileSet[j][i - 1].id == 43)
@@ -1823,10 +1777,10 @@ bool ModuleTetronimo::deleteLine(int i)
 
 			// orange
 		case 82:
-			tileSet[j][i - 1].id = 81;
+			tileSet[j][i + 1].id = 81;
 			break;
 		case 83:
-			tileSet[j][i + 1].id = 84;
+			tileSet[j][i - 1].id = 84;
 			break;
 		case 85:
 			tileSet[j][i + 1].id = 84;
@@ -1985,7 +1939,16 @@ void ModuleTetronimo::Debugging()
 	// Pause movement
 	if (App->input->keys[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN)
 	{
-		(pause == false) ? pause = true : pause = false;
+		if (pause == false)
+		{
+			pause = true;
+			App->audio->PauseMusic();
+		}
+		else
+		{
+			pause = false;
+			App->audio->ResumeMusic();
+		}
 	}
 
 	if (App->player->godMode == true)

@@ -63,7 +63,6 @@ public:
 	void blockUpdate(Block *block);
 
 	bool blockFall(int p);
-	void blockUp();
 	void blockMoveX(int p);
 	void Rotation(int num);
 

@@ -53,7 +53,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	} 
 	dancingRus3.loop = false;
-	dancingRus3.speed = 1.6;
+	dancingRus3.speed = 0.7;
 	
 	// rus 6
 	for (int i = 0; i < 41; i++)
@@ -65,7 +65,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	}
 	dancingRus6.loop = false;
-	dancingRus6.speed = 1.5;//més ràpid per coincidir amb la música
+	dancingRus6.speed = 1.5;
 
 	// rus 9
 	for (int i = 0; i < 30; i++)
@@ -630,7 +630,6 @@ bool ScreenLvl_1::CleanUp()
 	App->textures->Unload(ruso_texture6);
 	App->textures->Unload(ruso_texture9);
 
-	
 	openCurtain.Reset();	//  no fa res xd
 	closeCurtain.Reset();
 
