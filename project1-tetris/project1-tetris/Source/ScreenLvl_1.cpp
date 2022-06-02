@@ -137,8 +137,6 @@ bool ScreenLvl_1::Start()
 
 
 	// Variables
-	//lines = 0;
-
 	switch (App->points->lvl)
 	{
 	case 1:
@@ -190,6 +188,7 @@ bool ScreenLvl_1::Start()
 	}
 
 	// Counter
+	fall = true;
 	v_message = 0;
 	v_insertCoin = 0;
 	v_points = 0;
@@ -207,30 +206,21 @@ bool ScreenLvl_1::Start()
 	openCurtain.speed = 0.85f;
 	closeCurtain.loopCount = 0;
 	/*closeCurtain.speed = 0.2f;*/
-	
-	//openCurtain.Reset();
-	//closeCurtain.Reset();
-	
-	
 	return ret;
 }
 
 update_status ScreenLvl_1::Update()
 {
-
 	if (openCurtain.GetLoopCount() == 1) {
 		openCurtain.speed = 0;
 	}
 	else { openCurtain.Update(); }
-
-	//dancingRus3.Update();
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
 		App->points->addCreditsLvl();
 		LOG("Curtain loop count: %d", openCurtain.GetLoopCount());
 	}
-
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -239,13 +229,11 @@ update_status ScreenLvl_1::PostUpdate()
 {
 	App->render->Blit(bg_texture, 0, 10, NULL);
 
-	//App->render->Blit(ruso_texture3, 269, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
 	//Curtain animation
 	if (openCurtain.GetLoopCount() == 0)
 	{
 		if (App->points->lvl == 1 || App->points->lvl == 2 || App->points->lvl == 3 || App->points->lvl == 10) {
 			App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
-			//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
 		}
 		else if (App->points->lvl == 4 || App->points->lvl == 5 || App->points->lvl == 6) {
 			App->render->Blit(curtain_texture, 258, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
@@ -255,7 +243,6 @@ update_status ScreenLvl_1::PostUpdate()
 		}
 		
 	}
-
 
 	// strings to const char*
 	string s_round = std::to_string(App->points->lvl);
@@ -272,9 +259,6 @@ update_status ScreenLvl_1::PostUpdate()
 
 	string s_credits = to_string(App->points->credits);
 	const char* ch_credits = s_credits.c_str();
-
-
-	//App->tetronimo->Update();
 
 	// Player 1 section
 	if (lvl_instaLose == false) { App->render->TextDraw("next", 16, 25, 255, 0, 0, 255, 16); } // TO CHANGE CONDITION
@@ -334,8 +318,6 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 	v_message++;
 
-
-
 	// Bottom tower section
 	App->render->TextDraw("high score", 255, 370, 0, 0, 150, 255, 16);
 	App->render->TextDraw("10000", 288, 385, 0, 0, 150, 255, 16);
@@ -360,7 +342,6 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->TextDraw("coin", 496, 450, 148, 151, 255, 255, 15);
 		if (v_insertCoin == 260) { v_insertCoin = 0; }
 	}
-	//LOG("insert coin counter %d", v_insertCoin);
 	v_insertCoin++;
 
 	// Points
@@ -371,11 +352,15 @@ update_status ScreenLvl_1::PostUpdate()
 	if (lvl_instaLose == false && fall == false)
 	{
 		v_points = 0;
-		App->points->calcScore();
+		
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { App->points->p_drop = 2; }
 
 		value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
+		App->points->calcScore(value);
 
-		if (v_points < 30 && value != 0)
+		
+		
+		if (v_points < 60 && value != 0)
 		{
 			string s_points = to_string(value);
 			const char* ch_points = s_points.c_str();
@@ -383,6 +368,10 @@ update_status ScreenLvl_1::PostUpdate()
 			App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
 			v_points++;
 		}
+		/*else
+		{
+			v_points = 0;
+		}*/
 	}
 
 

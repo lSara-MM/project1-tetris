@@ -22,7 +22,7 @@ bool Points::Start()
 	p_drop = 1;
 	p_stack = 0;
 	score = 0;
-	h = -1;
+	h = 0;
 
 	lvl = 3;
 	credits = 0;
@@ -50,10 +50,10 @@ int Points::addCreditsLvl()
 	return credits;
 }
 
-int Points::calcScore()
+int Points::calcScore(int value)
 {
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { p_drop = 2; }
-	score = score + p_drop * (p_stack + 1) * (p_stack + 1 + h);
+	score = score + App->sLvl_1->value;
 
 	App->sLvl_1->fall = true;
 	return score;
