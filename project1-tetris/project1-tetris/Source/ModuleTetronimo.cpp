@@ -1771,6 +1771,10 @@ bool ModuleTetronimo::deleteLine(int i)
 				{
 					tileSet[j][i - 1].id = 20;
 				}
+				if (tileSet[j][i - 1].id == 18)
+				{
+					tileSet[j][i - 1].id = 22;
+				}
 				if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
 				{
 					tileSet[j][i - 1].id = 11;
@@ -1787,6 +1791,10 @@ bool ModuleTetronimo::deleteLine(int i)
 				if (tileSet[j][i + 1].id == 16)
 				{
 					tileSet[j][i + 1].id = 21;
+				}
+				if (tileSet[j][i + 1].id == 17)
+				{
+					tileSet[j][i + 1].id = 19;
 				}
 				if (tileSet[j][i + 1].id == 18)
 				{
@@ -1841,36 +1849,94 @@ bool ModuleTetronimo::deleteLine(int i)
 
 			// yellow
 		case 43:
-			tileSet[j][i - 1].id = 40;
-			break;
-		case 44:
-			if (tileSet[j][i - 1].id == 43)
-			{
-				tileSet[j][i - 1].id = 47;
-			}
-			if (tileSet[j][i - 1].id == 45)
-			{
-				tileSet[j][i - 1].id = 41;
-			}
-			if (tileSet[j][i - 1].id == 46)
-			{
-				tileSet[j][i - 1].id = 44;
-			}
-			if (tileSet[j][i - 1].id == 48)
-			{
-				tileSet[j][i - 1].id = 40;
-			}
-			break;
-		case 45:
-			if (tileSet[j][i + 1].id == 44)
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
 			{
 				tileSet[j][i + 1].id = 40;
 			}
-			if (tileSet[j][i + 1].id == 46)
+			break;
+		case 44:
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
 			{
-				tileSet[j][i + 1].id = 48;
+				if (tileSet[j][i - 1].id == 43)
+				{
+					tileSet[j][i - 1].id = 47;
+				}
+				if (tileSet[j][i - 1].id == 45)
+				{
+					tileSet[j][i - 1].id = 41;
+				}
+				if (tileSet[j][i - 1].id == 46)
+				{
+					tileSet[j][i - 1].id = 44;
+				}
+				if (tileSet[j][i - 1].id == 48)
+				{
+					tileSet[j][i - 1].id = 40;
+				}
 			}
-		break;
+			break;
+		case 45:
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i + 1].id == 44)
+				{
+					tileSet[j][i + 1].id = 40;
+				}
+				if (tileSet[j][i + 1].id == 46)
+				{
+					tileSet[j][i + 1].id = 48;
+				}
+			}
+			break;
+		case 46:
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i - 1].id == 45)
+				{
+					tileSet[j][i - 1].id = 45;
+				}
+				if (tileSet[j][i - 1].id == 48)
+				{
+					tileSet[j][i - 1].id = 48;
+				}
+			}
+			break;
+		case 48:
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i + 1].id == 44)
+				{
+					tileSet[j][i + 1].id = 40;
+				}
+				if (tileSet[j][i + 1].id == 46)
+				{
+					tileSet[j][i + 1].id = 48;
+				}
+				if (tileSet[j][i + 1].id == 49)
+				{
+					tileSet[j][i + 1].id = 41;
+				}
+				if (tileSet[j][i + 1].id == 50)
+				{
+					tileSet[j][i + 1].id = 47;
+				}
+			}
+			break;
+		case 49:
+			tileSet[j][i - 1].id = 40;
+			break;
+		case 50:
+			if (tileSet[j][i - 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i - 1].id == 46)
+				{
+					tileSet[j][i - 1].id = 44;
+				}
+				if (tileSet[j][i - 1].id == 46)
+				{
+					tileSet[j][i - 1].id = 40;
+				}
+			}
 		default:
 
 			break;
