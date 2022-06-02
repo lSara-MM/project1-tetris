@@ -29,19 +29,19 @@ The player loses if enough tetrominoes pile up to reach the top of the playfield
 
 ## Controls
 
-###Tetromino movement
+### Tetromino movement
 
 *Move right -> D
 *Move left -> A
 *Soft drop -> S
 *Rotate -> R
 
-###Initial screen controls
+### Initial screen controls
 
 *Insert credit -> Spacebar 
 *Go to difficulty selection screen -> Enter (requires one credit)
 
-###Difficulty selection screen
+### Difficulty selection screen
 
 *Movement -> A/D keys
 *Select difficulty-> Enter
