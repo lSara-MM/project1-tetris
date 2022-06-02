@@ -80,7 +80,6 @@ public:
 
 	// counters / timers
 	bool v_fall;
-	bool v_stack;
 
 	int v_insertCoin;
 	int v_points;

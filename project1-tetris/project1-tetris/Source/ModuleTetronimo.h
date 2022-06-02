@@ -79,6 +79,7 @@ public:
 	int rotation;
 	int v_lines;
 	int v_4L;
+	bool l;
 
 	bool pause;
 	////int

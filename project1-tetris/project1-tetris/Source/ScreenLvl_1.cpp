@@ -241,7 +241,7 @@ update_status ScreenLvl_1::PostUpdate()
 		else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
 			App->render->Blit(curtain_texture, 257, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
 		}
-		
+
 	}
 
 	// strings to const char*
@@ -352,7 +352,7 @@ update_status ScreenLvl_1::PostUpdate()
 	if (lvl_instaLose == false && v_fall == false)
 	{
 		v_points = 0;
-		
+
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) { App->points->p_drop = 2; }
 
 		value = (App->points->p_drop * (App->points->p_stack + 1) * (App->points->p_stack + 1 + App->points->h));
@@ -369,48 +369,43 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 
 	// Rainbow bar			
-
-
 		// Color bars
-		if (App->points->p_stack >= 1)		// blue
-		{
-			App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
-		}
-		if (App->points->p_stack >= 2)		// cyan
-		{
-			App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
-		}
-		if (App->points->p_stack >= 3)		// green
-		{
-			App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 4)		// "lighter" green
-		{
-			App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 5)		// yellow
-		{
-			App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 6)		// dark yellow
-		{
-			App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 7)		// orange
-		{
-			App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 8)		// dark orange
-		{
-			App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
-		}
-		if (App->points->p_stack >= 9)		// red
-		{
-			App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
-		}
-	
-	
-
+	if (App->points->p_stack >= 1)		// blue
+	{
+		App->render->DrawQuad({ 16, 461, 17, 4 }, 0, 0, 255, 255, 0);
+	}
+	if (App->points->p_stack >= 2)		// cyan
+	{
+		App->render->DrawQuad({ 16, 457, 17, 4 }, 0, 255, 255, 255, 0);
+	}
+	if (App->points->p_stack >= 3)		// green
+	{
+		App->render->DrawQuad({ 16, 453, 17, 4 }, 0, 255, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 4)		// "lighter" green
+	{
+		App->render->DrawQuad({ 16, 449, 17, 4 }, 75, 255, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 5)		// yellow
+	{
+		App->render->DrawQuad({ 16, 445, 17, 4 }, 255, 255, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 6)		// dark yellow
+	{
+		App->render->DrawQuad({ 16, 441, 17, 4 }, 255, 221, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 7)		// orange
+	{
+		App->render->DrawQuad({ 16, 437, 17, 4 }, 255, 147, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 8)		// dark orange
+	{
+		App->render->DrawQuad({ 16, 433, 17, 4 }, 255, 75, 0, 255, 0);
+	}
+	if (App->points->p_stack >= 9)		// red
+	{
+		App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
+	}
 
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)

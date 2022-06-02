@@ -140,45 +140,18 @@ update_status ModuleTetronimo::Update()
 			App->sLvl_1->linesleft--;
 			v_4L++;
 			v_lines++;
+			App->sLvl_1->v_points = 0;
 		}
 	}
-
-	switch (v_lines)
-	{
-	case 1:
-		App->render->TextDraw("Single  50", 64, 405, 0, 0, 255, 255, 16);
-		App->points->score += 50;
-		v_lines = 0;
-		break;
-	case 2:
-		App->render->TextDraw("Double 150", 64, 405, 0, 0, 255, 255, 16);
-		App->points->score += 150;
-		v_lines = 0;
-		break;
-	case 3:
-		App->render->TextDraw("Triple 400", 64, 405, 0, 0, 255, 255, 16);
-		App->points->score += 400;
-		v_lines = 0;
-		break;
-	case 4:
-		App->render->TextDraw("Tetris 900", 64, 405, 0, 0, 0, 0, 16);
-		App->points->score += 900;
-		v_lines = 0;
-		break;
-	default:
-		v_lines = 0;
-		break;
-	}
+	
 	if (v_4L == 4)
 	{
 		if (App->points->p_stack < 10)
 		{
 			App->points->p_stack++;
 		}
-		//App->sLvl_1->v_stack = true;
 		v_4L = 0;
 	}
-	App->sLvl_1->v_points++;
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -195,6 +168,49 @@ update_status ModuleTetronimo::PostUpdate()
 				App->render->Blit(blockTexture, (65 + (j * (B_WIDTH + 1))), (51 + (i * (B_HEIGHT + 1))), tileSet[j][i].pSection);
 			}
 		}
+	}
+
+	if (App->sLvl_1->v_points < 30 && v_lines != 0)
+	{
+		switch (v_lines)
+		{
+		case 1:
+			App->render->TextDraw("Single  50", 64, 405, 0, 0, 255, 255, 16);
+			if (App->sLvl_1->v_points == 0)
+			{
+				App->points->score += 50;
+			}
+			break;
+		case 2:
+			App->render->TextDraw("Double 150", 64, 405, 0, 0, 255, 255, 16);
+			if (App->sLvl_1->v_points == 0)
+			{
+				App->points->score += 150;
+			}
+			break;
+		case 3:
+			App->render->TextDraw("Triple 400", 64, 405, 0, 0, 255, 255, 16);
+			if (App->sLvl_1->v_points == 0)
+			{
+				App->points->score += 400;
+			}
+			break;
+		case 4:
+			App->render->TextDraw("Tetris 900", 64, 405, 0, 0, 0, 0, 16);
+			if (App->sLvl_1->v_points == 0)
+			{
+				App->points->score += 900;
+			}
+			break;
+		default:
+			v_lines = 0;
+			break;
+		}
+		App->sLvl_1->v_points++;
+	}
+	else
+	{
+		v_lines = 0;
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -1991,7 +2007,7 @@ void ModuleTetronimo::Debugging()
 		//App->player->godMode = false;
 		if (App->sLvl_1->linesleft > 0)
 		{
-			v_lines++;
+			v_4L++;
 			App->sLvl_1->linesleft--;
 			App->points->lines++;
 		}
