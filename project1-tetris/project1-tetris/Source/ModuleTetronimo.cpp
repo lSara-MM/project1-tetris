@@ -52,46 +52,70 @@ bool ModuleTetronimo::Start()
 		}
 	}
 
-	int randB[] = { 10, 20, 30, 40, 61, 70, 80 };
+	int randB[] = { 0, 10, 30, 40, 61, 70, 80 };
 	// red, green, blue, yellow, pink, cyan, orange
 	switch (App->points->lvl)
 	{
 	case 4:
-		tileSet[0][14].id = 10;
+		tileSet[0][14].id = 0;
 		tileSet[0][15].id = 30;
 		tileSet[0][16].id = 61;
 		tileSet[0][17].id = 80;
-		tileSet[0][18].id = 20;
+		tileSet[0][18].id = 10;
 		tileSet[0][19].id = 40;
 		tileSet[0][20].id = 70;
 		tileSet[0][21].id = 10;
 
-		tileSet[9][14].id = 20;
+		tileSet[9][14].id = 10;
 		tileSet[9][15].id = 40;
 		tileSet[9][16].id = 70;
-		tileSet[9][17].id = 10;
+		tileSet[9][17].id = 0;
 		tileSet[9][18].id = 30;
 		tileSet[9][19].id = 61;
 		tileSet[9][20].id = 80;
-		tileSet[9][21].id = 20;
+		tileSet[9][21].id = 10;
 		break;
 	case 5:
-		tileSet[0][17].id = 10;
-		tileSet[4][17].id = 20;
+		tileSet[0][17].id = 0;
+		tileSet[4][17].id = 10;
 		tileSet[2][18].id = 30;
 		tileSet[6][18].id = 40;
-		tileSet[7][18].id = 80;
+		tileSet[7][18].id = 61;
 		tileSet[5][19].id = 70;
 		tileSet[3][20].id = 80;
-		tileSet[8][20].id = 10;
-		tileSet[1][21].id = 20;
-		tileSet[7][21].id = 20;
+		tileSet[8][20].id = 0;
+		tileSet[1][21].id = 10;
+		tileSet[7][21].id = 30;
 		break;
+	case 6:
+		tileSet[0][21].id = 30;
+		tileSet[1][21].id = 40;
+		tileSet[1][20].id = 40;
+		tileSet[2][20].id = 61;
+		tileSet[2][19].id = 80;
+		tileSet[3][19].id = 0;
+		tileSet[3][21].id = 61;
+		tileSet[3][18].id = 30;
+		tileSet[4][18].id = 40;
+		tileSet[4][17].id = 0;
+		tileSet[4][20].id = 70;
+		tileSet[4][21].id = 70;
+
+		tileSet[5][17].id = 10;
+		tileSet[5][18].id = 61;
+		tileSet[5][20].id = 80;
+		tileSet[5][21].id = 80;
+		tileSet[6][18].id = 70;
+		tileSet[6][19].id = 10;
+		tileSet[6][21].id = 0;
+		tileSet[7][19].id = 30;
+		tileSet[7][20].id = 0;
+		tileSet[8][20].id = 10;
+		tileSet[8][21].id = 10;
+		tileSet[9][21].id = 30;
 	default:
 		break;
 	}
-
-
 
 	nextT = rand() % 7;
 	rotation = 0;
@@ -1269,7 +1293,6 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//blue
-
 	case 30:
 		block->section = { 238, 34, 16, 16 };
 		break;
