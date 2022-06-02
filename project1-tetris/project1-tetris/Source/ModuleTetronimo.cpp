@@ -81,6 +81,12 @@ bool ModuleTetronimo::Start()
 		tileSet[2][18].id = 30;
 		tileSet[6][18].id = 40;
 		tileSet[7][18].id = 80;
+		tileSet[5][19].id = 70;
+		tileSet[3][20].id = 80;
+		tileSet[8][20].id = 10;
+		tileSet[1][21].id = 20;
+		tileSet[7][21].id = 20;
+		break;
 	default:
 		break;
 	}
