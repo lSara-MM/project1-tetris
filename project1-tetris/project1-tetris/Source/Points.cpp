@@ -22,7 +22,7 @@ bool Points::Start()
 	score = 0;
 	h = -1;
 
-	lvl = 3;
+	lvl = 6;
 	credits = 0;
 	lines = 0;
 

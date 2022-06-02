@@ -203,13 +203,15 @@ bool ScreenLvl_1::Start()
 	// Game
 	App->tetronimo->Start();
 
-	//openCurtain.loopCount = 0;
-	////openCurtain.speed = 0.2f;
-	//closeCurtain.loopCount = 0;
-	////closeCurtain.speed = 0.2f;
+	openCurtain.loopCount = 0;
+	openCurtain.speed = 0.85f;
+	closeCurtain.loopCount = 0;
+	/*closeCurtain.speed = 0.2f;*/
+	
 	//openCurtain.Reset();
 	//closeCurtain.Reset();
-
+	
+	
 	return ret;
 }
 
@@ -241,8 +243,17 @@ update_status ScreenLvl_1::PostUpdate()
 	//Curtain animation
 	if (openCurtain.GetLoopCount() == 0)
 	{
-		App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
-		//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
+		if (App->points->lvl == 1 || App->points->lvl == 2 || App->points->lvl == 3 || App->points->lvl == 10) {
+			App->render->Blit(curtain_texture, 258, 194, &(openCurtain.GetCurrentFrame()), 0.85f);
+			//App->tetronimo->spawnTetronimo(App->tetronimo->nextT);
+		}
+		else if (App->points->lvl == 4 || App->points->lvl == 5 || App->points->lvl == 6) {
+			App->render->Blit(curtain_texture, 258, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
+		}
+		else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
+			App->render->Blit(curtain_texture, 257, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
+		}
+		
 	}
 
 
@@ -496,13 +507,20 @@ void ScreenLvl_1::lvl_win()
 			(App->points->lvl == 6 && dancingRus6.HasFinished() == true) ||
 			(App->points->lvl == 9 && dancingRus9.HasFinished() == true))
 		{
-			LOG("Close Curtain");
-			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-			closeCurtain.Update();
-
-
+			if (App->points->lvl == 3) {
+				LOG("Close Curtain");
+				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+				closeCurtain.Update();
+			}
+			else if (App->points->lvl == 6) {
+				LOG("Close Curtain");
+				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+				closeCurtain.Update();
+			}
+			
 			if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
 			{
+				
 				lvl_instaWin = false;
 				App->points->lvl++;
 				App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
@@ -511,19 +529,32 @@ void ScreenLvl_1::lvl_win()
 	}
 	else
 	{
-		if (v_WinLose >= 574)
+		if (v_WinLose >= 374)
 		{
-			LOG("Close Curtain");
-			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-			closeCurtain.Update();
+			if (App->points->lvl == 1 || App->points->lvl == 2 || App->points->lvl == 10) {
+				LOG("Close Curtain");
+				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+				closeCurtain.Update();
+			}
+			else if (App->points->lvl == 4 || App->points->lvl == 5) {
+				LOG("Close Curtain");
+				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+				closeCurtain.Update();
+			}
+			else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
+				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 257, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+				closeCurtain.Update();
+			}
+			
 		}
 
-		if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
+		if (v_WinLose == 380)		// cambiar (depende del bonus)
 		{
 			lvl_instaWin = false;
 
-			openCurtain.Reset();	//  no fa res xd
-			closeCurtain.Reset();
+			/*closeCurtain.loopCount = 0;*/
+			//openCurtain.Reset();	//  no fa res xd
+			//closeCurtain.Reset();
 
 			// Counter
 			v_message = 0;
