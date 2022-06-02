@@ -1831,7 +1831,17 @@ void ModuleTetronimo::Debugging()
 
 	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN) //(KEY_REPEAT)		// to fix somehow
 	{
-		(App->player->godMode == false) ? App->player->godMode = true : App->player->godMode = false;
+		if (App->player->godMode == false)
+		{
+			App->player->godMode = true;
+			pause = true;
+		}
+		else
+		{
+			App->player->godMode = false;
+			pause = false;
+		}
+
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_DOWN)	
@@ -1953,7 +1963,6 @@ void ModuleTetronimo::Debugging()
 
 	if (App->player->godMode == true)
 	{
-		pause = true;
 		App->render->Blit(grid_texture, 62, 50, NULL);
 
 		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0)
