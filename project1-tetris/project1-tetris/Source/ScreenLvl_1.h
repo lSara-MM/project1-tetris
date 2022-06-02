@@ -51,6 +51,8 @@ public:
 	uint fxYou_DidIt = 0;
 	uint fxClearing_Bars = 0;
 	uint fxGameOver = 0;
+	uint fxruso3 = 0;
+	uint fxruso6 = 0;
 
 
 	// Curtain texture and animation pointer

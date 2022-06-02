@@ -53,7 +53,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	} 
 	dancingRus3.loop = false;
-	dancingRus3.speed = 0.7;
+	dancingRus3.speed = 1.6;
 	
 	// rus 6
 	for (int i = 0; i < 41; i++)
@@ -65,7 +65,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	}
 	dancingRus6.loop = false;
-	dancingRus6.speed = 0.7;
+	dancingRus6.speed = 1.5;//més ràpid per coincidir amb la música
 
 	// rus 9
 	for (int i = 0; i < 30; i++)
@@ -132,6 +132,8 @@ bool ScreenLvl_1::Start()
 	fxClearing_Bars = App->audio->LoadFx("Assets/Audio/FX/clearing_bars.wav");
 	fxGameOver = App->audio->LoadFx("Assets/Audio/FX/gameover.wav");
 	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
+	fxruso3 = App->audio->LoadFx("Assets/Audio/FX/03_Hopak__Round_3_.wav");
+	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
 
 
 	// Variables
@@ -469,7 +471,7 @@ void ScreenLvl_1::lvl_win()
 			{
 				if (v_WinLose == 374)
 				{
-					App->audio->PlayMusic("Assets/Audio/Music/03_Hopak_(Round_3).ogg", 0);
+					App->audio->PlayFx(fxruso3, 0);
 				}
 				dancingRus3.Update();
 				App->render->Blit(ruso_texture3, 272, 104, &(dancingRus3.GetCurrentFrame()), 0.85f);
@@ -479,7 +481,7 @@ void ScreenLvl_1::lvl_win()
 			{
 				if (v_WinLose == 374)
 				{
-					App->audio->PlayMusic("Assets/Audio/Music/06_(Round_6).ogg", 0);
+					App->audio->PlayFx(fxruso6, 0);
 				}
 				dancingRus6.Update();
 				App->render->Blit(ruso_texture6, 272, 98, &(dancingRus6.GetCurrentFrame()), 0.85f);
