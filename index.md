@@ -43,6 +43,7 @@ VIDEO
 * Direct Win -> F3
 * Direct Lose -> F4
 * Go directly to first level -> F5
+* Add completed lines / Subtract lines to complete -> F6
 
 
 ## Quokka Games Studios
