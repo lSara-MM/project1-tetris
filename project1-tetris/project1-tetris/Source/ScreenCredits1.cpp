@@ -57,6 +57,11 @@ update_status ScreenCredits1::PostUpdate()
 	App->render->TextDraw("Alberto Hidalgo Garcia", 160, 410, 255, 255, 255, 255, 12);
 	App->render->TextDraw("Andreu Nosas Soler", 160, 435, 255, 255, 255, 255, 12);
 
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }

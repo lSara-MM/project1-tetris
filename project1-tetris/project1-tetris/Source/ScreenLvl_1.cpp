@@ -100,7 +100,7 @@ bool ScreenLvl_1::Start()
 	LOG("Loading curtain assets\n");
 
 	bool ret = true;
-	if (App->points->lvl <= 3 )
+	if (App->points->lvl <= 3 || App->points->lvl==10)
 	{
 		bg_texture = App->textures->Load("Assets/ss_easyBg.png");
 	}
@@ -472,7 +472,7 @@ void ScreenLvl_1::lvl_win()
 
 	
 
-	if (App->points->lvl == 3 || App->points->lvl == 6 || App->points->lvl == 9)
+	if (App->points->lvl == 3 || App->points->lvl == 6)
 	{
 		if (v_WinLose >= 374)
 		{
@@ -498,14 +498,9 @@ void ScreenLvl_1::lvl_win()
 				App->render->Blit(ruso_texture6, 272, 98, &(dancingRus6.GetCurrentFrame()), 0.85f);
 			}
 
-			if (App->points->lvl == 9)
-			{
-
-			}
 		}
 		if ((App->points->lvl == 3 && dancingRus3.HasFinished() == true) ||
-			(App->points->lvl == 6 && dancingRus6.HasFinished() == true) ||
-			(App->points->lvl == 9 && dancingRus9.HasFinished() == true))
+			(App->points->lvl == 6 && dancingRus6.HasFinished() == true))
 		{
 			if (App->points->lvl == 3) {
 				LOG("Close Curtain");
@@ -598,7 +593,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	}
 	else if (v_WinLose > 200)
 	{
-		if (App->input->keys[SDL_SCANCODE_Z] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
 		{
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
@@ -610,7 +605,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 		App->render->TextDraw(ch_loseContinue, 141, 369, 255, 255, 255, 255, 16);
 
-		if (v_WinLose % 50 == 0)
+		if (v_WinLose % 25 == 0)
 		{
 			v_loseContinue--;
 		}

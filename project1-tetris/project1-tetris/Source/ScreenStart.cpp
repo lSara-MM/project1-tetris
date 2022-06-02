@@ -105,6 +105,11 @@ update_status ScreenStart::PostUpdate()
 		App->render->TextDraw(ch_credits, 384, 448, 0, 0, 255, 255, 15);
 	}
 
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+	}
 
 
 	// how to draw the copyright symbol?
