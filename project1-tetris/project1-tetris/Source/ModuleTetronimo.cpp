@@ -1269,6 +1269,11 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		break;
 
 		//blue
+
+	case 30:
+		block->section = { 238, 34, 16, 16 };
+		break;
+
 	case 31:
 		block->section = { 170, 34, 16, 16 };
 		break;
