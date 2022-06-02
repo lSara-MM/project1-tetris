@@ -1838,7 +1838,39 @@ bool ModuleTetronimo::deleteLine(int i)
 		case 34:
 			tileSet[j][i - 1].id = 36;
 			break;
-			
+
+			// yellow
+		case 43:
+			tileSet[j][i - 1].id = 40;
+			break;
+		case 44:
+			if (tileSet[j][i - 1].id == 43)
+			{
+				tileSet[j][i - 1].id = 47;
+			}
+			if (tileSet[j][i - 1].id == 45)
+			{
+				tileSet[j][i - 1].id = 41;
+			}
+			if (tileSet[j][i - 1].id == 46)
+			{
+				tileSet[j][i - 1].id = 44;
+			}
+			if (tileSet[j][i - 1].id == 48)
+			{
+				tileSet[j][i - 1].id = 40;
+			}
+			break;
+		case 45:
+			if (tileSet[j][i + 1].id == 44)
+			{
+				tileSet[j][i + 1].id = 40;
+			}
+			if (tileSet[j][i + 1].id == 46)
+			{
+				tileSet[j][i + 1].id = 48;
+			}
+		break;
 		default:
 
 			break;
