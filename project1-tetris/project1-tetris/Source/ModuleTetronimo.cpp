@@ -52,6 +52,41 @@ bool ModuleTetronimo::Start()
 		}
 	}
 
+	int randB[] = { 10, 20, 30, 40, 61, 70, 80 };
+	// red, green, blue, yellow, pink, cyan, orange
+	switch (App->points->lvl)
+	{
+	case 4:
+		tileSet[0][14].id = 10;
+		tileSet[0][15].id = 30;
+		tileSet[0][16].id = 61;
+		tileSet[0][17].id = 80;
+		tileSet[0][18].id = 20;
+		tileSet[0][19].id = 40;
+		tileSet[0][20].id = 70;
+		tileSet[0][21].id = 10;
+
+		tileSet[9][14].id = 20;
+		tileSet[9][15].id = 40;
+		tileSet[9][16].id = 70;
+		tileSet[9][17].id = 10;
+		tileSet[9][18].id = 30;
+		tileSet[9][19].id = 61;
+		tileSet[9][20].id = 80;
+		tileSet[9][21].id = 20;
+		break;
+	case 5:
+		tileSet[0][17].id = 10;
+		tileSet[4][17].id = 20;
+		tileSet[2][18].id = 30;
+		tileSet[6][18].id = 40;
+		tileSet[7][18].id = 80;
+	default:
+		break;
+	}
+
+
+
 	nextT = rand() % 7;
 	rotation = 0;
 	v_lines = 0;
@@ -170,6 +205,7 @@ update_status ModuleTetronimo::PostUpdate()
 		}
 	}
 
+	// score + text render
 	if (App->sLvl_1->v_points < 30 && v_lines != 0)
 	{
 		switch (v_lines)
@@ -218,6 +254,28 @@ update_status ModuleTetronimo::PostUpdate()
 
 bool ModuleTetronimo::CleanUp()
 {
+	for (int i = 0; i < 22; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			tileSet[j][i].id = -1;
+			tileSet[j][i].tileX = j;
+			tileSet[j][i].tileY = i;
+			tileSet[j][i].tetronimo = 0;
+		}
+	}
+
+	nextT = rand() % 7;
+	rotation = 0;
+	v_lines = 0;
+	v_4L = 0;
+	t = 0;
+	pause = false;
+
+	bool pause;
+
+	SDL_Texture* grid_texture = nullptr;
+	SDL_Texture* blockTexture = nullptr;
 	return true;
 }
 

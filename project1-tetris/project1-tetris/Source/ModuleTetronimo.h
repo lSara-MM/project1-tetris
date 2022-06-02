@@ -79,15 +79,9 @@ public:
 	int rotation;
 	int v_lines;
 	int v_4L;
-	bool l;
 
 	bool pause;
-	////int
-	//int tileSetInt[22][10];
-	//int bX, bY;
-	//SDL_Rect section;	// { spritesheet coords, B_WIDTH, B_HEIGHT }
-
-
+	
 	//class
 	Block tileSet[10][22];
 	Block* b1, *b2, *b3, *b4, var1, var2, var3, var4, v;
