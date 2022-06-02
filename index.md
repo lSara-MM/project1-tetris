@@ -39,7 +39,7 @@ VIDEO
 
 ### Debug controls
 * God Mode -> F1
-* Spawn block manually -> F2
+* Spawn block manually -> F2 (Hold) + 0 [Random]/ 1 [Red]/ 2 [Green]/ 3 [Blue]/ 4 [Yellow]/ 5 [Pink]/ 6 [Cyan]/ 7 [Orange] 
 * Direct Win -> F3
 * Direct Lose -> F4
 * Go directly to first level -> F5
