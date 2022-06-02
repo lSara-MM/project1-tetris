@@ -1937,6 +1937,51 @@ bool ModuleTetronimo::deleteLine(int i)
 					tileSet[j][i - 1].id = 40;
 				}
 			}
+			break;
+			
+			// pink
+		case 51:
+			tileSet[j][i + 1].id = 61;
+			break;
+		case 54:
+			if (tileSet[j][i - 1].id == 46)
+			{
+				tileSet[j][i - 1].id = 58;
+			}
+			if (tileSet[j][i - 1].id == 51)
+			{
+				tileSet[j][i - 1].id = 58;
+			}
+			if (tileSet[j][i - 1].id == 55)
+			{
+				tileSet[j][i - 1].id = 61;
+			}
+			if (tileSet[j][i - 1].id == 56)
+			{
+				tileSet[j][i - 1].id = 60;
+			}
+			break;
+		case 55:
+			if (tileSet[j][i + 1].tetronimo == tileSet[j][i].tetronimo)
+			{
+				if (tileSet[j][i + 1].id == 54)
+				{
+					tileSet[j][i + 1].id = 61;
+				}
+				if (tileSet[j][i + 1].id == 56)
+				{
+					tileSet[j][i + 1].id = 55;
+				}
+				if (tileSet[j][i + 1].id == 57)
+				{
+					tileSet[j][i + 1].id = 58;
+				}
+				if (tileSet[j][i + 1].id == 59)
+				{
+					tileSet[j][i + 1].id = 53;
+				}
+			}
+			break;
 		default:
 
 			break;
