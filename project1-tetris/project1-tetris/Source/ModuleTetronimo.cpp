@@ -1311,7 +1311,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 		//orange
 	case 80:
-		block->section = { 138, 102, 16, 16 };
+		block->section = { 237, 102, 16, 16 };
 		break;
 
 	case 81:
@@ -1675,7 +1675,7 @@ bool ModuleTetronimo::deleteLine(int i)
 			{
 				tileSet[j][i - 1].id = 44;
 			}
-			if (tileSet[j][i - 1].id == 46)
+			if (tileSet[j][i - 1].id == 48)
 			{
 				tileSet[j][i - 1].id = 40;
 			}

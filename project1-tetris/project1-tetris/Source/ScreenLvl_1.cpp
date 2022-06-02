@@ -53,7 +53,7 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		}
 	} 
 	dancingRus3.loop = false;
-	dancingRus3.speed = 0.7;
+	dancingRus3.speed = 0.6;
 	
 	// rus 6
 	for (int i = 0; i < 41; i++)
