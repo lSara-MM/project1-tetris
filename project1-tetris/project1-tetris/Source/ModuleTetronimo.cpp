@@ -110,18 +110,18 @@ update_status ModuleTetronimo::Update()
 			deltaTime = 0;
 		}
 
-		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0)
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0)
 		{
 			blockMovement(-1);
 		}
 
 
-		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0)
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0 && App->input->num_controllers > 0)
 		{
 			blockMovement(1);
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || fy > 0)
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT || fy > 0 && App->input->num_controllers > 0)
 		{
 			if (deltaTime > 25)
 			{
