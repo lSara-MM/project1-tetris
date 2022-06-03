@@ -1718,314 +1718,318 @@ bool ModuleTetronimo::lineCheck(int i)
 bool ModuleTetronimo::deleteLine(int i)
 {
 	pause = true;
-	
+
 	for (int j = 0; j < 10; j++)
 	{
-			switch (tileSet[j][i].id)
+		switch (tileSet[j][i].id)
+		{
+			// red
+		case 4:
+			if (tileSet[j][i + 1].id == 6)
 			{
-				// red
-			case 4:
-				if (tileSet[j][i + 1].id == 6)
-				{
-					tileSet[j][i + 1].id = 0;
-				}
-				if (tileSet[j][i + 1].id == 5)
-				{
-					tileSet[j][i + 1].id = 4;
-				}
-				break;
-			case 5:
-				if (tileSet[j][i - 1].id == 4)
-				{
-					tileSet[j][i - 1].id = 4;
-				}
-				break;
-			case 6:
-				if (tileSet[j][i - 1].id == 4)
-				{
-					tileSet[j][i - 1].id = 0;
-				}
-				if (tileSet[j][i - 1].id == 5)
-				{
-					tileSet[j][i - 1].id = 6;
-				}
-				break;
-
-				// green
-			case 12:
-				tileSet[j][i + 1].id = 10;
-				break;
-			case 14:
-				if (tileSet[j][i - 1].id == 12)
-				{
-					tileSet[j][i - 1].id = 19;
-				}
-				if (tileSet[j][i - 1].id == 15)
-				{
-					tileSet[j][i - 1].id = 10;
-				}
-				if (tileSet[j][i - 1].id == 16)
-				{
-					tileSet[j][i - 1].id = 20;
-				}
-				if (tileSet[j][i - 1].id == 18)
-				{
-					tileSet[j][i - 1].id = 22;
-				}
-				if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
-				{
-					tileSet[j][i - 1].id = 11;
-				}
-				break;
-			case 15:
-				if (tileSet[j][i + 1].id == 14)
-				{
-					tileSet[j][i + 1].id = 10;
-				}
-				if (tileSet[j][i + 1].id == 16)
-				{
-					tileSet[j][i + 1].id = 21;
-				}
-				if (tileSet[j][i + 1].id == 17)
-				{
-					tileSet[j][i + 1].id = 19;
-				}
-				if (tileSet[j][i + 1].id == 18)
-				{
-					tileSet[j][i + 1].id = 23;
-				}
-				if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
-				{
-					tileSet[j][i + 1].id = 11;
-				}
-				break;
-			case 16:
-				tileSet[j][i - 1].id = 15;
-				break;
-			case 17:
-				tileSet[j][i - 1].id = 10;
-				break;
-			case 18:
-				tileSet[j][i - 1].id = 15;
-				break;
-			case 20:
-				tileSet[j][i - 1].id = 10;
-				break;
-			case 21:
-				tileSet[j][i + 1].id = 10;
-				break;
-			case 22:
-				tileSet[j][i - 1].id = 10;
-				break;
-			case 23:
-				tileSet[j][i + 1].id = 10;
-				break;
-
-				// blue
-			case 31:
-				tileSet[j][i + 1].id = 35;
-				break;
-			case 32:
-				tileSet[j][i + 1].id = 36;
-				break;
-			case 33:
-				tileSet[j][i - 1].id = 35;
-				break;
-			case 34:
-				tileSet[j][i - 1].id = 36;
-				break;
-
-				// yellow
-			case 43:
-				tileSet[j][i + 1].id = 40;
-				break;
-			case 44:
-				if (tileSet[j][i - 1].id == 43)
-				{
-					tileSet[j][i - 1].id = 47;
-				}
-				if (tileSet[j][i - 1].id == 45)
-				{
-					tileSet[j][i - 1].id = 41;
-				}
-				if (tileSet[j][i - 1].id == 46)
-				{
-					tileSet[j][i - 1].id = 44;
-				}
-				if (tileSet[j][i - 1].id == 48)
-				{
-					tileSet[j][i - 1].id = 40;
-				}
-				break;
-			case 45:
-				if (tileSet[j][i + 1].id == 44)
-				{
-					tileSet[j][i + 1].id = 40;
-				}
-				if (tileSet[j][i + 1].id == 46)
-				{
-					tileSet[j][i + 1].id = 48;
-				}
-				break;
-			case 46:
-				if (tileSet[j][i - 1].id == 45)
-				{
-					tileSet[j][i - 1].id = 45;
-				}
-				if (tileSet[j][i - 1].id == 48)
-				{
-					tileSet[j][i - 1].id = 48;
-				}
-				break;
-			case 48:
-				if (tileSet[j][i + 1].id == 44)
-				{
-					tileSet[j][i + 1].id = 40;
-				}
-				if (tileSet[j][i + 1].id == 46)
-				{
-					tileSet[j][i + 1].id = 48;
-				}
-				if (tileSet[j][i + 1].id == 49)
-				{
-					tileSet[j][i + 1].id = 41;
-				}
-				if (tileSet[j][i + 1].id == 50)
-				{
-					tileSet[j][i + 1].id = 47;
-				}
-				break;
-			case 49:
-				tileSet[j][i - 1].id = 40;
-				break;
-			case 50:
-				if (tileSet[j][i - 1].id == 46)
-				{
-					tileSet[j][i - 1].id = 44;
-				}
-				if (tileSet[j][i - 1].id == 48)
-				{
-					tileSet[j][i - 1].id = 40;
-				}
-				break;
-
-				// pink
-			case 51:
-				tileSet[j][i + 1].id = 61;
-				break;
-			case 54:
-				if (tileSet[j][i - 1].id == 46)
-				{
-					tileSet[j][i - 1].id = 58;
-				}
-				if (tileSet[j][i - 1].id == 51)
-				{
-					tileSet[j][i - 1].id = 58;
-				}
-				if (tileSet[j][i - 1].id == 55)
-				{
-					tileSet[j][i - 1].id = 61;
-				}
-				if (tileSet[j][i - 1].id == 56)
-				{
-					tileSet[j][i - 1].id = 60;
-				}
-				break;
-			case 55:
-				if (tileSet[j][i + 1].id == 54)
-				{
-					tileSet[j][i + 1].id = 61;
-				}
-				if (tileSet[j][i + 1].id == 56)
-				{
-					tileSet[j][i + 1].id = 55;
-				}
-				if (tileSet[j][i + 1].id == 57)
-				{
-					tileSet[j][i + 1].id = 58;
-				}
-				if (tileSet[j][i + 1].id == 59)
-				{
-					tileSet[j][i + 1].id = 53;
-				}
-				break;
-			case 56:
-				if (tileSet[j][i - 1].id == 55)
-				{
-					tileSet[j][i - 1].id = 55;
-				}
-				if (tileSet[j][i - 1].id == 60)
-				{
-					tileSet[j][i - 1].id = 60;
-				}
-				break;
-			case 57:
-				if (tileSet[j][i - 1].id == 55)
-				{
-					tileSet[j][i - 1].id = 61;
-				}
-				if (tileSet[j][i - 1].id == 56)
-				{
-					tileSet[j][i - 1].id = 54;
-				}
-				break;
-			case 59:
-				tileSet[j][i - 1].id = 61;
-				break;
-			case 60:
-				if (tileSet[j][i + 1].id == 54)
-				{
-					tileSet[j][i + 1].id = 61;
-				}
-				if (tileSet[j][i + 1].id == 56)
-				{
-					tileSet[j][i + 1].id = 55;
-				}
-				break;
-
-				// cyan
-			case 72:
-				tileSet[j][i - 1].id = 71;
-				break;
-			case 73:
-				tileSet[j][i + 1].id = 74;
-				break;
-			case 75:
-				tileSet[j][i + 1].id = 71;
-				break;
-			case 76:
-				tileSet[j][i - 1].id = 70;
-				break;
-			case 77:
-				tileSet[j][i + 1].id = 70;
-				break;
-			case 78:
-				tileSet[j][i - 1].id = 74;
-				break;
-
-				// orange
-			case 82:
-				tileSet[j][i + 1].id = 81;
-				break;
-			case 83:
-				tileSet[j][i - 1].id = 84;
-				break;
-			case 85:
-				tileSet[j][i + 1].id = 84;
-				break;
-			case 86:
-				tileSet[j][i - 1].id = 80;
-				break;
-			case 87:
-				tileSet[j][i + 1].id = 80;
-				break;
-			case 88:
-				tileSet[j][i - 1].id = 81;
-				break;
-			default:
-				break;
+				tileSet[j][i + 1].id = 0;
 			}
-			tileSet[j][i].id = -1;
+			if (tileSet[j][i + 1].id == 5)
+			{
+				tileSet[j][i + 1].id = 4;
+			}
+			break;
+		case 5:
+			if (tileSet[j][i - 1].id == 4)
+			{
+				tileSet[j][i - 1].id = 4;
+			}
+			break;
+		case 6:
+			if (tileSet[j][i - 1].id == 4)
+			{
+				tileSet[j][i - 1].id = 0;
+			}
+			if (tileSet[j][i - 1].id == 5)
+			{
+				tileSet[j][i - 1].id = 6;
+			}
+			break;
+
+			// green
+		case 12:
+			tileSet[j][i + 1].id = 10;
+			break;
+		case 14:
+			if (tileSet[j][i - 1].id == 12)
+			{
+				tileSet[j][i - 1].id = 19;
+			}
+			if (tileSet[j][i - 1].id == 15)
+			{
+				tileSet[j][i - 1].id = 10;
+			}
+			if (tileSet[j][i - 1].id == 16)
+			{
+				tileSet[j][i - 1].id = 20;
+			}
+			if (tileSet[j][i - 1].id == 18)
+			{
+				tileSet[j][i - 1].id = 22;
+			}
+			if (tileSet[j][i - 1].id == 21)
+			{
+				tileSet[j][i - 1].id = 11;
+			}
+			if (tileSet[j][i - 1].id == 23)
+			{
+				tileSet[j][i - 1].id = 13;
+			}
+			break;
+		case 15:
+			if (tileSet[j][i + 1].id == 14)
+			{
+				tileSet[j][i + 1].id = 10;
+			}
+			if (tileSet[j][i + 1].id == 16)
+			{
+				tileSet[j][i + 1].id = 21;
+			}
+			if (tileSet[j][i + 1].id == 17)
+			{
+				tileSet[j][i + 1].id = 19;
+			}
+			if (tileSet[j][i + 1].id == 18)
+			{
+				tileSet[j][i + 1].id = 23;
+			}
+			if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+			{
+				tileSet[j][i + 1].id = 11;
+			}
+			break;
+		case 16:
+			tileSet[j][i - 1].id = 15;
+			break;
+		case 17:
+			tileSet[j][i - 1].id = 10;
+			break;
+		case 18:
+			tileSet[j][i - 1].id = 15;
+			break;
+		case 20:
+			tileSet[j][i - 1].id = 10;
+			break;
+		case 21:
+			tileSet[j][i + 1].id = 10;
+			break;
+		case 22:
+			tileSet[j][i - 1].id = 10;
+			break;
+		case 23:
+			tileSet[j][i + 1].id = 10;
+			break;
+
+			// blue
+		case 31:
+			tileSet[j][i + 1].id = 35;
+			break;
+		case 32:
+			tileSet[j][i + 1].id = 36;
+			break;
+		case 33:
+			tileSet[j][i - 1].id = 35;
+			break;
+		case 34:
+			tileSet[j][i - 1].id = 36;
+			break;
+
+			// yellow
+		case 43:
+			tileSet[j][i + 1].id = 40;
+			break;
+		case 44:
+			if (tileSet[j][i - 1].id == 43)
+			{
+				tileSet[j][i - 1].id = 47;
+			}
+			if (tileSet[j][i - 1].id == 45)
+			{
+				tileSet[j][i - 1].id = 41;
+			}
+			if (tileSet[j][i - 1].id == 46)
+			{
+				tileSet[j][i - 1].id = 44;
+			}
+			if (tileSet[j][i - 1].id == 48)
+			{
+				tileSet[j][i - 1].id = 40;
+			}
+			break;
+		case 45:
+			if (tileSet[j][i + 1].id == 44)
+			{
+				tileSet[j][i + 1].id = 40;
+			}
+			if (tileSet[j][i + 1].id == 46)
+			{
+				tileSet[j][i + 1].id = 48;
+			}
+			break;
+		case 46:
+			if (tileSet[j][i - 1].id == 45)
+			{
+				tileSet[j][i - 1].id = 45;
+			}
+			if (tileSet[j][i - 1].id == 48)
+			{
+				tileSet[j][i - 1].id = 48;
+			}
+			break;
+		case 48:
+			if (tileSet[j][i + 1].id == 44)
+			{
+				tileSet[j][i + 1].id = 40;
+			}
+			if (tileSet[j][i + 1].id == 46)
+			{
+				tileSet[j][i + 1].id = 48;
+			}
+			if (tileSet[j][i + 1].id == 49)
+			{
+				tileSet[j][i + 1].id = 41;
+			}
+			if (tileSet[j][i + 1].id == 50)
+			{
+				tileSet[j][i + 1].id = 47;
+			}
+			break;
+		case 49:
+			tileSet[j][i - 1].id = 40;
+			break;
+		case 50:
+			if (tileSet[j][i - 1].id == 46)
+			{
+				tileSet[j][i - 1].id = 44;
+			}
+			if (tileSet[j][i - 1].id == 48)
+			{
+				tileSet[j][i - 1].id = 40;
+			}
+			break;
+
+			// pink
+		case 51:
+			tileSet[j][i + 1].id = 61;
+			break;
+		case 54:
+			if (tileSet[j][i - 1].id == 46)
+			{
+				tileSet[j][i - 1].id = 58;
+			}
+			if (tileSet[j][i - 1].id == 51)
+			{
+				tileSet[j][i - 1].id = 58;
+			}
+			if (tileSet[j][i - 1].id == 55)
+			{
+				tileSet[j][i - 1].id = 61;
+			}
+			if (tileSet[j][i - 1].id == 56)
+			{
+				tileSet[j][i - 1].id = 60;
+			}
+			break;
+		case 55:
+			if (tileSet[j][i + 1].id == 54)
+			{
+				tileSet[j][i + 1].id = 61;
+			}
+			if (tileSet[j][i + 1].id == 56)
+			{
+				tileSet[j][i + 1].id = 55;
+			}
+			if (tileSet[j][i + 1].id == 57)
+			{
+				tileSet[j][i + 1].id = 58;
+			}
+			if (tileSet[j][i + 1].id == 59)
+			{
+				tileSet[j][i + 1].id = 53;
+			}
+			break;
+		case 56:
+			if (tileSet[j][i - 1].id == 55)
+			{
+				tileSet[j][i - 1].id = 55;
+			}
+			if (tileSet[j][i - 1].id == 60)
+			{
+				tileSet[j][i - 1].id = 60;
+			}
+			break;
+		case 57:
+			if (tileSet[j][i - 1].id == 55)
+			{
+				tileSet[j][i - 1].id = 61;
+			}
+			if (tileSet[j][i - 1].id == 56)
+			{
+				tileSet[j][i - 1].id = 54;
+			}
+			break;
+		case 59:
+			tileSet[j][i - 1].id = 61;
+			break;
+		case 60:
+			if (tileSet[j][i + 1].id == 54)
+			{
+				tileSet[j][i + 1].id = 61;
+			}
+			if (tileSet[j][i + 1].id == 56)
+			{
+				tileSet[j][i + 1].id = 55;
+			}
+			break;
+
+			// cyan
+		case 72:
+			tileSet[j][i - 1].id = 71;
+			break;
+		case 73:
+			tileSet[j][i + 1].id = 74;
+			break;
+		case 75:
+			tileSet[j][i + 1].id = 71;
+			break;
+		case 76:
+			tileSet[j][i - 1].id = 70;
+			break;
+		case 77:
+			tileSet[j][i + 1].id = 70;
+			break;
+		case 78:
+			tileSet[j][i - 1].id = 74;
+			break;
+
+			// orange
+		case 82:
+			tileSet[j][i + 1].id = 81;
+			break;
+		case 83:
+			tileSet[j][i - 1].id = 84;
+			break;
+		case 85:
+			tileSet[j][i + 1].id = 84;
+			break;
+		case 86:
+			tileSet[j][i - 1].id = 80;
+			break;
+		case 87:
+			tileSet[j][i + 1].id = 80;
+			break;
+		case 88:
+			tileSet[j][i - 1].id = 81;
+			break;
+		default:
+			break;
+		}
+		tileSet[j][i].id = -1;
 	}
 
 	for (int m = i - 1; m >= 0; m--)
