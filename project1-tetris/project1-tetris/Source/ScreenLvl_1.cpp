@@ -412,7 +412,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// Win conditions
-	if (linesleft == 0)
+	if (linesleft <= 0)
 	{
 		v_message = 0;
 		App->audio->PauseMusic();
@@ -474,8 +474,6 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
 
-	
-
 	if (App->points->lvl == 3 || App->points->lvl == 6)
 	{
 		if (v_WinLose >= 374)
@@ -519,7 +517,6 @@ void ScreenLvl_1::lvl_win()
 			
 			if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
 			{
-				
 				lvl_instaWin = false;
 				App->points->lvl++;
 				App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
