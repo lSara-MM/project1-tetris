@@ -46,14 +46,20 @@ bool ModuleTetronimo::Start()
 		for (int j = 0; j < 10; j++)
 		{
 			tileSet[j][i].id = -1;
-			tileSet[j][i].tileX = j;
-			tileSet[j][i].tileY = i;
+			
 			tileSet[j][i].tetronimo = 0;
 		}
 	}
 
-	int randB[] = { 0, 10, 30, 40, 61, 70, 80 };
-	// red, green, blue, yellow, pink, cyan, orange
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			showcase[j][i].id = -1;
+		}
+	}
+
+	// lvls
 	switch (App->points->lvl)
 	{
 	case 4:
@@ -195,6 +201,62 @@ update_status ModuleTetronimo::Update()
 		}
 	}
 
+	switch (nextT)
+	{
+	case BLOCK_TYPE::RED:
+		showcase[0][0].id = 1;
+		showcase[1][0].id = 2;
+		showcase[2][0].id = 2;
+		showcase[3][0].id = 3;
+		break;
+	case BLOCK_TYPE::GREEN:
+		showcase[0][0].id = 11;
+		showcase[1][0].id = 12;
+		showcase[2][0].id = 13;
+		showcase[1][1].id = 14;
+		break;
+	case BLOCK_TYPE::BLUE:
+		showcase[0][0].id = 31;
+		showcase[1][0].id = 22;
+		showcase[0][1].id = 33;
+		showcase[1][1].id = 34;
+		break;
+	case BLOCK_TYPE::YELLOW:
+		showcase[0][0].id = 41;
+		showcase[1][0].id = 42;
+		showcase[2][0].id = 43;
+		showcase[2][1].id = 44;
+		break;
+	case BLOCK_TYPE::PINK:
+		showcase[0][0].id = 51;
+		showcase[1][0].id = 52;
+		showcase[2][0].id = 53;
+		showcase[0][1].id = 55;
+		break;
+	case BLOCK_TYPE::CYAN:
+		showcase[1][0].id = 73;
+		showcase[2][0].id = 74;
+		showcase[0][1].id = 71;
+		showcase[1][1].id = 72;
+		break;
+	case BLOCK_TYPE::ORANGE:
+		showcase[0][0].id = 81;
+		showcase[1][0].id = 82;
+		showcase[1][1].id = 83;
+		showcase[2][1].id = 84;
+		break;
+	default:
+		break;
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			blockUpdate(&showcase[j][i]);
+			showcase[j][i].pSection = &showcase[j][i].section;
+		}
+	}
+
 	for (int i = 0; i < 22; i++)
 	{
 		if (lineCheck(i) == true)
@@ -231,6 +293,18 @@ update_status ModuleTetronimo::PostUpdate()
 			if (tileSet[j][i].id != -1)
 			{
 				App->render->Blit(blockTexture, (65 + (j * (B_WIDTH + 1))), (51 + (i * (B_HEIGHT + 1))), tileSet[j][i].pSection);
+			}
+		}
+	}
+
+	//Showcase
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (showcase[j][i].id != -1)
+			{
+				App->render->Blit(blockTexture, (16 + (j * (B_WIDTH + 1))), (47 + (i * (B_HEIGHT + 1))), showcase[j][i].pSection);
 			}
 		}
 	}
