@@ -143,11 +143,15 @@ update_status ModuleTetronimo::Update()
 	deltaTime += runTime - lastTickTime;
 	lastTickTime = runTime;
 
+	bool button_press = false;
+
 	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
 		if (App->input->pads[0].buttons[i] == KEY_DOWN)
 		{
 			button_press = true; break;
 		}
+	float fx = 0, fy = 0;
+
 	fx += reduce_val(App->input->pads[0].left_x, 3000, 2);
 	fy += reduce_val(App->input->pads[0].left_y, 3000, 2);
 	fx += reduce_val(App->input->pads[0].right_x, 3000, 2);
@@ -2191,6 +2195,19 @@ void ModuleTetronimo::Debugging()
 			App->audio->ResumeMusic();
 		}
 	}
+	bool button_press = false;
+
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+	float fx = 0, fy = 0;
+
+	fx += reduce_val(App->input->pads[0].left_x, 8000, 2);
+	fy += reduce_val(App->input->pads[0].left_y, 8000, 2);
+	fx += reduce_val(App->input->pads[0].right_x, 8000, 2);
+	fy += reduce_val(App->input->pads[0].right_y, 8000, 2);
 
 	if (App->player->godMode == true)
 	{
