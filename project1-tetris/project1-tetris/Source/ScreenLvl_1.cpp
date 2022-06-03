@@ -16,6 +16,10 @@
 using namespace std;
 #include <sstream>
 
+uint Time_ = 0;
+uint delta__Time = 0;
+uint last__TickTime = 0;
+
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
