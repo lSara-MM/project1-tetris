@@ -472,6 +472,10 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
+	App->tetronimo->b1->id = -1;
+	App->tetronimo->b2->id = -1;
+	App->tetronimo->b3->id = -1;
+	App->tetronimo->b4->id = -1;
 	App->tetronimo->pause = true;
 
 	if (v_WinLose >= 0 && v_WinLose < 250)
