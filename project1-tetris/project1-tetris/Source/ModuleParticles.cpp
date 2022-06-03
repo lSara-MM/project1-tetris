@@ -155,6 +155,10 @@ void ModuleParticles::FwTiming(int x_frame)
 		SDL_Delay(500);		// "5 segundos"
 	}
 
+	if (v_particles > 9) {
+		v_particles = 0;
+	}
+
 	if (x_frame == (SCREEN_WIDTH * 10))
 	{
 		// (Particle, int x position, int y position, int firework id, int delay) -> a millorar la mecanica del id

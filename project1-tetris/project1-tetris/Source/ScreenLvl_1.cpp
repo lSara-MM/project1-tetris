@@ -181,11 +181,11 @@ bool ScreenLvl_1::Start()
 		App->points->Reset();
 		App->points->credits = 1;
 	}
-	if (App->points->lvl == 1)
-	{
-		App->points->credits -= 1;
-		App->points->score = 0;
-	}
+	//if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
+	//{
+	//	App->points->credits -= 1;
+	//	App->points->score = 0;
+	//}
 
 	// Counter
 	v_fall = true;
@@ -431,6 +431,37 @@ update_status ScreenLvl_1::PostUpdate()
 		v_WinLose = 0;
 	}
 
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+	{
+
+		App->audio->PauseMusic();
+
+		lvl_instaWin = false;
+
+		// Counter
+		v_message = 0;
+		v_insertCoin = 0;
+		v_points = 0;
+
+		// debug
+		lvl_instaWin = false;
+		lvl_instaLose = false;
+
+		v_loseContinue = 9;
+		v_WinLose = 0;
+
+		
+		if (App->points->lvl == 10) {
+			App->points->lvl = 1;
+		}
+		else {
+			App->points->lvl++;
+		}
+		
+		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+	}
+
 	if (lvl_instaLose == true)
 	{
 		string s_loseContinue = to_string(v_loseContinue);
@@ -579,7 +610,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	// Game Over
 	App->tetronimo->pause = true;
 
-	if (v_WinLose >= 0 && v_WinLose < 200)
+	if (v_WinLose >= 0 && v_WinLose < 100)
 	{
 		if (v_WinLose == 5) App->audio->PlayFx(fxGameOver, 0);
 		else { App->audio->PauseMusic(); }
@@ -590,7 +621,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 		App->render->TextDraw("Game", 95, 16, 255, 255, 255, 255, 16);
 		App->render->TextDraw("Over", 95, 32, 255, 255, 255, 255, 16);
 	}
-	else if (v_WinLose > 200)
+	else if (v_WinLose > 100)
 	{
 		App->tetronimo->Disable();
 		if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
