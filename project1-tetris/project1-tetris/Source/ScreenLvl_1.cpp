@@ -412,7 +412,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 
 	// Win conditions
-	if (linesleft == 0)
+	if (linesleft <= 0)
 	{
 		v_message = 0;
 		App->audio->PauseMusic();
@@ -472,6 +472,10 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
+	App->tetronimo->b1->id = -1;
+	App->tetronimo->b2->id = -1;
+	App->tetronimo->b3->id = -1;
+	App->tetronimo->b4->id = -1;
 	App->tetronimo->pause = true;
 
 	if (v_WinLose >= 0 && v_WinLose < 250)
@@ -490,8 +494,6 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
 	}
-
-	
 
 	if (App->points->lvl == 3 || App->points->lvl == 6)
 	{
@@ -536,7 +538,6 @@ void ScreenLvl_1::lvl_win()
 			
 			if (closeCurtain.GetLoopCount() > 0)		// cambiar (depende del bonus)
 			{
-				
 				lvl_instaWin = false;
 				App->points->lvl++;
 				App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);

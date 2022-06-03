@@ -2038,9 +2038,13 @@ bool ModuleTetronimo::deleteLine(int i)
 			{
 				tileSet[j][i - 1].id = 22;
 			}
-			if (tileSet[j][i - 1].id == 21 || tileSet[j][i - 1].id == 23)
+			if (tileSet[j][i - 1].id == 21)
 			{
 				tileSet[j][i - 1].id = 11;
+			}
+			if (tileSet[j][i - 1].id == 23)
+			{
+				tileSet[j][i - 1].id = 13;
 			}
 			break;
 		case 15:
@@ -2081,7 +2085,7 @@ bool ModuleTetronimo::deleteLine(int i)
 			tileSet[j][i + 1].id = 10;
 			break;
 		case 22:
-			tileSet[j][i + 1].id = 10;
+			tileSet[j][i - 1].id = 10;
 			break;
 		case 23:
 			tileSet[j][i + 1].id = 10;
