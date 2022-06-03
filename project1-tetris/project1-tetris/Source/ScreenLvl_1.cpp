@@ -37,13 +37,11 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
-
-	//LowBonus
-	lowBonus.PushBack({ 0, 119, 16, 16 }); 
-	lowBonus2.PushBack({ 17, 119, 16, 16 }); 
-	lowBonus3.PushBack({ 34, 119, 16, 16 }); 
-
 	
+	for (int i = 0; i < 22; i++) {
+		lowBonus[i].PushBack({ 0, 0, 0, 0 });
+	}
+
 	// rus 3
 	for (int i = 0; i < 30; i++)
 	{
@@ -120,7 +118,7 @@ bool ScreenLvl_1::Start()
 	}
 	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
-	//lowBonus_texture = App->textures->Load("Assets/")
+	lowBonus_texture = App->textures->Load("Assets/Sprites/lowBonus.png");
 
 	LOG("Loading ruso sexy moves");
 	ruso_texture3 = App->textures->Load("Assets/Sprites/Rus/3_spritesheet2.png");
@@ -248,7 +246,6 @@ update_status ScreenLvl_1::PostUpdate()
 		else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
 			App->render->Blit(curtain_texture, 257, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
 		}
-
 	}
 
 	// strings to const char*
@@ -416,7 +413,11 @@ update_status ScreenLvl_1::PostUpdate()
 
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
-
+	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
+	{
+		for(int i = 0; i < 22; i++)
+			App->render->Blit(lowBonus_texture, 63, 72, &(lowBonus[i].GetCurrentFrame()), 0.85f);
+	}
 
 	// Win conditions
 	if (linesleft <= 0)
@@ -497,10 +498,114 @@ void ScreenLvl_1::lvl_win()
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
 		//Bonus
-	
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
+
+		int file = 0;
+
+		for (int i = 0; i < 22; i++) {
+			for (int j = 0; j < 10; j++) {
+				if ((App->tetronimo->tileSet[j][i].id != -1) && (file == 0)) 
+				{
+					file = i - 1;
+				}
+			}
+		}
+
+		for (int i = file; i > 0; i--) {
+
+			if (i == 0) {
+				LOG("FILE: %d", i);
+				lowBonus[0].PushBack({ 0, 119, 16, 16 });
+			}
+
+			if (i == 1) {
+				LOG("FILE: %d", i);
+				lowBonus[1].PushBack({ 17, 119, 16, 16 });
+			}
+
+			if (i == 2) {
+				LOG("FILE: %d", i);
+				lowBonus[2].PushBack({ 34, 119, 16, 16 });
+			}
+
+			if (i == 3) {
+
+			}
+			
+			if (i == 4) {
+
+			}
+
+			if (i == 5) {
+
+			}
+
+			if (i == 6) {
+
+			}
+
+			if (i == 7) {
+
+			}
+
+			if (i == 8) {
+
+			}
+
+			if (i == 9) {
+
+			}
+
+			if (i == 10) {
+
+			}
+
+			if (i == 11) {
+
+			}
+
+			if (i == 12) {
+
+			}
+
+			if (i == 13) {
+
+			}
+
+			if (i == 14) {
+
+			}
+
+			if (i == 15) {
+
+			}
+
+			if (i == 16) {
+
+			}
+
+			if (i == 17) {
+
+			}
+
+			if (i == 18) {
+
+			}
+			
+			if (i == 19) {
+
+			}
+
+			if (i == 20) {
+
+			}
+
+			if (i == 21) {
+
+			}
+		}
 	}
 
 	if (App->points->lvl == 3 || App->points->lvl == 6)
