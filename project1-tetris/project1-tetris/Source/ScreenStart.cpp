@@ -36,7 +36,7 @@ bool ScreenStart::Start()
 {
 	App->points->Enable();
 
-	
+	contador = 0;
 
 	start_screen.loop = false;
 	start_screen.speed = 0.09f;
@@ -61,11 +61,16 @@ update_status ScreenStart::Update()
 // Update: draw background
 update_status ScreenStart::PostUpdate()
 {	
-	
-	ModuleParticles fireworks(true);
-	fireworks.FwTiming(start_screen.GetCurrentFrame().x);
-	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
+	App->particles->FwTiming(start_screen.GetCurrentFrame().x);
 
+	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
+	contador++;
+	LOG("TIME counter %d", contador);
+
+	if (contador == 1698) {
+		App->particles->Set0();
+		contador = 0;
+	}
 
 	if (App->points->credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
 	{
@@ -107,9 +112,11 @@ update_status ScreenStart::PostUpdate()
 		App->render->TextDraw(ch_credits, 384, 448, 0, 0, 255, 255, 15);
 	}
 
+
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 	{
 		start_screen.loopCount = 0;
+		App->particles->Set0();
 		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 
 	}

@@ -38,6 +38,8 @@ public:
 
 	// Start Scene animation
 	Animation start_screen;
+
+	int contador;
 };
 
 #endif
