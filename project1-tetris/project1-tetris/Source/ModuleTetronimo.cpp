@@ -46,16 +46,7 @@ bool ModuleTetronimo::Start()
 		for (int j = 0; j < 10; j++)
 		{
 			tileSet[j][i].id = -1;
-			
 			tileSet[j][i].tetronimo = 0;
-		}
-	}
-
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			showcase[j][i].id = -1;
 		}
 	}
 
@@ -201,8 +192,15 @@ update_status ModuleTetronimo::Update()
 		}
 	}
 
-	switch (nextT)
+	for (int i = 0; i < 2; i++)
 	{
+		for (int j = 0; j < 4; j++)
+		{
+			showcase[j][i].id = -1;
+		}
+	}
+	switch (nextT)
+	{	
 	case BLOCK_TYPE::RED:
 		showcase[0][0].id = 1;
 		showcase[1][0].id = 2;
@@ -217,7 +215,7 @@ update_status ModuleTetronimo::Update()
 		break;
 	case BLOCK_TYPE::BLUE:
 		showcase[0][0].id = 31;
-		showcase[1][0].id = 22;
+		showcase[1][0].id = 32;
 		showcase[0][1].id = 33;
 		showcase[1][1].id = 34;
 		break;
@@ -231,7 +229,7 @@ update_status ModuleTetronimo::Update()
 		showcase[0][0].id = 51;
 		showcase[1][0].id = 52;
 		showcase[2][0].id = 53;
-		showcase[0][1].id = 55;
+		showcase[0][1].id = 54;
 		break;
 	case BLOCK_TYPE::CYAN:
 		showcase[1][0].id = 73;
