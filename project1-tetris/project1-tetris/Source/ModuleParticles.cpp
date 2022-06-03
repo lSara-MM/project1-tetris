@@ -147,18 +147,22 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int id
 	}
 }
 
-int v_particles = 0;		// counter
+
+void ModuleParticles::Set0() {
+
+	v_particles = 0;
+
+}
+	// counter
 void ModuleParticles::FwTiming(int x_frame)
 {
 	if (x_frame == 0)
 	{
-		SDL_Delay(500);		// "5 segundos"
+		SDL_Delay(500);
+		App->particles->Set0();
 	}
 
-	if (v_particles > 9) {
-		v_particles = 0;
-	}
-
+	
 	if (x_frame == (SCREEN_WIDTH * 10))
 	{
 		// (Particle, int x position, int y position, int firework id, int delay) -> a millorar la mecanica del id
@@ -242,9 +246,13 @@ void ModuleParticles::FwTiming(int x_frame)
 
 			App->particles->AddParticle(App->particles->firework2, 372, 36, 2, 1500);
 			v_particles++;
+
 			break;
+	
 		default:
 			break;
 		}
 	}
+
+
 }

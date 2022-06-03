@@ -67,22 +67,6 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	dancingRus6.loop = false;
 	dancingRus6.speed = 1.5;
 
-	// rus 9
-	for (int i = 0; i < 30; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			// the animation has only 8 sprites in a 3x3
-			if (j == 4 && i == 29)
-			{
-				break;
-			}
-			dancingRus9.PushBack({ 67 * j, 78 * i, 67, 78 });
-
-		}
-	}
-	dancingRus9.loop = false;
-	dancingRus9.speed = 0.7;
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -160,12 +144,6 @@ bool ScreenLvl_1::Start()
 	case 7:
 		linesObjective = 12;
 		break;
-	case 8:
-		linesObjective = 15;
-		break;
-	case 9:
-		linesObjective = 18;
-		break;
 	case 10:
 		linesObjective = 12;
 		break;
@@ -181,11 +159,11 @@ bool ScreenLvl_1::Start()
 		App->points->Reset();
 		App->points->credits = 1;
 	}
-	if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
-	{
-		App->points->credits -= 1;
-		App->points->score = 0;
-	}
+	//if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
+	//{
+	//	App->points->credits -= 1;
+	//	App->points->score = 0;
+	//}
 
 	// Counter
 	v_fall = true;
@@ -238,7 +216,7 @@ update_status ScreenLvl_1::PostUpdate()
 		else if (App->points->lvl == 4 || App->points->lvl == 5 || App->points->lvl == 6) {
 			App->render->Blit(curtain_texture, 258, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
 		}
-		else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
+		else if (App->points->lvl == 7) {
 			App->render->Blit(curtain_texture, 257, 192, &(openCurtain.GetCurrentFrame()), 0.85f);
 		}
 
@@ -283,7 +261,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	else if (v_message == 100)
 	{
-		if (App->points->lvl == 1 || App->points->lvl == 5 || App->points->lvl == 9)
+		if (App->points->lvl == 1 || App->points->lvl == 5)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/01_Loginska.ogg", 0);
@@ -298,7 +276,7 @@ update_status ScreenLvl_1::PostUpdate()
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/07_Karinka.ogg", 0);
 		}
-		if (App->points->lvl == 4 || App->points->lvl == 8)
+		if (App->points->lvl == 4)
 		{
 			LOG("Loading background music: Loginska");
 			App->audio->PlayMusic("Assets/Audio/Music/10_Troika.ogg", 0);
@@ -440,6 +418,9 @@ update_status ScreenLvl_1::PostUpdate()
 		if (App->points->lvl == 10) {
 			App->points->lvl = 1;
 		}
+		else if (App->points->lvl == 7) {
+			App->points->lvl = 10;
+		}
 		else {
 			App->points->lvl++;
 		}
@@ -558,7 +539,7 @@ void ScreenLvl_1::lvl_win()
 				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 				closeCurtain.Update();
 			}
-			else if (App->points->lvl == 7 || App->points->lvl == 8 || App->points->lvl == 9) {
+			else if (App->points->lvl == 7) {
 				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 257, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 				closeCurtain.Update();
 			}
@@ -650,8 +631,7 @@ bool ScreenLvl_1::CleanUp()
 	App->textures->Unload(curtain_texture);
 	App->textures->Unload(ruso_texture3);
 	App->textures->Unload(ruso_texture6);
-	App->textures->Unload(ruso_texture9);
-
+	
 	openCurtain.Reset();	//  no fa res xd
 	closeCurtain.Reset();
 

@@ -50,6 +50,7 @@ public:
 
 	void FwTiming(int x_frame);
 
+	void Set0();
 private:
 	// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* texture_fw1 = nullptr;
@@ -61,6 +62,7 @@ private:
 public:
 	Particle firework1;
 	Particle firework2;
+	int v_particles;
 };
 
 #endif // !__MODULEPARTICLES_H__
