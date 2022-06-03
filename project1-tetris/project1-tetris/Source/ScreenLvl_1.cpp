@@ -181,11 +181,11 @@ bool ScreenLvl_1::Start()
 		App->points->Reset();
 		App->points->credits = 1;
 	}
-	//if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
-	//{
-	//	App->points->credits -= 1;
-	//	App->points->score = 0;
-	//}
+	if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
+	{
+		App->points->credits -= 1;
+		App->points->score = 0;
+	}
 
 	// Counter
 	v_fall = true;
@@ -436,21 +436,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 		App->audio->PauseMusic();
 
-		lvl_instaWin = false;
-
-		// Counter
-		v_message = 0;
-		v_insertCoin = 0;
-		v_points = 0;
-
-		// debug
-		lvl_instaWin = false;
-		lvl_instaLose = false;
-
-		v_loseContinue = 9;
-		v_WinLose = 0;
-
-		
+	
 		if (App->points->lvl == 10) {
 			App->points->lvl = 1;
 		}
