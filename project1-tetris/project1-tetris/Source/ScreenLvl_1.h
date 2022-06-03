@@ -57,9 +57,13 @@ public:
 
 	// Curtain texture and animation pointer
 	SDL_Texture* curtain_texture = nullptr;
+	SDL_Texture* lowBonus_texture = nullptr; 
 
 	Animation openCurtain;
 	Animation closeCurtain;
+	Animation lowBonus; 
+	Animation lowBonus2; 
+	Animation lowBonus3; 
 
 	// Dancing rus texture
 	SDL_Texture* ruso_texture3 = nullptr;

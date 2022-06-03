@@ -37,6 +37,12 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
+
+	//LowBonus
+	lowBonus.PushBack({ 0, 119, 16, 16 }); 
+	lowBonus2.PushBack({ 17, 119, 16, 16 }); 
+	lowBonus3.PushBack({ 34, 119, 16, 16 }); 
+
 	
 	// rus 3
 	for (int i = 0; i < 30; i++)
@@ -114,6 +120,7 @@ bool ScreenLvl_1::Start()
 	}
 	
 	curtain_texture = App->textures->Load("Assets/curtain.png");
+	//lowBonus_texture = App->textures->Load("Assets/")
 
 	LOG("Loading ruso sexy moves");
 	ruso_texture3 = App->textures->Load("Assets/Sprites/Rus/3_spritesheet2.png");
@@ -490,6 +497,7 @@ void ScreenLvl_1::lvl_win()
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
 		//Bonus
+	
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
