@@ -1721,8 +1721,6 @@ bool ModuleTetronimo::deleteLine(int i)
 	
 	for (int j = 0; j < 10; j++)
 	{
-		if (tileSet[j][i + 1].id == 22)
-		{
 			switch (tileSet[j][i].id)
 			{
 				// red
@@ -2028,7 +2026,6 @@ bool ModuleTetronimo::deleteLine(int i)
 				break;
 			}
 			tileSet[j][i].id = -1;
-		}
 	}
 
 	for (int m = i - 1; m >= 0; m--)
