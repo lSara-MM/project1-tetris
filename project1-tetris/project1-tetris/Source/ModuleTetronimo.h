@@ -82,9 +82,12 @@ public:
 
 	bool pause;
 	
-	//class
+	// class
 	Block tileSet[10][22];
 	Block* b1, *b2, *b3, *b4, var1, var2, var3, var4, v;
+
+	// showcase
+	Block showcase[4][2];
 
 	bool button_press = false;
 	float fx = 0, fy = 0;
