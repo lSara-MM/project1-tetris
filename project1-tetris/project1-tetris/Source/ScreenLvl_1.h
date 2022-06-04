@@ -40,6 +40,14 @@ public:
 
 public:
 
+	class Low 
+	{
+	public:
+		Animation OnelowBonus;
+
+		int y;
+	};
+
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
 
@@ -61,7 +69,8 @@ public:
 
 	Animation openCurtain;
 	Animation closeCurtain; 
-	Animation OnelowBonus;
+
+	Low LowBonus[22];
 
 	// Dancing rus texture
 	SDL_Texture* ruso_texture3 = nullptr;

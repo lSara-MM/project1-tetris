@@ -24,8 +24,8 @@ uint runTimeSl1 = 0;
 uint deltaTimeSl1 = 0;
 uint lastTickTimeSl1 = 0;
 
-int y = 0;
-int i = 0;
+int i = 0; 
+int j = 0;
 
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
@@ -49,7 +49,9 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
 
-	OnelowBonus.PushBack({ 1, 119, 157, 16 });
+	for (int i = 0; i < 22; i++) {
+		LowBonus[i].OnelowBonus.PushBack({ 1, 119, 157, 16 });
+	}
 
 	// rus 3
 	for (int i = 0; i < 30; i++)
@@ -441,13 +443,12 @@ update_status ScreenLvl_1::PostUpdate()
 		}
 	}
 
-
-
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
 		int fila = 0;
+		LowBonus[0].y = 82;
 
 		for (int i = 0; i < 22; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -458,18 +459,43 @@ update_status ScreenLvl_1::PostUpdate()
 			}
 		}
 
-		if (i < fila)
+		if (i > fila - 2)
 		{
-			if (deltaTimeSl1 > 25) 
-			{
+			j = 1;
+		}
 
-				App->render->Blit(lowBonus_texture, 63, 72 + y, &(OnelowBonus.GetCurrentFrame()), 1.5f);
-				y += 16;
-				LOG("Y: %d", y);
+		if (j == 0) 
+		{
+			if (deltaTimeSl1 > 100) {
+
+				if (i != 0) 
+				{
+					LowBonus[i].y = LowBonus[i - 1].y;
+					LowBonus[i].y += 16;
+				}
+
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+
+				LOG("Y: %d", LowBonus[i].y);
+
+				i++;
 
 				deltaTimeSl1 = 0;
 			}
-			i++;
+
+			for (int r = 0; r < i; r++) 
+			{
+				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
+			}
+
+		}
+
+		if (j == 1)
+		{
+			for (int i = 0; i < fila - 1; i++)
+			{
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+			}
 		}
 	}
 
@@ -592,6 +618,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 void ScreenLvl_1::lvl_win()
 {
+
 	App->tetronimo->b1->id = -1;
 	App->tetronimo->b2->id = -1;
 	App->tetronimo->b3->id = -1;
@@ -687,6 +714,10 @@ void ScreenLvl_1::lvl_win()
 
 		if (v_WinLose == 380)		// cambiar (depende del bonus)
 		{
+
+			i = 0;
+			j = 0;
+
 			lvl_instaWin = false;
 
 			// Counter
