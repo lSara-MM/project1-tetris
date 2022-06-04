@@ -417,25 +417,81 @@ update_status ScreenLvl_1::PostUpdate()
 		v_WinLose = 0;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
-	{
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_REPEAT) {
 
-		App->audio->PauseMusic();
+		if (App->input->keys[SDL_SCANCODE_1] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
 
-	
-		if (App->points->lvl == 10) {
+			App->audio->PauseMusic();
 			App->points->lvl = 1;
-		}
-		else if (App->points->lvl == 7) {
-			App->points->lvl = 10;
-		}
-		else {
-			App->points->lvl++;
-		}
-		
-		App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_2] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 2;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_3] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 3;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_4] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 4;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_5] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 5;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 6;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_7] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 7;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
+
+		else if (App->input->keys[SDL_SCANCODE_0] == KEY_STATE::KEY_DOWN)//saltar al nivell que es vulgui
+		{
+
+			App->audio->PauseMusic();
+			App->points->lvl = 10;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+
+		}
 	}
+	
 
 	if (lvl_instaLose == true)
 	{
