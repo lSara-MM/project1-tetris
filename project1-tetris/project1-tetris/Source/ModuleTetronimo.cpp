@@ -322,7 +322,7 @@ update_status ModuleTetronimo::Update()
 	if (App->points->lvl == 10)
 	{
 		LOG("t = %d - %d", t, t % 3);
-		if ((t % 8 == 0) && App->sLvl_1->v_fall == false)
+		if ((t % 8 == 0) && App->sLvl_1->v_fall == false && App->sLvl_1->lvl_instaLose == false)
 		{
 			for (int m = 3; m < 22; m++)
 			{
