@@ -296,23 +296,24 @@ update_status ModuleTetronimo::Update()
 
 	if (App->points->lvl == 7)
 	{
-		//if ((t % 10 == 0) && App->sLvl_1->v_fall == false)
-		//{
-		//	//randomBlock7();
+		LOG("t = %d - %d", t, t % 3);
+		if ((t % 8 == 0) && App->sLvl_1->v_fall == false)
+		{
+			//randomBlock7();
 
-		//	int r = rand() % 9;		//x
-		//	int s = rand() % (21 - 9 + 1) + 9;	//y 
+			int r = rand() % 9;		//x
+			int s = rand() % (21 - 9 + 1) + 9;	//y 
 
-		//	while (tileSet[r][s + 1].id == -1 || s != 21 || tileSet[r][s].id != -1)
-		//	{
-		//		r = rand() % 9;		//x
-		//		(s < 21) ? s++ : s = 9;	//y 
-		//	}
-		//	if ((tileSet[r][s + 1].id != -1 || s == 21) && tileSet[r][s].id == -1)
-		//	{
-		//		tileSet[r][s].id = 90;
-		//	}
-		//}
+			while (tileSet[r][s + 1].id == -1 /*|| s != 21 */|| tileSet[r][s].id != -1)
+			{
+				r = rand() % 9;		//x
+				(s < 21) ? s++ : s = 9;	//y 
+			}
+			if ((tileSet[r][s + 1].id != -1 || s == 21) && tileSet[r][s].id == -1)
+			{
+				tileSet[r][s].id = 90;
+			}
+		}
 	}
 
 	int arr[] = { 0, 10, 30, 40, 61, 70, 80 };
@@ -1887,7 +1888,7 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 		//gray
 	case 90:
-		block->section = { 239, 120, 16, 16 };
+		block->section = { 238, 119, 16, 16 };
 		break;
 	default:
 		break;
