@@ -16,6 +16,10 @@
 using namespace std;
 #include <sstream>
 
+uint Time_ = 0;
+uint delta__Time = 0;
+uint last__TickTime = 0;
+
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
@@ -389,6 +393,47 @@ update_status ScreenLvl_1::PostUpdate()
 		App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
 	}
 
+
+	if (App->points->lines == linesObjective - 5)
+	{
+		App->render->TextDraw("5", 14, 138, 0, 0, 255, 255, 28);
+	}
+	else if (App->points->lines == linesObjective - 4)
+	{
+		App->render->TextDraw("4", 14, 192, 0, 0, 255, 255, 28);
+	}
+	else if (App->points->lines == linesObjective - 3)
+	{
+		App->render->TextDraw("3", 14, 246, 0, 0, 255, 255, 28);
+	}
+	else if (App->points->lines == linesObjective - 2)
+	{
+		App->render->TextDraw("2", 14, 300, 0, 0, 255, 255, 28);
+	}
+	else if (App->points->lines == linesObjective - 1)
+	{
+		if ((delta__Time >= 0) & (delta__Time <= 150))
+		{
+			App->render->TextDraw("1", 14, 246, 0, 0, 255, 255, 28);
+		}
+		if ((delta__Time >= 150) & (delta__Time <= 250))
+		{
+			App->render->TextDraw("1", 14, 246, 255, 255, 255, 255, 28);
+		}
+
+		if ((delta__Time >= 250) & (delta__Time <= 250))
+		{
+			delta__Time = 250;
+		}
+
+		if ((delta__Time > 250))
+		{
+			delta__Time = 0;
+		}
+	}
+
+
+
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
@@ -491,7 +536,6 @@ update_status ScreenLvl_1::PostUpdate()
 
 		}
 	}
-	
 
 	if (lvl_instaLose == true)
 	{
