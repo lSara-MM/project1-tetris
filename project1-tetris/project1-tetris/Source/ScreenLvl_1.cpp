@@ -425,11 +425,11 @@ update_status ScreenLvl_1::PostUpdate()
 	{
 		if ((delta__Time >= 0) & (delta__Time <= 150))
 		{
-			App->render->TextDraw("1", 14, 246, 0, 0, 255, 255, 28);
+			App->render->TextDraw("1", 14, 354, 0, 0, 255, 255, 28);
 		}
 		if ((delta__Time >= 150) & (delta__Time <= 250))
 		{
-			App->render->TextDraw("1", 14, 246, 255, 255, 255, 255, 28);
+			App->render->TextDraw("1", 14, 354, 255, 255, 255, 255, 28);
 		}
 
 		if ((delta__Time >= 250) & (delta__Time <= 250))
