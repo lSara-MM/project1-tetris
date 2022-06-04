@@ -434,15 +434,15 @@ update_status ScreenLvl_1::PostUpdate()
 
 		if (j == 0)
 		{
-
 			App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
 			App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
 
-			if (deltaTimeSl1 > 200)
+			if (deltaTimeSl1 > 150)
 			{
+				Bonus += 10 * (i + 1);
+
 				if (i != 0)
 				{
-					Bonus += 10 * i;
 					LowBonus[i].y = LowBonus[i - 1].y;
 					LowBonus[i].y += 16;
 				}
