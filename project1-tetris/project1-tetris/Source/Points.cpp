@@ -24,7 +24,7 @@ bool Points::Start()
 	score = 0;
 	h = 0;
 
-	lvl = 10;
+	lvl = 1;
 	credits = 0;
 	lines = 0;
 
@@ -114,7 +114,7 @@ void Points::Reset()
 	p_stack = 0;
 	score = 0;
 	h = -1;
-	credits -= 1;
+	credits = 0;
 	lvl = 1;
 	lines = 0;
 }
