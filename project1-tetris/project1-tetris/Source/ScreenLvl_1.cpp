@@ -412,6 +412,9 @@ update_status ScreenLvl_1::PostUpdate()
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
+		string b_bonus = std::to_string(Bonus);
+		const char* ch_bonus = b_bonus.c_str();
+
 		int fila = 0;
 		LowBonus[0].y = 82;
 
@@ -429,37 +432,55 @@ update_status ScreenLvl_1::PostUpdate()
 			j = 1;
 		}
 
-		if (j == 0) 
+		if (j == 0)
 		{
-			if (deltaTimeSl1 > 100) {
 
-				if (i != 0) 
+			App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
+			App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
+
+			if (deltaTimeSl1 > 200)
+			{
+				if (i != 0)
 				{
+					Bonus += 10 * i;
 					LowBonus[i].y = LowBonus[i - 1].y;
 					LowBonus[i].y += 16;
 				}
 
-				App->render->Blit(lowBonus_texture, 65, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
-
-				LOG("Y: %d", LowBonus[i].y);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
 
 				i++;
 
 				deltaTimeSl1 = 0;
 			}
 
-			for (int r = 0; r < i; r++) 
+			for (int r = 0; r < i; r++)
 			{
-				App->render->Blit(lowBonus_texture, 65, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
 			}
-
 		}
+
+		//if (scr == 0)
+		//{
+		//	for (int i = 1; i < fila; i++)
+		//	{
+		//		Bonus += 10 * i;
+		//		
+		//		App->render->TextDraw("bonus", 65, 396, 0, 0, 150, 255, 15);
+		//		App->render->TextDraw(ch_bonus, 65, 396, 0, 0, 150, 255, 15);
+		//	}
+
+		//	scr = 1;
+		//}
 
 		if (j == 1)
 		{
 			for (int i = 0; i < fila - 1; i++)
 			{
-				App->render->Blit(lowBonus_texture, 65, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
+				App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
+
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
 			}
 		}
 	}
@@ -655,6 +676,9 @@ void ScreenLvl_1::lvl_win()
 		{
 			i = 0;
 			j = 0;
+			scr = 0;
+			value += Bonus;
+			App->points->calcScore(value);
 
 			lvl_instaWin = false;
 

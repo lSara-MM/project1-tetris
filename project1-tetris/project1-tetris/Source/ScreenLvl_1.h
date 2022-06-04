@@ -88,6 +88,8 @@ public:
 	int linesObjective;
 
 	int value;
+	int scr;
+	int Bonus;
 
 	// counters / timers
 	bool v_fall;
