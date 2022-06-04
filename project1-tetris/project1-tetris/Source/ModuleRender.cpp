@@ -43,6 +43,9 @@ bool ModuleRender::Init()
 		LOG("True Type Font could not initialize. SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+	
+	if (SCREEN_SIZE == 3 && WIN_FULLSCREEN_DESKTOP == 1)
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3);
 
 	return ret;
 }
