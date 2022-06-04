@@ -115,11 +115,11 @@ bool ModuleTetronimo::Start()
 		break;
 	}
 
-	nextT = rand() % 7;
+	nextT = rand() % 7 + 1;
 	rotation = 0;
 	v_lines = 0;
 	v_4L = 0;
-	t = 0;
+	t = 1;
 	pause = false;
 	App->player->godMode = false;
 
@@ -206,6 +206,7 @@ update_status ModuleTetronimo::Update()
 		}
 	}
 
+	// Next block
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 4; j++)
@@ -269,6 +270,7 @@ update_status ModuleTetronimo::Update()
 		}
 	}
 
+	// Line check
 	for (int i = 0; i < 22; i++)
 	{
 		if (lineCheck(i) == true)
@@ -291,7 +293,86 @@ update_status ModuleTetronimo::Update()
 		}
 		v_4L = 0;
 	}
+
+	if (App->points->lvl == 7)
+	{
+		//if ((t % 10 == 0) && App->sLvl_1->v_fall == false)
+		//{
+		//	//randomBlock7();
+
+		//	int r = rand() % 9;		//x
+		//	int s = rand() % (21 - 9 + 1) + 9;	//y 
+
+		//	while (tileSet[r][s + 1].id == -1 || s != 21 || tileSet[r][s].id != -1)
+		//	{
+		//		r = rand() % 9;		//x
+		//		(s < 21) ? s++ : s = 9;	//y 
+		//	}
+		//	if ((tileSet[r][s + 1].id != -1 || s == 21) && tileSet[r][s].id == -1)
+		//	{
+		//		tileSet[r][s].id = 90;
+		//	}
+		//}
+	}
+
+	int arr[] = { 0, 10, 30, 40, 61, 70, 80 };
+	int b = rand() % 3 + 1;
+	int c = rand() % 10;
+	if (App->points->lvl == 10)
+	{
+		if ((t % 10 == 0) && App->sLvl_1->v_fall == false)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				v = tileSet[i][21];
+				tileSet[i][21].id = arr[rand() % 6];
+
+				if (b == 1)
+				{
+					tileSet[c][21].id = -1;
+				}
+				if (b == 2)
+				{
+					tileSet[c][21].id = -1;
+					while (tileSet[c][21].id == -1)
+					{
+						c = rand() % 10;
+					}
+					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+				}
+				if (b == 3)
+				{
+					tileSet[c][21].id = -1;
+					while (tileSet[c][21].id == -1)
+					{
+						c = rand() % 10;
+					}
+					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+					while (tileSet[c][21].id == -1)
+					{
+						c = rand() % 10;
+					}
+					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+				}
+				b = 0;
+				tileSet[i][20].id = v.id;
+			}
+
+			for (int m = 3; m < 21; m++)
+			{
+				for (int n = 0; n < 10; n++)
+				{
+					tileSet[n][m - 1].id = tileSet[n][m].id;
+				}
+			}
+		}
+	}
 	return update_status::UPDATE_CONTINUE;
+}
+
+void ModuleTetronimo::randomBlock7()
+{
+	
 }
 
 
@@ -381,11 +462,11 @@ bool ModuleTetronimo::CleanUp()
 		}
 	}
 
-	nextT = rand() % 7;
+	nextT = rand() % 7 + 1;
 	rotation = 0;
 	v_lines = 0;
 	v_4L = 0;
-	t = 0;
+	t = 1;
 	pause = false;
 
 	bool pause;
@@ -1018,14 +1099,6 @@ void ModuleTetronimo::Rotation(int next) {
 					rotar++;
 				}
 			}
-			/*rectIdle.x -= 20;
-			rectIdle1.x -= 10;
-			rectIdle3.x -= 10;
-
-			rectIdle1.y -= 10;
-			rectIdle2.y -= 20;
-			rectIdle3.y += 10;*/
-
 			bloque++;
 		}
 
@@ -1060,16 +1133,6 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
-
-			/*rectIdle1.x += 10;
-			rectIdle2.x += 20;
-			rectIdle3.x -= 10;
-
-			rectIdle.y -= 20;
-			rectIdle1.y -= 10;
-			rectIdle3.y -= 10;*/
-
 			bloque++;
 		}
 
@@ -1135,17 +1198,8 @@ void ModuleTetronimo::Rotation(int next) {
 
 					rotar++;
 				}
+				bloque++;
 			}
-
-			/*rectIdle.x += 20;
-			rectIdle1.x += 10;
-			rectIdle3.x += 10;
-
-			rectIdle1.y += 10;
-			rectIdle2.y += 20;
-			rectIdle3.y -= 10;*/
-
-			bloque++;
 		}
 
 		if ((rotar == 0) && (bloque == 0))
@@ -1827,6 +1881,10 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 85, 102, 16, 16 };
 		break;
 
+		//gray
+	case 90:
+		block->section = { 239, 120, 16, 16 };
+		break;
 	default:
 		break;
 	}
@@ -2358,6 +2416,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(rand() % 7 + 1);
 		}
 		else if (App->input->keys[SDL_SCANCODE_1] == KEY_DOWN)
@@ -2369,6 +2428,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::RED);
 		}
 		else if (App->input->keys[SDL_SCANCODE_2] == KEY_DOWN)
@@ -2380,6 +2440,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::GREEN);
 		}
 		else if (App->input->keys[SDL_SCANCODE_3] == KEY_DOWN)
@@ -2391,6 +2452,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::BLUE);
 		}
 		else if (App->input->keys[SDL_SCANCODE_4] == KEY_DOWN)
@@ -2402,6 +2464,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::YELLOW);
 		}
 		else if (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN)
@@ -2413,6 +2476,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::PINK);
 		}
 		else if (App->input->keys[SDL_SCANCODE_6] == KEY_DOWN)
@@ -2424,6 +2488,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::CYAN);
 		}
 		else if (App->input->keys[SDL_SCANCODE_7] == KEY_DOWN)
@@ -2435,6 +2500,7 @@ void ModuleTetronimo::Debugging()
 				b3->id = -1;
 				b4->id = -1;
 			}
+			t--;
 			spawnTetronimo(BLOCK_TYPE::ORANGE);
 		}
 	}

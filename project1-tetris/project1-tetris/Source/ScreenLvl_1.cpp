@@ -714,7 +714,6 @@ void ScreenLvl_1::lvl_win()
 
 		if (v_WinLose == 380)		// cambiar (depende del bonus)
 		{
-
 			i = 0;
 			j = 0;
 
@@ -732,7 +731,14 @@ void ScreenLvl_1::lvl_win()
 			v_loseContinue = 9;
 			v_WinLose = 0;
 
-			App->points->lvl++;
+			if (App->points->lvl == 7)
+			{
+				App->points->lvl = 10;
+			}
+			else
+			{
+				App->points->lvl++;
+			}
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
 	}

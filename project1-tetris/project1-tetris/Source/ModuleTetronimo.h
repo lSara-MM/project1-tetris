@@ -70,6 +70,7 @@ public:
 	bool deleteLine(int i);
 	void Debugging();
 	
+	void randomBlock7();
 
 public:
 
@@ -89,8 +90,6 @@ public:
 	// showcase
 	Block showcase[4][2];
 
-	/*bool button_press = false;*/
-	/*float fx = 0, fy = 0;*/
 private:
 	SDL_Texture* grid_texture = nullptr;
 	SDL_Texture* blockTexture = nullptr;
