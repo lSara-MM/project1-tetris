@@ -71,6 +71,7 @@ public:
 	void Debugging();
 	
 	void randomBlock7();
+	void spawnLine10();
 
 public:
 

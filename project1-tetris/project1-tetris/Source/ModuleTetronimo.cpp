@@ -294,92 +294,91 @@ update_status ModuleTetronimo::Update()
 		v_4L = 0;
 	}
 
-	if (App->points->lvl == 7)
-	{
-		LOG("t = %d - %d", t, t % 3);
-		if ((t % 8 == 0) && App->sLvl_1->v_fall == false)
-		{
-			//randomBlock7();
+	if (App->points->lvl == 7) { randomBlock7(); }
 
-			int r = rand() % 9;		//x
-			int s = rand() % (21 - 9 + 1) + 9;	//y 
-
-			while (tileSet[r][s + 1].id == -1 /*|| s != 21 */|| tileSet[r][s].id != -1)
-			{
-				r = rand() % 9;		//x
-				(s < 21) ? s++ : s = 9;	//y 
-			}
-			if ((tileSet[r][s + 1].id != -1 || s == 21) && tileSet[r][s].id == -1)
-			{
-				tileSet[r][s].id = 90;
-			}
-		}
-	}
-
-	int arr[] = { 0, 10, 30, 40, 61, 70, 80 };
-	int b = rand() % 3 + 1;
-	int c = rand() % 10;
-	if (App->points->lvl == 10)
-	{
-		LOG("t = %d - %d", t, t % 3);
-		if ((t % 8 == 0) && App->sLvl_1->v_fall == false && App->sLvl_1->lvl_instaLose == false)
-		{
-			for (int m = 3; m < 22; m++)
-			{
-				for (int n = 0; n < 10; n++)
-				{
-					tileSet[n][m - 1].id = tileSet[n][m].id;
-				}
-			}
-
-			for (int i = 0; i < 10; i++) { tileSet[i][21].id = 90; }
-
-			if (b == 1)
-			{
-				tileSet[c][21].id = -1;
-			}
-			if (b == 2)
-			{
-				tileSet[c][21].id = -1;
-				while (tileSet[c][21].id == -1)
-				{
-					c = rand() % 10;
-				}
-				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-			}
-			if (b == 3)
-			{
-				tileSet[c][21].id = -1;
-				while (tileSet[c][21].id == -1)
-				{
-					c = rand() % 10;
-				}
-				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-				while (tileSet[c][21].id == -1)
-				{
-					c = rand() % 10;
-				}
-				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-			}
-
-			for (int i = 0; i < 10; i++)
-			{
-				if (tileSet[i][21].id != -1)
-				{
-					tileSet[i][21].id = arr[rand() % 6];
-				}
-			}
-			b = 0;
-		}
-	}
+	if (App->points->lvl == 10) { spawnLine10(); }
 	return update_status::UPDATE_CONTINUE;
 }
 
 void ModuleTetronimo::randomBlock7()
 {
-	
+	LOG("t = %d - %d", t, t % 3);
+	if ((t % 8 == 0) && App->sLvl_1->v_fall == false)
+	{
+
+
+		int r = rand() % 9;		//x
+		int s = rand() % (21 - 9 + 1) + 9;	//y 
+
+		while (tileSet[r][s + 1].id == -1 /*|| s != 21 */ || tileSet[r][s].id != -1)
+		{
+			r = rand() % 9;		//x
+			(s < 21) ? s++ : s = 9;	//y 
+		}
+		if ((tileSet[r][s + 1].id != -1 || s == 21) && tileSet[r][s].id == -1)
+		{
+			tileSet[r][s].id = 90;
+		}
+	}
 }
 
+void ModuleTetronimo::spawnLine10()
+{
+	int arr[] = { 0, 10, 30, 40, 61, 70, 80 };
+	int b = rand() % 3 + 1;
+	int c = rand() % 10;
+
+	LOG("t = %d - %d", t, t % 3);
+	if ((t % 8 == 0) && App->sLvl_1->v_fall == false && App->sLvl_1->lvl_instaLose == false)
+	{
+		for (int m = 3; m < 22; m++)
+		{
+			for (int n = 0; n < 10; n++)
+			{
+				tileSet[n][m - 1].id = tileSet[n][m].id;
+			}
+		}
+
+		for (int i = 0; i < 10; i++) { tileSet[i][21].id = 90; }
+
+		if (b == 1)
+		{
+			tileSet[c][21].id = -1;
+		}
+		if (b == 2)
+		{
+			tileSet[c][21].id = -1;
+			while (tileSet[c][21].id == -1)
+			{
+				c = rand() % 10;
+			}
+			if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+		}
+		if (b == 3)
+		{
+			tileSet[c][21].id = -1;
+			while (tileSet[c][21].id == -1)
+			{
+				c = rand() % 10;
+			}
+			if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+			while (tileSet[c][21].id == -1)
+			{
+				c = rand() % 10;
+			}
+			if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (tileSet[i][21].id != -1)
+			{
+				tileSet[i][21].id = arr[rand() % 6];
+			}
+		}
+		b = 0;
+	}
+}
 
 update_status ModuleTetronimo::PostUpdate()
 {
