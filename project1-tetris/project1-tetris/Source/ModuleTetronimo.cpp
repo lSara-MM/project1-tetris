@@ -1635,6 +1635,10 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 85, 0, 16, 16 };
 		break;
 
+	case 7: 
+		block->section = { 256, 0, 16, 16 };
+		break;
+
 		//green
 	case 10:
 		block->section = { 238, 17, 16, 16 };
@@ -1692,6 +1696,10 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 221, 17, 16, 16 };
 		break;
 
+	case 24:
+		block->section = { 256, 17, 16, 16 };
+		break;
+
 		//blue
 	case 30:
 		block->section = { 238, 34, 16, 16 };
@@ -1721,7 +1729,15 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 34, 34, 16, 16 };
 		break;
 
+	case 37:
+		block->section = { 156, 34, 16, 16 };
+		break;
+
 		//yellow
+	case 39:
+		block->section = { 256, 51, 16, 16 };
+		break;
+
 	case 40:
 		block->section = { 238, 51, 16, 16 };
 		break;
@@ -1811,6 +1827,10 @@ void ModuleTetronimo::blockUpdate(Block* block)
 		block->section = { 238, 68, 16, 16 };
 		break;
 
+	case 62:
+		block->section = { 256, 68, 16, 16 };
+		break;
+
 		//cyan
 	case 70:
 		block->section = { 238, 85, 16, 16 };
@@ -1846,6 +1866,10 @@ void ModuleTetronimo::blockUpdate(Block* block)
 
 	case 78:
 		block->section = { 85, 85, 16, 16 };
+		break;
+
+	case 79:
+		block->section = { 256, 85, 16, 16 };
 		break;
 
 		//orange

@@ -49,8 +49,9 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
 
+	//Bonus
 	for (int i = 0; i < 22; i++) {
-		LowBonus[i].OnelowBonus.PushBack({ 1, 119, 157, 16 });
+		LowBonus[i].OnelowBonus.PushBack({ 1, 119, 163, 16 });
 	}
 
 	// rus 3
@@ -474,7 +475,7 @@ update_status ScreenLvl_1::PostUpdate()
 					LowBonus[i].y += 16;
 				}
 
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 65, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
 
 				LOG("Y: %d", LowBonus[i].y);
 
@@ -485,7 +486,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 			for (int r = 0; r < i; r++) 
 			{
-				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 65, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
 			}
 
 		}
@@ -494,7 +495,7 @@ update_status ScreenLvl_1::PostUpdate()
 		{
 			for (int i = 0; i < fila - 1; i++)
 			{
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 65, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
 			}
 		}
 	}
