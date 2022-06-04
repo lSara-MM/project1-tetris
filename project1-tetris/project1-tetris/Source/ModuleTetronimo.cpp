@@ -127,6 +127,7 @@ bool ModuleTetronimo::Start()
 	grid_texture = App->textures->Load("Assets/ss_grid.png");
 	blockTexture = App->textures->Load("Assets/Sprites/ss_tetronimos.png");
 
+	fxAddLine = App->audio->LoadFx("Assets/Audio/FX/add_block.wav");
 	return true;
 }
 
@@ -377,6 +378,7 @@ void ModuleTetronimo::spawnLine10()
 			}
 		}
 		b = 0;
+		App->audio->PlayFx(fxAddLine, 0);
 	}
 }
 
@@ -472,9 +474,8 @@ bool ModuleTetronimo::CleanUp()
 	v_4L = 0;
 	t = 1;
 	pause = false;
-
-	bool pause;
-
+	App->textures->Unload(grid_texture);
+	App->textures->Unload(blockTexture);
 	SDL_Texture* grid_texture = nullptr;
 	SDL_Texture* blockTexture = nullptr;
 	return true;
