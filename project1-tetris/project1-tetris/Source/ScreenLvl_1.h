@@ -60,8 +60,8 @@ public:
 	SDL_Texture* lowBonus_texture = nullptr; 
 
 	Animation openCurtain;
-	Animation closeCurtain;
-	Animation lowBonus[22]; 
+	Animation closeCurtain; 
+	Animation OnelowBonus;
 
 	// Dancing rus texture
 	SDL_Texture* ruso_texture3 = nullptr;

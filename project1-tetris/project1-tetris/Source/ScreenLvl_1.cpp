@@ -20,6 +20,13 @@ uint Time_ = 0;
 uint delta__Time = 0;
 uint last__TickTime = 0;
 
+uint runTimeSl1 = 0;
+uint deltaTimeSl1 = 0;
+uint lastTickTimeSl1 = 0;
+
+int y = 0;
+int i = 0;
+
 //	TO CHANGE CURTAIN CLOSING ANIMATION (WIN)
 ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 {
@@ -41,10 +48,8 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 	closeCurtain.PushBack({ 816, 3, 157, 126 });
 	//closeCurtain.speed = 0.2f;
 	closeCurtain.loop = true;
-	
-	for (int i = 0; i < 22; i++) {
-		lowBonus[i].PushBack({ 0, 0, 0, 0 });
-	}
+
+	OnelowBonus.PushBack({ 1, 119, 157, 16 });
 
 	// rus 3
 	for (int i = 0; i < 30; i++)
@@ -198,6 +203,10 @@ bool ScreenLvl_1::Start()
 
 update_status ScreenLvl_1::Update()
 {
+	runTimeSl1 = SDL_GetTicks();
+	deltaTimeSl1 += runTimeSl1 - lastTickTimeSl1;
+	lastTickTimeSl1 = runTimeSl1;
+
 	if (openCurtain.GetLoopCount() == 1) {
 		openCurtain.speed = 0;
 	}
@@ -438,8 +447,30 @@ update_status ScreenLvl_1::PostUpdate()
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
 	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
-		for(int i = 0; i < 22; i++)
-			App->render->Blit(lowBonus_texture, 63, 72, &(lowBonus[i].GetCurrentFrame()), 0.85f);
+		int fila = 0;
+
+		for (int i = 0; i < 22; i++) {
+			for (int j = 0; j < 10; j++) {
+				if ((App->tetronimo->tileSet[j][i].id != -1) && (fila == 0))
+				{
+					fila = i - 1;
+				}
+			}
+		}
+
+		if (i < fila)
+		{
+			if (deltaTimeSl1 > 25) 
+			{
+
+				App->render->Blit(lowBonus_texture, 63, 72 + y, &(OnelowBonus.GetCurrentFrame()), 1.5f);
+				y += 16;
+				LOG("Y: %d", y);
+
+				deltaTimeSl1 = 0;
+			}
+			i++;
+		}
 	}
 
 	// Win conditions
@@ -582,111 +613,6 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
-
-		int file = 0;
-
-		for (int i = 0; i < 22; i++) {
-			for (int j = 0; j < 10; j++) {
-				if ((App->tetronimo->tileSet[j][i].id != -1) && (file == 0)) 
-				{
-					file = i - 1;
-				}
-			}
-		}
-
-		for (int i = file; i > 0; i--) {
-
-			if (i == 0) {
-				LOG("FILE: %d", i);
-				lowBonus[0].PushBack({ 0, 119, 16, 16 });
-			}
-
-			if (i == 1) {
-				LOG("FILE: %d", i);
-				lowBonus[1].PushBack({ 17, 119, 16, 16 });
-			}
-
-			if (i == 2) {
-				LOG("FILE: %d", i);
-				lowBonus[2].PushBack({ 34, 119, 16, 16 });
-			}
-
-			if (i == 3) {
-
-			}
-			
-			if (i == 4) {
-
-			}
-
-			if (i == 5) {
-
-			}
-
-			if (i == 6) {
-
-			}
-
-			if (i == 7) {
-
-			}
-
-			if (i == 8) {
-
-			}
-
-			if (i == 9) {
-
-			}
-
-			if (i == 10) {
-
-			}
-
-			if (i == 11) {
-
-			}
-
-			if (i == 12) {
-
-			}
-
-			if (i == 13) {
-
-			}
-
-			if (i == 14) {
-
-			}
-
-			if (i == 15) {
-
-			}
-
-			if (i == 16) {
-
-			}
-
-			if (i == 17) {
-
-			}
-
-			if (i == 18) {
-
-			}
-			
-			if (i == 19) {
-
-			}
-
-			if (i == 20) {
-
-			}
-
-			if (i == 21) {
-
-			}
-		}
 	}
 
 	if (App->points->lvl == 3 || App->points->lvl == 6)
