@@ -695,21 +695,9 @@ void ScreenLvl_1::lvl_win()
 	{
 		if (v_WinLose >= 374)
 		{
-			if (App->points->lvl == 1 || App->points->lvl == 2 || App->points->lvl == 10) {
-				LOG("Close Curtain");
-				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-				closeCurtain.Update();
-			}
-			else if (App->points->lvl == 4 || App->points->lvl == 5) {
-				LOG("Close Curtain");
-				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-				closeCurtain.Update();
-			}
-			else if (App->points->lvl == 7) {
-				if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 257, 192, &(closeCurtain.GetCurrentFrame()), 0.1f); }
-				closeCurtain.Update();
-			}
-			
+			LOG("Close Curtain");
+			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
+			closeCurtain.Update();
 		}
 
 		if (v_WinLose == 380)		// cambiar (depende del bonus)
