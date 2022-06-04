@@ -114,7 +114,7 @@ void Points::Reset()
 	p_stack = 0;
 	score = 0;
 	h = -1;
-	credits -= 1;
+	credits = 0;
 	lvl = 1;
 	lines = 0;
 }

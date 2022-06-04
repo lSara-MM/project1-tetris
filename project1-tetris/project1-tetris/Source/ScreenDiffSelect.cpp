@@ -32,7 +32,6 @@ bool ScreenDiffSelect::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
-
 	bg_texture = App->textures->Load("Assets/Diff_Select.png");
 	arrowleft_texture = App->textures->Load("Assets/arrow_left.png");
 	arrowright_texture = App->textures->Load("Assets/arrow_right.png");
@@ -46,7 +45,6 @@ bool ScreenDiffSelect::Start()
 	p_pos2.x = p2_x;
 	p_pos2.y = p2_y;
 
-
 	yellow_rect_texture = App->textures->Load("Assets/Rect/yellow_rect.png");
 	orange_rect_texture = App->textures->Load("Assets/Rect/orange_rect.png");
 	white_rect_texture = App->textures->Load("Assets/Rect/white_rect.png");
@@ -57,24 +55,19 @@ bool ScreenDiffSelect::Start()
 
 	fxAdd_Press_L_R = App->audio->LoadFx("Assets/Audio/FX/diff_selection_arrow.wav");
 	fxAdd_PressEnter = App->audio->LoadFx("Assets/Audio/FX/diff_selection_enter.wav");
-
 	return ret;
 }
 
 update_status ScreenDiffSelect::Update()
 {
-
 	Time = SDL_GetTicks();
 	delta_Time += Time - last_TickTime;
 	last_TickTime = Time;
-
 
 	App->render->Blit(bg_texture, 0, 3, NULL);
 
 
 	//key commands 
-
-
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 
 		switch (Index)
@@ -138,12 +131,7 @@ update_status ScreenDiffSelect::Update()
 
 			}
 			break;
-
-
 		}
-
-
-
 	}
 
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
@@ -203,13 +191,9 @@ update_status ScreenDiffSelect::Update()
 
 				pos_x5 = 422;
 				pos_y5 = 130;
-
 			}
 		}
-
 	}
-
-
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
@@ -221,11 +205,8 @@ update_status ScreenDiffSelect::Update()
 	}
 
 	ColourRandom();
-
-
 	return update_status::UPDATE_CONTINUE;
 }
-
 
 int ScreenDiffSelect::ColourRandom()
 {
@@ -235,61 +216,40 @@ int ScreenDiffSelect::ColourRandom()
 
 
 	colour = rand() % 9;
-
 	if ((delta_Time >= 0) && (delta_Time <= 50))
 	{
 		LOG("Loading");
-
-
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
 		}
 		else if (colour == 2)
 		{
-
 			App->render->Blit(blue_rect_texture, pos_x, pos_y, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x, pos_y, NULL);
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x, pos_y, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x, pos_y, NULL);
-
-
 		}
 	}
 
@@ -300,63 +260,41 @@ int ScreenDiffSelect::ColourRandom()
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x1, pos_y1, NULL);
-
 		}
 		else if (colour == 2)
 		{
-
 			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x1, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x1, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x1, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x1, pos_y1, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x1, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x1, pos_y1, NULL);
-
-
 		}
-
 	}
 
 	colour = rand() % 9;
 
 	if ((delta_Time >= 100) && (delta_Time <= 150))
 	{
-
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x2, pos_y2, NULL);
@@ -364,24 +302,18 @@ int ScreenDiffSelect::ColourRandom()
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x2, pos_y2, NULL);
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x2, pos_y2, NULL);
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x2, pos_y2, NULL);
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x2, pos_y2, NULL);
-
-
 		}
 		else if (colour == 6)
 		{
@@ -390,15 +322,11 @@ int ScreenDiffSelect::ColourRandom()
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x2, pos_y2, NULL);
-
 		}
-
 	}
 
 	colour = rand() % 9;
@@ -408,55 +336,35 @@ int ScreenDiffSelect::ColourRandom()
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x3, pos_y3, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x3, pos_y3, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x3, pos_y3, NULL);
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x3, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x3, pos_y3, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x3, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x3, pos_y3, NULL);
-
-
 		}
-
-
 	}
 
 	colour = rand() % 9;
@@ -466,48 +374,30 @@ int ScreenDiffSelect::ColourRandom()
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x4, pos_y4, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x4, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x4, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
-
 			App->render->Blit(yellow_rect_texture, pos_x4, pos_y4, NULL);
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x4, pos_y4, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x4, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
@@ -522,82 +412,55 @@ int ScreenDiffSelect::ColourRandom()
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x5, pos_y5, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x5, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x5, pos_y5, NULL);
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x5, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x5, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x5, pos_y5, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x5, pos_y5, NULL);
-
-
 		}
-
-
 	}
 
 
 	if ((delta_Time >= 350) && (delta_Time <= 400))
 	{
 		delta_Time = 400;
-
 	}
 
 	if ((delta_Time > 400))
 	{
 		delta_Time = 0;
-
-
 	}
-
 	return 0;
 }
 
 // Update: draw background
 update_status ScreenDiffSelect::PostUpdate()
 {
-
 	App->render->Blit(arrowleft_texture, p_x, p_y, NULL);
 	App->render->Blit(arrowright_texture, p2_x, p2_y, NULL);
-
 
 	App->render->TextDraw("DIFFICULTY SELECT", 185, 12, 255, 0, 0, 255, 20);
 
@@ -610,8 +473,6 @@ update_status ScreenDiffSelect::PostUpdate()
 	App->render->TextDraw("RANDOM", 512, 208, 255, 250, 250, 255, 15);
 	App->render->TextDraw("BLOCKS", 530, 240, 255, 250, 250, 255, 15);
 
-
-
 	App->render->TextDraw("ROUND  1", 50, 432, 255, 255, 255, 255, 15);
 	App->render->TextDraw("NO BONUS", 50, 448, 255, 255, 255, 255, 15);
 
@@ -622,14 +483,11 @@ update_status ScreenDiffSelect::PostUpdate()
 
 	App->render->TextDraw("ROUND  7", 496, 432, 255, 255, 255, 255, 15);
 	App->render->TextDraw("40000  BONUS", 466, 448, 255, 255, 255, 255, 15);
-
-
 	return update_status::UPDATE_CONTINUE;
 }
 
 bool ScreenDiffSelect::CleanUp()
 {
-
 	App->textures->Unload(bg_texture);
 	App->textures->Unload(arrowleft_texture);
 	App->textures->Unload(arrowright_texture);
@@ -641,8 +499,7 @@ bool ScreenDiffSelect::CleanUp()
 	App->textures->Unload(yellow_rect_texture);
 	App->textures->Unload(orange_rect_texture);
 	App->textures->Unload(white_rect_texture);
-
+	
 	//audio?
-
 	return true;
 }
