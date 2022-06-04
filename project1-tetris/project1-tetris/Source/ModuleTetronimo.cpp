@@ -119,7 +119,7 @@ bool ModuleTetronimo::Start()
 	rotation = 0;
 	v_lines = 0;
 	v_4L = 0;
-	t = 1;
+	t = 0;
 	pause = false;
 	App->player->godMode = false;
 
@@ -320,51 +320,55 @@ update_status ModuleTetronimo::Update()
 	int c = rand() % 10;
 	if (App->points->lvl == 10)
 	{
-		if ((t % 10 == 0) && App->sLvl_1->v_fall == false)
+		LOG("t = %d - %d", t, t % 3);
+		if ((t % 3 == 0) && App->sLvl_1->v_fall == false)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				v = tileSet[i][21];
-				tileSet[i][21].id = arr[rand() % 6];
-
-				if (b == 1)
-				{
-					tileSet[c][21].id = -1;
-				}
-				if (b == 2)
-				{
-					tileSet[c][21].id = -1;
-					while (tileSet[c][21].id == -1)
-					{
-						c = rand() % 10;
-					}
-					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-				}
-				if (b == 3)
-				{
-					tileSet[c][21].id = -1;
-					while (tileSet[c][21].id == -1)
-					{
-						c = rand() % 10;
-					}
-					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-					while (tileSet[c][21].id == -1)
-					{
-						c = rand() % 10;
-					}
-					if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
-				}
-				b = 0;
-				tileSet[i][20].id = v.id;
-			}
-
-			for (int m = 3; m < 21; m++)
+			for (int m = 3; m < 22; m++)
 			{
 				for (int n = 0; n < 10; n++)
 				{
 					tileSet[n][m - 1].id = tileSet[n][m].id;
 				}
 			}
+
+			for (int i = 0; i < 10; i++) { tileSet[i][21].id = 90; }
+
+			if (b == 1)
+			{
+				tileSet[c][21].id = -1;
+			}
+			if (b == 2)
+			{
+				tileSet[c][21].id = -1;
+				while (tileSet[c][21].id == -1)
+				{
+					c = rand() % 10;
+				}
+				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+			}
+			if (b == 3)
+			{
+				tileSet[c][21].id = -1;
+				while (tileSet[c][21].id == -1)
+				{
+					c = rand() % 10;
+				}
+				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+				while (tileSet[c][21].id == -1)
+				{
+					c = rand() % 10;
+				}
+				if (tileSet[c][21].id != -1) { tileSet[c][21].id = -1; }
+			}
+
+			for (int i = 0; i < 10; i++)
+			{
+				if (tileSet[i][21].id != -1)
+				{
+					tileSet[i][21].id = arr[rand() % 6];
+				}
+			}
+			b = 0;
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -2261,6 +2265,10 @@ bool ModuleTetronimo::deleteLine(int i)
 			if (tileSet[j][i - 1].id == 56)
 			{
 				tileSet[j][i + 1].id = 54;
+			}
+			if (tileSet[j][i - 1].id == 60)
+			{
+				tileSet[j][i + 1].id = 53;
 			}
 			break;
 		case 55:

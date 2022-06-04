@@ -735,6 +735,11 @@ void ScreenLvl_1::lvl_win()
 			{
 				App->points->lvl = 10;
 			}
+			else if (App->points->lvl == 10)
+			{
+				App->points->Reset();
+				App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
+			}
 			else
 			{
 				App->points->lvl++;
