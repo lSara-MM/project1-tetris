@@ -121,6 +121,18 @@ bool ScreenLvl_1::Start()
 	ruso_texture6 = App->textures->Load("Assets/Sprites/Rus/6_spritesheet2.png");
 	//ruso_texture9 = App->textures->Load("Assets/Sprites/Rus/9_spritesheet.png");
 
+		//Tetro_rect random
+
+	green_rect_texture = App->textures->Load("Assets/Rect/green_rect.png");
+	blue_rect_texture = App->textures->Load("Assets/Rect/blue_rect.png");
+	bluedark_rect_texture = App->textures->Load("Assets/Rect/bluedark_rect.png");
+
+	yellow_rect_texture = App->textures->Load("Assets/Rect/yellow_rect.png");
+	orange_rect_texture = App->textures->Load("Assets/Rect/orange_rect.png");
+	white_rect_texture = App->textures->Load("Assets/Rect/white_rect.png");
+
+	pink_rect_texture = App->textures->Load("Assets/Rect/pink_rect.png");
+	red_rect_texture = App->textures->Load("Assets/Rect/red_rect.png");
 
 	LOG("Loading sound effects");
 	fxBlock_Fall = App->audio->LoadFx("Assets/Audio/FX/block_fall.wav");
@@ -137,7 +149,6 @@ bool ScreenLvl_1::Start()
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
 	fxBonus = App->audio->LoadFx("Assets/Audio/FX/ShortBonus.wav");
 	
-	App->points->lines = 0;
 
 	// Variables
 	switch (App->points->lvl)
@@ -408,6 +419,12 @@ update_status ScreenLvl_1::PostUpdate()
 		v_points++;
 	}
 
+
+	if (App->points->lines == linesObjective)
+	{
+		ColourRandom();
+
+	}
 	// Rainbow bar			
 	App->points->RainbowStack();
 
@@ -814,6 +831,432 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	v_WinLose++;
 }
 
+int ScreenLvl_1::ColourRandom()
+{
+
+	Time_ = SDL_GetTicks();
+	delta__Time += Time_ - last__TickTime;
+	last__TickTime = Time_;
+
+	srand(time(NULL));
+	colour = rand() % 9;
+
+
+	/*App->render->Blit(green_rect_texture, 55, 165, NULL);
+	App->render->Blit(green_rect_texture, 55, 215, NULL);
+	App->render->Blit(green_rect_texture, 55, 265, NULL);
+	App->render->Blit(green_rect_texture, 55, 315, NULL);
+	App->render->Blit(green_rect_texture, 55, 365, NULL);
+
+	App->render->Blit(green_rect_texture, 232, 110, NULL);
+	App->render->Blit(green_rect_texture, 232, 165, NULL);
+	App->render->Blit(green_rect_texture, 232, 215, NULL);
+	App->render->Blit(green_rect_texture, 232, 265, NULL);
+	App->render->Blit(green_rect_texture, 232, 315, NULL);
+	App->render->Blit(green_rect_texture, 232, 365, NULL);*/
+
+
+	if ((delta__Time >= 0) && (delta__Time <= 150))
+	{
+		LOG("Loading");
+
+
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(green_rect_texture, pos_x + 176, pos_y, NULL);
+
+		}
+		else if (colour == 2)
+		{
+
+			App->render->Blit(blue_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(blue_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(orange_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(white_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+
+		}
+		else if (colour == 5)
+		{
+			App->render->Blit(yellow_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(pink_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(pink_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x, pos_y, NULL);
+			App->render->Blit(red_rect_texture, pos_x + 176, pos_y, NULL);
+
+
+		}
+	}
+
+
+	colour = rand() % 9;
+
+	if ((delta__Time >= 150) && (delta__Time <= 250))
+	{
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(green_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+		}
+		else if (colour == 2)
+		{
+
+			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(blue_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(orange_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(white_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+
+		}
+		else if (colour == 5)
+		{
+			App->render->Blit(yellow_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(pink_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(pink_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x1, pos_y1, NULL);
+			App->render->Blit(red_rect_texture, pos_x1 + 176, pos_y1, NULL);
+
+
+		}
+
+	}
+
+	colour = rand() % 9;
+
+	if ((delta__Time >= 250) && (delta__Time <= 350))
+	{
+
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(green_rect_texture, pos_x2 + 176, pos_y2, NULL);
+		}
+		else if (colour == 2)
+		{
+			App->render->Blit(blue_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(blue_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(orange_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(white_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+
+		}
+		else if (colour == 5)
+		{
+			App->render->Blit(yellow_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(pink_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(pink_rect_texture, pos_x2 + 176, pos_y2, NULL);
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x2, pos_y2, NULL);
+			App->render->Blit(red_rect_texture, pos_x2 + 176, pos_y2, NULL);
+
+		}
+
+	}
+
+	colour = rand() % 9;
+
+	if ((delta__Time >= 350) && (delta__Time <= 450))
+	{
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(green_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+		}
+		else if (colour == 2)
+		{
+			App->render->Blit(blue_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(blue_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(orange_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(white_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+		}
+		else if (colour == 5)
+		{
+			App->render->Blit(yellow_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(pink_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(pink_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x3, pos_y3, NULL);
+			App->render->Blit(red_rect_texture, pos_x3 + 176, pos_y3, NULL);
+
+
+		}
+
+
+	}
+
+	colour = rand() % 9;
+
+	if ((delta__Time >= 450) && (delta__Time <= 550))
+	{
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(green_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+		}
+		else if (colour == 2)
+		{
+			App->render->Blit(blue_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(blue_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(orange_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(white_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+
+		}
+		else if (colour == 5)
+		{
+
+			App->render->Blit(yellow_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(pink_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(pink_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x4 + 176, pos_y4, NULL);
+
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x4, pos_y4, NULL);
+			App->render->Blit(red_rect_texture, pos_x4 + 176, pos_y4, NULL);
+		}
+	}
+
+	colour = rand() % 9;
+
+	if ((delta__Time >= 550) && (delta__Time <= 650))
+	{
+		if (colour == 1)
+		{
+			App->render->Blit(green_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(green_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+		}
+		else if (colour == 2)
+		{
+			App->render->Blit(blue_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(blue_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+
+		}
+		else if (colour == 3)
+		{
+			App->render->Blit(orange_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(orange_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+		}
+		else if (colour == 4)
+		{
+			App->render->Blit(white_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(white_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+
+		}
+		else if (colour == 5)
+		{
+			App->render->Blit(yellow_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(yellow_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+
+		}
+		else if (colour == 6)
+		{
+			App->render->Blit(bluedark_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(bluedark_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+		}
+		else if (colour == 7)
+		{
+			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(pink_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+
+		}
+		else if (colour == 8)
+		{
+			App->render->Blit(red_rect_texture, pos_x5, pos_y5, NULL);
+			App->render->Blit(red_rect_texture, pos_x5 + 176, pos_y5, NULL);
+
+
+		}
+
+
+	}
+
+	if ((delta__Time >= 650) & (delta__Time <= 750))
+	{
+		delta__Time = 750;
+	}
+
+	if ((delta__Time > 750))
+	{
+		delta__Time = 0;
+	}
+
+	return 0;
+}
+
 bool ScreenLvl_1::CleanUp()
 {
 	LOG("Disable Tetronimo");
@@ -824,6 +1267,17 @@ bool ScreenLvl_1::CleanUp()
 	App->textures->Unload(curtain_texture);
 	App->textures->Unload(ruso_texture3);
 	App->textures->Unload(ruso_texture6);
+
+	App->textures->Unload(green_rect_texture);
+	App->textures->Unload(blue_rect_texture);
+	App->textures->Unload(bluedark_rect_texture);
+
+	App->textures->Unload(yellow_rect_texture);
+	App->textures->Unload(orange_rect_texture);
+	App->textures->Unload(white_rect_texture);
+
+	App->textures->Unload(pink_rect_texture);
+	App->textures->Unload(red_rect_texture);
 	
 	openCurtain.Reset();	//  no fa res xd
 	closeCurtain.Reset();

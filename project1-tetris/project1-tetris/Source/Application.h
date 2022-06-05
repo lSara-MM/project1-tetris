@@ -74,9 +74,12 @@ public:
 	ModuleParticles* particles = nullptr;
 
 	ModuleCollisions* collisions = nullptr;
-	ModuleFadeToBlack *fade = nullptr;
+	ModuleFadeToBlack* fade = nullptr;
 
 	ModuleRender* render = nullptr;
+
+	bool FullScreenDesktop = true;
+
 };
 
 // Global var made extern for Application ---
