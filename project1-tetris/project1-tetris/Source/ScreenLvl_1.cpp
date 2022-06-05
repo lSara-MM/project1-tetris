@@ -366,23 +366,23 @@ update_status ScreenLvl_1::PostUpdate()
 	// Rainbow bar			
 	App->points->RainbowStack();
 
-	if (App->points->lines == linesObjective - 5)
+	if (linesleft == 5)
 	{
 		App->render->TextDraw("5", 14, 138, 0, 0, 255, 255, 28);
 	}
-	else if (App->points->lines == linesObjective - 4)
+	else if (linesleft == 4)
 	{
 		App->render->TextDraw("4", 14, 192, 0, 0, 255, 255, 28);
 	}
-	else if (App->points->lines == linesObjective - 3)
+	else if (linesleft == 3)
 	{
 		App->render->TextDraw("3", 14, 246, 0, 0, 255, 255, 28);
 	}
-	else if (App->points->lines == linesObjective - 2)
+	else if (linesleft == 2)
 	{
 		App->render->TextDraw("2", 14, 300, 0, 0, 255, 255, 28);
 	}
-	else if (App->points->lines == linesObjective - 1)
+	else if (linesleft == 1)
 	{
 		if ((delta__Time >= 0) & (delta__Time <= 150))
 		{
@@ -393,7 +393,7 @@ update_status ScreenLvl_1::PostUpdate()
 			App->render->TextDraw("1", 14, 354, 255, 255, 255, 255, 28);
 		}
 
-		if ((delta__Time >= 250) & (delta__Time <= 250))
+		if ((delta__Time >= 250) && (delta__Time <= 250))
 		{
 			delta__Time = 250;
 		}
