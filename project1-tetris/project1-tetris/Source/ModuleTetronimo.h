@@ -90,6 +90,7 @@ public:
 
 	// showcase
 	Block showcase[4][2];
+	Block colorCount[7][21];
 
 private:
 	SDL_Texture* grid_texture = nullptr;

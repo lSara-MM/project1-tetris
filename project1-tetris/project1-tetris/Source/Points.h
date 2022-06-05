@@ -23,6 +23,7 @@ public:
 	int addCreditsLvl();
 
 	void RainbowStack();
+	void colorCount(int v, int c);
 
 	void Reset();
 
@@ -37,7 +38,9 @@ public:
 	int score;
 
 	int lines;
-	int lvl;
+	int lvl; 
+
+	int v_r, v_g, v_b, v_y, v_p, v_c, v_o;
 };
 
 #endif

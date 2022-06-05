@@ -8,6 +8,7 @@
 #include "ModuleAudio.h"
 
 #include "ScreenLvl_1.h"
+#include "ModuleTetronimo.h"
 
 Points::Points(bool startEnabled) : Module(startEnabled)
 {
@@ -27,6 +28,16 @@ bool Points::Start()
 	lvl = 1;
 	credits = 0;
 	lines = 0;
+
+	v_r = 0, v_g = 0, v_b = 0, v_y = 0, v_p = 0, v_c = 0, v_o = 0;
+
+	for (int i = 0; i < 21; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			App->tetronimo->colorCount[j][i].id = -1;
+		}
+	}
 
 	LOG("Loading credits fx");
 	fxAdd_Credits = App->audio->LoadFx("Assets/Audio/FX/add_credit.wav");
@@ -96,6 +107,97 @@ void Points::RainbowStack()
 	if (App->points->p_stack >= 9)		// red
 	{
 		App->render->DrawQuad({ 16, 429, 17, 4 }, 255, 0, 0, 255, 0);
+	}
+}
+
+
+void Points::colorCount(int v, int c)
+{
+	int x_, y_ = 21-v;
+	switch (c)
+	{
+	case BLOCK_TYPE::RED:
+		x_ = 0;
+		break;
+	case BLOCK_TYPE::GREEN:
+		x_ = 1;
+		break;
+	case BLOCK_TYPE::BLUE:
+		x_ = 2;
+		break;
+	case BLOCK_TYPE::YELLOW:
+		x_ = 3;
+		break;
+	case BLOCK_TYPE::PINK:
+		x_ = 4;
+		break;
+	case BLOCK_TYPE::CYAN:
+		x_ = 5;
+		break;
+	case BLOCK_TYPE::ORANGE:
+		x_ = 6;
+		break;
+	default:
+		break;
+	}
+	if (v == 1)
+	{
+		switch (c)
+		{
+		case BLOCK_TYPE::RED:
+			App->tetronimo->colorCount[x_][20].id = 4;
+			break;
+		case BLOCK_TYPE::GREEN:
+			App->tetronimo->colorCount[x_][20].id = 15;
+			break;
+		case BLOCK_TYPE::BLUE:
+			App->tetronimo->colorCount[x_][20].id = 105;
+			break;
+		case BLOCK_TYPE::YELLOW:
+			App->tetronimo->colorCount[x_][20].id = 48;
+			break;
+		case BLOCK_TYPE::PINK:
+			App->tetronimo->colorCount[x_][20].id = 55;
+			break;
+		case BLOCK_TYPE::CYAN:
+			App->tetronimo->colorCount[x_][20].id = 75;
+			break;
+		case BLOCK_TYPE::ORANGE:
+			App->tetronimo->colorCount[x_][20].id = 85;
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		App->tetronimo->colorCount[x_][y_].id = App->tetronimo->colorCount[x_][y_ + 1].id;
+		switch (c)
+		{
+		case BLOCK_TYPE::RED:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 5;
+			break;
+		case BLOCK_TYPE::GREEN:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 100;
+			break;
+		case BLOCK_TYPE::BLUE:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 101;
+			break;
+		case BLOCK_TYPE::YELLOW:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 46;
+			break;
+		case BLOCK_TYPE::PINK:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 56;
+			break;
+		case BLOCK_TYPE::CYAN:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 102;
+			break;
+		case BLOCK_TYPE::ORANGE:
+			App->tetronimo->colorCount[x_][y_ + 1].id = 103;
+			break;
+		default:
+			break;
+		}
 	}
 }
 

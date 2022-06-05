@@ -271,6 +271,16 @@ update_status ModuleTetronimo::Update()
 		}
 	}
 
+	// Side Bars
+	for (int i = 0; i < 21; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			App->tetronimo->blockUpdate(&App->tetronimo->colorCount[j][i]);
+			App->tetronimo->colorCount[j][i].pSection = &App->tetronimo->colorCount[j][i].section;
+		}
+	}
+
 	// Line check
 	for (int i = 0; i < 22; i++)
 	{
@@ -407,6 +417,18 @@ update_status ModuleTetronimo::PostUpdate()
 			}
 		}
 	}
+
+	for (int i = 20; i > 0; i--)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			if (App->tetronimo->colorCount[j][i].id != -1)
+			{
+				App->render->Blit(blockTexture, (461 + (j * (B_WIDTH + 3))), (66 + (i * (B_HEIGHT + 1))), (App->tetronimo->colorCount[j][i].pSection));
+			}
+		}
+	}
+
 
 	// score + text render
 	if (App->sLvl_1->v_points < 30 && v_lines != 0)
@@ -1515,6 +1537,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[6][0];
+		App->points->v_r++;
+		App->points->colorCount(App->points->v_r, BLOCK_TYPE::RED);
 		break;
 
 	case BLOCK_TYPE::GREEN:
@@ -1527,6 +1551,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[4][1];
+		App->points->v_g++;
+		App->points->colorCount(App->points->v_g, BLOCK_TYPE::GREEN);
 		break;
 
 	case BLOCK_TYPE::BLUE:
@@ -1539,6 +1565,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[3][1];
 		b4 = &tileSet[4][1];
+		App->points->v_b++;
+		App->points->colorCount(App->points->v_b, BLOCK_TYPE::BLUE);
 		break;
 
 	case BLOCK_TYPE::YELLOW:
@@ -1551,6 +1579,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[5][1];
+		App->points->v_y++;
+		App->points->colorCount(App->points->v_y, BLOCK_TYPE::YELLOW);
 		break;
 
 	case BLOCK_TYPE::PINK:
@@ -1563,6 +1593,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[5][0];
 		b4 = &tileSet[3][1];
+		App->points->v_p++;
+		App->points->colorCount(App->points->v_p, BLOCK_TYPE::PINK);
 		break;
 
 	case BLOCK_TYPE::CYAN:
@@ -1575,6 +1607,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][1];
 		b3 = &tileSet[4][0];
 		b4 = &tileSet[5][0];
+		App->points->v_c++;
+		App->points->colorCount(App->points->v_c, BLOCK_TYPE::CYAN);
 		break;
 
 	case BLOCK_TYPE::ORANGE:
@@ -1587,6 +1621,8 @@ int ModuleTetronimo::spawnTetronimo(int next)
 		b2 = &tileSet[4][0];
 		b3 = &tileSet[4][1];
 		b4 = &tileSet[5][1];
+		App->points->v_o++;
+		App->points->colorCount(App->points->v_o, BLOCK_TYPE::ORANGE);
 		break;
 	default:
 		break;
@@ -1914,6 +1950,25 @@ void ModuleTetronimo::blockUpdate(Block* block)
 	case 90:
 		block->section = { 238, 119, 16, 16 };
 		break;
+
+		//other
+	case 100:	//green
+		block->section = { 68, 17, 16, 16 };
+		break;
+	case 101:	//blue
+		block->section = { 68, 34, 16, 16 };
+		break;
+	case 102:	//cyan
+		block->section = { 68, 85, 16, 16 };
+		break;
+	case 103:	//orange
+		block->section = { 68, 102, 16, 16 };
+		break;
+
+	case 105:
+		block->section = { 51, 34, 16, 16 };
+		break;
+
 	default:
 		break;
 	}
