@@ -535,10 +535,10 @@ void ScreenLvl_1::lvl_win()
 
 		if (v_WinLose >= 115) 
 		{
-			if (v_WinLose == 120) 
-			{
-				App->audio->PlayFx(fxBonus, 0);
-			}
+			//if (v_WinLose == 120) 
+			//{
+			//	App->audio->PlayFx(fxBonus, 0);
+			//}
 
 
 
@@ -569,6 +569,8 @@ void ScreenLvl_1::lvl_win()
 
 				if (deltaTimeSl1 > 60)
 				{
+					App->audio->PlayFx(fxBonus, 0);
+
 					Bonus += 10 * (i + 1);
 
 					if (i != 0)
@@ -667,14 +669,14 @@ void ScreenLvl_1::lvl_win()
 	}
 	else
 	{
-		if (v_WinLose > 150)
+		if (v_WinLose > 170)
 		{
 			LOG("Close Curtain");
 			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 			closeCurtain.Update();
 		}
 
-		if (v_WinLose == 160)		// cambiar (depende del bonus)
+		if (v_WinLose == 175)		// cambiar (depende del bonus)
 		{
 			i = 0;
 			j = 0;
