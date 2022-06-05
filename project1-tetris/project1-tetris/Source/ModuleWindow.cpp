@@ -1,5 +1,6 @@
 #include "ModuleWindow.h"
 
+#include "ModuleInput.h"
 #include "Application.h"
 #include "Globals.h"
 
