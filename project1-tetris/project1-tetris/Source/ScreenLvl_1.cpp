@@ -137,7 +137,6 @@ bool ScreenLvl_1::Start()
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
 	fxBonus = App->audio->LoadFx("Assets/Audio/FX/lowBonus.wav");
 
-
 	// Variables
 	switch (App->points->lvl)
 	{
@@ -409,94 +408,6 @@ update_status ScreenLvl_1::PostUpdate()
 		}
 	}
 
-	//Bonus
-	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
-	if (v_WinLose >= 62 && v_WinLose < 574){		// depende de las lineas vacias al final
-
-		if (v_WinLose == 62) {
-			App->audio->PlayFx(fxBonus, 0);
-		}
-
-		else {
-
-			App->audio->PauseMusic();
-		}
-
-
-	
-		string b_bonus = std::to_string(Bonus);
-		const char* ch_bonus = b_bonus.c_str();
-
-		int fila = 0;
-		LowBonus[0].y = 82;
-
-		for (int i = 0; i < 22; i++) {
-			for (int j = 0; j < 10; j++) {
-				if ((App->tetronimo->tileSet[j][i].id != -1) && (fila == 0))
-				{
-					fila = i - 1;
-				}
-			}
-		}
-
-		if (i > fila - 2)
-		{
-			j = 1;
-		}
-
-		if (j == 0)
-		{
-			App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
-			App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
-
-			if (deltaTimeSl1 > 150)
-			{
-				Bonus += 10 * (i + 1);
-
-				if (i != 0)
-				{
-					LowBonus[i].y = LowBonus[i - 1].y;
-					LowBonus[i].y += 16;
-				}
-
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
-
-				i++;
-
-				deltaTimeSl1 = 0;
-			}
-
-			for (int r = 0; r < i; r++)
-			{
-				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
-			}
-		}
-
-		//if (scr == 0)
-		//{
-		//	for (int i = 1; i < fila; i++)
-		//	{
-		//		Bonus += 10 * i;
-		//		
-		//		App->render->TextDraw("bonus", 65, 396, 0, 0, 150, 255, 15);
-		//		App->render->TextDraw(ch_bonus, 65, 396, 0, 0, 150, 255, 15);
-		//	}
-
-		//	scr = 1;
-		//}
-
-		if (j == 1)
-		{
-			for (int i = 0; i < fila - 1; i++)
-			{
-				App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
-				App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
-
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
-			}
-		}
-	}
-
 	// Win conditions
 	if (linesleft <= 0)
 	{
@@ -609,7 +520,7 @@ void ScreenLvl_1::lvl_win()
 	App->tetronimo->b4->id = -1;
 	App->tetronimo->pause = true;
 
-	if (v_WinLose >= 0 && v_WinLose < 62)
+	if (v_WinLose >= 0 && v_WinLose < 85)
 	{
 		if (v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
 		else { App->audio->PauseMusic(); }
@@ -618,23 +529,105 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 	}
 
-	if (v_WinLose >= 62 && v_WinLose < 574)		// depende de las lineas vacias al final
+	if (v_WinLose >= 90 && v_WinLose < 320)		// depende de las lineas vacias al final
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
 		App->render->TextDraw("low", 304, 227, 255, 255, 255, 255, 16);
 		App->render->TextDraw("puzzle", 288, 244, 255, 255, 255, 255, 16);
+
+		if (v_WinLose >= 115) 
+		{
+			if (v_WinLose == 120) 
+			{
+				App->audio->PlayFx(fxBonus, 0);
+			}
+
+
+
+			string b_bonus = std::to_string(Bonus);
+			const char* ch_bonus = b_bonus.c_str();
+
+			int fila = 0;
+			LowBonus[0].y = 82;
+
+			for (int i = 0; i < 22; i++) {
+				for (int j = 0; j < 10; j++) {
+					if ((App->tetronimo->tileSet[j][i].id != -1) && (fila == 0))
+					{
+						fila = i - 1;
+					}
+				}
+			}
+
+			if (i > fila - 2)
+			{
+				j = 1;
+			}
+
+			if (j == 0)
+			{
+				App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
+				App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
+
+				if (deltaTimeSl1 > 60)
+				{
+					Bonus += 10 * (i + 1);
+
+					if (i != 0)
+					{
+						LowBonus[i].y = LowBonus[i - 1].y;
+						LowBonus[i].y += 16;
+					}
+
+					App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+
+					i++;
+
+					deltaTimeSl1 = 0;
+				}
+
+				for (int r = 0; r < i; r++)
+				{
+					App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
+				}
+			}
+
+			//if (scr == 0)
+			//{
+			//	for (int i = 1; i < fila; i++)
+			//	{
+			//		Bonus += 10 * i;
+			//		
+			//		App->render->TextDraw("bonus", 65, 396, 0, 0, 150, 255, 15);
+			//		App->render->TextDraw(ch_bonus, 65, 396, 0, 0, 150, 255, 15);
+			//	}
+
+			//	scr = 1;
+			//}
+
+			if (j == 1)
+			{
+				for (int i = 0; i < fila - 1; i++)
+				{
+					App->render->TextDraw("bonus", 66, 405, 0, 0, 150, 255, 15);
+					App->render->TextDraw(ch_bonus, 170, 405, 0, 0, 150, 255, 15);
+
+					App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+				}
+			}
+		}
 	}
 
 	if (App->points->lvl == 3 || App->points->lvl == 6)
 	{
-		if (v_WinLose >= 374)
+		if (v_WinLose >= 170)
 		{
 			// Ruso
 			// cuando acaba la cortinita esa rara de los bloques grises
 			if (App->points->lvl == 3 && dancingRus3.HasFinished() == false)
 			{
-				if (v_WinLose == 374)
+				if (v_WinLose == 170)
 				{
 					App->audio->PlayFx(fxruso3, 0);
 				}
@@ -644,7 +637,7 @@ void ScreenLvl_1::lvl_win()
 
 			if (App->points->lvl == 6)
 			{
-				if (v_WinLose == 374)
+				if (v_WinLose == 170)
 				{
 					App->audio->PlayFx(fxruso6, 0);
 				}
@@ -677,14 +670,14 @@ void ScreenLvl_1::lvl_win()
 	}
 	else
 	{
-		if (v_WinLose >= 374)
+		if (v_WinLose >= 170)
 		{
 			LOG("Close Curtain");
 			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 			closeCurtain.Update();
 		}
 
-		if (v_WinLose == 380)		// cambiar (depende del bonus)
+		if (v_WinLose == 180)		// cambiar (depende del bonus)
 		{
 			i = 0;
 			j = 0;
