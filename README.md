@@ -31,25 +31,41 @@ The player loses if enough tetrominoes pile up to reach the top of the playfield
 
 ### Tetromino movement
 
+#### Keyboard
+
 *Move right -> D
+
 *Move left -> A
+
 *Soft drop -> S
+
 *Rotate -> R
+
+#### Gamepad
+
+*Move -> Joystick
+
+*Rotate -> Any Button
 
 ### Initial screen controls
 
 *Insert credit -> Spacebar 
+
 *Go to difficulty selection screen -> Enter (requires one credit)
 
 ### Difficulty selection screen
 
 *Movement -> A/D keys
+
 *Select difficulty-> Enter
 
 ### Debug controls
 *God Mode -> F1
+
 *Spawn block manually -> F2
+
 *Direct Win -> F3
+
 *Direct Lose -> F4
 
 
