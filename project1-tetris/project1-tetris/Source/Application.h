@@ -77,6 +77,9 @@ public:
 	ModuleFadeToBlack *fade = nullptr;
 
 	ModuleRender* render = nullptr;
+	
+	bool FullScreenDesktop = true;
+
 };
 
 // Global var made extern for Application ---

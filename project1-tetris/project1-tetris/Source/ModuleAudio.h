@@ -48,11 +48,9 @@ public:
 	// Receives an index from the sound fx array
 	bool PlayFx(uint index, int repeat = 0);
 
-
-	// The current playing music
-	Mix_Music* music = nullptr;
-
 private:
+	// The current playing music
+	Mix_Music*	music = nullptr;
 
 	// An array of all the loaded sound effects
 	// Allows us to keep track of all sound fx and handle them through indices
