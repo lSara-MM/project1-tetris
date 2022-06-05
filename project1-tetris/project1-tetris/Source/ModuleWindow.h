@@ -19,8 +19,6 @@ public:
 	// Called on application start.
 	// Initializes the SDL Library and creates a window.
 	bool Init() override;
-	
-	update_status PreUpdate() ;
 
 	// Called on application exit.
 	// Destroys the window and uninitializes the SDL library

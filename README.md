@@ -31,17 +31,10 @@ The player loses if enough tetrominoes pile up to reach the top of the playfield
 
 ###Tetromino movement
 
-#### Keyboard
-
 *Move right -> D
 *Move left -> A
 *Soft drop -> S
 *Rotate -> R
-
-#### Gamepad
-
-*Move -> Joystick
-*Rotate -> Any button 
 
 ###Initial screen controls
 
