@@ -39,9 +39,21 @@ update_status ModuleInput::PreUpdate()
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 
+
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
-		if (event.type == SDL_QUIT) return update_status::UPDATE_STOP;
+		switch (event.type) {
+		case SDL_QUIT:
+			return update_status::UPDATE_STOP;
+			break;
+		case SDL_KEYDOWN:
+			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			{
+				return update_status::UPDATE_STOP;
+
+			}
+			break;
+		}
 	}
 	//Lee los datos del teclado i actualiza el custom array
 	SDL_PumpEvents();
