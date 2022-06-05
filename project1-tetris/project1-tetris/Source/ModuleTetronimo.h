@@ -94,6 +94,7 @@ public:
 private:
 	SDL_Texture* grid_texture = nullptr;
 	SDL_Texture* blockTexture = nullptr;
+	uint fxAddLine = 0;
 };
 
 #endif //__MODULE_TETRONIMO_H__

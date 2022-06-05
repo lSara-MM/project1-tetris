@@ -135,6 +135,7 @@ bool ScreenLvl_1::Start()
 	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
 	fxruso3 = App->audio->LoadFx("Assets/Audio/FX/03_Hopak__Round_3_.wav");
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
+	fxBonus = App->audio->LoadFx("Assets/Audio/FX/lowBonus.wav");
 
 
 	// Variables
@@ -410,8 +411,19 @@ update_status ScreenLvl_1::PostUpdate()
 
 	//Bonus
 	//5*e*(e+1), e=numero filas vacias por encima de la ultima pieza colocada (en teoria maximo 2100)
-	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
-	{
+	if (v_WinLose >= 62 && v_WinLose < 574){		// depende de las lineas vacias al final
+
+		if (v_WinLose == 62) {
+			App->audio->PlayFx(fxBonus, 0);
+		}
+
+		else {
+
+			App->audio->PauseMusic();
+		}
+
+
+	
 		string b_bonus = std::to_string(Bonus);
 		const char* ch_bonus = b_bonus.c_str();
 
@@ -447,7 +459,7 @@ update_status ScreenLvl_1::PostUpdate()
 					LowBonus[i].y += 16;
 				}
 
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 100.5f);
 
 				i++;
 
@@ -456,7 +468,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 			for (int r = 0; r < i; r++)
 			{
-				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 100.5f);
 			}
 		}
 
@@ -597,7 +609,7 @@ void ScreenLvl_1::lvl_win()
 	App->tetronimo->b4->id = -1;
 	App->tetronimo->pause = true;
 
-	if (v_WinLose >= 0 && v_WinLose < 250)
+	if (v_WinLose >= 0 && v_WinLose < 62)
 	{
 		if (v_WinLose == 0) App->audio->PlayFx(fxYou_DidIt, 0);
 		else { App->audio->PauseMusic(); }
@@ -606,7 +618,7 @@ void ScreenLvl_1::lvl_win()
 		App->render->TextDraw("did it", 290, 280, 255, 255, 255, 255, 15);
 	}
 
-	if (v_WinLose >= 250 && v_WinLose < 574)		// depende de las lineas vacias al final
+	if (v_WinLose >= 62 && v_WinLose < 574)		// depende de las lineas vacias al final
 	{
 		//Bonus
 		App->render->TextDraw("bonus for", 272, 210, 255, 255, 255, 255, 16);
