@@ -56,6 +56,25 @@ bool ModuleWindow::Init()
 	return ret;
 }
 
+update_status ModuleWindow::PreUpdate()
+{
+	if (App->input->keys[SDL_SCANCODE_F] == KEY_DOWN)
+	{
+		App->FullScreenDesktop = !App->FullScreenDesktop;
+
+		if (App->FullScreenDesktop)
+		{
+			SDL_SetWindowFullscreen(App->window->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		}
+		else
+		{
+			SDL_SetWindowFullscreen(App->window->window, 0);
+		}
+	}
+		return update_status::UPDATE_CONTINUE;
+
+}
+
 bool ModuleWindow::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
