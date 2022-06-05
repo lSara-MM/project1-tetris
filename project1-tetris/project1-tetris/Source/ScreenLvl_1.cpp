@@ -177,11 +177,6 @@ bool ScreenLvl_1::Start()
 		App->points->Reset();
 		App->points->credits = 1;
 	}
-	//if (App->points->lvl == 1)//fa algo raro amb el f5 implementat
-	//{
-	//	App->points->credits -= 1;
-	//	App->points->score = 0;
-	//}
 
 	// Counter
 	v_fall = true;
@@ -363,13 +358,12 @@ update_status ScreenLvl_1::PostUpdate()
 		string s_points = to_string(value);
 		const char* ch_points = s_points.c_str();
 
-		App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16);
+		(value < 100) ? App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16) : App->render->TextDraw(ch_points, 190, 405, 21, 11, 134, 255, 16);
 		v_points++;
 	}
 
 	// Rainbow bar			
 	App->points->RainbowStack();
-
 
 	if (App->points->lines == linesObjective - 5)
 	{
@@ -422,8 +416,6 @@ update_status ScreenLvl_1::PostUpdate()
 			App->audio->PauseMusic();
 		}
 
-
-	
 		string b_bonus = std::to_string(Bonus);
 		const char* ch_bonus = b_bonus.c_str();
 
