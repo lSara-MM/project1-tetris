@@ -22,11 +22,15 @@ VIDEO
 
 ### Tetromino movement
 
+#### Keyboard
 * Move right -> D
 * Move left -> A
 * Soft drop -> S
 * Rotate -> R
 
+#### Gamepad
+* Move -> Joystick
+* Rotate -> Any button 
 ### Initial screen controls
 
 * Insert credit -> Spacebar 
