@@ -459,7 +459,7 @@ update_status ScreenLvl_1::PostUpdate()
 					LowBonus[i].y += 16;
 				}
 
-				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 100.5f);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[i].y, &(LowBonus[i].OnelowBonus.GetCurrentFrame()), 1.5f);
 
 				i++;
 
@@ -468,7 +468,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 			for (int r = 0; r < i; r++)
 			{
-				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 100.5f);
+				App->render->Blit(lowBonus_texture, 63, LowBonus[r].y, &(LowBonus[r].OnelowBonus.GetCurrentFrame()), 1.5f);
 			}
 		}
 
