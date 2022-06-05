@@ -9,6 +9,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
 
+#include "Points.h"
 #include <iostream>
 using namespace std;
 
@@ -16,9 +17,6 @@ uint Time = 0;
 uint delta_Time = 0;
 uint Joystick = 0;
 uint last_TickTime = 0;
-
-
-
 
 ScreenDiffSelect::ScreenDiffSelect(bool startEnabled) : Module(startEnabled)
 {
@@ -72,7 +70,6 @@ float reduce_v(float v1, float min, float clamp_to) {
 
 update_status ScreenDiffSelect::Update()
 {
-
 	bool button_press = false;
 
 	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
@@ -88,15 +85,12 @@ update_status ScreenDiffSelect::Update()
 	fx += reduce_v(App->input->pads[0].right_x, 3000, 2);
 	fy += reduce_v(App->input->pads[0].right_y, 3000, 2);
 
-
-
 	Time = SDL_GetTicks();
 	delta_Time += Time - last_TickTime;
 	Joystick += Time - last_TickTime;
 	last_TickTime = Time;
 
 	App->render->Blit(bg_texture, 0, 3, NULL);
-
 
 	//key commands 
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0) {
@@ -241,6 +235,18 @@ update_status ScreenDiffSelect::Update()
 	{
 		if (Index == Easy)
 		{
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+			App->audio->PlayFx(fxAdd_PressEnter);
+		}
+		if (Index == 1)
+		{
+			App->points->lvl = 4;
+			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
+			App->audio->PlayFx(fxAdd_PressEnter);
+		}
+		if (Index == 0)
+		{
+			App->points->lvl = 7;
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 			App->audio->PlayFx(fxAdd_PressEnter);
 		}

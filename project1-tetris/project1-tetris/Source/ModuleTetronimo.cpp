@@ -457,6 +457,7 @@ update_status ModuleTetronimo::PostUpdate()
 			}
 			break;
 		case 4:
+			App->sLvl_1->ColourRandom();
 			App->render->TextDraw("Tetris 900", 64, 405, 0, 0, 0, 0, 16);
 			if (App->sLvl_1->v_points == 0)
 			{

@@ -6,9 +6,6 @@
 #include "ModuleWindow.h"
 #include "p2Point.h"
 
-
-
-
 struct SDL_Texture;
 struct SDL_GetKeyState;
 struct SDL_SetTimer;
@@ -42,7 +39,6 @@ public:
 
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bg_texture = nullptr;
-
 
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* arrowleft_texture = nullptr;

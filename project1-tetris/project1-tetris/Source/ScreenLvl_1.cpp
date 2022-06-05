@@ -348,7 +348,7 @@ update_status ScreenLvl_1::PostUpdate()
 
 	// Player 2 section
 	App->render->TextDraw("next", 605, 25, 137, 137, 235, 255, 16);
-	App->render->TextDraw("stats", 480, 110, 255, 255, 255, 255, 16);
+	if (App->points->y_ > 5) { App->render->TextDraw("stats", 480, 110, 255, 255, 255, 255, 16); }
 
 	if (v_insertCoin >= 0 && v_insertCoin < 130)
 	{
@@ -387,15 +387,11 @@ update_status ScreenLvl_1::PostUpdate()
 		v_points++;
 	}
 
-
-	if (App->points->lines == linesObjective)
-	{
-		ColourRandom();
-
-	}
 	// Rainbow bar			
 	App->points->RainbowStack();
 
+	if (App->points->lines == linesObjective) { ColourRandom(); }
+	
 	if (linesleft == 5)
 	{
 		App->render->TextDraw("5", 14, 138, 0, 0, 255, 255, 28);
@@ -537,10 +533,8 @@ update_status ScreenLvl_1::PostUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
-
 void ScreenLvl_1::lvl_win()
 {
-
 	App->tetronimo->b1->id = -1;
 	App->tetronimo->b2->id = -1;
 	App->tetronimo->b3->id = -1;

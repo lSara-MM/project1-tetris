@@ -113,7 +113,7 @@ void Points::RainbowStack()
 
 void Points::colorCount(int v, int c)
 {
-	int x_, y_ = 21-v;
+	y_ = 21-v;
 	switch (c)
 	{
 	case BLOCK_TYPE::RED:
@@ -171,32 +171,35 @@ void Points::colorCount(int v, int c)
 	}
 	else
 	{
-		App->tetronimo->colorCount[x_][y_].id = App->tetronimo->colorCount[x_][y_ + 1].id;
-		switch (c)
+		if (y_ > 0)
 		{
-		case BLOCK_TYPE::RED:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 5;
-			break;
-		case BLOCK_TYPE::GREEN:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 100;
-			break;
-		case BLOCK_TYPE::BLUE:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 101;
-			break;
-		case BLOCK_TYPE::YELLOW:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 46;
-			break;
-		case BLOCK_TYPE::PINK:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 56;
-			break;
-		case BLOCK_TYPE::CYAN:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 102;
-			break;
-		case BLOCK_TYPE::ORANGE:
-			App->tetronimo->colorCount[x_][y_ + 1].id = 103;
-			break;
-		default:
-			break;
+			App->tetronimo->colorCount[x_][y_].id = App->tetronimo->colorCount[x_][y_ + 1].id;
+			switch (c)
+			{
+			case BLOCK_TYPE::RED:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 5;
+				break;
+			case BLOCK_TYPE::GREEN:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 100;
+				break;
+			case BLOCK_TYPE::BLUE:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 101;
+				break;
+			case BLOCK_TYPE::YELLOW:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 46;
+				break;
+			case BLOCK_TYPE::PINK:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 56;
+				break;
+			case BLOCK_TYPE::CYAN:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 102;
+				break;
+			case BLOCK_TYPE::ORANGE:
+				App->tetronimo->colorCount[x_][y_ + 1].id = 103;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

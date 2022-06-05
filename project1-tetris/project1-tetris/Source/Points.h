@@ -40,6 +40,7 @@ public:
 	int lines;
 	int lvl; 
 
+	int x_, y_;
 	int v_r, v_g, v_b, v_y, v_p, v_c, v_o;
 };
 
