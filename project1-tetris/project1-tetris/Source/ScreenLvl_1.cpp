@@ -136,7 +136,8 @@ bool ScreenLvl_1::Start()
 	fxruso3 = App->audio->LoadFx("Assets/Audio/FX/03_Hopak__Round_3_.wav");
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
 	fxBonus = App->audio->LoadFx("Assets/Audio/FX/lowBonus.wav");
-
+	
+	App->points->lines = 0;
 
 	// Variables
 	switch (App->points->lvl)
