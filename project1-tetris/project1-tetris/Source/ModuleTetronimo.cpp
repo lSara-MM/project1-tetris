@@ -2348,7 +2348,7 @@ bool ModuleTetronimo::deleteLine(int i)
 			}
 			if (tileSet[j][i - 1].id == 60)
 			{
-				tileSet[j][i + 1].id = 53;
+				tileSet[j][i - 1].id = 53;
 			}
 			break;
 		case 55:

@@ -149,6 +149,21 @@ bool ScreenLvl_1::Start()
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
 	fxBonus = App->audio->LoadFx("Assets/Audio/FX/ShortBonus.wav");
 	
+	App->points->v_r = 0;
+	App->points->v_g = 0;
+	App->points->v_b = 0;
+	App->points->v_y = 0;
+	App->points->v_p = 0;
+	App->points->v_c = 0;
+	App->points->v_o = 0;
+
+	for (int i = 0; i < 21; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			App->tetronimo->colorCount[j][i].id = -1;
+		}
+	}
 
 	// Variables
 	switch (App->points->lvl)
@@ -164,21 +179,6 @@ bool ScreenLvl_1::Start()
 		break;
 	case 4:
 		linesObjective = 10;
-		App->points->v_r = 0;
-		App->points->v_g = 0;
-		App->points->v_b = 0;
-		App->points->v_y = 0;
-		App->points->v_p = 0;
-		App->points->v_c = 0;
-		App->points->v_o = 0;
-
-		for (int i = 0; i < 21; i++)
-		{
-			for (int j = 0; j < 7; j++)
-			{
-				App->tetronimo->colorCount[j][i].id = -1;
-			}
-		}
 		break;
 	case 5:
 		linesObjective = 13;
@@ -188,46 +188,14 @@ bool ScreenLvl_1::Start()
 		break;
 	case 7:
 		linesObjective = 12;
-		App->points->v_r = 0;
-		App->points->v_g = 0;
-		App->points->v_b = 0;
-		App->points->v_y = 0;
-		App->points->v_p = 0;
-		App->points->v_c = 0;
-		App->points->v_o = 0;
-
-		for (int i = 0; i < 21; i++)
-		{
-			for (int j = 0; j < 7; j++)
-			{
-				App->tetronimo->colorCount[j][i].id = -1;
-			}
-		}
 		break;
 	case 10:
 		linesObjective = 12;
-		App->points->v_r = 0;
-		App->points->v_g = 0;
-		App->points->v_b = 0;
-		App->points->v_y = 0;
-		App->points->v_p = 0;
-		App->points->v_c = 0;
-		App->points->v_o = 0;
-
-		for (int i = 0; i < 21; i++)
-		{
-			for (int j = 0; j < 7; j++)
-			{
-				App->tetronimo->colorCount[j][i].id = -1;
-			}
-		}
 		break;
 	default:
 		break;
 	}
-
 	linesleft = linesObjective;
-
 
 	if (App->points->credits < 0)
 	{
@@ -240,7 +208,7 @@ bool ScreenLvl_1::Start()
 	v_message = 0;
 	v_insertCoin = 0;
 	v_points = 0;
-
+	value = 0;
 	// debug
 	lvl_instaWin = false;
 	lvl_instaLose = false;
@@ -602,8 +570,6 @@ void ScreenLvl_1::lvl_win()
 			//	App->audio->PlayFx(fxBonus, 0);
 			//}
 
-
-
 			string b_bonus = std::to_string(Bonus);
 			const char* ch_bonus = b_bonus.c_str();
 
@@ -802,7 +768,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	else if (v_WinLose > 100)
 	{
 		App->tetronimo->Disable();
-		if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
 		{
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
@@ -833,7 +799,6 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 
 int ScreenLvl_1::ColourRandom()
 {
-
 	Time_ = SDL_GetTicks();
 	delta__Time += Time_ - last__TickTime;
 	last__TickTime = Time_;
