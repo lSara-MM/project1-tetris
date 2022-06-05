@@ -74,8 +74,10 @@ update_status ScreenStart::PostUpdate()
 
 	if (App->points->credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
 	{
+		start_screen.loopCount = 0;
+		App->particles->Set0();
 		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
-		App->particles->Disable();
+		//App->particles->Disable();
 	}
 	if (App->points->credits == 1)
 	{
