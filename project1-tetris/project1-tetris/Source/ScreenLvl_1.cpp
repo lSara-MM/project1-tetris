@@ -135,7 +135,7 @@ bool ScreenLvl_1::Start()
 	fxLine = App->audio->LoadFx("Assets/Audio/FX/line.wav");
 	fxruso3 = App->audio->LoadFx("Assets/Audio/FX/03_Hopak__Round_3_.wav");
 	fxruso6= App->audio->LoadFx("Assets/Audio/FX/06__Round_6_.wav");
-	fxBonus = App->audio->LoadFx("Assets/Audio/FX/lowBonus.wav");
+	fxBonus = App->audio->LoadFx("Assets/Audio/FX/ShortBonus.wav");
 	
 	App->points->lines = 0;
 
@@ -548,7 +548,7 @@ void ScreenLvl_1::lvl_win()
 			int fila = 0;
 			LowBonus[0].y = 82;
 
-			for (int i = 0; i < 22; i++) {
+			for (int i = 0; i <= 22; i++) {
 				for (int j = 0; j < 10; j++) {
 					if ((App->tetronimo->tileSet[j][i].id != -1) && (fila == 0))
 					{
@@ -618,13 +618,13 @@ void ScreenLvl_1::lvl_win()
 
 	if (App->points->lvl == 3 || App->points->lvl == 6)
 	{
-		if (v_WinLose >= 170)
+		if (v_WinLose >= 150)
 		{
 			// Ruso
 			// cuando acaba la cortinita esa rara de los bloques grises
 			if (App->points->lvl == 3 && dancingRus3.HasFinished() == false)
 			{
-				if (v_WinLose == 170)
+				if (v_WinLose == 150)
 				{
 					App->audio->PlayFx(fxruso3, 0);
 				}
@@ -634,7 +634,7 @@ void ScreenLvl_1::lvl_win()
 
 			if (App->points->lvl == 6)
 			{
-				if (v_WinLose == 170)
+				if (v_WinLose == 150)
 				{
 					App->audio->PlayFx(fxruso6, 0);
 				}
@@ -667,14 +667,14 @@ void ScreenLvl_1::lvl_win()
 	}
 	else
 	{
-		if (v_WinLose >= 170)
+		if (v_WinLose > 150)
 		{
 			LOG("Close Curtain");
 			if (closeCurtain.GetLoopCount() == 0) { App->render->Blit(curtain_texture, 258, 194, &(closeCurtain.GetCurrentFrame()), 0.1f); }
 			closeCurtain.Update();
 		}
 
-		if (v_WinLose == 180)		// cambiar (depende del bonus)
+		if (v_WinLose == 160)		// cambiar (depende del bonus)
 		{
 			i = 0;
 			j = 0;
