@@ -153,6 +153,21 @@ bool ScreenLvl_1::Start()
 		break;
 	case 4:
 		linesObjective = 10;
+		App->points->v_r = 0;
+		App->points->v_g = 0;
+		App->points->v_b = 0;
+		App->points->v_y = 0;
+		App->points->v_p = 0;
+		App->points->v_c = 0;
+		App->points->v_o = 0;
+
+		for (int i = 0; i < 21; i++)
+		{
+			for (int j = 0; j < 7; j++)
+			{
+				App->tetronimo->colorCount[j][i].id = -1;
+			}
+		}
 		break;
 	case 5:
 		linesObjective = 13;
@@ -162,9 +177,39 @@ bool ScreenLvl_1::Start()
 		break;
 	case 7:
 		linesObjective = 12;
+		App->points->v_r = 0;
+		App->points->v_g = 0;
+		App->points->v_b = 0;
+		App->points->v_y = 0;
+		App->points->v_p = 0;
+		App->points->v_c = 0;
+		App->points->v_o = 0;
+
+		for (int i = 0; i < 21; i++)
+		{
+			for (int j = 0; j < 7; j++)
+			{
+				App->tetronimo->colorCount[j][i].id = -1;
+			}
+		}
 		break;
 	case 10:
 		linesObjective = 12;
+		App->points->v_r = 0;
+		App->points->v_g = 0;
+		App->points->v_b = 0;
+		App->points->v_y = 0;
+		App->points->v_p = 0;
+		App->points->v_c = 0;
+		App->points->v_o = 0;
+
+		for (int i = 0; i < 21; i++)
+		{
+			for (int j = 0; j < 7; j++)
+			{
+				App->tetronimo->colorCount[j][i].id = -1;
+			}
+		}
 		break;
 	default:
 		break;
