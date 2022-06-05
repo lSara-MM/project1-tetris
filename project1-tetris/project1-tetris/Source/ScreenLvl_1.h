@@ -31,6 +31,8 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
 
+	int ColourRandom();
+
 	// Intento de solucion a leaks
 	bool CleanUp() override;
 
@@ -101,6 +103,41 @@ public:
 
 	int v_loseContinue;
 	int v_WinLose;
+
+
+	SDL_Rect p_pos;
+
+	int colour;
+
+
+	SDL_Rect p_pos2;
+
+	int pos_x = 55;
+	int pos_y = 110;
+
+	int pos_x1 = 55;
+	int pos_y1 = 170;
+
+	int pos_x2 = 55;
+	int pos_y2 = 220;
+
+	int pos_x3 = 55;
+	int pos_y3 = 270;
+
+	int pos_x4 = 55;
+	int pos_y4 = 320;
+
+	int pos_x5 = 55;
+	int pos_y5 = 370;
+
+	SDL_Texture* green_rect_texture = nullptr;
+	SDL_Texture* red_rect_texture = nullptr;
+	SDL_Texture* yellow_rect_texture = nullptr;
+	SDL_Texture* orange_rect_texture = nullptr;
+	SDL_Texture* white_rect_texture = nullptr;
+	SDL_Texture* blue_rect_texture = nullptr;
+	SDL_Texture* bluedark_rect_texture = nullptr;
+	SDL_Texture* pink_rect_texture = nullptr;
 };
 
 #endif
