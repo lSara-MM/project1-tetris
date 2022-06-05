@@ -41,18 +41,7 @@ update_status ModuleInput::PreUpdate()
 
 	SDL_Event event;
 	if (SDL_PollEvent(&event)) {
-		switch (event.type) {
-		case SDL_QUIT:
-			return update_status::UPDATE_STOP;
-			break;
-		case SDL_KEYDOWN:
-			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			{
-				return update_status::UPDATE_STOP;
-
-			}
-			break;
-		}
+		if (event.type == SDL_QUIT) return update_status::UPDATE_STOP;
 	}
 	//Lee los datos del teclado i actualiza el custom array
 	SDL_PumpEvents();
