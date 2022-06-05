@@ -14,7 +14,11 @@ using namespace std;
 
 uint Time = 0;
 uint delta_Time = 0;
+uint Joystick = 0;
 uint last_TickTime = 0;
+
+
+
 
 ScreenDiffSelect::ScreenDiffSelect(bool startEnabled) : Module(startEnabled)
 {
@@ -58,144 +62,182 @@ bool ScreenDiffSelect::Start()
 	return ret;
 }
 
+float reduce_v(float v1, float min, float clamp_to) {
+	float sign = v1 / fabs(v1);
+	float reduced = v1 - ((fabs(v1) > min) ? sign * min : v1);
+	float to_1 = reduced / (float)(SDL_MAX_SINT16);
+	float reclamped = to_1 * clamp_to;
+	return reclamped;
+}
+
 update_status ScreenDiffSelect::Update()
 {
+
+	bool button_press = false;
+
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+
+	float fx = 0, fy = 0;
+
+	fx += reduce_v(App->input->pads[0].left_x, 3000, 2);
+	fy += reduce_v(App->input->pads[0].left_y, 3000, 2);
+	fx += reduce_v(App->input->pads[0].right_x, 3000, 2);
+	fy += reduce_v(App->input->pads[0].right_y, 3000, 2);
+
+
+
 	Time = SDL_GetTicks();
 	delta_Time += Time - last_TickTime;
+	Joystick += Time - last_TickTime;
 	last_TickTime = Time;
 
 	App->render->Blit(bg_texture, 0, 3, NULL);
 
 
 	//key commands 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || fx < 0 && App->input->num_controllers > 0) {
 
-		switch (Index)
-		{
-		case 0:
-			if (Index < 2)
+		if (Joystick > 50) {
+
+			switch (Index)
 			{
-				Index++;
-				p_x -= 235;
-				p2_x -= 205;
+			case 0:
+				if (Index < 2)
+				{
+					Index++;
+					p_x -= 235;
+					p2_x -= 205;
 
-				App->audio->PlayFx(fxAdd_Press_L_R);
+					App->audio->PlayFx(fxAdd_Press_L_R);
 
-				//Colour random
-				pos_x = 245;
-				pos_y = 130;
+					//Colour random
+					pos_x = 245;
+					pos_y = 130;
 
-				pos_x1 = 245;
-				pos_y1 = 244;
+					pos_x1 = 245;
+					pos_y1 = 244;
 
-				pos_x2 = 245;
-				pos_y2 = 365;
+					pos_x2 = 245;
+					pos_y2 = 365;
 
-				pos_x3 = 422;
-				pos_y3 = 365;
+					pos_x3 = 422;
+					pos_y3 = 365;
 
-				pos_x4 = 422;
-				pos_y4 = 365;
+					pos_x4 = 422;
+					pos_y4 = 365;
 
-				pos_x5 = 422;
-				pos_y5 = 130;
+					pos_x5 = 422;
+					pos_y5 = 130;
+				}
+				break;
+			case 1:
+				if (Index < 2)
+				{
+					Index++;
+					p_x -= 210;
+					p2_x -= 244;
+
+					App->audio->PlayFx(fxAdd_Press_L_R);
+
+					//Colour random
+					pos_x = 22;
+					pos_y = 130;
+
+					pos_x1 = 22;
+					pos_y1 = 244;
+
+					pos_x2 = 22;
+					pos_y2 = 365;
+
+					pos_x3 = 200;
+					pos_y3 = 365;
+
+					pos_x4 = 200;
+					pos_y4 = 365;
+
+					pos_x5 = 200;
+					pos_y5 = 130;
+
+				}
+				break;
 			}
-			break;
-		case 1:
-			if (Index < 2)
-			{
-				Index++;
-				p_x -= 210;
-				p2_x -= 244;
 
-				App->audio->PlayFx(fxAdd_Press_L_R);
-
-				//Colour random
-				pos_x = 22;
-				pos_y = 130;
-
-				pos_x1 = 22;
-				pos_y1 = 244;
-
-				pos_x2 = 22;
-				pos_y2 = 365;
-
-				pos_x3 = 200;
-				pos_y3 = 365;
-
-				pos_x4 = 200;
-				pos_y4 = 365;
-
-				pos_x5 = 200;
-				pos_y5 = 130;
-
-			}
-			break;
+			Joystick = 0; 
 		}
 	}
 
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
-		switch (Index)
-		{
-		case 1:
-			if (Index > 0)
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || fx > 0 && App->input->num_controllers > 0) {
+
+		if (Joystick > 50) {
+
+			switch (Index)
 			{
-				Index--;
-				p_x += 235;
-				p2_x += 205;
-				App->audio->PlayFx(fxAdd_Press_L_R);
+			case 1:
+				if (Index > 0)
+				{
+					Index--;
+					p_x += 235;
+					p2_x += 205;
+					App->audio->PlayFx(fxAdd_Press_L_R);
 
-				//Colour random
-				pos_x = 470;
-				pos_y = 130;
+					//Colour random
+					pos_x = 470;
+					pos_y = 130;
 
-				pos_x1 = 470;
-				pos_y1 = 244;
+					pos_x1 = 470;
+					pos_y1 = 244;
 
-				pos_x2 = 470;
-				pos_y2 = 365;
+					pos_x2 = 470;
+					pos_y2 = 365;
 
-				pos_x3 = 648;
-				pos_y3 = 365;
+					pos_x3 = 648;
+					pos_y3 = 365;
 
-				pos_x4 = 648;
-				pos_y4 = 365;
+					pos_x4 = 648;
+					pos_y4 = 365;
 
-				pos_x5 = 648;
-				pos_y5 = 130;
+					pos_x5 = 648;
+					pos_y5 = 130;
 
-			}
-		case 2:
+				}
+			case 2:
 
-			if (Index > 0)
-			{
-				Index--;
-				p_x += 210;
-				p2_x += 244;
-				App->audio->PlayFx(fxAdd_Press_L_R);
+				if (Index > 0)
+				{
+					Index--;
+					p_x += 210;
+					p2_x += 244;
+					App->audio->PlayFx(fxAdd_Press_L_R);
 
-				pos_x = 245;
-				pos_y = 130;
+					pos_x = 245;
+					pos_y = 130;
 
-				pos_x1 = 245;
-				pos_y1 = 244;
+					pos_x1 = 245;
+					pos_y1 = 244;
 
-				pos_x2 = 245;
-				pos_y2 = 365;
+					pos_x2 = 245;
+					pos_y2 = 365;
 
-				pos_x3 = 422;
-				pos_y3 = 365;
+					pos_x3 = 422;
+					pos_y3 = 365;
 
-				pos_x4 = 422;
-				pos_y4 = 365;
+					pos_x4 = 422;
+					pos_y4 = 365;
 
-				pos_x5 = 422;
-				pos_y5 = 130;
+					pos_x5 = 422;
+					pos_y5 = 130;
+				}
+
+				Joystick = 0;
 			}
 		}
 	}
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || button_press)
 	{
 		if (Index == Easy)
 		{

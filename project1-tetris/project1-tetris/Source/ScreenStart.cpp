@@ -48,19 +48,32 @@ bool ScreenStart::Start()
 	return ret;
 }
 
+
+
 update_status ScreenStart::Update()
 {
+	
 	start_screen.Update();
 
 	App->render->camera.x += 0;
 	App->points->addCreditsStart();
 
 	return update_status::UPDATE_CONTINUE;
+
 }
 
 // Update: draw background
 update_status ScreenStart::PostUpdate()
 {	
+
+	bool button_press = false;
+
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+
 	App->particles->FwTiming(start_screen.GetCurrentFrame().x);
 
 	App->render->Blit(bg_texture, 0, 0, &(start_screen.GetCurrentFrame()), 0.3f);
@@ -72,7 +85,7 @@ update_status ScreenStart::PostUpdate()
 		contador = 0;
 	}
 
-	if (App->points->credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
+	if (App->points->credits > 0 && App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN || button_press)
 	{
 		start_screen.loopCount = 0;
 		App->particles->Set0();

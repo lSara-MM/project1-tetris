@@ -32,9 +32,17 @@ bool ScreenCredits2::Start()
 	return ret;
 }
 
-update_status ScreenCredits2::Update()
-{
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+update_status ScreenCredits2::Update(){
+
+	bool button_press = false;
+
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || button_press)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->sStart, 0);
 	}

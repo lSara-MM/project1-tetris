@@ -34,9 +34,21 @@ bool ScreenCredits1::Start()
 	return ret;
 }
 
+
+
+
 update_status ScreenCredits1::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+
+	bool button_press = false;
+
+	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
+		if (App->input->pads[0].buttons[i] == KEY_DOWN)
+		{
+			button_press = true; break;
+		}
+
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || button_press )
 	{
 		App->fade->FadeToBlack(this, (Module*)App->sCredits2, 90);
 	}
