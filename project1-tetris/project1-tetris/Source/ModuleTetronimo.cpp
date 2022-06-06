@@ -1019,7 +1019,6 @@ void ModuleTetronimo::Rotation(int next) {
 					rotar++;
 				}
 			}
-
 			bloque++;
 		}
 
@@ -1133,7 +1132,7 @@ void ModuleTetronimo::Rotation(int next) {
 		if ((rotar == 2) && (bloque == 0))
 		{
 			if ((tileSet[b1->tileX][b1->tileY - 2].id == -1 || tileSet[b1->tileX][b1->tileY - 2].tetronimo == b1->tetronimo) &&
-				(tileSet[b2->tileX + 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX + 1][b3->tileY - 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b2->tileX + 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
 				(tileSet[b3->tileX + 2][b3->tileY].id == -1 || tileSet[b3->tileX + 2][b3->tileY].tetronimo == b3->tetronimo) &&
 				(tileSet[b4->tileX - 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX - 1][b4->tileY - 1].tetronimo == b4->tetronimo))
 			{
@@ -1168,7 +1167,7 @@ void ModuleTetronimo::Rotation(int next) {
 		{
 			if ((b1->tileX == 8) &&
 				(tileSet[b1->tileX + 1][b1->tileY].id == -1 || tileSet[b1->tileX + 1][b1->tileY].tetronimo == b1->tetronimo) &&
-				(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b3->tileY + 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b2->tileX][b2->tileY + 1].id == -1 || tileSet[b2->tileX][b2->tileY + 1].tetronimo == b2->tetronimo) &&
 				(tileSet[b3->tileX - 1][b3->tileY + 2].id == -1 || tileSet[b3->tileX - 1][b3->tileY + 2].tetronimo == b3->tetronimo) &&
 				(tileSet[b4->tileX][b4->tileY - 1].id == -1 || tileSet[b4->tileX][b4->tileY - 1].tetronimo == b4->tetronimo))
 			{
@@ -1198,7 +1197,7 @@ void ModuleTetronimo::Rotation(int next) {
 			else
 			{
 				if ((tileSet[b1->tileX + 2][b1->tileY].id == -1 || tileSet[b1->tileX + 2][b1->tileY].tetronimo == b1->tetronimo) &&
-					(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b3->tileY + 1].tetronimo == b2->tetronimo) &&
+					(tileSet[b2->tileX + 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX + 1][b2->tileY + 1].tetronimo == b2->tetronimo) &&
 					(tileSet[b3->tileX][b3->tileY + 2].id == -1 || tileSet[b3->tileX][b3->tileY + 2].tetronimo == b3->tetronimo) &&
 					(tileSet[b4->tileX + 1][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY - 1].tetronimo == b4->tetronimo))
 				{
@@ -1234,7 +1233,7 @@ void ModuleTetronimo::Rotation(int next) {
 		{
 			if ((b1->tileY + 2 < 22) &&
 				(tileSet[b1->tileX][b1->tileY + 2].id == -1 || tileSet[b1->tileX][b1->tileY + 2].tetronimo == b1->tetronimo) &&
-				(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b3->tileY + 1].tetronimo == b2->tetronimo) &&
+				(tileSet[b2->tileX - 1][b2->tileY + 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY + 1].tetronimo == b2->tetronimo) &&
 				(tileSet[b3->tileX - 2][b3->tileY].id == -1 || tileSet[b3->tileX - 2][b3->tileY].tetronimo == b3->tetronimo) &&
 				(tileSet[b4->tileX + 1][b4->tileY + 1].id == -1 || tileSet[b4->tileX + 1][b4->tileY + 1].tetronimo == b4->tetronimo))
 			{
@@ -1262,22 +1261,12 @@ void ModuleTetronimo::Rotation(int next) {
 
 				rotar++;
 			}
-
-			//rectIdle1.x -= 10;
-			//rectIdle2.x -= 20;
-			//rectIdle3.x += 10;
-
-			//rectIdle.y += 20;
-			//rectIdle1.y += 10;
-			//rectIdle3.y += 10;
-
 			bloque++;
 		}
 
 		if (rotar == 4) {
 			rotar = 0;
 		}
-
 		break;
 
 	case BLOCK_TYPE::CYAN:
@@ -1378,7 +1367,6 @@ void ModuleTetronimo::Rotation(int next) {
 				(tileSet[b1->tileX - 1][b1->tileY].id == -1 || tileSet[b1->tileX - 1][b1->tileY].tetronimo == b1->tetronimo) &&
 				(tileSet[b4->tileX + 2][b4->tileY - 1].id == -1 || tileSet[b4->tileX + 2][b4->tileY - 1].tetronimo == b4->tetronimo))
 			{
-
 				// save current block info
 				var1 = *b1;
 				var2 = *b2;
@@ -1406,7 +1394,6 @@ void ModuleTetronimo::Rotation(int next) {
 			else if ((tileSet[b2->tileX - 1][b2->tileY - 1].id == -1 || tileSet[b2->tileX - 1][b2->tileY - 1].tetronimo == b2->tetronimo) &&
 				(tileSet[b1->tileX - 2][b1->tileY].id == -1 || tileSet[b1->tileX - 2][b1->tileY].tetronimo == b1->tetronimo))
 			{
-
 				// save current block info
 				var1 = *b1;
 				var2 = *b2;
@@ -1440,7 +1427,6 @@ void ModuleTetronimo::Rotation(int next) {
 				(tileSet[b4->tileX - 1][b4->tileY + 1].id == -1 || tileSet[b4->tileX - 1][b4->tileY + 1].tetronimo == b4->tetronimo) &&
 				(tileSet[b1->tileX + 2][b1->tileY - 1].id == -1 || tileSet[b1->tileX + 2][b1->tileY - 1].tetronimo == b1->tetronimo)))
 			{
-
 				// save current block info
 				var1 = *b1;
 				var2 = *b2;
@@ -1497,7 +1483,6 @@ void ModuleTetronimo::Rotation(int next) {
 		{
 			rotar = 0;
 		}
-
 		break;
 
 	default:
