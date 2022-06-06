@@ -2041,7 +2041,7 @@ bool ModuleTetronimo::blockFall(int p)
 
 				App->audio->PlayFx(App->sLvl_1->fxBlock_Fall);
 				rotar = 0;
-				nextT = spawnTetronimo(nextT);
+				if(v_lines == 0){ nextT = spawnTetronimo(nextT); }		
 			}
 			App->sLvl_1->v_fall = false;
 			return false;
@@ -2196,9 +2196,13 @@ bool ModuleTetronimo::deleteLine(int i)
 			{
 				tileSet[j][i + 1].id = 23;
 			}
-			if (tileSet[j][i + 1].id == 20 || tileSet[j][i + 1].id == 22)
+			if (tileSet[j][i + 1].id == 20)
 			{
 				tileSet[j][i + 1].id = 11;
+			}
+			if (tileSet[j][i + 1].id == 22)
+			{
+				tileSet[j][i + 1].id = 13;
 			}
 			break;
 		case 16:

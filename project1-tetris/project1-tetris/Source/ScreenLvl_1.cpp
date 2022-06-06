@@ -65,11 +65,10 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 				break;
 			}
 			dancingRus3.PushBack({ 65 * j, 78 * i, 65, 78 });
-
 		}
 	} 
 	dancingRus3.loop = false;
-	dancingRus3.speed = 0.6;
+	dancingRus3.speed = 1.3;
 	
 	// rus 6
 	for (int i = 0; i < 41; i++)
@@ -77,12 +76,10 @@ ScreenLvl_1::ScreenLvl_1(bool startEnabled) : Module(startEnabled)
 		for (int j = 0; j < 7; j++)
 		{
 			dancingRus6.PushBack({ 62 * j, 82 * i, 62, 82 });
-
 		}
 	}
 	dancingRus6.loop = false;
 	dancingRus6.speed = 1.5;
-
 }
 
 ScreenLvl_1::~ScreenLvl_1()
@@ -94,8 +91,7 @@ ScreenLvl_1::~ScreenLvl_1()
 bool ScreenLvl_1::Start()
 {
 	App->tetronimo->Enable();
-	App->points->Enable();		// just for debugging correctly
-
+	App->points->Enable();
 	LOG("Loading lvl 1 background assets");
 	LOG("Loading curtain assets\n");
 
@@ -383,14 +379,14 @@ update_status ScreenLvl_1::PostUpdate()
 		string s_points = to_string(value);
 		const char* ch_points = s_points.c_str();
 
-		(value < 100) ? App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16) : App->render->TextDraw(ch_points, 190, 405, 21, 11, 134, 255, 16);
+		(value < 100) ? App->render->TextDraw(ch_points, 195, 405, 21, 11, 134, 255, 16) : App->render->TextDraw(ch_points, 185, 405, 21, 11, 134, 255, 16);
 		v_points++;
 	}
 
 	// Rainbow bar			
 	App->points->RainbowStack();
 
-	if (App->points->lines == linesObjective) { ColourRandom(); }
+	if (linesleft == 0) { ColourRandom(); }
 	
 	if (linesleft == 5)
 	{
@@ -800,7 +796,6 @@ int ScreenLvl_1::ColourRandom()
 	srand(time(NULL));
 	colour = rand() % 9;
 
-
 	/*App->render->Blit(green_rect_texture, 55, 165, NULL);
 	App->render->Blit(green_rect_texture, 55, 215, NULL);
 	App->render->Blit(green_rect_texture, 55, 265, NULL);
@@ -818,69 +813,47 @@ int ScreenLvl_1::ColourRandom()
 	if ((delta__Time >= 0) && (delta__Time <= 150))
 	{
 		LOG("Loading");
-
-
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(green_rect_texture, pos_x + 176, pos_y, NULL);
-
 		}
 		else if (colour == 2)
 		{
-
 			App->render->Blit(blue_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(blue_rect_texture, pos_x + 176, pos_y, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(orange_rect_texture, pos_x + 176, pos_y, NULL);
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(white_rect_texture, pos_x + 176, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x + 176, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(pink_rect_texture, pos_x + 176, pos_y, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x + 176, pos_y, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x, pos_y, NULL);
 			App->render->Blit(red_rect_texture, pos_x + 176, pos_y, NULL);
-
-
 		}
 	}
-
 
 	colour = rand() % 9;
 
@@ -890,70 +863,48 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(green_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(green_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
 		}
 		else if (colour == 2)
 		{
-
 			App->render->Blit(blue_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(blue_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(orange_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(white_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(pink_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x1, pos_y1, NULL);
 			App->render->Blit(red_rect_texture, pos_x1 + 176, pos_y1, NULL);
-
-
 		}
-
 	}
 
 	colour = rand() % 9;
 
 	if ((delta__Time >= 250) && (delta__Time <= 350))
 	{
-
 		if (colour == 1)
 		{
 			App->render->Blit(green_rect_texture, pos_x2, pos_y2, NULL);
@@ -963,27 +914,21 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(blue_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(blue_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(orange_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(white_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
-
 		}
 		else if (colour == 6)
 		{
@@ -994,16 +939,12 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x2, pos_y2, NULL);
 			App->render->Blit(red_rect_texture, pos_x2 + 176, pos_y2, NULL);
-
 		}
-
 	}
 
 	colour = rand() % 9;
@@ -1014,62 +955,42 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(green_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(green_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(blue_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(orange_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(white_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(pink_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x3, pos_y3, NULL);
 			App->render->Blit(red_rect_texture, pos_x3 + 176, pos_y3, NULL);
-
-
 		}
-
-
 	}
 
 	colour = rand() % 9;
@@ -1080,54 +1001,36 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(green_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(green_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(blue_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(orange_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(white_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
-
 			App->render->Blit(yellow_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(pink_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(pink_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x4, pos_y4, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x4 + 176, pos_y4, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
@@ -1144,63 +1047,42 @@ int ScreenLvl_1::ColourRandom()
 		{
 			App->render->Blit(green_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(green_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
 		}
 		else if (colour == 2)
 		{
 			App->render->Blit(blue_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(blue_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 3)
 		{
 			App->render->Blit(orange_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(orange_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
 		}
 		else if (colour == 4)
 		{
 			App->render->Blit(white_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(white_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 5)
 		{
 			App->render->Blit(yellow_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(yellow_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 6)
 		{
 			App->render->Blit(bluedark_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(bluedark_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
 		}
 		else if (colour == 7)
 		{
 			App->render->Blit(pink_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(pink_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
-
 		}
 		else if (colour == 8)
 		{
 			App->render->Blit(red_rect_texture, pos_x5, pos_y5, NULL);
 			App->render->Blit(red_rect_texture, pos_x5 + 176, pos_y5, NULL);
-
-
 		}
-
-
 	}
 
 	if ((delta__Time >= 650) & (delta__Time <= 750))
@@ -1212,7 +1094,6 @@ int ScreenLvl_1::ColourRandom()
 	{
 		delta__Time = 0;
 	}
-
 	return 0;
 }
 

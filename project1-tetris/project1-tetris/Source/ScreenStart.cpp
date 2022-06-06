@@ -48,24 +48,19 @@ bool ScreenStart::Start()
 	return ret;
 }
 
-
-
 update_status ScreenStart::Update()
 {
-	
 	start_screen.Update();
 
 	App->render->camera.x += 0;
 	App->points->addCreditsStart();
 
 	return update_status::UPDATE_CONTINUE;
-
 }
 
 // Update: draw background
 update_status ScreenStart::PostUpdate()
 {	
-
 	bool button_press = false;
 
 	for (int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i)
@@ -89,6 +84,7 @@ update_status ScreenStart::PostUpdate()
 	{
 		start_screen.loopCount = 0;
 		App->particles->Set0();
+		App->points->credits--;
 		App->fade->FadeToBlack(this, (Module*)App->sDiff, 0);
 		//App->particles->Disable();
 	}
@@ -136,7 +132,6 @@ update_status ScreenStart::PostUpdate()
 
 	}
 
-	
 	// how to draw the copyright symbol?
 	App->render->TextDraw("1988 Atari Games", 242, 462, 255, 0, 0, 255, 15);
 	// Draw everything --------------------------------------
