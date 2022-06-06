@@ -87,7 +87,7 @@ Alberto Hidalgo García:
 
 ## For more information see our wiki page [HERE](https://github.com/lSara-MM/project1-tetris/wiki)
 
-## Download the last version of the game [HERE](https://github.com/lSara-MM/project1-tetris/releases/download/v1.0/QuokkaGamesStudio_Tetris-1988_v1.0.zip)
+## Download the latest version of the game [HERE](https://github.com/lSara-MM/project1-tetris/releases/download/v1.0/QuokkaGamesStudio_Tetris-1988_v1.0.zip)
 
 ## Check our Github repository [HERE](https://github.com/lSara-MM/project1-tetris)
 
