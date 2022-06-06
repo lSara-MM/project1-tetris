@@ -313,11 +313,23 @@ update_status ModuleTetronimo::Update()
 
 void ModuleTetronimo::randomBlock7()
 {
-	LOG("t = %d - %d", t, t % 3);
-	if ((t % 8 == 0) && App->sLvl_1->v_fall == false)
+	bool line7 = false;
+	for (int l = 0; l < 10; l++)
 	{
-
-
+		if (tileSet[l][6].id == -1)
+		{
+			line7 = true;
+		}
+		else
+		{
+			line7 = false;
+			break;
+		}
+	}
+	
+	LOG("t = %d - %d", t, t % 3);
+	if ((t % 8 == 0) && App->sLvl_1->v_fall == false && line7 == true)
+	{
 		int r = rand() % 9;		//x
 		int s = rand() % (21 - 9 + 1) + 9;	//y 
 
@@ -335,12 +347,26 @@ void ModuleTetronimo::randomBlock7()
 
 void ModuleTetronimo::spawnLine10()
 {
+	bool line7 = false;
+	for (int l = 0; l < 10; l++)
+	{
+		if (tileSet[l][6].id == -1)
+		{
+			line7 = true;
+		}
+		else
+		{
+			line7 = false;
+			break;
+		}
+	}
+
 	int arr[] = { 0, 10, 30, 40, 61, 70, 80 };
 	int b = rand() % 3 + 1;
 	int c = rand() % 10;
 
 	LOG("t = %d - %d", t, t % 3);
-	if ((t % 8 == 0) && App->sLvl_1->v_fall == false && App->sLvl_1->lvl_instaLose == false)
+	if ((t % 8 == 0) && App->sLvl_1->v_fall == false && App->sLvl_1->lvl_instaLose == false && line7 == true)
 	{
 		for (int m = 3; m < 22; m++)
 		{

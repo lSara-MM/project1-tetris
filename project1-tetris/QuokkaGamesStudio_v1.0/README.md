@@ -53,6 +53,10 @@ The player loses if enough tetrominoes pile up to reach the top of the playfield
 *Movement -> A/D keys
 *Select difficulty-> Enter
 
+### Losing screen
+
+* Repeat the level -> R
+
 ### Debug controls
 *God Mode -> F1
 *Spawn block manually -> F2 (Hold) + 0 [Random]/ 1 [Red]/ 2 [Green]/ 3 [Blue]/ 4 [Yellow]/ 5 [Pink]/ 6 [Cyan]/ 7 [Orange]
