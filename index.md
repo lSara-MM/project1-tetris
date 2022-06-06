@@ -37,16 +37,19 @@ VIDEO
 * Go to difficulty selection screen -> Enter (requires one credit)
 
 ### Difficulty selection screen
-
 * Movement -> A/D keys
 * Select difficulty-> Enter
+
+### Losing screen
+* Press enter to repeat the level
+
 
 ### Debug controls
 * God Mode -> F1
 * Spawn block manually -> F2 (Hold) + 0 [Random]/ 1 [Red]/ 2 [Green]/ 3 [Blue]/ 4 [Yellow]/ 5 [Pink]/ 6 [Cyan]/ 7 [Orange] 
 * Direct Win -> F3
 * Direct Lose -> F4
-* Go directly to first level from the intro or credits screen-> F5
+* Go directly to first level from the intro or credits screen -> F5
 * Go to to specific level when playing the game -> F5 (Hold) + 0 [Level 10]/ 1 [Level 1]/ 2 [Level 2]/ 3 [Level 3]/ 4 [Level 4]/ 5 [Level 5]/ 6 [Level 6]/ 7 [Level 7] 
 * Add completed lines / Subtract lines to complete -> F6
 
