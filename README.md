@@ -61,7 +61,7 @@ The player loses if enough tetrominoes pile up to reach the top of the playfield
 
 ### Losing screen
 
-* Repeat the level -> Enter
+* Repeat the level -> R
 
 ### Debug controls
 
