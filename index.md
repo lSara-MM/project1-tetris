@@ -15,8 +15,7 @@ Upon completing each level, the difficulty of the challenge raises, increasing t
 
 ## Gameplay
 
-VIDEO
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-CwoZ7gYu00" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Controls
 
