@@ -20,6 +20,10 @@ uint Time_ = 0;
 uint delta__Time = 0;
 uint last__TickTime = 0;
 
+uint Time1_ = 0;
+uint delta1__Time = 0;
+uint last1__TickTime = 0;
+
 uint runTimeSl1 = 0;
 uint deltaTimeSl1 = 0;
 uint lastTickTimeSl1 = 0;
@@ -406,23 +410,27 @@ update_status ScreenLvl_1::PostUpdate()
 	}
 	else if (linesleft == 1)
 	{
-		if ((delta__Time >= 0) & (delta__Time <= 150))
+		Time1_ = SDL_GetTicks();
+		delta1__Time += Time1_ - last1__TickTime;
+		last1__TickTime = Time1_;
+
+		if ((delta1__Time >= 0) & (delta1__Time <= 150))
 		{
 			App->render->TextDraw("1", 14, 354, 0, 0, 255, 255, 28);
 		}
-		if ((delta__Time >= 150) & (delta__Time <= 250))
+		if ((delta1__Time >= 150) & (delta1__Time <= 250))
 		{
 			App->render->TextDraw("1", 14, 354, 255, 255, 255, 255, 28);
 		}
 
-		if ((delta__Time >= 250) && (delta__Time <= 250))
+		if ((delta1__Time >= 250) && (delta1__Time <= 250))
 		{
-			delta__Time = 250;
+			delta1__Time = 250;
 		}
 
-		if ((delta__Time > 250))
+		if ((delta1__Time > 250))
 		{
-			delta__Time = 0;
+			delta1__Time = 0;
 		}
 	}
 
