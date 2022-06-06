@@ -41,7 +41,7 @@ VIDEO
 * Select difficulty-> Enter
 
 ### Losing screen
-* Press enter to repeat the level
+* Repeat the level -> R
 
 
 ### Debug controls
