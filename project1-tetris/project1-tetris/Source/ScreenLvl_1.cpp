@@ -758,7 +758,7 @@ void ScreenLvl_1::lvl_lose(const char* ch_loseContinue)
 	else if (v_WinLose > 100)
 	{
 		App->tetronimo->Disable();
-		if (App->input->keys[SDL_SCANCODE_R] == KEY_STATE::KEY_DOWN)
+		if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
 		{
 			App->fade->FadeToBlack(this, (Module*)App->sLvl_1, 0);
 		}
